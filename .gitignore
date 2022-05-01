@@ -1,3 +1,6 @@
-# IDE
+# IDEs:
+## Vscode
 .vscode
 !.vscode/extensions.json
+## Eclipse
+.project

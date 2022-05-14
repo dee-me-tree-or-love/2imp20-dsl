@@ -25,15 +25,15 @@ lexical StorageType = "HDD" | "SSD";
 lexical DisplayType = "5K" | "4K" | "HD" | "Full-HD";
 
 start syntax Computer 
-	= "computer" Id identifier "{" { Configuration ","}+  "}";//here assume at least we add a component and another question
+	= computer : "computer" Id identifier "{" { Configuration ","}+  "}";//here assume at least we add a component and another question
 
 
 // Concrete Syntax for component configuration and reuse
 syntax Configuration
-  = "processing" Id processing "{" {ProcessingConfiguration ","}+ "}"
-  | "storage" Id storage "{" StorageConfiguration "}"
-  | "display" Id display "{" DisplayConfiguration "}"
-  | Id reuseComponent;// get stuck here
+  = processing: "processing" Id processing "{" {ProcessingConfiguration ","}+ "}"
+  | storage: "storage" Id storage "{" StorageConfiguration "}"
+  | display: "display" Id display "{" DisplayConfiguration "}"
+  | reuse: Id reuseComponent;// get stuck here
   
 
 

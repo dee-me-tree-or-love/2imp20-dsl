@@ -2,7 +2,7 @@
  * @Author: rocs
  * @Date: 2022-05-14 15:59:26
  * @LastEditors: rocs
- * @LastEditTime: 2022-05-14 16:33:14
+ * @LastEditTime: 2022-05-14 18:22:36
  * @Description: add info
 -->
 # DSL Design 2022 - Assignment 1
@@ -13,11 +13,11 @@ HCL is a language for defining computing hardware resources (to order from a ven
 ## Supported Syntax
 - Variable types `boolean`, `integer`, `real`, and `string`
 - Computer Resource that has a label and contains a list of components: `"<type|computer> <string|computerName>"`
-- Three kind of Components that and their defined variables:
--`processing`:`"<type|processing> <string|processingName>" {<type|cores> <integer|coresNum>, <type|speed> <clockSpeed|speedNum>}`
--`storage`
--`display`
-### Example
+- Three kind of Components that and their defined variables
+- processing:`"<type|processing> <string|processingName>" {<type|cores> <integer|coresNum>, <type|speed> <clockSpeed|speedNum>}`
+- storage:
+- display:
+### Example:
 ```
 computer my_computer {
     storage my_storage {

@@ -25,16 +25,25 @@ lexical StorageType = "HDD" | "SSD";
 lexical DisplayType = "5K" | "4K" | "HD" | "Full-HD";
 
 start syntax Computer 
-	= computer : "computer" Id identifier "{" { Configuration ","}+  "}";//here assume at least we add a component and another question
+	= computer : "computer" Id identifier "{" ComputerSetup "}";//here assume at least we add a component and another question
 
+// Computer setup describing the configuration and optional reuse.
+syntax ComputerSetup
+    = { Configuration "," }+ ("," { Reuse "," }+ )?
+    ;
 
 // Concrete Syntax for component configuration and reuse
 syntax Configuration
   = processing: "processing" Id processing "{" {ProcessingConfiguration ","}+ "}"
   | storage: "storage" Id storage "{" StorageConfiguration "}"
   | display: "display" Id display "{" DisplayConfiguration "}"
-  | reuse: Id reuseComponent;// get stuck here
+  ;
 
+// FIXME: get stuck here
+// Modular Reusability block, to reuse declared labels.
+syntax Reuse
+  = | reuse: Id reuseComponent
+  ;
 
 // Concrete Syntax for processing configuration  problem:order?
 syntax ProcessingConfiguration

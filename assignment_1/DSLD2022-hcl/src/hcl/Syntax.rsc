@@ -20,7 +20,7 @@ lexical WhitespaceAndComment
 //lexical Comma = [,];
 //lexical Colon = [:];
  
-lexical CahceSize = "MiB" | "KiB";     
+lexical CacheSize = "MiB" | "KiB";     
 lexical StorageType = "HDD" | "SSD";
 lexical DisplayType = "5K" | "4K" | "HD" | "Full-HD";
 
@@ -34,16 +34,35 @@ syntax Configuration
   | storage: "storage" Id storage "{" StorageConfiguration "}"
   | display: "display" Id display "{" DisplayConfiguration "}"
   | reuse: Id reuseComponent;// get stuck here
-  
 
 
 // Concrete Syntax for processing configuration  problem:order?
 syntax ProcessingConfiguration
-    ="cores" ":" Integer int_c "," "speed" ":" Real real_s "GHz" "," "L1" ":" Integer int_1 CahceSize "," "L2" ":" Integer int_2 CahceSize "," "L3" ":" Integer int_3 CahceSize 
+    = Cores "," Speed "," L1Cache "," L2Cache "," L3Cache
     ;
+// Modular processing configuration blocks
+syntax Cores
+    = "cores" ":" Integer int_c
+    ;
+syntax Speed
+    = "speed" ":" Real real_s "GHz"
+    ;
+syntax L1Cache
+    = "L1" ":" Integer int_1 CacheSize
+    ;
+syntax L2Cache
+    = "L2" ":" Integer int_1 CacheSize
+    ;
+syntax L3Cache
+    = "L3" ":" Integer int_1 CacheSize
+    ;
+
+// Storage configuration
 syntax StorageConfiguration
     ="storage" ":"  StorageType "of" Integer int_s "GiB"
     ;
+
+// Display configuration
 syntax DisplayConfiguration
     ="diagonal" ":" Integer int_d "inch" ":" "," "type" ":" DisplayType
     ;

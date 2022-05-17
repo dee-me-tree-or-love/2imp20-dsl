@@ -6,19 +6,29 @@ module hcl::AST
  * - make sure there is an almost one-to-one correspondence with the grammar in Syntax.rsc
  */
  
- //Computer Definition
- public data COMPUTER 
- 	= computer(list[CONPONENT] components);
+//Computer Definition
+public data COMPUTER
+	= computer(list[CONFIGURATION] configurations, list[REUSE] reuseComponents);
  
- public data COMPONENT
- 	= processing(list[PROCOMPOENEET] peocomponents)
- 	| storage(list[STOCOMPOENEET] stocomponents)
- 	| display(list[DISCOMPOENEET] discomponents)
+public data CONFIGURATION
+ 	= processing(int cores, real speed, int l1, int l2, int l3)
+ 	| storage(STYPE stype, int ssize)
+ 	| display(int diagonalsize, DTYPE dtype)
  	;
- 
- 	
+
+public data REUSE
+    = reuse(str reuseComponent)
+	;
+
+public data STYPE //get stuck : how to define a SSD/HDD type like string/int.. in Rascal
+	= ;
+
+
+public data DTYPE //same
+	= ;
+
 anno loc COMPUTER@location;   
-anno loc COMPONENT@location;   
-anno loc PROCOMPONENT@location;   
-anno loc STOCOMPONENT@location;   
-anno loc DISCOMPONENT@location;   
+anno loc CONFIGURATION@location;   
+anno loc REUSE@location;    
+anno loc STYPE@location;   
+anno loc DTYPE@location;   

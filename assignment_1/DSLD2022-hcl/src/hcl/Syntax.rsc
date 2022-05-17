@@ -24,6 +24,14 @@ lexical CacheSize = "MiB" | "KiB";
 lexical StorageType = "HDD" | "SSD";
 lexical DisplayType = "5K" | "4K" | "HD" | "Full-HD";
 
+//add keywords which should never be used as identifiers
+keyword hclKeywords = "computer" | "processing" | "display" | "storage" | "of" |
+                      "SSD" | "HDD" | "5K" | "4K" | "HD" | "Full-HD" | 
+                      "MiB" | "KiB" | "GiB" | ""
+                      "true" | "false" 
+                      "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" | "inch" | "type" 
+                      ;
+
 start syntax Computer 
 	= computer : "computer" Id identifier "{" ComputerSetup "}";//here assume at least we add a component and another question
 

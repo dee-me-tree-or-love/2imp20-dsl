@@ -27,7 +27,7 @@ lexical DisplayType = "5K" | "4K" | "HD" | "Full-HD";
 //add keywords which should never be used as identifiers
 keyword hclKeywords = "computer" | "processing" | "display" | "storage" | "of" |
                       "SSD" | "HDD" | "5K" | "4K" | "HD" | "Full-HD" | 
-                      "MiB" | "KiB" | "GiB" | ""
+                      "MiB" | "KiB" | "GiB" | "GHz"
                       "true" | "false" 
                       "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" | "inch" | "type" 
                       ;
@@ -62,24 +62,33 @@ syntax Cores
     = "cores" ":" Integer int_c
     ;
 syntax Speed
-    = "speed" ":" Real real_s "GHz"
+    = speed: "speed" ":" Real real_s "GHz"
     ;
 syntax L1Cache
-    = "L1" ":" Integer int_1 CacheSize
+    = l1: "L1" ":" Integer int_1 CacheSize
     ;
 syntax L2Cache
-    = "L2" ":" Integer int_1 CacheSize
+    = l2: "L2" ":" Integer int_2 CacheSize
     ;
 syntax L3Cache
-    = "L3" ":" Integer int_1 CacheSize
+    = l3: "L3" ":" Integer int_3 CacheSize
     ;
 
 // Storage configuration
 syntax StorageConfiguration
-    ="storage" ":"  StorageType "of" Integer int_s "GiB"
+    = "storage" ":"  StorageType stype "of" Integer int_s "GiB"
     ;
 
 // Display configuration
 syntax DisplayConfiguration
-    ="diagonal" ":" Integer int_d "inch" ":" "," "type" ":" DisplayType
+    = "diagonal" ":" Integer int_d "inch" ":" "," "type" ":" DisplayType dtype
     ;
+
+
+// //basic expression
+// syntax Expression 
+//     = id: Id identifier
+//     | str: String String
+//     | real: Real real
+//     | bool: Boolean bool
+//     ;

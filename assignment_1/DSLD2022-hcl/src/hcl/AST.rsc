@@ -27,8 +27,4 @@ public data STYPE //get stuck : how to define a SSD/HDD type like string/int.. i
 public data DTYPE //same
 	= ;
 
-anno loc COMPUTER@location;   
-anno loc CONFIGURATION@location;   
-anno loc REUSE@location;    
-anno loc STYPE@location;   
-anno loc DTYPE@location;   
+anno loc COMPUTER@location;   //parse tree root

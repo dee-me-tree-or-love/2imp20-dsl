@@ -25,7 +25,7 @@ lexical StorageType = "HDD" | "SSD";
 lexical DisplayType = "5K" | "4K" | "HD" | "Full-HD";
 
 //add keywords which should never be used as identifiers
-keyword hclKeywords = "computer" | "processing" | "display" | "storage" | "of" |
+keyword Keywords = "computer" | "processing" | "display" | "storage" | "of" |
                       "SSD" | "HDD" | "5K" | "4K" | "HD" | "Full-HD" | 
                       "MiB" | "KiB" | "GiB" | "GHz"
                       "true" | "false" 

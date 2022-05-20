@@ -5,9 +5,9 @@ computer my_computer {
 	processing my_CPU {
 		cores: 4,
 		speed: 2 Ghz,
-		L1: 64 Kib,
-		L2: 4 Mib,
-		L3: 15 Mib
+		L1: 64 KiB,
+		L2: 4 MiB,
+		L3: 15 MiB
 	},
 	display my_display {
 		diagonal: 30 inch,

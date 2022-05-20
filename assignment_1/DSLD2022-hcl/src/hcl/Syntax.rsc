@@ -5,7 +5,7 @@ module hcl::Syntax
 
 // RegEx definition of identifiers(Id), Reals, Integers, Boolean and String
 lexical Id  = [a-z][a-z0-9]* !>> [a-z0-9];
-lexical Integer = ([1-9][0-9]*); //delete 0 for all positive
+lexical Integer = ([0-9][0-9]*); 
 lexical Real = Integer [.] [0-9]+;
 lexical String = "\"" ![\"]*  "\"";
 lexical Boolean = "true" | "false";
@@ -33,7 +33,7 @@ keyword Keywords = "computer" | "processing" | "display" | "storage" | "of" |
                       ;
 
 start syntax Computer 
-	= computer : "computer" Id identifier "{" ComputerSetup "}";//here assume at least we add a component and another question
+	= computer : "computer" Id computer "{" ComputerSetup "}";//here assume at least we add a component and another question
 
 // Computer setup describing the configuration and optional reuse.
 syntax ComputerSetup
@@ -42,9 +42,9 @@ syntax ComputerSetup
 
 // Concrete Syntax for component configuration and reuse
 syntax Configuration
-  = processing: "processing" Id processing "{" {ProcessingConfiguration ","}+ "}"
-  | storage: "storage" Id storage "{" StorageConfiguration "}"
-  | display: "display" Id display "{" DisplayConfiguration "}"
+  = processing: "processing" Id label "{" ProcessingConfiguration "}"
+  | storage: "storage" Id label "{" StorageConfiguration "}"
+  | display: "display" Id label "{" DisplayConfiguration "}"
   ;
 
 // FIXME: get stuck here
@@ -54,34 +54,38 @@ syntax Reuse
   ;
 
 // Concrete Syntax for processing configuration  problem:order?
-syntax ProcessingConfiguration
+syntax ProcessingConfiguration //PROBLEM : order
     = Cores "," Speed "," L1Cache "," L2Cache "," L3Cache
+    | Speed "," Cores "," L1Cache "," L2Cache "," L3Cache
+    | L1Cache "," Cores "," Speed "," L2Cache "," L3Cache
+    | L2Cache "," Cores "," Speed "," L1Cache "," L3Cache
+    | L3Cache "," Cores "," Speed "," L2Cache "," L3Cache
     ;
 // Modular processing configuration blocks
 syntax Cores
-    = "cores" ":" Integer int_c
+    = "cores" ":" Integer cores
     ;
 syntax Speed
-    = speed: "speed" ":" Real real_s "GHz"
+    = speed: "speed" ":" Real speed "GHz"
     ;
 syntax L1Cache
-    = l1: "L1" ":" Integer int_1 CacheSize
+    = l1: "L1" ":" Integer l1size CacheSize l1mea
     ;
 syntax L2Cache
-    = l2: "L2" ":" Integer int_2 CacheSize
+    = l2: "L2" ":" Integer l2size CacheSize l2mea
     ;
 syntax L3Cache
-    = l3: "L3" ":" Integer int_3 CacheSize
+    = l3: "L3" ":" Integer l3size CacheSize l3mea
     ;
 
 // Storage configuration
 syntax StorageConfiguration
-    = "storage" ":"  StorageType stype "of" Integer int_s "GiB"
+    = "storage" ":"  StorageType stype "of" Integer ssize "GiB"
     ;
 
 // Display configuration
 syntax DisplayConfiguration
-    = "diagonal" ":" Integer int_d "inch" ":" "," "type" ":" DisplayType dtype
+    = "diagonal" ":" Integer dsize "inch" ":" "," "type" ":" DisplayType dtype
     ;
 
 

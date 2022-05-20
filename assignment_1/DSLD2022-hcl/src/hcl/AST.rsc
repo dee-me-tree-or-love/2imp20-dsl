@@ -13,18 +13,12 @@ public data COMPUTER
 public data CONFIGURATION
  	= processing(int cores, real speed, int l1size, str l1mea, int l2size, str l2mea, int l3size, str l3mea)
  	| storage(str stype, int ssize)
- 	| display(int diagonalsize, str dtype)
+ 	| display(int dsize, str dtype)
  	;
 
 public data REUSE
     = reuse(str reuseComponent)
 	;
 
-//public data STYPE //get stuck : how to define a SSD/HDD type like string/int.. in Rascal
-//	= ;
-//
-//
-//public data DTYPE //same
-//	= ;
 
 anno loc COMPUTER@location;   //parse tree root

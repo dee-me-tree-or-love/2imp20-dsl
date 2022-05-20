@@ -18,16 +18,21 @@ COMPUTER cst2ast(start[Computer] sf){
 }
 
 // Converts a list of configurations to three list of different components
-CONFIGURATION cst2ast(CONFIGURATION co){
-	if(co := "processing")
-		return processing("<co.cores>", "<co.speed>", "<co.l1size>", "<co.l1mea>", "<co.l2size>", "<co.l2mea>", "<co.l3size>", "<co.l3mea>");
-	if(co := "storage")
-		return storage("<co.stype>", "<co.ssize>");
-	if(co := "display")
-		return display("<co.diagonalsize>", "<co.dtype>");
+CONFIGURATION cst2ast((Configuration)`processing :<Id label> { cores : <Integer cores> , speed : <Real speed> Ghz , L1 : <Integer l1size> <CacheSize l1mea> , L2 : <Integer l2size> <CacheSize l2mea> , L3 : <Integer l3size> <CacheSize l3mea> }`){
+	return processing("<co.label>", "<co.cores>", "<co.speed>", "<co.l1size>", "<co.l1mea>", "<co.l2size>", "<co.l2mea>", "<co.l3size>", "<co.l3mea>");
 }
+
+CONFIGURATION cst2ast((Configuration)`storage <Id label> { storage : <StorageType stype> of <Integer ssize> GiB`){
+	return storage("<co.label>", "<co.stype>", "<co.ssize>");
+}
+
+CONFIGURATION cst2ast((Configuration)`display <Id label> { diagonal : <Integer dsize> inch , type : <DisplayType dtype>`){
+	return display("<co.label>", "<co.dsize>", "<co.dtype>");
+}
+
 
 // Converts a list of reuseStatements to three list of different components
 REUSE cst2ast(REUSE re){
-	return reuse("<re.reuseComponent>");
+	return reuse("<re.label>");
+	
 }

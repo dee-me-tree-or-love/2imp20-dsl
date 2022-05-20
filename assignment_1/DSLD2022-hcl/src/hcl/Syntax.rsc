@@ -4,9 +4,9 @@ module hcl::Syntax
  */
 
 // RegEx definition of identifiers(Id), Reals, Integers, Boolean and String
-lexical Id  = [a-z][a-z0-9]* !>> [a-z0-9];
+lexical Id  = [A-Za-z][A-Za-z0-9_\-]*;
 lexical Integer = ([0-9][0-9]*); 
-lexical Real = Integer [.] [0-9]+;
+lexical Real = Integer | Integer [.] [0-9]+;
 lexical String = "\"" ![\"]*  "\"";
 lexical Boolean = "true" | "false";
 
@@ -23,6 +23,7 @@ lexical WhitespaceAndComment
 lexical CacheSize = "MiB" | "KiB";     
 lexical StorageType = "HDD" | "SSD";
 lexical DisplayType = "5K" | "4K" | "HD" | "Full-HD";
+lexical Component = "processing" | "storage" | "display";
 
 //add keywords which should never be used as identifiers
 keyword Keywords = "computer" | "processing" | "display" | "storage" | "of" |
@@ -37,56 +38,68 @@ start syntax Computer
 
 // Computer setup describing the configuration and optional reuse.
 syntax ComputerSetup
-    = { Configuration "," }+ ("," { Reuse "," }+ )?
+    = { Configuration  "," }+ ("," { Reuse  "," }+ )?
     ;
 
 // Concrete Syntax for component configuration and reuse
+//syntax Configuration
+//  = processing: "processing" Id label "{" Property "," Property "," Property "," Property "," Property "}"
+//  | storage: "storage" Id label "{" Property "}"
+//  | display: "display" Id label "{" Property "," Property "}"
+  //;
+  
 syntax Configuration
-  = processing: "processing" Id label "{" ProcessingConfiguration "}"
-  | storage: "storage" Id label "{" StorageConfiguration "}"
-  | display: "display" Id label "{" DisplayConfiguration "}"
-  ;
+	= configuration: Component co Id label "{" { Property "," }+ "}"
+	;
 
 // FIXME: get stuck here
 // Modular Reusability block, to reuse declared labels.
 syntax Reuse
-  = | reuse: Id reuseComponent
-  ;
+    = reuse: Id label
+    ;
 
 // Concrete Syntax for processing configuration  problem:order?
-syntax ProcessingConfiguration //PROBLEM : order
-    = Cores "," Speed "," L1Cache "," L2Cache "," L3Cache
-    | Speed "," Cores "," L1Cache "," L2Cache "," L3Cache
-    | L1Cache "," Cores "," Speed "," L2Cache "," L3Cache
-    | L2Cache "," Cores "," Speed "," L1Cache "," L3Cache
-    | L3Cache "," Cores "," Speed "," L2Cache "," L3Cache
-    ;
+//syntax ProcessingConfiguration //PROBLEM : order
+//    //= Cores "," Speed "," L1Cache "," L2Cache "," L3Cache
+//    = Property "," Property "," Property "," Property "," Property
+//    ;
 // Modular processing configuration blocks
-syntax Cores
-    = "cores" ":" Integer cores
-    ;
-syntax Speed
-    = speed: "speed" ":" Real speed "GHz"
-    ;
-syntax L1Cache
-    = l1: "L1" ":" Integer l1size CacheSize l1mea
-    ;
-syntax L2Cache
-    = l2: "L2" ":" Integer l2size CacheSize l2mea
-    ;
-syntax L3Cache
-    = l3: "L3" ":" Integer l3size CacheSize l3mea
-    ;
+//syntax Cores
+//    = cores: "cores" ":" Integer cores
+//    ;
+//syntax Speed
+//    = speed: "speed" ":" Real speed "Ghz"
+//    ;
+//syntax L1Cache
+//    = l1: "L1" ":" Integer l1size CacheSize l1mea
+//    ;
+//syntax L2Cache
+//    = l2: "L2" ":" Integer l2size CacheSize l2mea
+//    ;
+//syntax L3Cache
+//    = l3: "L3" ":" Integer l3size CacheSize l3mea
+//    ;
+    
+syntax Property
+    = cores: "cores" ":" Integer cores
+    | speed: "speed" ":" Real speed "Ghz"
+    | l1: "L1" ":" Integer l1size CacheSize l1mea
+    | l2: "L2" ":" Integer l2size CacheSize l2mea
+    | l3: "L3" ":" Integer l3size CacheSize l3mea
+    | storage: "storage" ":" StorageType stype "of" Integer ssize "GiB"
+    | diasize: "diagonal" ":" Integer dsize "inch"
+    | diatype: "type" ":" DisplayType dtype
+	;
 
 // Storage configuration
-syntax StorageConfiguration
-    = "storage" ":"  StorageType stype "of" Integer ssize "GiB"
-    ;
+//syntax StorageConfiguration
+//    = "storage" ":"  StorageType stype "of" Integer ssize "GiB"
+//    ;
 
 // Display configuration
-syntax DisplayConfiguration
-    = "diagonal" ":" Integer dsize "inch" ":" "," "type" ":" DisplayType dtype
-    ;
+//syntax DisplayConfiguration
+//    = "diagonal" ":" Integer dsize "inch" "," "type" ":" DisplayType dtype
+//    ;
 
 
 // //basic expression

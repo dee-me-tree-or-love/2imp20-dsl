@@ -1,7 +1,10 @@
 module hcl::Check
 
-import hcl::AST;
 
+import hcl::AST;
+import IO;
+import Message;
+import Map;
 /*
  * -Implement a well-formedness checker for the HCL language. For this you must use the AST. 
  * - Hint: Map regular CST arguments (e.g., *, +, ?) to lists 

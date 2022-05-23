@@ -24,6 +24,7 @@ lexical CacheSize = "MiB" | "KiB";
 lexical StorageType = "HDD" | "SSD";
 lexical DisplayType = "5K" | "4K" | "HD" | "Full-HD";
 lexical Component = "processing" | "storage" | "display";
+lexical PropertyTag = "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" ;
 
 //add keywords which should never be used as identifiers
 keyword Keywords = "computer" | "processing" | "display" | "storage" | "of" |

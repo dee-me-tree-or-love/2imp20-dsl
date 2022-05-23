@@ -37,21 +37,21 @@ CONFIGURATION cst2ast(Configuration c) {
 PROPERTY cst2ast(Property p) {
 	switch(p) {
 		case (Property)`cores : <Integer cores>`:
-			return property("<p.cores>");
+			return cores("<p.cores>");
 		case (Property)`speed : <Real speed> Ghz`:
-			return property("<p.speed>");
+			return speed("<p.speed>");
 		case (Property)`L1 : <Integer l1size> <CacheSize l1mea>`:
-			return property("<p.l1size>", "<p.l1mea>");
+			return l1("<p.l1size>", "<p.l1mea>");
 		case (Property)`L2 : <Integer l2size> <CacheSize l2mea>`:
-			return property("<p.l2size>", "<p.l2mea>");
+			return l2("<p.l2size>", "<p.l2mea>");
 		case (Property)`L3 : <Integer l3size> <CacheSize l3mea>`:
-			return property("<p.l3size>", "<p.l3mea>");
+			return l3("<p.l3size>", "<p.l3mea>");
 		case (Property)`storage : <StorageType stype> of <Integer ssize> GiB`:
-			return property("<p.stype>", "<p.ssize>");
+			return storage("<p.stype>", "<p.ssize>");
 		case (Property)`diagonal : <Integer dsize> inch`:
-			return property("<p.dsize>");
+			return diasize("<p.dsize>");
 		case (Property)`type : <DisplayType dtype>`:
-			return property("<p.dtype>");
+			return diatype("<p.dtype>");
 		default:
 			throw "Unhandled property: <p>";
 	}

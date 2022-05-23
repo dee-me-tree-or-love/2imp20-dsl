@@ -43,43 +43,24 @@ syntax ComputerSetup
     ;
 
 // Concrete Syntax for component configuration and reuse
-//syntax Configuration
-//  = processing: "processing" Id label "{" Property "," Property "," Property "," Property "," Property "}"
-//  | storage: "storage" Id label "{" Property "}"
-//  | display: "display" Id label "{" Property "," Property "}"
-  //;
-  
 syntax Configuration
-	= configuration: Component co Id label "{" { Property "," }+ "}"
-	;
+  = processing: "processing" Id label ConfigurationBody body
+  | storage: "storage" Id label ConfigurationBody body
+  | display: "display" Id label ConfigurationBody body
+  ;
+  
+syntax ConfigurationBody
+  = "{" { Property "," }+ "}"
+  ;
+  
+//syntax Configuration
+//	= configuration: Component co Id label "{" { Property "," }+ "}"
+//	;
 
-// FIXME: get stuck here
-// Modular Reusability block, to reuse declared labels.
 syntax Reuse
     = reuse: Id label
     ;
 
-// Concrete Syntax for processing configuration  problem:order?
-//syntax ProcessingConfiguration //PROBLEM : order
-//    //= Cores "," Speed "," L1Cache "," L2Cache "," L3Cache
-//    = Property "," Property "," Property "," Property "," Property
-//    ;
-// Modular processing configuration blocks
-//syntax Cores
-//    = cores: "cores" ":" Integer cores
-//    ;
-//syntax Speed
-//    = speed: "speed" ":" Real speed "Ghz"
-//    ;
-//syntax L1Cache
-//    = l1: "L1" ":" Integer l1size CacheSize l1mea
-//    ;
-//syntax L2Cache
-//    = l2: "L2" ":" Integer l2size CacheSize l2mea
-//    ;
-//syntax L3Cache
-//    = l3: "L3" ":" Integer l3size CacheSize l3mea
-//    ;
     
 syntax Property
     = cores: "cores" ":" Integer cores
@@ -91,22 +72,3 @@ syntax Property
     | diasize: "diagonal" ":" Integer dsize "inch"
     | diatype: "type" ":" DisplayType dtype
 	;
-
-// Storage configuration
-//syntax StorageConfiguration
-//    = "storage" ":"  StorageType stype "of" Integer ssize "GiB"
-//    ;
-
-// Display configuration
-//syntax DisplayConfiguration
-//    = "diagonal" ":" Integer dsize "inch" "," "type" ":" DisplayType dtype
-//    ;
-
-
-// //basic expression
-// syntax Expression 
-//     = id: Id identifier
-//     | str: String String
-//     | real: Real real
-//     | bool: Boolean bool
-//     ;

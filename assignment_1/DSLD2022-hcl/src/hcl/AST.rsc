@@ -18,8 +18,13 @@ public data COMPUTER
 // 	;
 
  
+//public data CONFIGURATION
+// 	= configuration(str componentType, str label, list[PROPERTY] properties)
+// 	;
 public data CONFIGURATION
- 	= configuration(str componentType, str label, list[PROPERTY] properties)
+ 	= processing(str label, list[PROPERTY] properties)
+ 	| storage(str label, list[PROPERTY] properties)
+ 	| display(str label, list[PROPERTY] properties)
  	;
  	
 public data REUSE

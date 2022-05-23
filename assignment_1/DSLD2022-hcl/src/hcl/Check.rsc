@@ -116,6 +116,7 @@ bool checkProcessings(COMPUTER computer) {
 //1. check property <num/unqiueness/type> of every component processing 5; storage 1; display 2;
 //2. better soultion for size comparision
 //3. Do not accept dup components
+//4. checkKeywords eg:never use 'processing' as a processing name
 
 /* 
  * ----- HELPER -----
@@ -142,12 +143,10 @@ list[str] getReuseComponentLabels(COMPUTER computer) {
 
 // Get All Storage CONFIGURATION size list
 tuple[str, int] getStorage(CONFIGURATION c) {
-	if(c.co == "storage") {
-	    for (/PROPERTY p := c.propertiess) {
-	 	    if(p.ssize)
-	 	    	return <c.label, p.ssize>;
-	 	}
-	}
+    for (/PROPERTY p := c.propertiess) {
+ 	    if(p.ssize)
+ 	    	return <c.label, p.ssize>;
+ 	}
 }
 
 // Get All Storage CONFIGURATION size list

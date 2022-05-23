@@ -19,8 +19,8 @@ COMPUTER cst2ast(start[Computer] sf) {
 		"<c.label>", 
 		[cst2ast(co) | (Configuration co <- c.configs.items)], 
 		// FIXME: fix the issue with parsing the "reuse" part of the computer pattern. It fails with `Undeclared type: Tree`
-		//[cst2ast(re) | (Reuse re <- c.reuse.items)]
-		[]
+		[cst2ast(re) | (Reuse re <- c.reuses.items)]
+		//[]
 	);
 	return result;
 }
@@ -32,10 +32,10 @@ CONFIGURATION cst2ast(Configuration c) {
 			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body.items)]);
 		
 		case (Configuration)`storage <Id label> <ConfigurationBody body>`:
-			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body.items)]);
+			return CONFIGURATION::storage("<label>", [cst2ast(p) | (Property p <- body.items)]);
 		
 		case (Configuration)`display <Id label> <ConfigurationBody body>`:
-			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body.items)]);
+			return CONFIGURATION::display("<label>", [cst2ast(p) | (Property p <- body.items)]);
 		
 		default:
 			throw "Unhandled configuration: <c>";

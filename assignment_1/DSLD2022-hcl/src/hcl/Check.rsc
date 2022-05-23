@@ -2,6 +2,7 @@ module hcl::Check
 
 
 import hcl::AST;
+import Prelude;
 import IO;
 import Message;
 import Map;
@@ -175,7 +176,7 @@ void error(str msg) {
 }
 
 // Only logs if all checks successful
-bool succes() {
+bool success() {
 	log("Check successful!\n");
 	return true;
 }

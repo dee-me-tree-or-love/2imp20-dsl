@@ -35,7 +35,7 @@ keyword Keywords = "computer" | "processing" | "display" | "storage" | "of" |
                       ;
 
 start syntax Computer 
-	= computer : "computer" Id label "{" ComputerConfigurations configs ("," ComputerComponentReuse parse )? "}"
+	= computer : "computer" Id label "{" ComputerConfigurations configs ("," ComputerComponentReuse reuse )? "}"
 	;
 
 syntax ComputerConfigurations

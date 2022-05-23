@@ -20,14 +20,14 @@ COMPUTER cst2ast(start[Computer] sf) {
 // Converts the provided configuration to its AST representation
 CONFIGURATION cst2ast(Configuration c) {
 	switch(c) {
-		case (Configuration)`processing <Processing configuration>`:
-			return processing("<c.label>", [cst2ast(p) | (Property p <- c.properties)]);
+		case (Configuration)`processing <Id label> <ConfigurationBody body>`:
+			return processing("<label>", [cst2ast(p) | (Property p <- body)]);
 		
-		case (Configuration)`storage <Storage configuration>`:
-			return storage("<c.label>", [cst2ast(p) | (Property p <- c.properties)]);
+		case (Configuration)`storage <Id label> <ConfigurationBody body>`:
+			return processing("<label>", [cst2ast(p) | (Property p <- body)]);
 		
-		case (Configuration)`display <Display configuration>`:
-			return display("<c.label>", [cst2ast(p) | (Property p <- c.properties)]);
+		case (Configuration)`display <Id label> <ConfigurationBody body>`:
+			return processing("<label>", [cst2ast(p) | (Property p <- body)]);
 		
 		default:
 			throw "Unhandled configuration: <c>";

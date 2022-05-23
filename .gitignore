@@ -4,3 +4,6 @@
 !.vscode/extensions.json
 ## Eclipse
 .project
+
+## Assignment submissions
+assignment*.zip

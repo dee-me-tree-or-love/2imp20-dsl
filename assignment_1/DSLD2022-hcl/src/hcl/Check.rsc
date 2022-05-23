@@ -29,7 +29,7 @@ bool checkHardwareConfiguration(COMPUTER computer) {
         && checkReuseLabels(computer) 
 		&& checkStorages(computer)
 		&& checkProcessings(computer)
-		&& succes();		
+		&& success();		
 }
 
 
@@ -107,6 +107,11 @@ bool checkProcessings(COMPUTER computer) {
 	}
 	return true;
 }
+
+//TODO:
+//1. check property <num/unqiueness/type> of every component processing 5; storage 1; display 2;
+//2. better soultion for size comparision
+//3. Do not accept dup components
 
 /* 
  * ----- HELPER -----

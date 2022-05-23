@@ -15,7 +15,7 @@ import String;
 // Transforms a computer to a series of configurations and reuseComponents
 COMPUTER cst2ast(start[Computer] sf) {
 	Computer c = sf.top;
-	COMPUTER result = computer([cst2ast(co) | (Configuration co <- c.configurations)], [cst2ast(re) | (Reuse re <- c.reuseComponents)]);
+	COMPUTER result = computer([cst2ast(co) | (Configuration co <- c)], [cst2ast(re) | (Reuse re <- c)]);
 	return result;
 }
 
@@ -69,7 +69,7 @@ PROPERTY cst2ast(Property p) {
 }
 
 // Converts a list of reuseStatements to three list of different components
-REUSE cst2ast(REUSE re){
-	return reuse("<re.label>");
+REUSE cst2ast(Reuse re){
+	return REUSE::reuse("<re.label>");
 	
 }

@@ -29,4 +29,7 @@ void main() {
 	registerLanguage("HCL - DSLD", "hcl", Tree(str _, loc path) {
 		return parseHCL(path);
   	});
+  	
+  	loc dir = |file:///Users/rocs/Documents/codingspace/2imp20-dsl/assignment_1/DSLD2022-hcl/samples/ex.hcl|;
+  	checkWellformedness(dir);
 }

@@ -8,19 +8,9 @@ module hcl::AST
  
 //Computer Definition
 public data COMPUTER
-	= computer(list[CONFIGURATION] configurations, list[REUSE] reuseComponents);
+	= computer(str label, list[CONFIGURATION] configurations, list[REUSE] reuseComponents);
 
-//public data CONFIGURATION
-// 	//= processing(str label, int cores, real speed, int l1size, str l1mea, int l2size, str l2mea, int l3size, str l3mea)
-// 	= processing(str label, set[PROCESS] pproperties)
-// 	| storage(str label, str stype, int ssize)
-// 	| display(str label, int dsize, str dtype)
-// 	;
 
- 
-//public data CONFIGURATION
-// 	= configuration(str componentType, str label, list[PROPERTY] properties)
-// 	;
 public data CONFIGURATION
  	= processing(str label, list[PROPERTY] properties)
  	| storage(str label, list[PROPERTY] properties)

@@ -35,12 +35,16 @@ keyword Keywords = "computer" | "processing" | "display" | "storage" | "of" |
                       ;
 
 start syntax Computer 
-	= computer : "computer" Id computer "{" ComputerSetup "}";//here assume at least we add a component and another question
+	= computer : "computer" Id label "{" ComputerConfigurations configs ("," ComputerComponentReuse parse )? "}"
+	;
 
-// Computer setup describing the configuration and optional reuse.
-syntax ComputerSetup
-    = { Configuration  "," }+ ("," { Reuse  "," }+ )?
-    ;
+syntax ComputerConfigurations
+	= { Configuration  "," }+ items
+	;
+
+syntax ComputerComponentReuse
+	= { Reuse  "," }+ items
+	;
 
 // Concrete Syntax for component configuration and reuse
 syntax Configuration
@@ -50,7 +54,7 @@ syntax Configuration
   ;
   
 syntax ConfigurationBody
-  = "{" { Property "," }+ "}"
+  = "{" { Property "," }+ items "}" 
   ;
   
 //syntax Configuration

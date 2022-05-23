@@ -15,7 +15,13 @@ import String;
 // Transforms a computer to a series of configurations and reuseComponents
 COMPUTER cst2ast(start[Computer] sf) {
 	Computer c = sf.top;
-	COMPUTER result = computer([cst2ast(co) | (Configuration co <- c)], [cst2ast(re) | (Reuse re <- c)]);
+	COMPUTER result = computer(
+		"<c.label>", 
+		[cst2ast(co) | (Configuration co <- c.configs.items)], 
+		// FIXME: fix the issue with parsing the "reuse" part of the computer pattern. It fails with `Undeclared type: Tree`
+		//[cst2ast(re) | (Reuse re <- c.reuse.items)]
+		[]
+	);
 	return result;
 }
 
@@ -23,13 +29,13 @@ COMPUTER cst2ast(start[Computer] sf) {
 CONFIGURATION cst2ast(Configuration c) {
 	switch(c) {
 		case (Configuration)`processing <Id label> <ConfigurationBody body>`:
-			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body)]);
+			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body.items)]);
 		
 		case (Configuration)`storage <Id label> <ConfigurationBody body>`:
-			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body)]);
+			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body.items)]);
 		
 		case (Configuration)`display <Id label> <ConfigurationBody body>`:
-			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body)]);
+			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body.items)]);
 		
 		default:
 			throw "Unhandled configuration: <c>";

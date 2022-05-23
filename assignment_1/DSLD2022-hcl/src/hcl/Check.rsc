@@ -79,7 +79,7 @@ bool checkReuseLabels(COMPUTER computer) {
 
 // Check all Storage size must be greater than zero but less than or equal to 8192 GiB
 bool checkStorages(COMPUTER computer) {
-	for (/CONFIGURATION c := computer.configurations) {
+	for (/CONFIGURATION c := computer.configs) {
 		// Get size and label from computer if it is a storage
 		tuple[str, int] dup = getStorage(c);
 		
@@ -125,7 +125,7 @@ bool checkProcessings(COMPUTER computer) {
 // Get CONFIGURATION labels
 list[str] getComponentLabels(COMPUTER computer) {
 	list[str] labels = [];
-	for (/CONFIGURATION co := computer.configurations) {
+	for (/CONFIGURATION co := computer.configs) {
 		labels = labels + co.label;
 	}
 	return labels;
@@ -134,7 +134,7 @@ list[str] getComponentLabels(COMPUTER computer) {
 // Get Reuse CONFIGURATION labels
 list[str] getReuseComponentLabels(COMPUTER computer) {
 	list[str] labels = [];
-	for (/REUSE re := computer.reuseComponents) {
+	for (/REUSE re := computer.reuses) {
 		labels = labels + re.label;
 	}
 	return labels;

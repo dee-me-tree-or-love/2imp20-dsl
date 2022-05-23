@@ -3,6 +3,8 @@ module hcl::CST2AST
 import hcl::AST;
 import hcl::Syntax;
 
+import String;
+
 /*
  * Implement a mapping from concrete syntax trees (CSTs) to abstract syntax trees (ASTs)
  * Hint: Use switch to do case distinction with concrete patterns
@@ -21,13 +23,13 @@ COMPUTER cst2ast(start[Computer] sf) {
 CONFIGURATION cst2ast(Configuration c) {
 	switch(c) {
 		case (Configuration)`processing <Id label> <ConfigurationBody body>`:
-			return processing("<label>", [cst2ast(p) | (Property p <- body)]);
+			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body)]);
 		
 		case (Configuration)`storage <Id label> <ConfigurationBody body>`:
-			return processing("<label>", [cst2ast(p) | (Property p <- body)]);
+			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body)]);
 		
 		case (Configuration)`display <Id label> <ConfigurationBody body>`:
-			return processing("<label>", [cst2ast(p) | (Property p <- body)]);
+			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body)]);
 		
 		default:
 			throw "Unhandled configuration: <c>";
@@ -38,28 +40,28 @@ CONFIGURATION cst2ast(Configuration c) {
 PROPERTY cst2ast(Property p) {
 	switch(p) {
 		case (Property)`cores : <Integer cores>`:
-			return cores("<p.cores>");
+			return PROPERTY::cores(toInt("<cores>"));
 
 		case (Property)`speed : <Real speed> Ghz`:
-			return speed("<p.speed>");
+			return PROPERTY::speed(toReal("<speed>"));
 
 		case (Property)`L1 : <Integer l1size> <CacheSize l1mea>`:
-			return l1("<p.l1size>", "<p.l1mea>");
+			return PROPERTY::l1(toInt("<l1size>"), "<l1mea>");
 
 		case (Property)`L2 : <Integer l2size> <CacheSize l2mea>`:
-			return l2("<p.l2size>", "<p.l2mea>");
+			return PROPERTY::l2(toInt("<l2size>"), "<l2mea>");
 
 		case (Property)`L3 : <Integer l3size> <CacheSize l3mea>`:
-			return l3("<p.l3size>", "<p.l3mea>");
+			return PROPERTY::l3(toInt("<l3size>"), "<l3mea>");
 
 		case (Property)`storage : <StorageType stype> of <Integer ssize> GiB`:
-			return storage("<p.stype>", "<p.ssize>");
+			return PROPERTY::storage("<stype>", toInt("<ssize>"));
 
 		case (Property)`diagonal : <Integer dsize> inch`:
-			return diasize("<p.dsize>");
+			return PROPERTY::diasize(toInt("<dsize>"));
 
 		case (Property)`type : <DisplayType dtype>`:
-			return diatype("<p.dtype>");
+			return PROPERTY::diatype("<dtype>");
 
 		default:
 			throw "Unhandled property: <p>";

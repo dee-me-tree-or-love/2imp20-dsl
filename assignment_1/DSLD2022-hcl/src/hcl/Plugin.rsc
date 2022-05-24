@@ -26,9 +26,9 @@ bool checkWellformedness(loc fil) {
 * If there are syntactic errors in the program, no highlighting will be shown in the editor.
 */
 void main() {
-	//registerLanguage("HCL - DSLD", "hcl", Tree(str _, loc path) {
-	//	return parseHCL(path);
- // 	});
+	registerLanguage("HCL - DSLD", "hcl", Tree(str _, loc path) {
+		return parseHCL(path);
+  	});
   	
   	loc dir = |project://DSLD2022-hcl/samples/ex.hcl|;
   	checkWellformedness(dir);

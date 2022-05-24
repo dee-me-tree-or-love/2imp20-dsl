@@ -31,10 +31,17 @@ bool checkHardwareConfiguration(COMPUTER computer) {
 	log("-- CHECKING COMPUTER --");
 	return checkComponentLabels(computer)
         && checkReuseLabels(computer) 
+        && checkPropertyNumAndType(computer) 
 		&& checkStoragesAndCaches(computer)
-		//&& checkProcessings(computer)
 		&& success();		
 }
+
+//TODO:
+//1. check property <num/unqiueness/type> of every component processing 5; storage 1; display 2;  DONE
+//2. better soultion for size comparision 
+//3. Do not accept dup components
+//4. Total storage size is less than 8192 DONE
+//5. checkKeywords eg:never use 'processing' as a processing name
 
 
 
@@ -54,7 +61,7 @@ bool checkComponentLabels(COMPUTER computer) {
 		return false;
 	}
 	
-	log("No duplicate Configuration names found.");
+	log("-- No duplicate Configuration labels found.");
 	return true;
 }
 
@@ -73,30 +80,81 @@ bool checkReuseLabels(COMPUTER computer) {
 		return false;
 	}
 	
-	log("No non-existent Configuration labels found.");
+	log("-- No non-existent Configuration reused.");
 	return true;
 }
-
-// Check all Storage size must be greater than zero but less than or equal to 8192 GiB
-bool checkStoragesAndCaches(COMPUTER computer) {
+// Check all components and find if they have correct properties.
+bool checkPropertyNumAndType(COMPUTER computer) {
 	for (/CONFIGURATION c := computer.configs) {
-		// Get size and label from computer if it is a storage
 		switch(c) {
 			case storage(l,ps): {
-				p = head(ps);
-				if(p.ssize <= 0 || p.ssize > 8192) {
-					error("Storage " + ssize + " has an illegal size");
+				if(size(dup(ps)) != 1) {
+					error("Storage " + c.label + " has an illegal property");
 					return false;
+				}
+				for (/PROPERTY p := c.properties) {
+					switch(p) {
+						case storage(str stype, int ssize): {
+							log("Storage property catched;");
+						}
+						default: {
+							error("Storage " + c.label + " has an illegal property");
+							return false;
+						}
+					}
+				}
+					
+			}
+			
+			case processing(l,ps): {
+				if(size(dup(ps)) != 5) {
+					error("Processing " + c.label + " has illegal properties");
+					return false;
+				}
+				for (/PROPERTY p := c.properties) {
+					switch(p) {
+						case cores(int cores): {
+							log("Processing cores catched;");
+						}
+						case speed(real speed): {
+							log("Processing speed catched;");
+						}
+						case l1(int l1size, str l1mea): {
+							log("Processing l1 cache catched;");
+						}
+						case l2(int l1size, str l1mea): {
+							log("Processing l2 cache catched;");
+						}
+						case l3(int l1size, str l1mea): {
+							log("Processing l3 cache catched;");
+						}
+						default: {
+							error("Processing " + c.label + " has illegal properties");
+							return false;
+						}
+					}
 				}
 			}
 			
-			case processing(_,_): {
-				log("1");
-			}
-			
-			case display(_,_): {
-				log("1");
-				
+			case display(l,ps): {
+				if(size(dup(ps)) != 2) {
+					error("Display " + c.label + " has illegal properties");
+					return false;
+				}
+				for (/PROPERTY p := c.properties) {
+					switch(p) {
+						case diasize(int dsize): {
+							log("Display diagonal size catched;");
+						}
+						case diatype(str dtype): {
+							log("Display diagonal type catched;");
+						}
+						default: {
+							error("Display " + c.label + " has illegal properties");
+							return false;
+						}
+					}
+				}
 			}
 			
 			default:
@@ -104,12 +162,76 @@ bool checkStoragesAndCaches(COMPUTER computer) {
 		}
 	}
 	
-	log("No illegal storage or cache size found.");
+	log("-- No illegal property number or types found.");
 	return true;
 }
 
-// Check all Processing Caches: The maximum L1 size is 128 KiB, the maximum L2 size is 8 MiB, the maximum L3 size is 32 MiB; 
-// and their sizes must satisfy L1 < L2 < L3.
+bool checkStoragesAndCaches(COMPUTER computer) {
+	for (/CONFIGURATION c := computer.configs) {
+	//count total storage size
+	int totalStorage = 0;
+		switch(c) {
+			// Check all Storage size must be greater than zero but less than or equal to 8192 GiB
+			case storage(l,ps): {
+				p = head(ps);
+				if(p.ssize > 1024 || p.ssize < 32) {
+					error("Storage " + c.label + " has an illegal size");
+					return false;
+				}else 
+					totalStorage += p.ssize;
+			}
+			
+			// Check all Processing Caches: The maximum L1 size is 128 KiB, the maximum L2 size is 8 MiB, the maximum L3 size is 32 MiB; 
+			// and their sizes must satisfy L1 < L2 < L3.
+			case processing(l,ps): {
+				tuple[int, int, int] caches = <0, 0, 0>;
+				for (/PROPERTY p := c.properties) {
+					switch(p) {
+						case l1(int l1size, str l1mea): {
+							if(p.l1mea != "KiB")
+								caches[0] = p.l1size * 1024;
+						}
+						case l2(int l2size, str l2mea): {
+							if(p.l2mea != "KiB")
+								caches[1] = p.l2size * 1024;
+						}
+						case l3(int l3size, str l3mea): {
+							if(p.l3mea != "KiB")
+								caches[2] = p.l3size * 1024;
+						}
+					}
+				}
+				//check if this processing caches is correct
+				if(caches[0] > caches[1] || caches[0] > caches[2] || caches[1] > caches[2]) {
+					error("Processing " + dup[0] + " has illegal cache order");
+					return false;
+				}
+				if(caches[0] > 128 || caches[1] > 8192 || caches[2] > 32768 || caches[0] < 0) {
+					error("Processing " + dup[0] + " has illegal cache size");
+					return false;
+				}
+			}
+			
+			case display(l,ps): {
+				log("1000");
+				
+			}
+			
+			default:
+				throw "Unhandled configuration: <c>";
+		}
+		
+	if(totalStorage > 8192 || totalStorage <= 0) {
+		error("Computer " + computer.label + " has illegal total storage size");
+		return false;
+	}
+	
+	}
+		
+	log("-- No illegal storage or cache size found.");
+	return true;
+}
+
 bool checkProcessings(COMPUTER computer) {
 	for (/CONFIGURATION c := computer.configs) {
 		// Get size and label from computer if it is a storage
@@ -127,12 +249,6 @@ bool checkProcessings(COMPUTER computer) {
 	}
 	return true;
 }
-
-//TODO:
-//1. check property <num/unqiueness/type> of every component processing 5; storage 1; display 2;
-//2. better soultion for size comparision
-//3. Do not accept dup components
-//4. checkKeywords eg:never use 'processing' as a processing name
 
 /* 
  * ----- HELPER -----
@@ -155,29 +271,6 @@ list[str] getReuseComponentLabels(COMPUTER computer) {
 		labels = labels + re.label;
 	}
 	return labels;
-}
-
-// TODO: no longer necessary
-//// Get storage size
-//tuple[str, int] getStorage(CONFIGURATION c) {
-//	headProp = head(c.properties);
-//	tuple[str, int] l = <headProp.stype, headProp.ssize>;
-// 	return l;
-//}
-
-// Get All Storage CONFIGURATION size list
-tuple[str, int, int, int] getProcessingCaches(CONFIGURATION c) {
-	if(c.cores) {//PROBLEM: how to check if it is processing
-		tuple[str, int, int, int] cache = <c.label, c.l1size, c.l2size, c.l3size>;
-		if(c.l1mea != "KiB")
-			cache[1] = cache[1] * 1024;
-		if(c.l2mea != "KiB")
-			cache[2] = cache[2] * 1024;
-		if(c.l3mea != "KiB")
-			cache[3] = cache[3] * 1024;
-			
-		return cache;
-	}
 }
 
 // Log a string; change the println() to whatever is needed

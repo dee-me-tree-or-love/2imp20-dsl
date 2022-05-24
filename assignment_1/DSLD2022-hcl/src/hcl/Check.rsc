@@ -32,7 +32,7 @@ bool checkHardwareConfiguration(COMPUTER computer) {
 	return checkComponentLabels(computer)
         && checkReuseLabels(computer) 
 		&& checkStoragesAndCaches(computer)
-		&& checkProcessings(computer)
+		//&& checkProcessings(computer)
 		&& success();		
 }
 
@@ -82,20 +82,19 @@ bool checkStoragesAndCaches(COMPUTER computer) {
 	for (/CONFIGURATION c := computer.configs) {
 		// Get size and label from computer if it is a storage
 		switch(c) {
-			case storage: {
-				tuple[str, int] dup = getStorage(c);
-				//check if this storage size is correct
-				int ssize = dup[1];
-				if(ssize <= 0 || ssize > 8192) {
+			case storage(l,ps): {
+				p = head(ps);
+				if(p.ssize <= 0 || p.ssize > 8192) {
 					error("Storage " + ssize + " has an illegal size");
 					return false;
 				}
 			}
 			
-			case processing: {
+			case processing(_,_): {
 				log("1");
 			}
-			case display: {
+			
+			case display(_,_): {
 				log("1");
 				
 			}
@@ -112,7 +111,7 @@ bool checkStoragesAndCaches(COMPUTER computer) {
 // Check all Processing Caches: The maximum L1 size is 128 KiB, the maximum L2 size is 8 MiB, the maximum L3 size is 32 MiB; 
 // and their sizes must satisfy L1 < L2 < L3.
 bool checkProcessings(COMPUTER computer) {
-	for (/CONFIGURATION c := computer.configurations) {
+	for (/CONFIGURATION c := computer.configs) {
 		// Get size and label from computer if it is a storage
 		tuple[str, int, int, int] dup = getProcessingCaches(c);
 		
@@ -158,11 +157,13 @@ list[str] getReuseComponentLabels(COMPUTER computer) {
 	return labels;
 }
 
-// Get storage size
-tuple[str, int] getStorage(CONFIGURATION c) {
-	tuple[str, int] l = <head(c.properties)[0].stype, head(c.properties)[1].ssize>;
- 	return l;
-}
+// TODO: no longer necessary
+//// Get storage size
+//tuple[str, int] getStorage(CONFIGURATION c) {
+//	headProp = head(c.properties);
+//	tuple[str, int] l = <headProp.stype, headProp.ssize>;
+// 	return l;
+//}
 
 // Get All Storage CONFIGURATION size list
 tuple[str, int, int, int] getProcessingCaches(CONFIGURATION c) {

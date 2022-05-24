@@ -83,7 +83,7 @@ bool checkStoragesAndCaches(COMPUTER computer) {
 		// Get size and label from computer if it is a storage
 		switch(c) {
 			case storage: {
-				tuple dup = getStorage(c);
+				tuple[str, int] dup = getStorage(c);
 				//check if this storage size is correct
 				int ssize = dup[1];
 				if(ssize <= 0 || ssize > 8192) {
@@ -160,7 +160,7 @@ list[str] getReuseComponentLabels(COMPUTER computer) {
 
 // Get storage size
 tuple[str, int] getStorage(CONFIGURATION c) {
-	tuple[str, int] l = <toString(toSet(c.properties)[0]), toInt(c.properties[0][1])>;
+	tuple[str, int] l = <head(c.properties)[0].stype, head(c.properties)[1].ssize>;
  	return l;
 }
 

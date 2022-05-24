@@ -2,9 +2,17 @@ module hcl::Syntax
 /*
  * Define a concrete syntax for HCL. The langauge's specification is available in the PDF (Section 3)
  */
-
+ 
+//add keywords which should never be used as identifiers
+keyword Keywords = "computer" | "processing" | "display" | "storage" | "of" |
+                      "SSD" | "HDD" | "5K" | "4K" | "HD" | "Full-HD" | 
+                      "MiB" | "KiB" | "GiB" | "GHz"
+                      "true" | "false" 
+                      "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" | "inch" | "type" 
+                      ;
+                      
 // RegEx definition of identifiers(Id), Reals, Integers, Boolean and String
-lexical Id  = [A-Za-z][A-Za-z0-9_\-]*;
+lexical Id  = ([A-Za-z][A-Za-z0-9_\-]*) \ Keywords;
 lexical Integer = ([0-9][0-9]*); 
 lexical Real = Integer | Integer [.] [0-9]+;
 lexical String = "\"" ![\"]*  "\"";
@@ -26,13 +34,6 @@ lexical DisplayType = "5K" | "4K" | "HD" | "Full-HD";
 lexical Component = "processing" | "storage" | "display";
 lexical PropertyTag = "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" ;
 
-//add keywords which should never be used as identifiers
-keyword Keywords = "computer" | "processing" | "display" | "storage" | "of" |
-                      "SSD" | "HDD" | "5K" | "4K" | "HD" | "Full-HD" | 
-                      "MiB" | "KiB" | "GiB" | "GHz"
-                      "true" | "false" 
-                      "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" | "inch" | "type" 
-                      ;
 
 //start syntax Computer 
 //	= computer : "computer" Id label "{" ComputerConfigurations configs ("," ComputerComponentReuse reuse )? "}"

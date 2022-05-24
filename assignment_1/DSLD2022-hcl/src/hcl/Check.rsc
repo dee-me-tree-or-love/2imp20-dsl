@@ -192,24 +192,30 @@ bool checkStoragesAndCaches(COMPUTER computer) {
 						case l1(int l1size, str l1mea): {
 							if(p.l1mea != "KiB")
 								caches[0] = p.l1size * 1024;
+							else
+								caches[0] = p.l1size;
 						}
 						case l2(int l2size, str l2mea): {
 							if(p.l2mea != "KiB")
 								caches[1] = p.l2size * 1024;
+							else
+								caches[0] = p.l1size;
 						}
 						case l3(int l3size, str l3mea): {
 							if(p.l3mea != "KiB")
 								caches[2] = p.l3size * 1024;
+							else
+								caches[0] = p.l1size;
 						}
 					}
 				}
 				//check if this processing caches is correct
-				if(caches[0] > caches[1] || caches[0] > caches[2] || caches[1] > caches[2]) {
-					error("Processing " + dup[0] + " has illegal cache order");
+				if(caches[0] > 128 || caches[1] > 8192 || caches[2] > 32768 || caches[0] < 0) {
+					error("Processing " + c.label + " has illegal cache size");
 					return false;
 				}
-				if(caches[0] > 128 || caches[1] > 8192 || caches[2] > 32768 || caches[0] < 0) {
-					error("Processing " + dup[0] + " has illegal cache size");
+				if(caches[0] > caches[1] || caches[0] > caches[2] || caches[1] > caches[2]) {
+					error("Processing " + c.label + " has illegal cache order");
 					return false;
 				}
 			}

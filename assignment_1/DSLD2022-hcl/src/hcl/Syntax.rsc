@@ -12,10 +12,10 @@ lexical Boolean = "true" | "false";
 
 layout Layout = WhitespaceAndComment* !>> [\ \t\n\r%];
 lexical WhitespaceAndComment 
-   = [\ \t\n\r]
-   | @category="Comment" "%" ![%]+ "%"
-   | @category="Comment" "%%" ![\n]* $
-   ;
+     = [\ \t\n\r]
+     | @category="Comment" "%" ![%]+ "%"
+     | @category="Comment" "%%" ![\n]* $
+     ;
 //   
 //lexical Comma = [,];
 //lexical Colon = [:];
@@ -28,48 +28,39 @@ lexical PropertyTag = "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" ;
 
 //add keywords which should never be used as identifiers
 keyword Keywords = "computer" | "processing" | "display" | "storage" | "of" |
-                      "SSD" | "HDD" | "5K" | "4K" | "HD" | "Full-HD" | 
-                      "MiB" | "KiB" | "GiB" | "GHz"
-                      "true" | "false" 
-                      "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" | "inch" | "type" 
-                      ;
-
-//start syntax Computer 
-//	= computer : "computer" Id label "{" ComputerConfigurations configs ("," ComputerComponentReuse reuse )? "}"
-//	;
+                    "SSD" | "HDD" | "5K" | "4K" | "HD" | "Full-HD" | 
+                    "MiB" | "KiB" | "GiB" | "GHz"
+                    "true" | "false" 
+                    "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" | "inch" | "type" 
+                    ;
 
 start syntax Computer 
-	= computer : "computer" Id label "{" ComputerConfigurations configs "," ComputerComponentReuse reuses  "}"
-	;
+    = computer : "computer" Id label "{" ComputerConfigurations configs ComputerReuseBlock reuseBlock "}"
+    ;
 
 syntax ComputerConfigurations
-	= { Configuration  "," }+ items
-	;
+    = { Configuration  "," }+ items
+    ;
 
-syntax ComputerComponentReuse
-	= { Reuse  "," }+ items
-	;
+syntax ComputerReuseBlock
+    = ("," { Reuse  "," }+ items )? 
+    ;
 
 // Concrete Syntax for component configuration and reuse
 syntax Configuration
-  = processing: "processing" Id label ConfigurationBody body
-  | storage: "storage" Id label ConfigurationBody body
-  | display: "display" Id label ConfigurationBody body
-  ;
-  
+    = processing: "processing" Id label ConfigurationBody body
+    | storage: "storage" Id label ConfigurationBody body
+    | display: "display" Id label ConfigurationBody body
+    ;
+
 syntax ConfigurationBody
-  = "{" { Property "," }+ items "}" 
-  ;
-  
-//syntax Configuration
-//	= configuration: Component co Id label "{" { Property "," }+ "}"
-//	;
+        = "{" { Property "," }+ items "}" 
+        ;
 
 syntax Reuse
     = reuse: Id label
     ;
 
-    
 syntax Property
     = cores: "cores" ":" Integer cores
     | speed: "speed" ":" Real speed "Ghz"
@@ -79,4 +70,4 @@ syntax Property
     | storage: "storage" ":" StorageType stype "of" Integer ssize "GiB"
     | diasize: "diagonal" ":" Integer dsize "inch"
     | diatype: "type" ":" DisplayType dtype
-	;
+    ;

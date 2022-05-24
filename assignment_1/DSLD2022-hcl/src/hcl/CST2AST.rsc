@@ -15,14 +15,28 @@ import String;
 // Transforms a computer to a series of configurations and reuseComponents
 COMPUTER cst2ast(start[Computer] sf) {
 	Computer c = sf.top;
-	COMPUTER result = computer(
-		"<c.label>", 
-		[cst2ast(co) | (Configuration co <- c.configs.items)], 
-		// FIXME: fix the issue with parsing the "reuse" part of the computer pattern. It fails with `Undeclared type: Tree`
-		[cst2ast(re) | (Reuse re <- c.reuses.items)]
-		//[]
-	);
-	return result;
+	switch(c) {
+		case (Computer)`computer <Id label> { <ComputerConfigurations configs> , <ComputerComponentReuse reuses> }`: {
+			COMPUTER result = computer("<c.label>", [cst2ast(co) | (Configuration co <- c.configs.items)],[cst2ast(re) | (Reuse re <- c.reuses.items)]);
+			return result;
+		}
+		
+		case (Computer)`computer <Id label> { <ComputerConfigurations configs>}`: {
+			COMPUTER result = computerW("<c.label>", [cst2ast(co) | (Configuration co <- c.configs.items)]);
+			return result;
+		}
+		
+		default:
+			throw "Unhandled computer: <c>";
+	}
+	//COMPUTER result = computer(
+	//	"<c.label>", 
+	//	[cst2ast(co) | (Configuration co <- c.configs.items)], 
+	//	// FIXME: fix the issue with parsing the "reuse" part of the computer pattern. It fails with `Undeclared type: Tree`
+	//	[cst2ast(re) | (Reuse re <- c.reuses.items)]
+	//	//[]
+	//);
+	//return result;
 }
 
 // Converts the provided configuration to its AST representation

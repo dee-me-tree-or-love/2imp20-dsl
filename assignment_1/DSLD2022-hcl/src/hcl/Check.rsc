@@ -41,7 +41,8 @@ bool checkHardwareConfiguration(COMPUTER computer) {
 //2. better soultion for size comparision 
 //3. Do not accept dup components
 //4. Total storage size is less than 8192          ```````````DONE
-//5. checkKeywords eg:never use 'processing' as a processing name
+//5. checkKeywords eg:never use 'processing' as a processing name ```````````DONE(add in Syntax.rsc)
+
 
 
 
@@ -260,10 +261,16 @@ list[str] getComponentLabels(COMPUTER computer) {
 // Get Reuse CONFIGURATION labels
 list[str] getReuseComponentLabels(COMPUTER computer) {
 	list[str] labels = [];
-	for (/REUSE re := computer.reuses) {
-		labels = labels + re.label;
+	switch(computer) {
+		case computer(str label, list[CONFIGURATION] configs, list[REUSE] reuses): {
+			for (/REUSE re := computer.reuses) {
+				labels = labels + re.label;
+			}
+			return labels;
+		}
+		case computerW(str label, list[CONFIGURATION] configs):
+			return labels;
 	}
-	return labels;
 }
 
 // Log a string; change the println() to whatever is needed

@@ -37,10 +37,10 @@ bool checkHardwareConfiguration(COMPUTER computer) {
 }
 
 //TODO:
-//1. check property <num/unqiueness/type> of every component processing 5; storage 1; display 2;  DONE
+//1. check property <num/unqiueness/type> of every component processing 5; storage 1; display 2;  `````````````DONE
 //2. better soultion for size comparision 
 //3. Do not accept dup components
-//4. Total storage size is less than 8192 DONE
+//4. Total storage size is less than 8192          ```````````DONE
 //5. checkKeywords eg:never use 'processing' as a processing name
 
 
@@ -167,9 +167,10 @@ bool checkPropertyNumAndType(COMPUTER computer) {
 }
 
 bool checkStoragesAndCaches(COMPUTER computer) {
-	for (/CONFIGURATION c := computer.configs) {
 	//count total storage size
 	int totalStorage = 0;
+	
+	for (/CONFIGURATION c := computer.configs) {
 		switch(c) {
 			// Check all Storage size must be greater than zero but less than or equal to 8192 GiB
 			case storage(l,ps): {
@@ -211,21 +212,13 @@ bool checkStoragesAndCaches(COMPUTER computer) {
 					return false;
 				}
 			}
-			
-			case display(l,ps): {
-				log("1000");
-				
-			}
-			
-			default:
-				throw "Unhandled configuration: <c>";
 		}
+	}
 		
 	if(totalStorage > 8192 || totalStorage <= 0) {
 		error("Computer " + computer.label + " has illegal total storage size");
+		totalStorage = 0;
 		return false;
-	}
-	
 	}
 		
 	log("-- No illegal storage or cache size found.");
@@ -283,8 +276,8 @@ void error(str msg) {
 	log("ERROR: " + msg + "!\n");
 }
 
-// Only logs if all checks successful
+// log if all checks successful
 bool success() {
-	log("Check successful!\n");
+	log("-- CHECK SUCCESSFUL --");
 	return true;
 }

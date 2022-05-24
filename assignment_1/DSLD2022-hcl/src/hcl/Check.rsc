@@ -6,6 +6,7 @@ import Prelude;
 import IO;
 import Message;
 import Map;
+import util::Math;
 /*
  * -Implement a well-formedness checker for the HCL language. For this you must use the AST. 
  * - Hint: Map regular CST arguments (e.g., *, +, ?) to lists 
@@ -33,6 +34,7 @@ bool checkHardwareConfiguration(COMPUTER computer) {
         && checkReuseLabels(computer) 
         && checkPropertyNumAndType(computer) 
 		&& checkStoragesAndCaches(computer)
+		&& checkDuplicateComponents(computer)
 		&& success();		
 }
 
@@ -248,6 +250,27 @@ bool checkProcessings(COMPUTER computer) {
 		}
 	}
 	return true;
+}
+
+
+bool checkDuplicateComponents(COMPUTER computer) {
+    list[CONFIGURATION] localConfigs = [];
+    for(/CONFIGURATION c := computer.configs) {
+        switch(c){
+            case storage(_,ps):     localConfigs += [storage("",ps)];
+            case processing(_,ps):  localConfigs += [processing("",ps)];
+            case display(_,ps):     localConfigs += [display("",ps)];
+            default:
+                throw "Unhandled configuration: <c>";
+        }
+    }
+    int nrDups = size(computer.configs) - size(dup(localConfigs));
+    if (nrDups == 0) {
+        log("-- <toString(nrDups)> duplicate configurations found.");
+        return true;
+    };
+    error("Found <toString(nrDups)> duplicate configurations.");
+    return false;
 }
 
 /* 

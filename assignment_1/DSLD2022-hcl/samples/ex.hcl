@@ -2,6 +2,9 @@ computer my_computer {
 	storage my_storage {
 		storage: SSD of 512 GiB
 	},
+	storage my_storage2 {
+        storage: SSD of 256 GiB
+    },
 	processing my_CPU {
 		cores: 4,
 		speed: 2 Ghz,

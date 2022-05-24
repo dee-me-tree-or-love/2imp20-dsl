@@ -31,7 +31,7 @@ bool checkHardwareConfiguration(COMPUTER computer) {
 	log("-- CHECKING COMPUTER --");
 	return checkComponentLabels(computer)
         && checkReuseLabels(computer) 
-		&& checkStorages(computer)
+		&& checkStoragesAndCaches(computer)
 		&& checkProcessings(computer)
 		&& success();		
 }
@@ -78,17 +78,34 @@ bool checkReuseLabels(COMPUTER computer) {
 }
 
 // Check all Storage size must be greater than zero but less than or equal to 8192 GiB
-bool checkStorages(COMPUTER computer) {
+bool checkStoragesAndCaches(COMPUTER computer) {
 	for (/CONFIGURATION c := computer.configs) {
 		// Get size and label from computer if it is a storage
-		tuple[str, int] dup = getStorage(c);
-		
-		//check if this storage size is correct
-		if(dup[1] <= 0 || dup[1] > 8192) {
-			error("Storage " + dup[0] + " has an illegal size");
-			return false;
+		switch(c) {
+			case storage: {
+				tuple dup = getStorage(c);
+				//check if this storage size is correct
+				int ssize = dup[1];
+				if(ssize <= 0 || ssize > 8192) {
+					error("Storage " + ssize + " has an illegal size");
+					return false;
+				}
+			}
+			
+			case processing: {
+				log("1");
+			}
+			case display: {
+				log("1");
+				
+			}
+			
+			default:
+				throw "Unhandled configuration: <c>";
 		}
 	}
+	
+	log("No illegal storage or cache size found.");
 	return true;
 }
 
@@ -141,12 +158,10 @@ list[str] getReuseComponentLabels(COMPUTER computer) {
 	return labels;
 }
 
-// Get All Storage CONFIGURATION size list
+// Get storage size
 tuple[str, int] getStorage(CONFIGURATION c) {
-    for (/PROPERTY p := c.propertiess) {
- 	    if(p.ssize)
- 	    	return <c.label, p.ssize>;
- 	}
+	tuple[str, int] l = <toString(toSet(c.properties)[0]), toInt(c.properties[0][1])>;
+ 	return l;
 }
 
 // Get All Storage CONFIGURATION size list

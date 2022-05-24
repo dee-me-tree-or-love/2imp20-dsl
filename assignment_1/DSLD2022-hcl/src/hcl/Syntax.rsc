@@ -40,6 +40,7 @@ keyword Keywords = "computer" | "processing" | "display" | "storage" | "of" |
 
 start syntax Computer 
 	= computer : "computer" Id label "{" ComputerConfigurations configs "," ComputerComponentReuse reuses  "}"
+	| computerW : "computer" Id label "{" ComputerConfigurations configs "}"
 	;
 
 syntax ComputerConfigurations

@@ -8,7 +8,8 @@ module hcl::AST
  
 //Computer Definition
 public data COMPUTER
-	= computer(str label, list[CONFIGURATION] configs, list[REUSE] reuses);
+	= computer(str label, list[CONFIGURATION] configs, list[REUSE] reuses)
+	| computerW(str label, list[CONFIGURATION] configs);
 
 
 public data CONFIGURATION

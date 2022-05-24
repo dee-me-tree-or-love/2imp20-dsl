@@ -41,7 +41,7 @@ bool checkHardwareConfiguration(COMPUTER computer) {
 //TODO:
 //1. check property <num/unqiueness/type> of every component processing 5; storage 1; display 2;  `````````````DONE
 //2. better soultion for size comparision 
-//3. Do not accept dup components
+//3. Do not accept dup components ```````````DONE
 //4. Total storage size is less than 8192          ```````````DONE
 //5. checkKeywords eg:never use 'processing' as a processing name ```````````DONE(add in Syntax.rsc)
 

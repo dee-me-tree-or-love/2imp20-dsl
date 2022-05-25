@@ -27,9 +27,12 @@ bool checkWellformedness(loc fil) {
 */
 void main() {
 	registerLanguage("HCL - DSLD", "hcl", Tree(str _, loc path) {
-		return parseHCL(path);
+        parseResult = parseHCL(path);
+		return parseResult;
   	});
-  	
+
   	loc dir = |project://DSLD2022-hcl/samples/ex.hcl|;
-  	checkWellformedness(dir);
+  	parseResult = parseHCL(dir);
+  	c = parseResult;
+  	//checkWellformedness(dir);
 }

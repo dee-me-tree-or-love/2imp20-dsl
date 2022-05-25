@@ -53,5 +53,5 @@ public data A_PROPERTY_PROCESSING
     | propL2(int size, str unit)
     | propL3(int size, str unit)
     ;
-	
+
 anno loc A_COMPUTER@location;   //parse tree root

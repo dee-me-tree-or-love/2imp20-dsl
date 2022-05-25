@@ -13,6 +13,15 @@ import String;
  */
 
 
+A_COMPUTER cst2ast(start[CComputer] sf) {
+    CComputer c = sf.top;
+    return cst2ast(c);
+}
+
+A_COMPUTER cst2ast(CComputer c){
+    return A_COMPUTER::computer("<c.label>", []);
+}
+
 //
 //// Transforms a computer to a series of configurations and reuseComponents
 //COMPUTER cst2ast(start[Computer] sf) {

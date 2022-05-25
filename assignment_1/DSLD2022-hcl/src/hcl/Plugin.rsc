@@ -34,5 +34,7 @@ void main() {
   	loc dir = |project://DSLD2022-hcl/samples/ex.hcl|;
   	parseResult = parseHCL(dir);
   	c = parseResult;
+  	astResult = cst2ast(c);
+  	ac = astResult;
   	//checkWellformedness(dir);
 }

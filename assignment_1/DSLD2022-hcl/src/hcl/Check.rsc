@@ -29,7 +29,7 @@ import util::Math;
  */
 
 bool checkHardwareConfiguration(COMPUTER computer) {
-	log("-- CHECKING COMPUTER --");
+	log("-- CHECKING COMPUTER --\n");
 	return checkComponentLabels(computer)
         && checkReuseLabels(computer) 
         && checkPropertyNumAndType(computer) 
@@ -201,13 +201,13 @@ bool checkStoragesAndCaches(COMPUTER computer) {
 							if(p.l2mea != "KiB")
 								caches[1] = p.l2size * 1024;
 							else
-								caches[0] = p.l1size;
+								caches[1] = p.l2size;
 						}
 						case l3(int l3size, str l3mea): {
 							if(p.l3mea != "KiB")
 								caches[2] = p.l3size * 1024;
 							else
-								caches[0] = p.l1size;
+								caches[2] = p.l3size;
 						}
 					}
 				}
@@ -314,6 +314,6 @@ void error(str msg) {
 
 // log if all checks successful
 bool success() {
-	log("-- CHECK SUCCESSFUL --");
+	log("\n-- CHECK SUCCESSFUL --");
 	return true;
 }

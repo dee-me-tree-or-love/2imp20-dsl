@@ -32,12 +32,13 @@ lexical WhitespaceAndComment
    ;
 
 lexical CCacheUnit = "MiB" | "KiB";
+lexical CSpeedUnit = "Ghz";
 lexical CStorageType = "HDD" | "SSD";
 lexical CStorageUnit = "GiB";
 lexical CDisplayType = "5K" | "4K" | "HD" | "Full-HD";
 lexical CDisplayUnit = "inch";
 
-// TODO: maybe deprecate? CComponentTag and CPropertyTag
+// TODO: maybe deprecate? CComponentTag and CPropertyTag are not used anywhere
 lexical CComponentTag = "processing" | "storage" | "display";
 lexical CPropertyTag = "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" ;
 
@@ -49,8 +50,8 @@ start syntax CComputer
     ;
 
 start syntax CComponentDecl
-    = config: CComponentConfig
-    | reuse: CComponentReuse
+    = config: CComponentConfig item
+    | reuse: CComponentReuse item
     ;
 
 start syntax CComponentReuse
@@ -80,7 +81,7 @@ start syntax CComponentDisplay
 
 start syntax CPropertyDisplay
     = propDiagonal: "diagonal" ":" CInteger size CDisplayUnit unit
-    | propType: "type" ":" CDisplayType type
+    | propResolutionType: "type" ":" CDisplayType displayType
     ;
     
 start syntax CComponentProcessing
@@ -89,7 +90,7 @@ start syntax CComponentProcessing
 
 start syntax CPropertyProcessing
     = propCores: "cores" ":" CInteger cores
-    | propSpeed: "speed" ":" CReal speed "Ghz"
+    | propSpeed: "speed" ":" CReal speed CSpeedUnit unit
     | propL1: "L1" ":" CInteger size CCacheUnit unit
     | propL2: "L2" ":" CInteger size CCacheUnit unit
     | propL3: "L3" ":" CInteger size CCacheUnit unit

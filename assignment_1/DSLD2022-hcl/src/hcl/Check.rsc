@@ -91,7 +91,7 @@ bool checkPropertyNumAndType(COMPUTER computer) {
 	for (/CONFIGURATION c := computer.configs) {
 		switch(c) {
 			case storage(l,ps): {
-				if(size(dup(ps)) != 1) {
+				if((size(dup(ps)) != 1) && (size(dup(ps)) != 2)) {
 					error("Storage " + c.label + " has an illegal property");
 					return false;
 				}
@@ -101,7 +101,7 @@ bool checkPropertyNumAndType(COMPUTER computer) {
 							log("Storage property catched;");
 						}
 						default: {
-							error("Storage " + c.label + " has an illegal property");
+							error("Storage " + c.label + " has illegal properties");
 							return false;
 						}
 					}
@@ -223,7 +223,9 @@ bool checkStoragesAndCaches(COMPUTER computer) {
 			}
 		}
 	}
-		
+	
+	totalStorage += getReuseStorageSize(computer);
+	
 	if(totalStorage > 8192 || totalStorage <= 0) {
 		error("Computer " + computer.label + " has illegal total storage size");
 		totalStorage = 0;
@@ -273,6 +275,7 @@ bool checkDuplicateComponents(COMPUTER computer) {
     return false;
 }
 
+
 /* 
  * ----- HELPER -----
  */
@@ -300,6 +303,49 @@ list[str] getReuseComponentLabels(COMPUTER computer) {
 		case computerW(str label, list[CONFIGURATION] configs):
 			return labels;
 	}
+}
+
+// Get Reuse Storage size sum
+int getReuseStorageSize(COMPUTER computer) {
+	int reuseStorageSize = 0;
+	
+    list[CONFIGURATION] localStorages = [];
+    list[REUSE] reuseLabels = [];
+    for(/CONFIGURATION c := computer.configs) {
+        switch(c){
+            case storage(l,ps): {
+                 localStorages += [storage(l,ps)];
+           	}
+        }
+    }
+    
+    switch(computer) {
+		case computer(str label, list[CONFIGURATION] configs, list[REUSE] reuses): {
+			for (/REUSE re := computer.reuses) {
+        		//check
+        		for(/CONFIGURATION c := localStorages) {
+        			switch(c) {
+			            case storage(str label, list[PROPERTY] properties): {
+			                if(re.label == c.label) {
+			                	for(/PROPERTY p := c.properties) {
+				        			switch(p){
+							            case storage(str stype, int ssize): {
+							                reuseStorageSize += p.ssize;
+							           	}
+				        			}
+	        					}
+			                }
+			           	}
+	        		}
+        		}
+			}
+		}
+		case computerW(str label, list[CONFIGURATION] configs):
+			return reuseStorageSize;
+	}
+    
+  
+    return reuseStorageSize;
 }
 
 // Log a string; change the println() to whatever is needed

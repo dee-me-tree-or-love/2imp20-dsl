@@ -236,39 +236,22 @@ bool checkStoragesAndCaches(COMPUTER computer) {
 	return true;
 }
 
-bool checkProcessings(COMPUTER computer) {
-	for (/CONFIGURATION c := computer.configs) {
-		// Get size and label from computer if it is a storage
-		tuple[str, int, int, int] dup = getProcessingCaches(c);
-		
-		//check if this processing caches is correct
-		if(dup[1] > dup[2] || dup[1] > dup[3] || dup[2] > dup[3]) {
-			error("Processing " + dup[0] + " has illegal cache order");
-			return false;
-		}
-		if(dup[1] > 128 || dup[2] > 8192 || dup[3] > 32768 || dup[1] < 0) {
-			error("Processing " + dup[0] + " has illegal cache size");
-			return false;
-		}
-	}
-	return true;
-}
-
-
 bool checkDuplicateComponents(COMPUTER computer) {
-    list[CONFIGURATION] localConfigs = [];
+
+    list[tuple[str s, set[PROPERTY] localP]] localConfigs = [];
     for(/CONFIGURATION c := computer.configs) {
         switch(c){
-            case storage(_,ps):     localConfigs += [storage("",ps)];
-            case processing(_,ps):  localConfigs += [processing("",ps)];
-            case display(_,ps):     localConfigs += [display("",ps)];
+            case storage(_,ps):     localConfigs += [<"storage", toSet(c.properties)>];
+            case processing(_,ps):  localConfigs += [<"processing", toSet(c.properties)>];
+            case display(_,ps):     localConfigs += [<"display", toSet(c.properties)>];
             default:
                 throw "Unhandled configuration: <c>";
         }
     }
+    
     int nrDups = size(computer.configs) - size(dup(localConfigs));
     if (nrDups == 0) {
-        log("-- <toString(nrDups)> duplicate configurations found.");
+        log("-- No duplicate configurations found.");
         return true;
     };
     error("Found <toString(nrDups)> duplicate configurations.");

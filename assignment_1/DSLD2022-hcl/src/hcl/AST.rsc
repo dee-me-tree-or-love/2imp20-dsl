@@ -11,8 +11,8 @@ public data A_COMPUTER
     ;
 
 public data A_COMPONENT_DECL
-    = config(A_COMPONENT_CONFIG item)
-    | reuse(A_COMPONENT_REUSE item)
+    = config(A_COMPONENT_CONFIG configItem)
+    | reuse(A_COMPONENT_REUSE reuseItem)
     ;
 
 public data A_COMPONENT_REUSE
@@ -20,9 +20,9 @@ public data A_COMPONENT_REUSE
     ;
 
 public data A_COMPONENT_CONFIG
-    = storage(A_COMPONENT_STORAGE item)
-    | display(A_COMPONENT_DISPLAY item)
-    | processing(A_COMPONENT_PROCESSING item)
+    = storage(A_COMPONENT_STORAGE storageItem)
+    | display(A_COMPONENT_DISPLAY displayItem)
+    | processing(A_COMPONENT_PROCESSING processingItem)
     ;
 
 public data A_COMPONENT_STORAGE

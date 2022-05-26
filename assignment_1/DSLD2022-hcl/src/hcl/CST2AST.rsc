@@ -13,7 +13,7 @@ import String;
  */
 
 
-A_COMPUTER cst2ast(start[CComputer] sf) {
+A_COMPUTER loadAst(start[CComputer] sf) {
     CComputer c = sf.top;
     return cst2ast(c);
 }
@@ -21,6 +21,11 @@ A_COMPUTER cst2ast(start[CComputer] sf) {
 A_COMPUTER cst2ast(CComputer c){
     return A_COMPUTER::computer("<c.label>", []);
 }
+
+// TODO: implement
+//A_COMPONENT_DECL cst2ast(CComponentDecl cd){
+//    // TODO: write a switch statement for pattern matching
+//}
 
 //
 //// Transforms a computer to a series of configurations and reuseComponents

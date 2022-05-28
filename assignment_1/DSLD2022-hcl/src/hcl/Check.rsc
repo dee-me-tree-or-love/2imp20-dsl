@@ -80,9 +80,10 @@ alias CACHE_TUPLE = tuple[bool, str, int, str];
 //4. max L1 size = 128 KiB --> DONE; checkAllCachesAreInBounds
 //5. max L2 size = 8 MiB --> DONE; checkAllCachesAreInBounds
 //6. max L3 size = 32 MiB --> DONE; checkAllCachesAreInBounds
-//7. L1 < L2 < L3
+//7. L1 < L2 < L3 --> DONE; checkAllCachesAreInOrder
 //8. Display type is valid --> DONE; handled by Parsing
-//9. Language supports positive integers and reals
+//9. No duplicate components with same configs but different labels --> 
+//10. Language supports positive integers and reals --> Done; handled by parsing
 
 bool checkHardwareConfiguration(A_COMPUTER computer) {
     log("-- CHECKING COMPUTER --");
@@ -99,6 +100,7 @@ bool checkHardwareConfiguration(A_COMPUTER computer) {
         && checkAllReuseLabelsExist(computer)
         && checkTotalStorageIsInBounds(computer)
         && checkAllCachesAreInBounds(computer)
+        && checkAllCachesAreInOrder(computer)
         //&& checkReuseLabels(computer) 
         //&& checkPropertyNumAndType(computer) 
         //&& checkStoragesAndCaches(computer)
@@ -179,6 +181,34 @@ bool checkAllCachesAreInBounds(A_COMPUTER computer){
     return allSizesInBounds;
 }
 
+bool checkAllCachesAreInOrder(A_COMPUTER computer){
+    list[A_COMPONENT_PROCESSING] processings = [ getConfigItem(#A_COMPONENT_PROCESSING, decl) | decl <- computer.decls, getConfigType(decl) == PROCESSING_DECL_TYPE];
+
+    bool allCachesAreInOrder = true;
+    for (/A_COMPONENT_PROCESSING processing := processings) {
+        list[CACHE_TUPLE] maybeCacheTuples = [getCacheTuple(prop) | prop <- processing.props];
+        list[CACHE_TUPLE] validCacheTuples = [t | t <- maybeCacheTuples, t[0] == true];
+        
+        // Construct a map of all caches using type as key, size as value
+        map[str, int] cachesInKib = (t[1] : getSizeInKb(t) | CACHE_TUPLE t <- validCacheTuples);
+
+        // Check cache pairs
+        if ((L1_DECL_TYPE in cachesInKib) && (L2_DECL_TYPE in cachesInKib)) {
+            bool cachePairInOrder = cachesInKib[L1_DECL_TYPE] < cachesInKib[L2_DECL_TYPE];
+            allCachesAreInOrder = allCachesAreInOrder && cachePairInOrder;
+        };
+        if ((L1_DECL_TYPE in cachesInKib) && (L3_DECL_TYPE in cachesInKib)) {
+            bool cachePairInOrder = cachesInKib[L1_DECL_TYPE] < cachesInKib[L3_DECL_TYPE];
+            allCachesAreInOrder = allCachesAreInOrder && cachePairInOrder;
+        };
+        if ((L2_DECL_TYPE in cachesInKib) && (L3_DECL_TYPE in cachesInKib)) {
+            bool cachePairInOrder = cachesInKib[L2_DECL_TYPE] < cachesInKib[L3_DECL_TYPE];
+            allCachesAreInOrder = allCachesAreInOrder && cachePairInOrder;
+        };
+    };
+
+    return allCachesAreInOrder;
+}
 
 /*
  * ----- HELPERS -----

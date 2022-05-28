@@ -53,6 +53,7 @@ void u_panic(str msg){
 // Constants
 // ~~~~~~~~~
 
+// Some constants for convenient checks
 str CONFIG_DECL_TYPE = "config";
 str REUSE_DECL_TYPE = "reuse";
 str STORAGE_DECL_TYPE = "storage";
@@ -82,7 +83,7 @@ alias CACHE_TUPLE = tuple[bool, str, int, str];
 //6. max L3 size = 32 MiB --> DONE; checkAllCachesAreInBounds
 //7. L1 < L2 < L3 --> DONE; checkAllCachesAreInOrder
 //8. Display type is valid --> DONE; handled by Parsing
-//9. No duplicate components with same configs but different labels --> 
+//9. No duplicate components with same configs but different labels --> DONE; 
 //10. Language supports positive integers and reals --> Done; handled by parsing
 
 bool checkHardwareConfiguration(A_COMPUTER computer) {
@@ -102,10 +103,6 @@ bool checkHardwareConfiguration(A_COMPUTER computer) {
         && checkAllCachesAreInBounds(computer)
         && checkAllCachesAreInOrder(computer)
         && checkNoDuplicateComponents(computer)
-        //&& checkReuseLabels(computer) 
-        //&& checkPropertyNumAndType(computer) 
-        //&& checkStoragesAndCaches(computer)
-        //&& checkDuplicateComponents(computer)
         && success();
 }
 
@@ -113,6 +110,8 @@ bool checkHardwareConfiguration(A_COMPUTER computer) {
  * ----- CHECKERS -----
  */
 // TODO: we need to still add error reporting
+// TODO: we need to construct the broken test files to show the errors
+// TODO: we need to add comments in most complicated places :D
 
 bool checkAllDeclarationsHaveLabels(A_COMPUTER computer) {
     list[str] labels = [ getLabel(decl) | (decl <- computer.decls)];
@@ -233,7 +232,6 @@ bool checkNoDuplicateComponents(A_COMPUTER computer) {
  * ----- HELPERS -----
  */
 
-
 // Attribute helpers
 // ~~~~~~~~~~~~~~~~~
 
@@ -271,18 +269,6 @@ int getSizeInKb(CACHE_TUPLE t){
         return t[2] * 1024;
     }
     return t[2];
-}
-
-tuple[str, set[A_PROPERTY_STORAGE]] getNamelessComponentTuple(A_COMPONENT_STORAGE storage){
-    return <STORAGE_DECL_TYPE, toSet(storage.props)>;
-}
-
-tuple[str, set[A_PROPERTY_DISPLAY]] getNamelessComponentTuple(A_COMPONENT_DISPLAY display){
-    return <DISPLAY_DECL_TYPE, toSet(display.props)>;
-}
-
-tuple[str, set[A_PROPERTY_PROCESSING]] getNamelessComponentTuple(A_COMPONENT_PROCESSING processing){
-    return <PROCESSING_DECL_TYPE, toSet(processing.props)>;
 }
 
 // Meta helpers

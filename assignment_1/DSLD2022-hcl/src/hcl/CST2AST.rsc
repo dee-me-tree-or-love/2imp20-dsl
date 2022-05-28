@@ -12,6 +12,13 @@ import String;
  * Map lexical nodes to Rascal primitive types (bool, int, str)
  */
 
+// Utility functions
+// ~~~~~~~~~~~~~~~~~
+
+void panic(item){
+    throw "Unhandled concrete element: <item>";
+}
+
 
 A_COMPUTER loadAst(start[CComputer] sf) {
     CComputer c = sf.top;
@@ -23,7 +30,6 @@ A_COMPUTER cst2ast(CComputer c){
     return A_COMPUTER::computer("<c.label>", decls);
 }
 
- //TODO: implement
 A_COMPONENT_DECL cst2ast(CComponentDecl cd){
     switch(cd) {
         case (CComponentDecl)`<CComponentConfig item>`:
@@ -31,13 +37,12 @@ A_COMPONENT_DECL cst2ast(CComponentDecl cd){
         case (CComponentDecl)`<CComponentReuse item>`:
             return A_COMPONENT_DECL::reuse(cst2ast(item));
         default:
-          throw "Unhandled concrete element: <cd>";
+          panic(cd);
     }
-    // TODO: write a switch statement for pattern matching
 }
 
 A_COMPONENT_REUSE cst2ast(CComponentReuse ritem) {
-    return A_COMPONENT_REUSE::body("");
+    return A_COMPONENT_REUSE::body("<ritem.label>");
 }
 
 A_COMPONENT_CONFIG cst2ast(CComponentConfig citem) {
@@ -49,10 +54,9 @@ A_COMPONENT_CONFIG cst2ast(CComponentConfig citem) {
         case (CComponentConfig)`<CComponentProcessing item>`:
             return A_COMPONENT_CONFIG::processing(cst2ast(item));
         default:
-          throw "Unhandled concrete element: <citem>";
+          panic(citem);
     }
 }
-
 
 A_COMPONENT_STORAGE cst2ast(CComponentStorage citem){
     return A_COMPONENT_STORAGE::body("<citem.label>", []);

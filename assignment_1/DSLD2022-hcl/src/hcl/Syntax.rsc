@@ -38,10 +38,6 @@ lexical CStorageUnit = "GiB";
 lexical CDisplayType = "5K" | "4K" | "HD" | "Full-HD";
 lexical CDisplayUnit = "inch";
 
-// TODO: maybe deprecate? CComponentTag and CPropertyTag are not used anywhere
-lexical CComponentTag = "processing" | "storage" | "display";
-lexical CPropertyTag = "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" ;
-
 // Concrete domain elements.
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -81,6 +81,12 @@ A_COMPONENT_DISPLAY cst2ast(CComponentDisplay citem){
 }
 
 A_PROPERTY_DISPLAY cst2ast(CPropertyDisplay cprop){
+    // TODO: technical debt
+    //      Instead of typing out "diagonal ..." in pattern matching,
+    //      we could also declare a separate helper type CDiagonalProp and use it
+    //      this switch case.
+    //      However, since it would further increase the amount of Concrete Syntax
+    //      elements, we decided to keep it as is for now.
     switch(cprop) {
         case (CPropertyDisplay)`diagonal : <CInteger size> <CDisplayUnit unit>`:
             return A_PROPERTY_DISPLAY::propDiagonal(toInt("<size>"), "<unit>");

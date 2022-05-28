@@ -58,6 +58,15 @@ str REUSE_DECL_TYPE = "reuse";
 str STORAGE_DECL_TYPE = "storage";
 str DISPLAY_DECL_TYPE = "display";
 str PROCESSING_DECL_TYPE = "processing";
+str SPEED_DECL_TYPE = "speed";
+str CORES_DECL_TYPE = "speed";
+str L1_DECL_TYPE = "l1";
+str L2_DECL_TYPE = "l2";
+str L3_DECL_TYPE = "l3";
+str MIB_UNIT = "MiB";
+
+// Contains: 0: cache prop or not, 1: which cache type; 2: size, 3: unit
+alias CACHE_TUPLE = tuple[bool, str, int, str];
 
 /*
  * ----- MAIN -----
@@ -67,10 +76,10 @@ str PROCESSING_DECL_TYPE = "processing";
 //1. all components must have labels --> DONE; checkAllDeclarationsHaveLabels
 //2. all component labels are unique --> DONE; checkAllComponentsHaveUniqueLabels
 //2+. all reuse labels exist --> DONE; checkAllReuseLabelsExist
-//3. total storage size is >0 and <=8192 GB
-//4. max L1 size = 128 KiB
-//5. max L2 size = 8 MiB
-//6. max L3 size = 32 MiB
+//3. total storage size is >0 and <=8192 GB --> DONE; checkTotalStorageIsInBounds
+//4. max L1 size = 128 KiB --> DONE; checkAllCachesAreInBounds
+//5. max L2 size = 8 MiB --> DONE; checkAllCachesAreInBounds
+//6. max L3 size = 32 MiB --> DONE; checkAllCachesAreInBounds
 //7. L1 < L2 < L3
 //8. Display type is valid --> DONE; handled by Parsing
 //9. Language supports positive integers and reals
@@ -89,6 +98,7 @@ bool checkHardwareConfiguration(A_COMPUTER computer) {
         && checkAllComponentsHaveUniqueLabels(computer)
         && checkAllReuseLabelsExist(computer)
         && checkTotalStorageIsInBounds(computer)
+        && checkAllCachesAreInBounds(computer)
         //&& checkReuseLabels(computer) 
         //&& checkPropertyNumAndType(computer) 
         //&& checkStoragesAndCaches(computer)
@@ -124,7 +134,7 @@ bool checkAllReuseLabelsExist(A_COMPUTER computer){
 }
 
 bool checkTotalStorageIsInBounds(A_COMPUTER computer){
-    // TODO: note that no unit conversion is done since only GiB's are supported.
+    // NB: Note that no unit conversion is done since only GiB's are supported.
     int SIZE_LOWER_BOUND = 0;
     int SIZE_UPPER_BOUND = 8192;
     list[A_COMPONENT_STORAGE] storages = [ getConfigItem(#A_COMPONENT_STORAGE, decl) | decl <- computer.decls, getConfigType(decl) == STORAGE_DECL_TYPE];
@@ -134,6 +144,36 @@ bool checkTotalStorageIsInBounds(A_COMPUTER computer){
         int totalSize = (0 | it + (prop.size) | prop <- storage.props);
         bool sizeInBounds = (totalSize > SIZE_LOWER_BOUND) && (totalSize <= SIZE_UPPER_BOUND);
         allSizesInBounds = allSizesInBounds && sizeInBounds;
+    };
+
+    return allSizesInBounds;
+}
+
+bool checkAllCachesAreInBounds(A_COMPUTER computer){
+    // NB: Note that we need unit conversion since we support KiB and MiB
+    // NB: We take 1 MiB == 1024 KiB
+    int L1_UPPER_BOUND_KIB = 128;
+    int L2_UPPER_BOUND_KIB = 8 * 1024;
+    int L3_UPPER_BOUND_KIB = 32 * 1024;
+
+    list[A_COMPONENT_PROCESSING] processings = [ getConfigItem(#A_COMPONENT_PROCESSING, decl) | decl <- computer.decls, getConfigType(decl) == PROCESSING_DECL_TYPE];
+
+    bool allSizesInBounds = true;
+    for (/A_COMPONENT_PROCESSING processing := processings) {
+        list[CACHE_TUPLE] maybeCacheTuples = [getCacheTuple(prop) | prop <- processing.props];
+        list[CACHE_TUPLE] validCacheTuples = [t | t <- maybeCacheTuples, t[0] == true];
+
+        for (/CACHE_TUPLE t := validCacheTuples){
+            int sizeInKb = getSizeInKb(t);
+            bool sizeInBounds = false;
+            // Depending on the type
+            switch(t[1]){
+                case L1_DECL_TYPE: sizeInBounds = sizeInKb <= L1_UPPER_BOUND_KIB;
+                case L2_DECL_TYPE: sizeInBounds = sizeInKb <= L2_UPPER_BOUND_KIB;
+                case L3_DECL_TYPE: sizeInBounds = sizeInKb <= L3_UPPER_BOUND_KIB;
+            }
+            allSizesInBounds = allSizesInBounds && sizeInBounds;
+        }
     };
 
     return allSizesInBounds;
@@ -165,8 +205,23 @@ str getLabel(A_COMPONENT_CONFIG config){
     }
 }
 
-int getSize(A_PROPERTY_STORAGE prop){
-    return prop.size;
+CACHE_TUPLE getCacheTuple(A_PROPERTY_PROCESSING prop){
+    switch(prop) {
+        case propCores(_): return <false, CORES_DECL_TYPE, -1, "">;
+        case propSpeed(_): return <false, SPEED_DECL_TYPE, -1, "">;
+        case propL1(size, unit): return <true, L1_DECL_TYPE, size, unit>;
+        case propL2(size, unit): return <true, L2_DECL_TYPE, size, unit>;
+        case propL3(size, unit): return <true, L3_DECL_TYPE, size, unit>;
+        default: u_panic("Failed to cache tuple from: <prop>");
+    }
+}
+
+int getSizeInKb(CACHE_TUPLE t){
+    // Contains: 0: cache prop or not, 1: which cache type; 2: size, 3: unit
+    if (t[0] && (t[3] == MIB_UNIT)){
+        return t[2] * 1024;
+    }
+    return t[2];
 }
 
 // Meta helpers

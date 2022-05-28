@@ -111,6 +111,14 @@ str getLabel(A_COMPONENT_CONFIG config){
         default: u_panic("Failed to retrieve label from: <config>");
     }
 }
+
+
+bool checkAllComponentsHaveLabels(A_COMPUTER computer) {
+    //list[str] labels = [""];
+    list[str] labels = [ getLabel(decl) | (decl <- computer.decls)];
+    bool allLabelsOk = (true | it && (size(label) > 0) | str label <- labels);
+    return allLabelsOk;
+}
 //
 //// Check CONFIGURATION label uniqueness
 //bool checkComponentLabels(COMPUTER computer) {

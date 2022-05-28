@@ -70,7 +70,7 @@ start syntax CComponentStorage
 
 start syntax CPropertyStorage
     = propStorage: "storage" 
-               ":" CStorageType type 
+               ":" CStorageType storageType 
                "of" CInteger size 
                CStorageUnit unit
     ;

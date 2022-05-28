@@ -101,6 +101,7 @@ bool checkHardwareConfiguration(A_COMPUTER computer) {
         && checkTotalStorageIsInBounds(computer)
         && checkAllCachesAreInBounds(computer)
         && checkAllCachesAreInOrder(computer)
+        && checkNoDuplicateComponents(computer)
         //&& checkReuseLabels(computer) 
         //&& checkPropertyNumAndType(computer) 
         //&& checkStoragesAndCaches(computer)
@@ -210,6 +211,24 @@ bool checkAllCachesAreInOrder(A_COMPUTER computer){
     return allCachesAreInOrder;
 }
 
+bool checkNoDuplicateComponents(A_COMPUTER computer) {
+    list[A_COMPONENT_CONFIG] configs = [ getAbstractConfigItem(decl) | decl <- computer.decls, getDeclType(decl) == CONFIG_DECL_TYPE];
+
+    list[A_COMPONENT_STORAGE] allStorages = [ getConfigItem(#A_COMPONENT_STORAGE, decl) | decl <- computer.decls, getConfigType(decl) == STORAGE_DECL_TYPE];
+    list[A_COMPONENT_DISPLAY] allDisplays = [ getConfigItem(#A_COMPONENT_DISPLAY, decl) | decl <- computer.decls, getConfigType(decl) == DISPLAY_DECL_TYPE];
+    list[A_COMPONENT_PROCESSING] allProcessings = [ getConfigItem(#A_COMPONENT_PROCESSING, decl) | decl <- computer.decls, getConfigType(decl) == PROCESSING_DECL_TYPE];
+
+    set[set[A_PROPERTY_STORAGE]] uniqueStorages = toSet([toSet(storage.props) | storage <- allStorages ]);
+    set[set[A_PROPERTY_DISPLAY]] uniqueDisplays = toSet([toSet(display.props) | display <- allDisplays ]);
+    set[set[A_PROPERTY_PROCESSING]] uniqueProcessings = toSet([toSet(processing.props) | processing <- allProcessings ]);
+
+    bool zeroDupStorages = size(allStorages) == size(uniqueStorages);
+    bool zeroDupDisplays = size(allDisplays) == size(uniqueDisplays);
+    bool zeroDupProcessings = size(allProcessings) == size(uniqueProcessings);
+
+    return zeroDupStorages && (zeroDupDisplays && zeroDupProcessings);
+}
+
 /*
  * ----- HELPERS -----
  */
@@ -254,6 +273,18 @@ int getSizeInKb(CACHE_TUPLE t){
     return t[2];
 }
 
+tuple[str, set[A_PROPERTY_STORAGE]] getNamelessComponentTuple(A_COMPONENT_STORAGE storage){
+    return <STORAGE_DECL_TYPE, toSet(storage.props)>;
+}
+
+tuple[str, set[A_PROPERTY_DISPLAY]] getNamelessComponentTuple(A_COMPONENT_DISPLAY display){
+    return <DISPLAY_DECL_TYPE, toSet(display.props)>;
+}
+
+tuple[str, set[A_PROPERTY_PROCESSING]] getNamelessComponentTuple(A_COMPONENT_PROCESSING processing){
+    return <PROCESSING_DECL_TYPE, toSet(processing.props)>;
+}
+
 // Meta helpers
 // ~~~~~~~~~~~~
 
@@ -285,7 +316,7 @@ str getConfigType(A_COMPONENT_CONFIG config){
 &T getConfigItem(type[&T] config_type, A_COMPONENT_DECL decl){
     switch(decl) {
         case config(configItem): return getConfigItem(config_type, configItem);
-        default: u_panic("Failed to retrieve decl type from: <decl>");
+        default: u_panic("Failed to retrieve config item from: <decl>");
     }
 }
 
@@ -294,256 +325,13 @@ str getConfigType(A_COMPONENT_CONFIG config){
         case storage(storageItem): return storageItem;
         case display(displayItem): return displayItem;
         case processing(processingItem): return processingItem;
-        default: u_panic("Failed to retrieve label from: <config>");
+        default: u_panic("Failed to retrieve config item from: <config>");
     }
 }
 
-//
-//// Check CONFIGURATION label uniqueness
-//bool checkComponentLabels(COMPUTER computer) {
-//	// CONFIGURATION Component Label list
-//	list[str] labels = getComponentLabels(computer);
-//	
-//	// Report duplicates, if they exist
-//	if (size(labels) - size(dup(labels)) > 0) {
-//		error("duplicate Configuration labels: " + toString(labels - dup(labels)));
-//		return false;
-//	}
-//	
-//	log("-- No duplicate Configuration labels found.");
-//	return true;
-//}
-//
-//// Check all REUSE label exist
-//bool checkReuseLabels(COMPUTER computer) {
-//	
-//	// CONFIGURATION labels list
-//	set[str] labels = toSet(getComponentLabels(computer));
-//	
-//	// Reuse CONFIGURATION labels list
-//	set[str] reuseLabels = toSet(getReuseComponentLabels(computer));
-//	
-//	// Report non-existent TMs
-//	if (size(reuseLabels - labels) > 0) {
-//		error("non-existent Configurations: " + toString(reuseLabels - labels));
-//		return false;
-//	}
-//	
-//	log("-- No non-existent Configuration reused.");
-//	return true;
-//}
-//// Check all components and find if they have correct properties.
-//bool checkPropertyNumAndType(COMPUTER computer) {
-//	for (/CONFIGURATION c := computer.configs) {
-//		switch(c) {
-//			case storage(l,ps): {
-//				if(size(dup(ps)) != 1) {
-//					error("Storage " + c.label + " has an illegal property");
-//					return false;
-//				}
-//				for (/PROPERTY p := c.properties) {
-//					switch(p) {
-//						case storage(str stype, int ssize): {
-//							log("Storage property catched;");
-//						}
-//						default: {
-//							error("Storage " + c.label + " has an illegal property");
-//							return false;
-//						}
-//					}
-//				}
-//					
-//			}
-//			
-//			case processing(l,ps): {
-//				if(size(dup(ps)) != 5) {
-//					error("Processing " + c.label + " has illegal properties");
-//					return false;
-//				}
-//				for (/PROPERTY p := c.properties) {
-//					switch(p) {
-//						case cores(int cores): {
-//							log("Processing cores catched;");
-//						}
-//						case speed(real speed): {
-//							log("Processing speed catched;");
-//						}
-//						case l1(int l1size, str l1mea): {
-//							log("Processing l1 cache catched;");
-//						}
-//						case l2(int l1size, str l1mea): {
-//							log("Processing l2 cache catched;");
-//						}
-//						case l3(int l1size, str l1mea): {
-//							log("Processing l3 cache catched;");
-//						}
-//						default: {
-//							error("Processing " + c.label + " has illegal properties");
-//							return false;
-//						}
-//					}
-//				}
-//			}
-//			
-//			case display(l,ps): {
-//				if(size(dup(ps)) != 2) {
-//					error("Display " + c.label + " has illegal properties");
-//					return false;
-//				}
-//				for (/PROPERTY p := c.properties) {
-//					switch(p) {
-//						case diasize(int dsize): {
-//							log("Display diagonal size catched;");
-//						}
-//						case diatype(str dtype): {
-//							log("Display diagonal type catched;");
-//						}
-//						default: {
-//							error("Display " + c.label + " has illegal properties");
-//							return false;
-//						}
-//					}
-//				}
-//			}
-//			
-//			default:
-//				throw "Unhandled configuration: <c>";
-//		}
-//	}
-//	
-//	log("-- No illegal property number or types found.");
-//	return true;
-//}
-//
-//bool checkStoragesAndCaches(COMPUTER computer) {
-//	//count total storage size
-//	int totalStorage = 0;
-//	
-//	for (/CONFIGURATION c := computer.configs) {
-//		switch(c) {
-//			// Check all Storage size must be greater than zero but less than or equal to 8192 GiB
-//			case storage(l,ps): {
-//				p = head(ps);
-//				if(p.ssize > 1024 || p.ssize < 32) {
-//					error("Storage " + c.label + " has an illegal size");
-//					return false;
-//				}else 
-//					totalStorage += p.ssize;
-//			}
-//			
-//			// Check all Processing Caches: The maximum L1 size is 128 KiB, the maximum L2 size is 8 MiB, the maximum L3 size is 32 MiB; 
-//			// and their sizes must satisfy L1 < L2 < L3.
-//			case processing(l,ps): {
-//				tuple[int, int, int] caches = <0, 0, 0>;
-//				for (/PROPERTY p := c.properties) {
-//					switch(p) {
-//						case l1(int l1size, str l1mea): {
-//							if(p.l1mea != "KiB")
-//								caches[0] = p.l1size * 1024;
-//							else
-//								caches[0] = p.l1size;
-//						}
-//						case l2(int l2size, str l2mea): {
-//							if(p.l2mea != "KiB")
-//								caches[1] = p.l2size * 1024;
-//							else
-//								caches[0] = p.l1size;
-//						}
-//						case l3(int l3size, str l3mea): {
-//							if(p.l3mea != "KiB")
-//								caches[2] = p.l3size * 1024;
-//							else
-//								caches[0] = p.l1size;
-//						}
-//					}
-//				}
-//				//check if this processing caches is correct
-//				if(caches[0] > 128 || caches[1] > 8192 || caches[2] > 32768 || caches[0] < 0) {
-//					error("Processing " + c.label + " has illegal cache size");
-//					return false;
-//				}
-//				if(caches[0] > caches[1] || caches[0] > caches[2] || caches[1] > caches[2]) {
-//					error("Processing " + c.label + " has illegal cache order");
-//					return false;
-//				}
-//			}
-//		}
-//	}
-//		
-//	if(totalStorage > 8192 || totalStorage <= 0) {
-//		error("Computer " + computer.label + " has illegal total storage size");
-//		totalStorage = 0;
-//		return false;
-//	}
-//		
-//	log("-- No illegal storage or cache size found.");
-//	return true;
-//}
-//
-//bool checkProcessings(COMPUTER computer) {
-//	for (/CONFIGURATION c := computer.configs) {
-//		// Get size and label from computer if it is a storage
-//		tuple[str, int, int, int] dup = getProcessingCaches(c);
-//		
-//		//check if this processing caches is correct
-//		if(dup[1] > dup[2] || dup[1] > dup[3] || dup[2] > dup[3]) {
-//			error("Processing " + dup[0] + " has illegal cache order");
-//			return false;
-//		}
-//		if(dup[1] > 128 || dup[2] > 8192 || dup[3] > 32768 || dup[1] < 0) {
-//			error("Processing " + dup[0] + " has illegal cache size");
-//			return false;
-//		}
-//	}
-//	return true;
-//}
-//
-//
-//bool checkDuplicateComponents(COMPUTER computer) {
-//    list[CONFIGURATION] localConfigs = [];
-//    for(/CONFIGURATION c := computer.configs) {
-//        switch(c){
-//            case storage(_,ps):     localConfigs += [storage("",ps)];
-//            case processing(_,ps):  localConfigs += [processing("",ps)];
-//            case display(_,ps):     localConfigs += [display("",ps)];
-//            default:
-//                throw "Unhandled configuration: <c>";
-//        }
-//    }
-//    int nrDups = size(computer.configs) - size(dup(localConfigs));
-//    if (nrDups == 0) {
-//        log("-- <toString(nrDups)> duplicate configurations found.");
-//        return true;
-//    };
-//    error("Found <toString(nrDups)> duplicate configurations.");
-//    return false;
-//}
-//
-///* 
-// * ----- HELPER -----
-// */
-// 
-//
-//// Get CONFIGURATION labels
-//list[str] getComponentLabels(COMPUTER computer) {
-//	list[str] labels = [];
-//	for (/CONFIGURATION co := computer.configs) {
-//		labels = labels + co.label;
-//	}
-//	return labels;
-//}
-//
-//// Get Reuse CONFIGURATION labels
-//list[str] getReuseComponentLabels(COMPUTER computer) {
-//	list[str] labels = [];
-//	switch(computer) {
-//		case computer(str label, list[CONFIGURATION] configs, list[REUSE] reuses): {
-//			for (/REUSE re := computer.reuses) {
-//				labels = labels + re.label;
-//			}
-//			return labels;
-//		}
-//		case computerW(str label, list[CONFIGURATION] configs):
-//			return labels;
-//	}
-//}
+A_COMPONENT_CONFIG getAbstractConfigItem(A_COMPONENT_DECL decl){
+    switch(decl) {
+        case config(configItem): return configItem;
+        default: u_panic("Failed to retrieve abstract config from: <decl>");
+    }
+}

@@ -19,16 +19,25 @@ A_COMPUTER loadAst(start[CComputer] sf) {
 }
 
 A_COMPUTER cst2ast(CComputer c){
-    return A_COMPUTER::computer("<c.label>", []);
+    decls = [cst2ast(cdecl) | (CComponentDecl cdecl <- c.decls) ];
+    return A_COMPUTER::computer("<c.label>", decls);
 }
 
-// TODO: implement
-//A_COMPONENT_DECL cst2ast(CComponentDecl cd){
-//    // TODO: write a switch statement for pattern matching
-//}
+ //TODO: implement
+A_COMPONENT_DECL cst2ast(CComponentDecl cd){
+    switch(cd) {
+        case (CComponentDecl)`<CComponentConfig item>`:
+            return A_COMPONENT_DECL::config(A_COMPONENT_CONFIG::storage(A_COMPONENT_STORAGE::body("", [])));
+        case (CComponentDecl)`<CComponentReuse item>`:
+            return A_COMPONENT_DECL::reuse(A_COMPONENT_REUSE::body(""));
+        default:
+          throw "Unhandled concrete element: <cd>";
+    }
+    // TODO: write a switch statement for pattern matching
+}
 
 //
-//// Transforms a computer to a series of configurations and reuseComponents
+//// Transforms a computer to a series of configurations and CComponentReusereuseComponents
 //COMPUTER cst2ast(start[Computer] sf) {
 //	Computer c = sf.top;
 //	switch(c) {

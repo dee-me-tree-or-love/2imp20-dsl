@@ -46,7 +46,7 @@ lexical CPropertyTag = "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" ;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 start syntax CComputer
-    = computer : "computer" CId label "{" { CComponentDecl "," }+ configs "}"
+    = computer : "computer" CId label "{" { CComponentDecl "," }+ decls "}"
     ;
 
 start syntax CComponentDecl

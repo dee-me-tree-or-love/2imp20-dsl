@@ -23,6 +23,10 @@ import util::Math;
 * Define a function per each verification defined in the PDF (Section 3.2.)
 */
 
+/*
+ * ----- SIMPLIFIERS -----
+ */
+
 // Utility functions
 // ~~~~~~~~~~~~~~~~~
 
@@ -46,9 +50,11 @@ void u_panic(str msg){
     throw msg;
 }
 
-// Check functions
-// ~~~~~~~~~~~~~~~
+// Constants
+// ~~~~~~~~~
 
+str CONFIG_DECL_TYPE = "config";
+str REUSE_DECL_TYPE = "reuse";
 
 /*
  * ----- MAIN -----
@@ -66,16 +72,17 @@ void u_panic(str msg){
 //9. Language supports positive integers and reals
 
 bool checkHardwareConfiguration(A_COMPUTER computer) {
-	log("-- CHECKING COMPUTER --");
-	// TODO: technincal debt
-	//         For more flexible error checking, we could
-	//         decide to return a data structure containing the result and "potential" error
-	//         say a tuple[bool, str].
-	//         Then we could collect all the results and have more
-	//         control over error message reporting.
-	//         However, for the current scope we decided to go with
-	//         a simpler solution.
-	return checkAllComponentsHaveLabels(computer)
+    log("-- CHECKING COMPUTER --");
+    // TODO: technincal debt
+    //         For more flexible error checking, we could
+    //         decide to return a data structure containing the result and "potential" error
+    //         say a tuple[bool, str].
+    //         Then we could collect all the results and have more
+    //         control over error message reporting.
+    //         However, for the current scope we decided to go with
+    //         a simpler solution.
+    return checkAllComponentsHaveLabels(computer)
+        && checkAllComponentsHaveUniqueLabels(computer)
         //&& checkReuseLabels(computer) 
         //&& checkPropertyNumAndType(computer) 
         //&& checkStoragesAndCaches(computer)
@@ -88,13 +95,22 @@ bool checkHardwareConfiguration(A_COMPUTER computer) {
  */
 
 bool checkAllComponentsHaveLabels(A_COMPUTER computer) {
-    //list[str] labels = [""];
     list[str] labels = [ getLabel(decl) | (decl <- computer.decls)];
     bool allLabelsOk = (true | it && (size(label) > 0) | str label <- labels);
     return allLabelsOk;
 }
 
-// TODO: move to helpers
+bool checkAllComponentsHaveUniqueLabels(A_COMPUTER computer) {
+    list[str] labels = [ getLabel(decl) | decl <- computer.decls, getDeclType(decl) == CONFIG_DECL_TYPE];
+    bool allLabelsOk = (true | it && (size(label) > 0) | str label <- labels);
+    return allLabelsOk;
+}
+
+
+/*
+ * ----- HELPERS -----
+ */
+
 str getLabel(A_COMPONENT_DECL decl){
     switch(decl) {
         case config(configItem): return getLabel(configItem);
@@ -112,13 +128,15 @@ str getLabel(A_COMPONENT_CONFIG config){
     }
 }
 
+str getDeclType(A_COMPONENT_DECL decl){
+    switch(decl) {
+        case config(configItem): return CONFIG_DECL_TYPE;
+        case reuse(reuseItem): return REUSE_DECL_TYPE;
+        default: u_panic("Failed to retrieve decl type from: <decl>");
+    }
 
-bool checkAllComponentsHaveLabels(A_COMPUTER computer) {
-    //list[str] labels = [""];
-    list[str] labels = [ getLabel(decl) | (decl <- computer.decls)];
-    bool allLabelsOk = (true | it && (size(label) > 0) | str label <- labels);
-    return allLabelsOk;
 }
+
 //
 //// Check CONFIGURATION label uniqueness
 //bool checkComponentLabels(COMPUTER computer) {

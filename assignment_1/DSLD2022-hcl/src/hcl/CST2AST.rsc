@@ -55,15 +55,15 @@ A_COMPONENT_CONFIG cst2ast(CComponentConfig citem) {
 
 
 A_COMPONENT_STORAGE cst2ast(CComponentStorage citem){
-    return A_COMPONENT_STORAGE::body("", []);
+    return A_COMPONENT_STORAGE::body("<citem.label>", []);
 }
 
 A_COMPONENT_DISPLAY cst2ast(CComponentDisplay citem){
-    return A_COMPONENT_DISPLAY::body("", []);
+    return A_COMPONENT_DISPLAY::body("<citem.label>", []);
 }
 
 A_COMPONENT_PROCESSING cst2ast(CComponentProcessing citem){
-    return A_COMPONENT_PROCESSING::body("", []);
+    return A_COMPONENT_PROCESSING::body("<citem.label>", []);
 }
 //
 //// Transforms a computer to a series of configurations and CComponentReusereuseComponents

@@ -59,9 +59,9 @@ start syntax CComponentReuse
     ;
 
 start syntax CComponentConfig
-    = storage: CComponentStorage
-    | display: CComponentDisplay
-    | processing: CComponentProcessing
+    = storage: CComponentStorage item
+    | display: CComponentDisplay item
+    | processing: CComponentProcessing item
     ;
 
 start syntax CComponentStorage

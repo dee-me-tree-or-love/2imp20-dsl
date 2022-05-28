@@ -36,14 +36,35 @@ A_COMPONENT_DECL cst2ast(CComponentDecl cd){
     // TODO: write a switch statement for pattern matching
 }
 
-A_COMPONENT_CONFIG cst2ast(CComponentConfig citem) {
-    return A_COMPONENT_CONFIG::storage(A_COMPONENT_STORAGE::body("", []));
-}
-
 A_COMPONENT_REUSE cst2ast(CComponentReuse ritem) {
     return A_COMPONENT_REUSE::body("");
 }
 
+A_COMPONENT_CONFIG cst2ast(CComponentConfig citem) {
+    switch(citem) {
+        case (CComponentConfig)`<CComponentStorage item>`:
+            return A_COMPONENT_CONFIG::storage(cst2ast(item));
+        case (CComponentConfig)`<CComponentDisplay item>`:
+            return A_COMPONENT_CONFIG::display(cst2ast(item));
+        case (CComponentConfig)`<CComponentProcessing item>`:
+            return A_COMPONENT_CONFIG::processing(cst2ast(item));
+        default:
+          throw "Unhandled concrete element: <citem>";
+    }
+}
+
+
+A_COMPONENT_STORAGE cst2ast(CComponentStorage citem){
+    return A_COMPONENT_STORAGE::body("", []);
+}
+
+A_COMPONENT_DISPLAY cst2ast(CComponentDisplay citem){
+    return A_COMPONENT_DISPLAY::body("", []);
+}
+
+A_COMPONENT_PROCESSING cst2ast(CComponentProcessing citem){
+    return A_COMPONENT_PROCESSING::body("", []);
+}
 //
 //// Transforms a computer to a series of configurations and CComponentReusereuseComponents
 //COMPUTER cst2ast(start[Computer] sf) {

@@ -39,6 +39,6 @@ void main() {
     c = parseResult;
     astResult = loadAst(c);
     ac = astResult;
-
-    //checkWellformedness(dir);
+    checkResult = checkHardwareConfiguration(ac);
+    okc = checkResult;
 }

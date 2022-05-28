@@ -46,7 +46,7 @@ lexical CPropertyTag = "speed" | "cores" | "L1" | "L2" | "L3" | "diagonal" ;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 start syntax CComputer
-    = computer : "computer" CId label "{" { CComponentDecl "," }+ decls "}"
+    = computer : "computer" CId label "{" { CComponentDecl "," }* decls "}"
     ;
 
 start syntax CComponentDecl
@@ -65,7 +65,7 @@ start syntax CComponentConfig
     ;
 
 start syntax CComponentStorage
-    = body: "storage" CId label "{" { CPropertyStorage "," }* props "}"
+    = body: "storage" CId label "{" { CPropertyStorage "," }+ props "}"
     ;
 
 start syntax CPropertyStorage
@@ -76,7 +76,7 @@ start syntax CPropertyStorage
     ;
 
 start syntax CComponentDisplay
-    = body: "display" CId label "{" { CPropertyDisplay "," }* props "}"
+    = body: "display" CId label "{" { CPropertyDisplay "," }+ props "}"
     ;
 
 start syntax CPropertyDisplay
@@ -85,7 +85,7 @@ start syntax CPropertyDisplay
     ;
     
 start syntax CComponentProcessing
-    = body: "processing" CId label "{" { CPropertyProcessing "," }* props "}"
+    = body: "processing" CId label "{" { CPropertyProcessing "," }+ props "}"
     ;
 
 start syntax CPropertyProcessing

@@ -61,14 +61,15 @@ str REUSE_DECL_TYPE = "reuse";
  */
 
 //TODO:
-//1. all components must have labels
-//2. all component labels are unique
+//1. all components must have labels --> DONE; checkAllDeclarationsHaveLabels
+//2. all component labels are unique --> DONE; checkAllComponentsHaveUniqueLabels
+//2+. all reuse labels exist --> DONE; checkAllReuseLabelsExist
 //3. total storage size is >0 and <=8192 GB
 //4. max L1 size = 128 KiB
 //5. max L2 size = 8 MiB
 //6. max L3 size = 32 MiB
 //7. L1 < L2 < L3
-//8. Display type is valid --> (DONE, handled by Parsing)
+//8. Display type is valid --> DONE; handled by Parsing
 //9. Language supports positive integers and reals
 
 bool checkHardwareConfiguration(A_COMPUTER computer) {
@@ -81,8 +82,9 @@ bool checkHardwareConfiguration(A_COMPUTER computer) {
     //         control over error message reporting.
     //         However, for the current scope we decided to go with
     //         a simpler solution.
-    return checkAllComponentsHaveLabels(computer)
+    return checkAllDeclarationsHaveLabels(computer)
         && checkAllComponentsHaveUniqueLabels(computer)
+        && checkAllReuseLabelsExist(computer)
         //&& checkReuseLabels(computer) 
         //&& checkPropertyNumAndType(computer) 
         //&& checkStoragesAndCaches(computer)
@@ -93,8 +95,9 @@ bool checkHardwareConfiguration(A_COMPUTER computer) {
 /*
  * ----- CHECKERS -----
  */
+// TODO: we need to still add error reporting
 
-bool checkAllComponentsHaveLabels(A_COMPUTER computer) {
+bool checkAllDeclarationsHaveLabels(A_COMPUTER computer) {
     list[str] labels = [ getLabel(decl) | (decl <- computer.decls)];
     bool allLabelsOk = (true | it && (size(label) > 0) | str label <- labels);
     return allLabelsOk;
@@ -104,6 +107,16 @@ bool checkAllComponentsHaveUniqueLabels(A_COMPUTER computer) {
     list[str] labels = [ getLabel(decl) | decl <- computer.decls, getDeclType(decl) == CONFIG_DECL_TYPE];
     bool allLabelsOk = (true | it && (size(label) > 0) | str label <- labels);
     return allLabelsOk;
+}
+
+bool checkAllReuseLabelsExist(A_COMPUTER computer){
+    set[str] componentLabels = toSet([ getLabel(decl) | decl <- computer.decls, getDeclType(decl) == CONFIG_DECL_TYPE]);
+    set[str] reuseLabels = toSet([ getLabel(decl) | decl <- computer.decls, getDeclType(decl) == REUSE_DECL_TYPE]);
+    // we take an intersection to compare
+    set[str] labelsOfBoth = reuseLabels & componentLabels;
+    // all the labels from reuse exist if they are all the labels appearing in both 
+    bool allLabelsExist = labelsOfBoth == reuseLabels;
+    return allLabelsExist;
 }
 
 

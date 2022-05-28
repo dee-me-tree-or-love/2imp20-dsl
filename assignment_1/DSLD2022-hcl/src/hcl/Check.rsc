@@ -55,6 +55,9 @@ void u_panic(str msg){
 
 str CONFIG_DECL_TYPE = "config";
 str REUSE_DECL_TYPE = "reuse";
+str STORAGE_DECL_TYPE = "storage";
+str DISPLAY_DECL_TYPE = "display";
+str PROCESSING_DECL_TYPE = "processing";
 
 /*
  * ----- MAIN -----
@@ -85,6 +88,7 @@ bool checkHardwareConfiguration(A_COMPUTER computer) {
     return checkAllDeclarationsHaveLabels(computer)
         && checkAllComponentsHaveUniqueLabels(computer)
         && checkAllReuseLabelsExist(computer)
+        && checkTotalStorageIsInBounds(computer)
         //&& checkReuseLabels(computer) 
         //&& checkPropertyNumAndType(computer) 
         //&& checkStoragesAndCaches(computer)
@@ -119,10 +123,30 @@ bool checkAllReuseLabelsExist(A_COMPUTER computer){
     return allLabelsExist;
 }
 
+bool checkTotalStorageIsInBounds(A_COMPUTER computer){
+    // TODO: note that no unit conversion is done since only GiB's are supported.
+    int SIZE_LOWER_BOUND = 0;
+    int SIZE_UPPER_BOUND = 8192;
+    list[A_COMPONENT_STORAGE] storages = [ getConfigItem(#A_COMPONENT_STORAGE, decl) | decl <- computer.decls, getConfigType(decl) == STORAGE_DECL_TYPE];
+
+    bool allSizesInBounds = true;
+    for (/A_COMPONENT_STORAGE storage := storages) {
+        int totalSize = (0 | it + (prop.size) | prop <- storage.props);
+        bool sizeInBounds = (totalSize > SIZE_LOWER_BOUND) && (totalSize <= SIZE_UPPER_BOUND);
+        allSizesInBounds = allSizesInBounds && sizeInBounds;
+    };
+
+    return allSizesInBounds;
+}
+
 
 /*
  * ----- HELPERS -----
  */
+
+
+// Attribute helpers
+// ~~~~~~~~~~~~~~~~~
 
 str getLabel(A_COMPONENT_DECL decl){
     switch(decl) {
@@ -141,13 +165,52 @@ str getLabel(A_COMPONENT_CONFIG config){
     }
 }
 
+int getSize(A_PROPERTY_STORAGE prop){
+    return prop.size;
+}
+
+// Meta helpers
+// ~~~~~~~~~~~~
+
 str getDeclType(A_COMPONENT_DECL decl){
     switch(decl) {
         case config(configItem): return CONFIG_DECL_TYPE;
         case reuse(reuseItem): return REUSE_DECL_TYPE;
         default: u_panic("Failed to retrieve decl type from: <decl>");
     }
+}
 
+str getConfigType(A_COMPONENT_DECL decl){
+    switch(decl) {
+        case config(configItem): return getConfigType(configItem);
+        case reuse(reuseItem): return REUSE_DECL_TYPE;
+        default: u_panic("Failed to retrieve config type from: <decl>");
+    }
+}
+
+str getConfigType(A_COMPONENT_CONFIG config){
+    switch(config) {
+        case storage(storageItem): return STORAGE_DECL_TYPE;
+        case display(displayItem): return DISPLAY_DECL_TYPE;
+        case processing(processingItem): return PROCESSING_DECL_TYPE;
+        default: u_panic("Failed to retrieve config type from: <config>");
+    }
+}
+
+&T getConfigItem(type[&T] config_type, A_COMPONENT_DECL decl){
+    switch(decl) {
+        case config(configItem): return getConfigItem(config_type, configItem);
+        default: u_panic("Failed to retrieve decl type from: <decl>");
+    }
+}
+
+&T getConfigItem(type[&T] config_type, A_COMPONENT_CONFIG config){
+    switch(config) {
+        case storage(storageItem): return storageItem;
+        case display(displayItem): return displayItem;
+        case processing(processingItem): return processingItem;
+        default: u_panic("Failed to retrieve label from: <config>");
+    }
 }
 
 //

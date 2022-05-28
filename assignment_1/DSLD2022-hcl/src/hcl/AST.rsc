@@ -30,7 +30,7 @@ public data A_COMPONENT_STORAGE
     ;
 
 public data A_PROPERTY_STORAGE
-    = propStorage(str label, int size, str unit)
+    = propStorage(str storageType, int size, str unit)
     ;
 
 public data A_COMPONENT_DISPLAY

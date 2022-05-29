@@ -149,7 +149,7 @@ bool checkAllReuseLabelsExist(A_COMPUTER computer){
     bool allLabelsExist = labelsOfBoth == reuseLabels;
 
     if (allLabelsExist) {
-        log("All labels exist");
+        log("All reuse labels exist");
     }else{
         error("Some labels do not exist: <reuseLabels> should reuse <componentLabels>");
     };
@@ -177,9 +177,9 @@ bool checkEveryStoragePropertyIsInBounds(A_COMPUTER computer){
     };
 
     if (everySizeInBounds) {
-        log("All storage sizes are okay");
+        log("All storage property sizes are in bound <SIZE_LOWER_BOUND> to <SIZE_UPPER_BOUND>");
     }else{
-        error("Some storage sizes are not in bound: <componentErrorSizes>");
+        error("Some storage property sizes are not in bound <SIZE_LOWER_BOUND> to <SIZE_UPPER_BOUND>: <componentErrorSizes>");
     };
     return everySizeInBounds;
 }
@@ -188,20 +188,28 @@ bool checkTotalStorageIsInBounds(A_COMPUTER computer){
     // NB: Note that no unit conversion is done since only GiB's are supported.
     int SIZE_LOWER_BOUND = 0;
     int SIZE_UPPER_BOUND = 8192;
-    list[A_COMPONENT_STORAGE] storages = [ getConfigItem(#A_COMPONENT_STORAGE, decl) | decl <- computer.decls, getConfigType(decl) == STORAGE_DECL_TYPE];
+    list[A_COMPONENT_STORAGE] storages = [getConfigItem(#A_COMPONENT_STORAGE, decl) | decl <- computer.decls, getConfigType(decl) == STORAGE_DECL_TYPE];
+    list[str] reuseLabels = [ getLabel(decl) | decl <- computer.decls, getDeclType(decl) == REUSE_DECL_TYPE];
 
-    bool allSizesInBounds = true;
-    for (/A_COMPONENT_STORAGE storage := storages) {
-        int totalSize = (0 | it + (prop.size) | prop <- storage.props);
-        bool sizeInBounds = (totalSize > SIZE_LOWER_BOUND) && (totalSize <= SIZE_UPPER_BOUND);
-        allSizesInBounds = allSizesInBounds && sizeInBounds;
-    };
+    // TODO: make a map of storage componets with their total sizes key is label and total size as value
+    // Then collect all reuses and compare label of reuse with the storage
+    // For every matching case, add it to the total size
+    list[tuple[str, int]] storageTotalSizes = [
+        <storage.label, (0 | it + (prop.size) | prop <- storage.props)> | storage <- storages
+    ];
+    map[str, int] storageTotalSizeMap = (t[0] : t[1] | t <- storageTotalSizes);
+    list[str] storageReuseLabels = [l | l <- reuseLabels, l in storageTotalSizeMap];
 
+    // Compute both contributions of the storage declarations and their reuses
+    int totalSize = (0 | it + t[1] | t <- storageTotalSizes);
+    totalSize = (totalSize | it + storageTotalSizeMap[l] | l <- storageReuseLabels);
+
+    bool allSizesInBounds = (totalSize > SIZE_LOWER_BOUND) && (totalSize <= SIZE_UPPER_BOUND);
 
     if (allSizesInBounds) {
-        log("All storage sizes are okay");
+        log("Total storage size is in bound <SIZE_LOWER_BOUND> to <SIZE_UPPER_BOUND>");
     }else{
-        error("Some storage sizes are not in bound: ");
+        error("Total storage size is not in bound <SIZE_LOWER_BOUND> to <SIZE_UPPER_BOUND>: <storageTotalSizes> with reuses <storageReuseLabels>");
     };
     return allSizesInBounds;
 }
@@ -233,6 +241,11 @@ bool checkAllCachesAreInBounds(A_COMPUTER computer){
         }
     };
 
+    if (allSizesInBounds) {
+        log("All cache sizes are okay");
+    }else{
+        error("Some cache sizes are not in bound: ");
+    };
     return allSizesInBounds;
 }
 
@@ -262,6 +275,11 @@ bool checkAllCachesAreInOrder(A_COMPUTER computer){
         };
     };
 
+    if (allCachesAreInOrder) {
+        log("All cache sizes are in order");
+    }else{
+        error("Some cache sizes are not in order: ");
+    };
     return allCachesAreInOrder;
 }
 
@@ -272,6 +290,12 @@ bool checkNoDuplicateComponents(A_COMPUTER computer) {
     list[A_COMPONENT_DISPLAY] allDisplays = [ getConfigItem(#A_COMPONENT_DISPLAY, decl) | decl <- computer.decls, getConfigType(decl) == DISPLAY_DECL_TYPE];
     list[A_COMPONENT_PROCESSING] allProcessings = [ getConfigItem(#A_COMPONENT_PROCESSING, decl) | decl <- computer.decls, getConfigType(decl) == PROCESSING_DECL_TYPE];
 
+    // TODO: tech debt
+    //      We would like to use a `toBag` function here, but Rascal does not supoport it:
+    //      > "... (bags are not yet implemented)."
+    //      https://tutor.rascal-mpl.org/Rascal/Statements/Statements.html#/Rascal/Libraries/Prelude/Type/isBagType/isBagType.html
+    //      So for now we do not support declaration of duplicate properties.
+    //      E.g. a storage with twice defined `storage: HDD of 1024 GiB` property will be invalid.
     set[set[A_PROPERTY_STORAGE]] uniqueStorages = toSet([toSet(storage.props) | storage <- allStorages ]);
     set[set[A_PROPERTY_DISPLAY]] uniqueDisplays = toSet([toSet(display.props) | display <- allDisplays ]);
     set[set[A_PROPERTY_PROCESSING]] uniqueProcessings = toSet([toSet(processing.props) | processing <- allProcessings ]);
@@ -280,7 +304,14 @@ bool checkNoDuplicateComponents(A_COMPUTER computer) {
     bool zeroDupDisplays = size(allDisplays) == size(uniqueDisplays);
     bool zeroDupProcessings = size(allProcessings) == size(uniqueProcessings);
 
-    return zeroDupStorages && (zeroDupDisplays && zeroDupProcessings);
+    bool zeroDuplicateComponents = zeroDupStorages && (zeroDupDisplays && zeroDupProcessings);
+
+    if (zeroDuplicateComponents) {
+        log("All components are uniquely configured");
+    }else{
+        error("Some components are duplicate: ");
+    };
+    return zeroDuplicateComponents;
 }
 
 /*

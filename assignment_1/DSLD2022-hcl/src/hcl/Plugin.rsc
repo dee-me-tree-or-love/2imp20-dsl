@@ -39,7 +39,10 @@ void runTestExamples(){
         <|project://DSLD2022-hcl/samples/ex.hcl|, true>,
         <|project://DSLD2022-hcl/samples/ex_duplicate_labels.hcl|, false>,
         <|project://DSLD2022-hcl/samples/ex_non_existent_reuses.hcl|, false>,
-        <|project://DSLD2022-hcl/samples/parse_storageWithExcessSize.hcl|, false>
+        <|project://DSLD2022-hcl/samples/parse_storageWithExcessSize.hcl|, false>,
+        <|project://DSLD2022-hcl/samples/parse_storageWithExcessTotalSize.hcl|, false>
+        
+        
     ];
 
     // Test that checkWellformedness(...) returns what is expected

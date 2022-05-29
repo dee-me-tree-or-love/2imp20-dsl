@@ -38,6 +38,8 @@ void runTestExamples(){
         // TODO: make consistent names.
         // OK parsing and well-formed
         <|project://DSLD2022-hcl/samples/ex.hcl|, true>,
+        <|project://DSLD2022-hcl/samples/syntax_processingOrder.hcl|, true>,
+        <|project://DSLD2022-hcl/samples/syntax_withOutReuse.hcl|, true>,
         // OK parsing and but not well-formed
         <|project://DSLD2022-hcl/samples/ex_duplicate_labels.hcl|, false>,
         <|project://DSLD2022-hcl/samples/ex_non_existent_reuses.hcl|, false>,
@@ -45,13 +47,11 @@ void runTestExamples(){
         <|project://DSLD2022-hcl/samples/parse_storageWithExcessTotalSize.hcl|, false>,
         <|project://DSLD2022-hcl/samples/parse_processingWithWrongCacheSize.hcl|, false>,
         <|project://DSLD2022-hcl/samples/parse_processingWithWrongCacheSizeOrder.hcl|, false>,
-        <|project://DSLD2022-hcl/samples/parse_duplicateConfigurations.hcl|, false>
+        <|project://DSLD2022-hcl/samples/parse_duplicateConfigurations.hcl|, false>,
         // NOT ok parsing
-        //<|project://DSLD2022-hcl/samples/syntax_componentsNamedByKeywords.hcl|, false>,
-        //<|project://DSLD2022-hcl/samples/syntax_componentsWithoutLabel.hcl|, false>,
-        //<|project://DSLD2022-hcl/samples/syntax_displayWithInnvalidType.hcl|, false>,
-        //<|project://DSLD2022-hcl/samples/syntax_processingOrder.hcl|, false>,
-        //<|project://DSLD2022-hcl/samples/syntax_withOutReuse.hcl|, false>
+        <|project://DSLD2022-hcl/samples/syntax_componentsNamedByKeywords.hcl|, false>,
+        <|project://DSLD2022-hcl/samples/syntax_componentsWithoutLabel.hcl|, false>,
+        <|project://DSLD2022-hcl/samples/syntax_displayWithInnvalidType.hcl|, false>
     ];
 
     // Test that checkWellformedness(...) returns what is expected

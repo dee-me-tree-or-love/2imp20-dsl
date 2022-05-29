@@ -11,7 +11,7 @@ computer my_computer {
 	   diagonal: 30 inch,
 	   type: 5K
 	},
-    -- first use of my_display
+    -- second use of my_display
     display my_display {
        diagonal: 32 inch,
        type: 4K

@@ -36,7 +36,8 @@ bool checkWellformedness(loc path) {
 void runTestExamples(){
     list[tuple[loc, bool]] pathExpectations = [
         <|project://DSLD2022-hcl/samples/ex.hcl|, true>,
-        <|project://DSLD2022-hcl/samples/ex_duplicate_labels.hcl|, false>
+        <|project://DSLD2022-hcl/samples/ex_duplicate_labels.hcl|, false>,
+        <|project://DSLD2022-hcl/samples/ex_non_existent_reuses.hcl|, false>
     ];
 
     // Test that checkWellformedness(...) returns what is expected

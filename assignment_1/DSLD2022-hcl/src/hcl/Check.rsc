@@ -74,7 +74,7 @@ alias CACHE_TUPLE = tuple[bool, str, int, str];
  */
 
 //TODO:
-//1. all components must have labels --> DONE; checkAllDeclarationsHaveLabels
+//1. all components must have labels --> DONE; by Parsing + checkAllDeclarationsHaveLabels
 //2. all component labels are unique --> DONE; checkAllComponentsHaveUniqueLabels
 //2+. all reuse labels exist --> DONE; checkAllReuseLabelsExist
 //3. total storage size is >0 and <=8192 GB --> DONE; checkTotalStorageIsInBounds

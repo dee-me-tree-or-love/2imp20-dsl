@@ -128,7 +128,7 @@ bool checkAllDeclarationsHaveLabels(A_COMPUTER computer) {
 bool checkAllComponentsHaveUniqueLabels(A_COMPUTER computer) {
     list[str] labels = [ getLabel(decl) | decl <- computer.decls, getDeclType(decl) == CONFIG_DECL_TYPE];
     bool allLabelsOk = (size(labels) - size(dup(labels)) == 0);
-    
+
     if (allLabelsOk) {
         log("All labels are okay");
     }else{
@@ -144,6 +144,12 @@ bool checkAllReuseLabelsExist(A_COMPUTER computer){
     set[str] labelsOfBoth = reuseLabels & componentLabels;
     // all the labels from reuse exist if they are all the labels appearing in both 
     bool allLabelsExist = labelsOfBoth == reuseLabels;
+
+    if (allLabelsExist) {
+        log("All labels exist");
+    }else{
+        error("Some labels do not exist: <reuseLabels> should reuse <componentLabels>");
+    };
     return allLabelsExist;
 }
 

@@ -6,6 +6,7 @@ import Prelude;
 import IO;
 import Message;
 import Map;
+import Node;
 import util::Math;
 /*
  * -Implement a well-formedness checker for the HCL language. For this you must use the AST. 
@@ -77,14 +78,15 @@ alias CACHE_TUPLE = tuple[bool, str, int, str];
 //1. all components must have labels --> DONE; by Parsing + checkAllDeclarationsHaveLabels
 //2. all component labels are unique --> DONE; checkAllComponentsHaveUniqueLabels
 //2+. all reuse labels exist --> DONE; checkAllReuseLabelsExist
-//3. total storage size is >0 and <=8192 GB --> DONE; checkTotalStorageIsInBounds
-//4. max L1 size = 128 KiB --> DONE; checkAllCachesAreInBounds
-//5. max L2 size = 8 MiB --> DONE; checkAllCachesAreInBounds
-//6. max L3 size = 32 MiB --> DONE; checkAllCachesAreInBounds
-//7. L1 < L2 < L3 --> DONE; checkAllCachesAreInOrder
-//8. Display type is valid --> DONE; handled by Parsing
-//9. No duplicate components with same configs but different labels --> DONE; 
-//10. Language supports positive integers and reals --> Done; handled by parsing
+//3. every storage property is >32 and <=1024 GB --> DONE; checkEveryStoragePropertyIsInBounds
+//4. total storage size is >0 and <=8192 GB --> DONE; checkTotalStorageIsInBounds
+//5. max L1 size = 128 KiB --> DONE; checkAllCachesAreInBounds
+//6. max L2 size = 8 MiB --> DONE; checkAllCachesAreInBounds
+//7. max L3 size = 32 MiB --> DONE; checkAllCachesAreInBounds
+//8. L1 < L2 < L3 --> DONE; checkAllCachesAreInOrder
+//9. Display type is valid --> DONE; handled by Parsing
+//10. No duplicate components with same configs but different labels --> DONE; 
+//11. Language supports positive integers and reals --> Done; handled by parsing
 
 bool checkHardwareConfiguration(A_COMPUTER computer) {
     log("-- CHECKING COMPUTER --");
@@ -99,6 +101,7 @@ bool checkHardwareConfiguration(A_COMPUTER computer) {
     return checkAllDeclarationsHaveLabels(computer)
         && checkAllComponentsHaveUniqueLabels(computer)
         && checkAllReuseLabelsExist(computer)
+        && checkEveryStoragePropertyIsInBounds(computer)
         && checkTotalStorageIsInBounds(computer)
         && checkAllCachesAreInBounds(computer)
         && checkAllCachesAreInOrder(computer)
@@ -132,7 +135,7 @@ bool checkAllComponentsHaveUniqueLabels(A_COMPUTER computer) {
     if (allLabelsOk) {
         log("All labels are okay");
     }else{
-        error("Some labels are not okay: <labels>");
+        error("Some labels are not okay, check for duplicates: <labels>");
     };
     return allLabelsOk;
 }
@@ -153,6 +156,34 @@ bool checkAllReuseLabelsExist(A_COMPUTER computer){
     return allLabelsExist;
 }
 
+// TODO: try adding the location of the error?
+bool checkEveryStoragePropertyIsInBounds(A_COMPUTER computer){
+    // NB: Note that no unit conversion is done since only GiB's are supported.
+    int SIZE_LOWER_BOUND = 32;
+    int SIZE_UPPER_BOUND = 1024;
+    list[A_COMPONENT_STORAGE] storages = [ getConfigItem(#A_COMPONENT_STORAGE, decl) | decl <- computer.decls, getConfigType(decl) == STORAGE_DECL_TYPE];
+
+    // collect all error locations separately
+    list[A_COMPONENT_STORAGE] componentErrorSizes = [];
+    bool everySizeInBounds = true;
+    for (/A_COMPONENT_STORAGE storage := storages) {
+        list[int] sizes = [prop.size |  prop <- storage.props];
+        list[bool] sizesInBounds = [(s > SIZE_LOWER_BOUND) && (s <= SIZE_UPPER_BOUND) | s <- sizes];
+        bool allSizesInBounds = (true | it && b | b <- sizesInBounds);
+        if (!allSizesInBounds) {
+            componentErrorSizes += [storage];
+        };
+        everySizeInBounds = everySizeInBounds && allSizesInBounds;
+    };
+
+    if (everySizeInBounds) {
+        log("All storage sizes are okay");
+    }else{
+        error("Some storage sizes are not in bound: <componentErrorSizes>");
+    };
+    return everySizeInBounds;
+}
+
 bool checkTotalStorageIsInBounds(A_COMPUTER computer){
     // NB: Note that no unit conversion is done since only GiB's are supported.
     int SIZE_LOWER_BOUND = 0;
@@ -166,6 +197,12 @@ bool checkTotalStorageIsInBounds(A_COMPUTER computer){
         allSizesInBounds = allSizesInBounds && sizeInBounds;
     };
 
+
+    if (allSizesInBounds) {
+        log("All storage sizes are okay");
+    }else{
+        error("Some storage sizes are not in bound: ");
+    };
     return allSizesInBounds;
 }
 

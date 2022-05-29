@@ -35,9 +35,11 @@ bool checkWellformedness(loc path) {
 
 void runTestExamples(){
     list[tuple[loc, bool]] pathExpectations = [
+        // TODO: make consistent names.
         <|project://DSLD2022-hcl/samples/ex.hcl|, true>,
         <|project://DSLD2022-hcl/samples/ex_duplicate_labels.hcl|, false>,
-        <|project://DSLD2022-hcl/samples/ex_non_existent_reuses.hcl|, false>
+        <|project://DSLD2022-hcl/samples/ex_non_existent_reuses.hcl|, false>,
+        <|project://DSLD2022-hcl/samples/parse_storageWithExcessSize.hcl|, false>
     ];
 
     // Test that checkWellformedness(...) returns what is expected
@@ -59,8 +61,8 @@ void runTestExamples(){
 // TODO: tech debt.
 //      We could not get the annotations to work for some reason.
 //      Attempt was to follow the examples from the Pico recipe.
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //public CComputer annotateHclChecks(CComputer c) {
-//    //valid = checkWellformedness(path);
 //    annos = getAnnotations(c);
 //    valid = false;
 //    if (!valid) {
@@ -86,6 +88,7 @@ void main() {
     // Adding annotation with error checks
     // TODO: tech debt.
     //      We could not get the annotations to work for some reason.
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //registerAnnotator("HCL - DSLD", annotateHclChecks);
 
     // For local debugging

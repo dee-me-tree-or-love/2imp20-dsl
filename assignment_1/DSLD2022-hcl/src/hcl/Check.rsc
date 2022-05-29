@@ -309,7 +309,7 @@ bool checkNoDuplicateComponents(A_COMPUTER computer) {
     if (zeroDuplicateComponents) {
         log("All components are uniquely configured");
     }else{
-        error("Some components are duplicate: ");
+        error("Some components are duplicate: (declared - unique)\n Storages <size(allStorages)> - <size(uniqueStorages)>\n Displays <size(allDisplays)> - <size(uniqueDisplays)>\n Processings <size(allProcessings)> - <size(uniqueProcessings)>");
     };
     return zeroDuplicateComponents;
 }

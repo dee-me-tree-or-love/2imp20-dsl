@@ -116,12 +116,24 @@ bool checkHardwareConfiguration(A_COMPUTER computer) {
 bool checkAllDeclarationsHaveLabels(A_COMPUTER computer) {
     list[str] labels = [ getLabel(decl) | (decl <- computer.decls)];
     bool allLabelsOk = (true | it && (size(label) > 0) | str label <- labels);
+
+    if (allLabelsOk) {
+        log("All labels are okay");
+    }else{
+        error("Some labels are not okay: <labels>");
+    };
     return allLabelsOk;
 }
 
 bool checkAllComponentsHaveUniqueLabels(A_COMPUTER computer) {
     list[str] labels = [ getLabel(decl) | decl <- computer.decls, getDeclType(decl) == CONFIG_DECL_TYPE];
-    bool allLabelsOk = (true | it && (size(label) > 0) | str label <- labels);
+    bool allLabelsOk = (size(labels) - size(dup(labels)) == 0);
+    
+    if (allLabelsOk) {
+        log("All labels are okay");
+    }else{
+        error("Some labels are not okay: <labels>");
+    };
     return allLabelsOk;
 }
 

@@ -12,84 +12,109 @@ import String;
  * Map lexical nodes to Rascal primitive types (bool, int, str)
  */
 
-// Transforms a computer to a series of configurations and reuseComponents
-COMPUTER cst2ast(start[Computer] sf) {
-	Computer c = sf.top;
-	switch(c) {
-		case (Computer)`computer <Id label> { <ComputerConfigurations configs> , <ComputerComponentReuse reuses> }`: {
-			COMPUTER result = computer("<c.label>", [cst2ast(co) | (Configuration co <- c.configs.items)],[cst2ast(re) | (Reuse re <- c.reuses.items)]);
-			return result;
-		}
-		
-		case (Computer)`computer <Id label> { <ComputerConfigurations configs>}`: {
-			COMPUTER result = computerW("<c.label>", [cst2ast(co) | (Configuration co <- c.configs.items)]);
-			return result;
-		}
-		
-		default:
-			throw "Unhandled computer: <c>";
-	}
-	//COMPUTER result = computer(
-	//	"<c.label>", 
-	//	[cst2ast(co) | (Configuration co <- c.configs.items)], 
-	//	// FIXME: fix the issue with parsing the "reuse" part of the computer pattern. It fails with `Undeclared type: Tree`
-	//	[cst2ast(re) | (Reuse re <- c.reuses.items)]
-	//	//[]
-	//);
-	//return result;
+// Utility functions
+// ~~~~~~~~~~~~~~~~~
+
+void u_panic(item){
+    throw "Unhandled concrete element: <item>";
 }
 
-// Converts the provided configuration to its AST representation
-CONFIGURATION cst2ast(Configuration c) {
-	switch(c) {
-		case (Configuration)`processing <Id label> <ConfigurationBody body>`:
-			return CONFIGURATION::processing("<label>", [cst2ast(p) | (Property p <- body.items)]);
-		
-		case (Configuration)`storage <Id label> <ConfigurationBody body>`:
-			return CONFIGURATION::storage("<label>", [cst2ast(p) | (Property p <- body.items)]);
-		
-		case (Configuration)`display <Id label> <ConfigurationBody body>`:
-			return CONFIGURATION::display("<label>", [cst2ast(p) | (Property p <- body.items)]);
-		
-		default:
-			throw "Unhandled configuration: <c>";
-	}
+
+// Transformation functions
+// ~~~~~~~~~~~~~~~~~~~~~~~~
+
+A_COMPUTER loadAst(start[CComputer] sf) {
+    CComputer c = sf.top;
+    return cst2ast(c);
 }
 
-// Converts the provided property to its corresponding AST representation
-PROPERTY cst2ast(Property p) {
-	switch(p) {
-		case (Property)`cores : <Integer cores>`:
-			return PROPERTY::cores(toInt("<cores>"));
-
-		case (Property)`speed : <Real speed> Ghz`:
-			return PROPERTY::speed(toReal("<speed>"));
-
-		case (Property)`L1 : <Integer l1size> <CacheSize l1mea>`:
-			return PROPERTY::l1(toInt("<l1size>"), "<l1mea>");
-
-		case (Property)`L2 : <Integer l2size> <CacheSize l2mea>`:
-			return PROPERTY::l2(toInt("<l2size>"), "<l2mea>");
-
-		case (Property)`L3 : <Integer l3size> <CacheSize l3mea>`:
-			return PROPERTY::l3(toInt("<l3size>"), "<l3mea>");
-
-		case (Property)`storage : <StorageType stype> of <Integer ssize> GiB`:
-			return PROPERTY::storage("<stype>", toInt("<ssize>"));
-
-		case (Property)`diagonal : <Integer dsize> inch`:
-			return PROPERTY::diasize(toInt("<dsize>"));
-
-		case (Property)`type : <DisplayType dtype>`:
-			return PROPERTY::diatype("<dtype>");
-
-		default:
-			throw "Unhandled property: <p>";
-	}
+A_COMPUTER cst2ast(CComputer c){
+    decls = [cst2ast(cdecl) | (CComponentDecl cdecl <- c.decls) ];
+    return A_COMPUTER::computer("<c.label>", decls);
 }
 
-// Converts a list of reuseStatements to three list of different components
-REUSE cst2ast(Reuse re){
-	return REUSE::reuse("<re.label>");
-	
+A_COMPONENT_DECL cst2ast(CComponentDecl cd){
+    switch(cd) {
+        case (CComponentDecl)`<CComponentConfig item>`:
+            return A_COMPONENT_DECL::config(cst2ast(item));
+        case (CComponentDecl)`<CComponentReuse item>`:
+            return A_COMPONENT_DECL::reuse(cst2ast(item));
+        default:
+          u_panic(cd);
+    }
+}
+
+A_COMPONENT_REUSE cst2ast(CComponentReuse critem) {
+    return A_COMPONENT_REUSE::body("<critem.label>");
+}
+
+A_COMPONENT_CONFIG cst2ast(CComponentConfig citem) {
+    switch(citem) {
+        case (CComponentConfig)`<CComponentStorage item>`:
+            return A_COMPONENT_CONFIG::storage(cst2ast(item));
+        case (CComponentConfig)`<CComponentDisplay item>`:
+            return A_COMPONENT_CONFIG::display(cst2ast(item));
+        case (CComponentConfig)`<CComponentProcessing item>`:
+            return A_COMPONENT_CONFIG::processing(cst2ast(item));
+        default:
+            u_panic(citem);
+    }
+}
+
+A_COMPONENT_STORAGE cst2ast(CComponentStorage citem){
+    props = [cst2ast(cp) | (CPropertyStorage cp <- citem.props)];
+    return A_COMPONENT_STORAGE::body("<citem.label>", props);
+}
+
+A_PROPERTY_STORAGE cst2ast(CPropertyStorage cprop){
+    switch(cprop) {
+        case (CPropertyStorage)`storage : <CStorageType storageType> of <CInteger size> <CStorageUnit unit>`:
+            return A_PROPERTY_STORAGE::propStorage("<storageType>", toInt("<size>"), "<unit>");
+        default:
+            u_panic(cprop);
+    }
+}
+
+A_COMPONENT_DISPLAY cst2ast(CComponentDisplay citem){
+    props = [cst2ast(cp) | (CPropertyDisplay cp <- citem.props)];
+    return A_COMPONENT_DISPLAY::body("<citem.label>", props);
+}
+
+A_PROPERTY_DISPLAY cst2ast(CPropertyDisplay cprop){
+    // TODO: technical debt
+    //      Instead of typing out "diagonal ..." in pattern matching,
+    //      we could also declare a separate helper type CDiagonalProp and use it
+    //      this switch case.
+    //      However, since it would further increase the amount of Concrete Syntax
+    //      elements, we decided to keep it as is for now.
+    switch(cprop) {
+        case (CPropertyDisplay)`diagonal : <CInteger size> <CDisplayUnit unit>`:
+            return A_PROPERTY_DISPLAY::propDiagonal(toInt("<size>"), "<unit>");
+        case (CPropertyDisplay)`type : <CDisplayType displayType>`:
+            return A_PROPERTY_DISPLAY::propResolutionType("<displayType>");
+        default:
+            u_panic(cprop);
+    }
+}
+
+A_COMPONENT_PROCESSING cst2ast(CComponentProcessing citem){
+    props = [cst2ast(cp) | (CPropertyProcessing cp <- citem.props)];
+    return A_COMPONENT_PROCESSING::body("<citem.label>", props);
+}
+
+A_PROPERTY_PROCESSING cst2ast(CPropertyProcessing cprop){
+    switch(cprop) {
+        case (CPropertyProcessing)`cores : <CInteger cores>`:
+            return A_PROPERTY_PROCESSING::propCores(toInt("<cores>"));
+        case (CPropertyProcessing)`speed : <CReal speed> <CSpeedUnit unit>`:
+            return A_PROPERTY_PROCESSING::propSpeed(toReal("<speed>"));
+        case (CPropertyProcessing)`L1 : < CInteger size> <CCacheUnit unit>`:
+            return A_PROPERTY_PROCESSING::propL1(toInt("<size>"), "<unit>");
+        case (CPropertyProcessing)`L2 : < CInteger size> <CCacheUnit unit>`:
+            return A_PROPERTY_PROCESSING::propL2(toInt("<size>"), "<unit>");
+        case (CPropertyProcessing)`L3 : < CInteger size> <CCacheUnit unit>`:
+            return A_PROPERTY_PROCESSING::propL3(toInt("<size>"), "<unit>");
+        default:
+            u_panic(cprop);
+    }
 }

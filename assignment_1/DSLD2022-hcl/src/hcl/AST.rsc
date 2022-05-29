@@ -5,32 +5,53 @@ module hcl::AST
  *
  * - make sure there is an almost one-to-one correspondence with the grammar in Syntax.rsc
  */
- 
-//Computer Definition
-public data COMPUTER
-	= computer(str label, list[CONFIGURATION] configs, list[REUSE] reuses)
-	| computerW(str label, list[CONFIGURATION] configs);
 
+public data A_COMPUTER
+    = computer(str label, list[A_COMPONENT_DECL] decls)
+    ;
 
-public data CONFIGURATION
- 	= processing(str label, list[PROPERTY] properties)
- 	| storage(str label, list[PROPERTY] properties)
- 	| display(str label, list[PROPERTY] properties)
- 	;
- 	
-public data REUSE
-    = reuse(str label)
-	;
+public data A_COMPONENT_DECL
+    = config(A_COMPONENT_CONFIG configItem)
+    | reuse(A_COMPONENT_REUSE reuseItem)
+    ;
 
-public data PROPERTY
-	= cores(int cores)
-	| speed(real speed)
-	| l1(int l1size, str l1mea)
-	| l2(int l2size, str l2mea)
-	| l3(int l3size, str l3mea)
-    | storage(str stype, int ssize)
-    | diasize(int dsize)
-    | diatype(str dtype)
-	;
-	
-anno loc COMPUTER@location;   //parse tree root
+public data A_COMPONENT_REUSE
+    = body(str label)
+    ;
+
+public data A_COMPONENT_CONFIG
+    = storage(A_COMPONENT_STORAGE storageItem)
+    | display(A_COMPONENT_DISPLAY displayItem)
+    | processing(A_COMPONENT_PROCESSING processingItem)
+    ;
+
+public data A_COMPONENT_STORAGE
+    = body(str label, list[A_PROPERTY_STORAGE] props)
+    ;
+
+public data A_PROPERTY_STORAGE
+    = propStorage(str storageType, int size, str unit)
+    ;
+
+public data A_COMPONENT_DISPLAY
+    = body(str label, list[A_PROPERTY_DISPLAY] props)
+    ;
+
+public data A_PROPERTY_DISPLAY
+    = propDiagonal(int size, str unit)
+    | propResolutionType(str displayType)
+    ;
+
+public data A_COMPONENT_PROCESSING
+    = body(str label, list[A_PROPERTY_PROCESSING] props)
+    ;
+
+public data A_PROPERTY_PROCESSING
+    = propCores(int cores)
+    | propSpeed(real speed)
+    | propL1(int size, str unit)
+    | propL2(int size, str unit)
+    | propL3(int size, str unit)
+    ;
+
+anno loc A_COMPUTER@location;   //parse tree root

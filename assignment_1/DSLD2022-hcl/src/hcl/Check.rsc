@@ -244,7 +244,7 @@ bool checkAllCachesAreInBounds(A_COMPUTER computer){
     if (allSizesInBounds) {
         log("All cache sizes are okay");
     }else{
-        error("Some cache sizes are not in bound: ");
+        error("Some cache sizes are not in bound: <processings>");
     };
     return allSizesInBounds;
 }

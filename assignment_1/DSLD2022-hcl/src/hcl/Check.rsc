@@ -121,7 +121,7 @@ bool checkAllDeclarationsHaveLabels(A_COMPUTER computer) {
     bool allLabelsOk = (true | it && (size(label) > 0) | str label <- labels);
 
     if (allLabelsOk) {
-        log("All labels are okay");
+        log("All labels are specified");
     }else{
         error("Some labels are not okay: <labels>");
     };
@@ -133,9 +133,9 @@ bool checkAllComponentsHaveUniqueLabels(A_COMPUTER computer) {
     bool allLabelsOk = (size(labels) - size(dup(labels)) == 0);
 
     if (allLabelsOk) {
-        log("All labels are okay");
+        log("All labels are unique");
     }else{
-        error("Some labels are not okay, check for duplicates: <labels>");
+        error("Some labels are duplicate: <labels>");
     };
     return allLabelsOk;
 }
@@ -151,7 +151,7 @@ bool checkAllReuseLabelsExist(A_COMPUTER computer){
     if (allLabelsExist) {
         log("All reuse labels exist");
     }else{
-        error("Some labels do not exist: <reuseLabels> should reuse <componentLabels>");
+        error("Some reuse labels do not exist: <reuseLabels> should reuse <componentLabels>");
     };
     return allLabelsExist;
 }

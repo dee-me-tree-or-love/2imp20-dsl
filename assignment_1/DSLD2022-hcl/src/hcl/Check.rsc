@@ -278,7 +278,7 @@ bool checkAllCachesAreInOrder(A_COMPUTER computer){
     if (allCachesAreInOrder) {
         log("All cache sizes are in order");
     }else{
-        error("Some cache sizes are not in order: ");
+        error("Some cache sizes are not in order: <processings>");
     };
     return allCachesAreInOrder;
 }

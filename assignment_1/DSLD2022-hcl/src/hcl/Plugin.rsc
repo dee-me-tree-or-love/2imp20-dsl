@@ -41,7 +41,8 @@ void runTestExamples(){
         <|project://DSLD2022-hcl/samples/ex_non_existent_reuses.hcl|, false>,
         <|project://DSLD2022-hcl/samples/parse_storageWithExcessSize.hcl|, false>,
         <|project://DSLD2022-hcl/samples/parse_storageWithExcessTotalSize.hcl|, false>,
-        <|project://DSLD2022-hcl/samples/parse_processingWithWrongCacheSize.hcl|, false>
+        <|project://DSLD2022-hcl/samples/parse_processingWithWrongCacheSize.hcl|, false>,
+        <|project://DSLD2022-hcl/samples/parse_processingWithWrongCacheSizeOrder.hcl|, false>
         //
         
     ];

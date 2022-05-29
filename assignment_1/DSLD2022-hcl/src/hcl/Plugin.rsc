@@ -25,26 +25,33 @@ void log(str msg) {
 * Finally, the resulting AST is used to evaluate the well-formedness of the ccl program using the check function (Check.rsc).
 */
 bool checkWellformedness(loc path) {
-	// Parsing
-	&T resource = parseHCL(path);
-	// Transform the parse tree into an abstract syntax tree
-	&T ast = loadAst(resource);
-	// Check the well-formedness of the program
-	return checkHardwareConfiguration(ast);
+    // Get parse result or return false
+    try &T resource = parseHCL(path); catch: return false;
+    // Transform the parse tree into an abstract syntax tree
+    &T ast = loadAst(resource);
+    // Check the well-formedness of the program
+    return checkHardwareConfiguration(ast);
 }
 
 void runTestExamples(){
     list[tuple[loc, bool]] pathExpectations = [
         // TODO: make consistent names.
+        // OK parsing and well-formed
         <|project://DSLD2022-hcl/samples/ex.hcl|, true>,
+        // OK parsing and but not well-formed
         <|project://DSLD2022-hcl/samples/ex_duplicate_labels.hcl|, false>,
         <|project://DSLD2022-hcl/samples/ex_non_existent_reuses.hcl|, false>,
         <|project://DSLD2022-hcl/samples/parse_storageWithExcessSize.hcl|, false>,
         <|project://DSLD2022-hcl/samples/parse_storageWithExcessTotalSize.hcl|, false>,
         <|project://DSLD2022-hcl/samples/parse_processingWithWrongCacheSize.hcl|, false>,
-        <|project://DSLD2022-hcl/samples/parse_processingWithWrongCacheSizeOrder.hcl|, false>
-        //
-        
+        <|project://DSLD2022-hcl/samples/parse_processingWithWrongCacheSizeOrder.hcl|, false>,
+        <|project://DSLD2022-hcl/samples/parse_duplicateConfigurations.hcl|, false>
+        // NOT ok parsing
+        //<|project://DSLD2022-hcl/samples/syntax_componentsNamedByKeywords.hcl|, false>,
+        //<|project://DSLD2022-hcl/samples/syntax_componentsWithoutLabel.hcl|, false>,
+        //<|project://DSLD2022-hcl/samples/syntax_displayWithInnvalidType.hcl|, false>,
+        //<|project://DSLD2022-hcl/samples/syntax_processingOrder.hcl|, false>,
+        //<|project://DSLD2022-hcl/samples/syntax_withOutReuse.hcl|, false>
     ];
 
     // Test that checkWellformedness(...) returns what is expected

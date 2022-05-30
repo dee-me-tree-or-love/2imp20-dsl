@@ -6,6 +6,10 @@ module hcl::AST
  * - make sure there is an almost one-to-one correspondence with the grammar in Syntax.rsc
  */
 
+// NB: currently we support a single computer declaration per HCL file.
+//      To support plural computers, we can introduce a new A_PROGRAM datatype
+//      with a correponding CST syntax element, grouping a list of A_COMPUTER
+//      elements.
 public data A_COMPUTER
     = computer(str label, list[A_COMPONENT_DECL] decls)
     ;

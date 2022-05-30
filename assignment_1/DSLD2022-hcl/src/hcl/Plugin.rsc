@@ -35,7 +35,6 @@ bool checkWellformedness(loc path) {
 
 void runTestExamples(){
     list[tuple[loc, bool]] pathExpectations = [
-        // TODO: make consistent names.
         // OK parsing and well-formed
         <|project://DSLD2022-hcl/samples/ex.hcl|, true>,
         <|project://DSLD2022-hcl/samples/syntax_processingOrder.hcl|, true>,

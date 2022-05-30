@@ -5,9 +5,11 @@ computer my_computer {
 	|-
 	   This is just a fancy comment.
 	-|
+	
+	-- Error: wrong display type 
 	display my_display {
 	   diagonal: 30 inch,
-	   type: 5K
+	   type: 8K
 	},
 	-- this is a reuse
 	my_storage,

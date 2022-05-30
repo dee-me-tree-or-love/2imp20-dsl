@@ -5,6 +5,12 @@ computer my_computer {
 	|-
 	   This is just a fancy comment.
 	-|
+	
+	-- error: a storage without label
+	storage {
+		storage: HDD of 312 GiB
+	},
+	
 	display my_display {
 	   diagonal: 30 inch,
 	   type: 5K

@@ -1,24 +1,25 @@
-computer my_computer {
-	storage my_storage {
+-- a computer with label named by keywords: 'MiB' 
+computer MiB {
+	storage storage {
 		storage: SSD of 512 GiB
 	},
 	|-
 	   This is just a fancy comment.
 	-|
-	display my_display {
+	display mdisplay {
 	   diagonal: 30 inch,
 	   type: 5K
 	},
 	-- this is a reuse
-	my_storage,
+	storage,
     -- this is a configuration component again
-	processing my_processing {
+	processing mprocessing {
 	   cores: 4,
 	   speed: 2 Ghz,
 	   L1: 64 KiB,
 	   L2: 4 MiB,
 	   L3: 15 MiB
 	},
-	my_processing,
-	my_display
+	mprocessing,
+	mdisplay
 }

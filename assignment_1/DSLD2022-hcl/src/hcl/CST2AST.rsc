@@ -57,7 +57,7 @@ A_COMPONENT_CONFIG cst2ast(CComponentConfig citem) {
         case (CComponentConfig)`<CComponentProcessing item>`:
             return A_COMPONENT_CONFIG::processing(cst2ast(item));
         default:
-          u_panic(citem);
+            u_panic(citem);
     }
 }
 

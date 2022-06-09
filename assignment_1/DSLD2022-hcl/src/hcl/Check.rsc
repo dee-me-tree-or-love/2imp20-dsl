@@ -43,7 +43,7 @@ void error(str msg) {
 
 // log if all checks successful
 bool success() {
-    log("-- CHECK SUCCESSFUL --");
+    log("-- CHECK SUCCESSFUL --\n");
     return true;
 }
 
@@ -74,7 +74,6 @@ alias CACHE_TUPLE = tuple[bool, str, int, str];
  * ----- MAIN -----
  */
 
-//TODO:
 //1. all components must have labels --> DONE; by Parsing + checkAllDeclarationsHaveLabels
 //2. all component labels are unique --> DONE; checkAllComponentsHaveUniqueLabels
 //2+. all reuse labels exist --> DONE; checkAllReuseLabelsExist
@@ -112,16 +111,13 @@ bool checkHardwareConfiguration(A_COMPUTER computer) {
 /*
  * ----- CHECKERS -----
  */
-// TODO: we need to still add error reporting
-// TODO: we need to construct the broken test files to show the errors
-// TODO: we need to add comments in most complicated places :D
 
 bool checkAllDeclarationsHaveLabels(A_COMPUTER computer) {
     list[str] labels = [ getLabel(decl) | (decl <- computer.decls)];
     bool allLabelsOk = (true | it && (size(label) > 0) | str label <- labels);
 
     if (allLabelsOk) {
-        log("All labels are okay");
+        log("All labels are specified");
     }else{
         error("Some labels are not okay: <labels>");
     };
@@ -133,9 +129,9 @@ bool checkAllComponentsHaveUniqueLabels(A_COMPUTER computer) {
     bool allLabelsOk = (size(labels) - size(dup(labels)) == 0);
 
     if (allLabelsOk) {
-        log("All labels are okay");
+        log("All labels are unique");
     }else{
-        error("Some labels are not okay, check for duplicates: <labels>");
+        error("Some labels are duplicate: <labels>");
     };
     return allLabelsOk;
 }
@@ -151,12 +147,12 @@ bool checkAllReuseLabelsExist(A_COMPUTER computer){
     if (allLabelsExist) {
         log("All reuse labels exist");
     }else{
-        error("Some labels do not exist: <reuseLabels> should reuse <componentLabels>");
+        error("Some reuse labels do not exist: <reuseLabels> should reuse <componentLabels>");
     };
     return allLabelsExist;
 }
 
-// TODO: try adding the location of the error?
+
 bool checkEveryStoragePropertyIsInBounds(A_COMPUTER computer){
     // NB: Note that no unit conversion is done since only GiB's are supported.
     int SIZE_LOWER_BOUND = 32;
@@ -191,7 +187,7 @@ bool checkTotalStorageIsInBounds(A_COMPUTER computer){
     list[A_COMPONENT_STORAGE] storages = [getConfigItem(#A_COMPONENT_STORAGE, decl) | decl <- computer.decls, getConfigType(decl) == STORAGE_DECL_TYPE];
     list[str] reuseLabels = [ getLabel(decl) | decl <- computer.decls, getDeclType(decl) == REUSE_DECL_TYPE];
 
-    // TODO: make a map of storage componets with their total sizes key is label and total size as value
+    // make a list of storage componets with their total sizes key is label and total size as value
     // Then collect all reuses and compare label of reuse with the storage
     // For every matching case, add it to the total size
     list[tuple[str, int]] storageTotalSizes = [
@@ -244,7 +240,7 @@ bool checkAllCachesAreInBounds(A_COMPUTER computer){
     if (allSizesInBounds) {
         log("All cache sizes are okay");
     }else{
-        error("Some cache sizes are not in bound: ");
+        error("Some cache sizes are not in bound: <processings>");
     };
     return allSizesInBounds;
 }
@@ -278,7 +274,7 @@ bool checkAllCachesAreInOrder(A_COMPUTER computer){
     if (allCachesAreInOrder) {
         log("All cache sizes are in order");
     }else{
-        error("Some cache sizes are not in order: ");
+        error("Some cache sizes are not in order: <processings>");
     };
     return allCachesAreInOrder;
 }
@@ -294,7 +290,6 @@ bool checkNoDuplicateComponents(A_COMPUTER computer) {
     //      We would like to use a `toBag` function here, but Rascal does not supoport it:
     //      > "... (bags are not yet implemented)."
     //      https://tutor.rascal-mpl.org/Rascal/Statements/Statements.html#/Rascal/Libraries/Prelude/Type/isBagType/isBagType.html
-    //      So for now we do not support declaration of duplicate properties.
     //      E.g. a storage with twice defined `storage: HDD of 1024 GiB` property will be invalid.
     set[set[A_PROPERTY_STORAGE]] uniqueStorages = toSet([toSet(storage.props) | storage <- allStorages ]);
     set[set[A_PROPERTY_DISPLAY]] uniqueDisplays = toSet([toSet(display.props) | display <- allDisplays ]);
@@ -309,7 +304,7 @@ bool checkNoDuplicateComponents(A_COMPUTER computer) {
     if (zeroDuplicateComponents) {
         log("All components are uniquely configured");
     }else{
-        error("Some components are duplicate: ");
+        error("Some components are duplicate: (declared - unique)\n Storages <size(allStorages)> - <size(uniqueStorages)>\n Displays <size(allDisplays)> - <size(uniqueDisplays)>\n Processings <size(allProcessings)> - <size(uniqueProcessings)>");
     };
     return zeroDuplicateComponents;
 }

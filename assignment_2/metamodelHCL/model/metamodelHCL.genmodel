@@ -14,6 +14,16 @@
       <genEnumLiterals ecoreEnumLiteral="metamodelHCL.ecore#//SizeTypeEnum/MiB"/>
       <genEnumLiterals ecoreEnumLiteral="metamodelHCL.ecore#//SizeTypeEnum/GiB"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="metamodelHCL.ecore#//StorageTypeEnum">
+      <genEnumLiterals ecoreEnumLiteral="metamodelHCL.ecore#//StorageTypeEnum/HDD"/>
+      <genEnumLiterals ecoreEnumLiteral="metamodelHCL.ecore#//StorageTypeEnum/SSD"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="metamodelHCL.ecore#//DisplayTypeEnum">
+      <genEnumLiterals ecoreEnumLiteral="metamodelHCL.ecore#//DisplayTypeEnum/4K"/>
+      <genEnumLiterals ecoreEnumLiteral="metamodelHCL.ecore#//DisplayTypeEnum/5K"/>
+      <genEnumLiterals ecoreEnumLiteral="metamodelHCL.ecore#//DisplayTypeEnum/HD"/>
+      <genEnumLiterals ecoreEnumLiteral="metamodelHCL.ecore#//DisplayTypeEnum/Full-HD"/>
+    </genEnums>
     <genClasses ecoreClass="metamodelHCL.ecore#//Computer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Computer/label"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Computer/processing"/>
@@ -41,8 +51,13 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//ProcessingProperty/speed"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//ProcessingProperty/cache"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="metamodelHCL.ecore#//StorageProperty"/>
-    <genClasses image="false" ecoreClass="metamodelHCL.ecore#//DisplayProperty"/>
+    <genClasses image="false" ecoreClass="metamodelHCL.ecore#//StorageProperty">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//StorageProperty/singlestorage"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="metamodelHCL.ecore#//DisplayProperty">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//DisplayProperty/diagonal"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//DisplayProperty/type"/>
+    </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Cores">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Cores/number"/>
     </genClasses>
@@ -65,6 +80,16 @@
     <genClasses ecoreClass="metamodelHCL.ecore#//L3">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//L3/number"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//L3/type"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodelHCL.ecore#//SingleStorage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//SingleStorage/stype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//SingleStorage/ssize"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodelHCL.ecore#//Diagonal">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Diagonal/inch"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodelHCL.ecore#//Type">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Type/dtype"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -46,29 +46,16 @@
     <genClasses ecoreClass="metamodelHCL.ecore#//ReusedComponent">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//ReusedComponent/reusedLabel"/>
     </genClasses>
-    <genClasses ecoreClass="metamodelHCL.ecore#//ProcessingProperty">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//ProcessingProperty/cores"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//ProcessingProperty/speed"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//ProcessingProperty/cache"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="metamodelHCL.ecore#//StorageProperty">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//StorageProperty/singlestorage"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="metamodelHCL.ecore#//DisplayProperty">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//DisplayProperty/diagonal"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//DisplayProperty/type"/>
-    </genClasses>
+    <genClasses ecoreClass="metamodelHCL.ecore#//ProcessingProperty"/>
+    <genClasses image="false" ecoreClass="metamodelHCL.ecore#//StorageProperty"/>
+    <genClasses image="false" ecoreClass="metamodelHCL.ecore#//DisplayProperty"/>
     <genClasses ecoreClass="metamodelHCL.ecore#//Cores">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Cores/number"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Speed">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Speed/speed"/>
     </genClasses>
-    <genClasses ecoreClass="metamodelHCL.ecore#//Cache">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Cache/l1"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Cache/l2"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Cache/l3"/>
-    </genClasses>
+    <genClasses ecoreClass="metamodelHCL.ecore#//Cache"/>
     <genClasses ecoreClass="metamodelHCL.ecore#//L1">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//L1/number"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//L1/type"/>
@@ -87,9 +74,11 @@
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Diagonal">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Diagonal/inch"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Diagonal/type"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Type">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Type/dtype"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Type/diagonal"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

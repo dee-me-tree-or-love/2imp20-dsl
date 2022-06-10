@@ -1,5 +1,11 @@
-transformation hgTransformation();
+modeltype HCL uses 'http://www.example.org/metamodelHCL';
+modeltype Graph uses 'http://dsldesign.tue.nl/graph';
+	
+transformation hgTransformation(in hcl : HCL, out Graph);
 
 main() {
+	hcl.rootObjects()[HCL::Computer]->map computer2graph();
+}
 
+mapping HCL::Computer::computer2graph() : Graph::Graph {
 }

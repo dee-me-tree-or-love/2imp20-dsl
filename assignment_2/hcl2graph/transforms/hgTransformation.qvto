@@ -8,4 +8,61 @@ main() {
 }
 
 mapping HCL::Computer::computer2graph() : Graph::Graph {
+	name := self.label;
+}
+
+mapping HCL::Computer::computer2node() : Graph::Node {
+	label := self.label;
+	shape := Shape::BOX;
+}
+
+//1
+mapping HCL::Processing::procseeing2node() : Graph::Node {
+	label := self.label;
+	shape := Shape::BOX;
+}
+
+//1
+mapping HCL::Display::display2node() : Graph::Node {
+	label := self.label;
+	shape := Shape::BOX;
+}
+
+//2
+mapping HCL::ProcessingProperty::procseeingproperty2node() : Graph::Node {
+}
+
+//2
+mapping HCL::Speed::speed2node() : Graph::Node {
+	label := self.speed.toString() + ' GHz';
+	shape := Shape::BOX;
+}
+
+mapping HCL::Speed::speed2edge() : Graph::Edge {}
+
+//2
+mapping HCL::Cores::cores2node() : Graph::Node {
+	label := self.number.toString() + ' cores';
+	shape := Shape::OVAL;
+}
+
+//2
+mapping HCL::Cache::cache2node() : Graph::Node {}
+
+//2:only L1
+mapping HCL::L1::lone2node() : Graph::Node {
+	label := self.number.toString() + ' ' + self.type.toString();
+	shape := Shape::OVAL;
+}
+
+mapping HCL::DisplayProperty::displayproperty2node() : Graph::Node {}
+
+mapping HCL::Type::type2node() : Graph::Node {
+	label := self.dtype.toString();
+	shape := Shape::OVAL;
+}
+
+mapping HCL::Diagonal::diagonal2node() : Graph::Node {
+	label := self.inch.toString() + ' inch';
+	shape := Shape::BOX;
 }

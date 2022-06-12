@@ -58,14 +58,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Diagonal" eSuperTypes="#//DisplayProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="inch" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//Type"
-        eOpposite="#//Type/diagonal"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//DisplayProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dtype" lowerBound="1" eType="#//DisplayTypeEnum"
-        defaultValueLiteral="5K"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="diagonal" lowerBound="1"
-        eType="#//Diagonal" eOpposite="#//Diagonal/type"/>
+        defaultValueLiteral="FiveK"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="DisplayTypeEnum">
     <eLiterals name="FourK"/>

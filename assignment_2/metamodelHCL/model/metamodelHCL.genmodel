@@ -65,11 +65,9 @@
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Diagonal">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Diagonal/inch"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Diagonal/type"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Type">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Type/dtype"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Type/diagonal"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Computer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Computer/label"/>

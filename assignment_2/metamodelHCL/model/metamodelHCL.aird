@@ -6,7 +6,7 @@
     <semanticResources>Computer.xmi</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_eQ6jwOLFEeyyQ6es1tDVCA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_eRE70OLFEeyyQ6es1tDVCA" name="metamodelHCL" repPath="#_eRDGoOLFEeyyQ6es1tDVCA" changeId="2caf16b0-6a57-4e4b-b14a-be51f788cf02">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_eRE70OLFEeyyQ6es1tDVCA" name="metamodelHCL" repPath="#_eRDGoOLFEeyyQ6es1tDVCA" changeId="aad5ce8d-d0de-432a-b25c-e4db09aaf136">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="metamodelHCL.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -83,7 +83,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_Uq3ldud5EeyL_JSR2N_Sxg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_Uq3lced5EeyL_JSR2N_Sxg" fontName=".AppleSystemUIFont" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Uq3lcud5EeyL_JSR2N_Sxg" x="192" y="296" width="126" height="106"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Uq3lcud5EeyL_JSR2N_Sxg" x="196" y="296" width="126" height="106"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_s9gp8Od5EeyL_JSR2N_Sxg" type="2003" element="_s9bxcOd5EeyL_JSR2N_Sxg">
           <children xmi:type="notation:Node" xmi:id="_s9gp8-d5EeyL_JSR2N_Sxg" type="5007"/>
@@ -150,7 +150,7 @@
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_19u30ed6EeyL_JSR2N_Sxg" routing="Rectilinear"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_19u30ud6EeyL_JSR2N_Sxg" fontColor="7490599" fontName=".AppleSystemUIFont" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_19u30-d6EeyL_JSR2N_Sxg" points="[-21, 0, 0, -44]$[-21, 44, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_19u30-d6EeyL_JSR2N_Sxg" points="[-17, 0, 0, -44]$[-17, 44, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_19u32ud6EeyL_JSR2N_Sxg" id="(0.4838709677419355,1.0)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_19u32-d6EeyL_JSR2N_Sxg" id="(0.4838709677419355,0.0)"/>
         </edges>

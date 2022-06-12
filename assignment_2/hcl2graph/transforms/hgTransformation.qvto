@@ -9,9 +9,15 @@ main() {
 
 mapping HCL::Computer::computer2graph() : Graph::Graph {
 	name := self.label;
+	nodes := self.component->map component2node();
 }
 
 mapping HCL::Computer::computer2node() : Graph::Node {
+	label := self.label;
+	shape := Shape::BOX;
+}
+
+mapping HCL::Component::component2node() : Graph::Node {
 	label := self.label;
 	shape := Shape::BOX;
 }
@@ -65,4 +71,16 @@ mapping HCL::Type::type2node() : Graph::Node {
 mapping HCL::Diagonal::diagonal2node() : Graph::Node {
 	label := self.inch.toString() + ' inch';
 	shape := Shape::BOX;
+}
+
+//query getIntegerType() : Relational::Type {
+//	return UML::DataType.allInstances()->select(e | e.name = "Integer")->asSequence()->first().oclAsType(UML::DataType).map datatype2type();
+//}
+
+query getAllProcessings() : Sequence(HCL::Processing) {
+	return HCL::Processing.allInstances()->asSequence()
+}
+
+query getAllDisplays() : Sequence(HCL::Display) {
+	return HCL::Display.allInstances()->asSequence()
 }

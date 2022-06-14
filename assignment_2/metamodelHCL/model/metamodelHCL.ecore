@@ -18,11 +18,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReusedComponent" eSuperTypes="#//Component"/>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessingProperty" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EEnum" name="SizeTypeEnum">
-    <eLiterals name="KiB"/>
-    <eLiterals name="MiB" value="1"/>
-    <eLiterals name="GiB" value="2"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StorageProperty" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="DisplayProperty" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="Cores" eSuperTypes="#//ProcessingProperty">
@@ -30,48 +25,39 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Speed" eSuperTypes="#//ProcessingProperty">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="speed" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="speed" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Cache" abstract="true" eSuperTypes="#//ProcessingProperty"/>
-  <eClassifiers xsi:type="ecore:EClass" name="L1" eSuperTypes="#//Cache">
+  <eClassifiers xsi:type="ecore:EClass" name="Cache" abstract="true" eSuperTypes="#//ProcessingProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//SizeTypeEnum"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="L2" eSuperTypes="#//Cache">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//SizeTypeEnum"
-        defaultValueLiteral="MiB"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="L3" eSuperTypes="#//Cache">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//SizeTypeEnum"
-        defaultValueLiteral="MiB"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="L1" eSuperTypes="#//Cache"/>
+  <eClassifiers xsi:type="ecore:EClass" name="L2" eSuperTypes="#//Cache"/>
+  <eClassifiers xsi:type="ecore:EClass" name="L3" eSuperTypes="#//Cache"/>
   <eClassifiers xsi:type="ecore:EEnum" name="StorageTypeEnum">
     <eLiterals name="HDD"/>
     <eLiterals name="SSD" value="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SingleStorage" eSuperTypes="#//StorageProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="stype" lowerBound="1" eType="#//StorageTypeEnum"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ssize" lowerBound="1" eType="#//SizeTypeEnum"
-        defaultValueLiteral="GiB"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ssize" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Diagonal" eSuperTypes="#//DisplayProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="inch" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//DisplayProperty">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dtype" lowerBound="1" eType="#//DisplayTypeEnum"
-        defaultValueLiteral="FiveK"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="DisplayTypeEnum">
-    <eLiterals name="FourK"/>
-    <eLiterals name="FiveK" value="1"/>
-    <eLiterals name="HD" value="2"/>
-    <eLiterals name="FullHD" value="3"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dtype" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Computer">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="component" upperBound="-1"
         eType="#//Component" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Model">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="computer" upperBound="-1"
+        eType="#//Computer" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

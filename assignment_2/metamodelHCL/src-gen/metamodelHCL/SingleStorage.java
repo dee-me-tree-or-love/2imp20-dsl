@@ -47,28 +47,25 @@ public interface SingleStorage extends StorageProperty {
 
 	/**
 	 * Returns the value of the '<em><b>Ssize</b></em>' attribute.
-	 * The default value is <code>"GiB"</code>.
-	 * The literals are from the enumeration {@link metamodelHCL.SizeTypeEnum}.
+	 * The default value is <code>""</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Ssize</em>' attribute.
-	 * @see metamodelHCL.SizeTypeEnum
-	 * @see #setSsize(SizeTypeEnum)
+	 * @see #setSsize(String)
 	 * @see metamodelHCL.MetamodelHCLPackage#getSingleStorage_Ssize()
-	 * @model default="GiB" required="true"
+	 * @model default="" required="true"
 	 * @generated
 	 */
-	SizeTypeEnum getSsize();
+	String getSsize();
 
 	/**
 	 * Sets the value of the '{@link metamodelHCL.SingleStorage#getSsize <em>Ssize</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Ssize</em>' attribute.
-	 * @see metamodelHCL.SizeTypeEnum
 	 * @see #getSsize()
 	 * @generated
 	 */
-	void setSsize(SizeTypeEnum value);
+	void setSsize(String value);
 
 } // SingleStorage

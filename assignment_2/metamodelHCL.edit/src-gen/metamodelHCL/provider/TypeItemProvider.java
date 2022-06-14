@@ -5,7 +5,6 @@ package metamodelHCL.provider;
 import java.util.Collection;
 import java.util.List;
 
-import metamodelHCL.DisplayTypeEnum;
 import metamodelHCL.MetamodelHCLPackage;
 import metamodelHCL.Type;
 
@@ -94,8 +93,7 @@ public class TypeItemProvider extends DisplayPropertyItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		DisplayTypeEnum labelValue = ((Type) object).getDtype();
-		String label = labelValue == null ? null : labelValue.toString();
+		String label = ((Type) object).getDtype();
 		return label == null || label.length() == 0 ? getString("_UI_Type_type")
 				: getString("_UI_Type_type") + " " + label;
 	}

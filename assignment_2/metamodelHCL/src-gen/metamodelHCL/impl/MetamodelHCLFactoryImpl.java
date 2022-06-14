@@ -83,6 +83,8 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 			return createType();
 		case MetamodelHCLPackage.COMPUTER:
 			return createComputer();
+		case MetamodelHCLPackage.MODEL:
+			return createModel();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -96,12 +98,8 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-		case MetamodelHCLPackage.SIZE_TYPE_ENUM:
-			return createSizeTypeEnumFromString(eDataType, initialValue);
 		case MetamodelHCLPackage.STORAGE_TYPE_ENUM:
 			return createStorageTypeEnumFromString(eDataType, initialValue);
-		case MetamodelHCLPackage.DISPLAY_TYPE_ENUM:
-			return createDisplayTypeEnumFromString(eDataType, initialValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -115,12 +113,8 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-		case MetamodelHCLPackage.SIZE_TYPE_ENUM:
-			return convertSizeTypeEnumToString(eDataType, instanceValue);
 		case MetamodelHCLPackage.STORAGE_TYPE_ENUM:
 			return convertStorageTypeEnumToString(eDataType, instanceValue);
-		case MetamodelHCLPackage.DISPLAY_TYPE_ENUM:
-			return convertDisplayTypeEnumToString(eDataType, instanceValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -261,21 +255,9 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SizeTypeEnum createSizeTypeEnumFromString(EDataType eDataType, String initialValue) {
-		SizeTypeEnum result = SizeTypeEnum.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException(
-					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertSizeTypeEnumToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
+	public Model createModel() {
+		ModelImpl model = new ModelImpl();
+		return model;
 	}
 
 	/**
@@ -297,28 +279,6 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 	 * @generated
 	 */
 	public String convertStorageTypeEnumToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DisplayTypeEnum createDisplayTypeEnumFromString(EDataType eDataType, String initialValue) {
-		DisplayTypeEnum result = DisplayTypeEnum.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException(
-					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertDisplayTypeEnumToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

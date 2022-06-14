@@ -5,10 +5,16 @@ package metamodelHCL.provider;
 import java.util.Collection;
 import java.util.List;
 
+import metamodelHCL.Cache;
+import metamodelHCL.MetamodelHCLPackage;
+
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link metamodelHCL.Cache} object.
@@ -38,8 +44,40 @@ public class CacheItemProvider extends ProcessingPropertyItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addNumberPropertyDescriptor(object);
+			addTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Number feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNumberPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Cache_number_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Cache_number_feature", "_UI_Cache_type"),
+						MetamodelHCLPackage.Literals.CACHE__NUMBER, true, false, false,
+						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Cache_type_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Cache_type_feature", "_UI_Cache_type"),
+						MetamodelHCLPackage.Literals.CACHE__TYPE, true, false, false,
+						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -71,7 +109,8 @@ public class CacheItemProvider extends ProcessingPropertyItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Cache_type");
+		Cache cache = (Cache) object;
+		return getString("_UI_Cache_type") + " " + cache.getNumber();
 	}
 
 	/**
@@ -84,6 +123,13 @@ public class CacheItemProvider extends ProcessingPropertyItemProvider {
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(Cache.class)) {
+		case MetamodelHCLPackage.CACHE__NUMBER:
+		case MetamodelHCLPackage.CACHE__TYPE:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			return;
+		}
 		super.notifyChanged(notification);
 	}
 

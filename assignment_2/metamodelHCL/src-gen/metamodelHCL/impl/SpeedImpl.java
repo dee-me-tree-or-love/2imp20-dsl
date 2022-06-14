@@ -33,7 +33,7 @@ public class SpeedImpl extends ProcessingPropertyImpl implements Speed {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double SPEED_EDEFAULT = 0.0;
+	protected static final float SPEED_EDEFAULT = 0.0F;
 
 	/**
 	 * The cached value of the '{@link #getSpeed() <em>Speed</em>}' attribute.
@@ -43,7 +43,7 @@ public class SpeedImpl extends ProcessingPropertyImpl implements Speed {
 	 * @generated
 	 * @ordered
 	 */
-	protected double speed = SPEED_EDEFAULT;
+	protected float speed = SPEED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -69,7 +69,7 @@ public class SpeedImpl extends ProcessingPropertyImpl implements Speed {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public double getSpeed() {
+	public float getSpeed() {
 		return speed;
 	}
 
@@ -78,8 +78,8 @@ public class SpeedImpl extends ProcessingPropertyImpl implements Speed {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSpeed(double newSpeed) {
-		double oldSpeed = speed;
+	public void setSpeed(float newSpeed) {
+		float oldSpeed = speed;
 		speed = newSpeed;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, MetamodelHCLPackage.SPEED__SPEED, oldSpeed, speed));
@@ -108,7 +108,7 @@ public class SpeedImpl extends ProcessingPropertyImpl implements Speed {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case MetamodelHCLPackage.SPEED__SPEED:
-			setSpeed((Double) newValue);
+			setSpeed((Float) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

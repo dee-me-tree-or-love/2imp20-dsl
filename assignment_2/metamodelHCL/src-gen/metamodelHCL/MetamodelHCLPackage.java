@@ -438,13 +438,31 @@ public interface MetamodelHCLPackage extends EPackage {
 	int CACHE = 10;
 
 	/**
+	 * The feature id for the '<em><b>Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CACHE__NUMBER = PROCESSING_PROPERTY_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CACHE__TYPE = PROCESSING_PROPERTY_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Cache</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CACHE_FEATURE_COUNT = PROCESSING_PROPERTY_FEATURE_COUNT + 0;
+	int CACHE_FEATURE_COUNT = PROCESSING_PROPERTY_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Cache</em>' class.
@@ -472,7 +490,7 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int L1__NUMBER = CACHE_FEATURE_COUNT + 0;
+	int L1__NUMBER = CACHE__NUMBER;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -481,7 +499,7 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int L1__TYPE = CACHE_FEATURE_COUNT + 1;
+	int L1__TYPE = CACHE__TYPE;
 
 	/**
 	 * The number of structural features of the '<em>L1</em>' class.
@@ -490,7 +508,7 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int L1_FEATURE_COUNT = CACHE_FEATURE_COUNT + 2;
+	int L1_FEATURE_COUNT = CACHE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>L1</em>' class.
@@ -518,7 +536,7 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int L2__NUMBER = CACHE_FEATURE_COUNT + 0;
+	int L2__NUMBER = CACHE__NUMBER;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -527,7 +545,7 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int L2__TYPE = CACHE_FEATURE_COUNT + 1;
+	int L2__TYPE = CACHE__TYPE;
 
 	/**
 	 * The number of structural features of the '<em>L2</em>' class.
@@ -536,7 +554,7 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int L2_FEATURE_COUNT = CACHE_FEATURE_COUNT + 2;
+	int L2_FEATURE_COUNT = CACHE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>L2</em>' class.
@@ -564,7 +582,7 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int L3__NUMBER = CACHE_FEATURE_COUNT + 0;
+	int L3__NUMBER = CACHE__NUMBER;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -573,7 +591,7 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int L3__TYPE = CACHE_FEATURE_COUNT + 1;
+	int L3__TYPE = CACHE__TYPE;
 
 	/**
 	 * The number of structural features of the '<em>L3</em>' class.
@@ -582,7 +600,7 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int L3_FEATURE_COUNT = CACHE_FEATURE_COUNT + 2;
+	int L3_FEATURE_COUNT = CACHE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>L3</em>' class.
@@ -760,14 +778,41 @@ public interface MetamodelHCLPackage extends EPackage {
 	int COMPUTER_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link metamodelHCL.SizeTypeEnum <em>Size Type Enum</em>}' enum.
+	 * The meta object id for the '{@link metamodelHCL.impl.ModelImpl <em>Model</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see metamodelHCL.SizeTypeEnum
-	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getSizeTypeEnum()
+	 * @see metamodelHCL.impl.ModelImpl
+	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getModel()
 	 * @generated
 	 */
-	int SIZE_TYPE_ENUM = 18;
+	int MODEL = 18;
+
+	/**
+	 * The feature id for the '<em><b>Computer</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL__COMPUTER = 0;
+
+	/**
+	 * The number of structural features of the '<em>Model</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Model</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link metamodelHCL.StorageTypeEnum <em>Storage Type Enum</em>}' enum.
@@ -778,16 +823,6 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 */
 	int STORAGE_TYPE_ENUM = 19;
-
-	/**
-	 * The meta object id for the '{@link metamodelHCL.DisplayTypeEnum <em>Display Type Enum</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see metamodelHCL.DisplayTypeEnum
-	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getDisplayTypeEnum()
-	 * @generated
-	 */
-	int DISPLAY_TYPE_ENUM = 20;
 
 	/**
 	 * Returns the meta object for class '{@link metamodelHCL.Component <em>Component</em>}'.
@@ -966,6 +1001,28 @@ public interface MetamodelHCLPackage extends EPackage {
 	EClass getCache();
 
 	/**
+	 * Returns the meta object for the attribute '{@link metamodelHCL.Cache#getNumber <em>Number</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Number</em>'.
+	 * @see metamodelHCL.Cache#getNumber()
+	 * @see #getCache()
+	 * @generated
+	 */
+	EAttribute getCache_Number();
+
+	/**
+	 * Returns the meta object for the attribute '{@link metamodelHCL.Cache#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see metamodelHCL.Cache#getType()
+	 * @see #getCache()
+	 * @generated
+	 */
+	EAttribute getCache_Type();
+
+	/**
 	 * Returns the meta object for class '{@link metamodelHCL.L1 <em>L1</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -974,28 +1031,6 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getL1();
-
-	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.L1#getNumber <em>Number</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Number</em>'.
-	 * @see metamodelHCL.L1#getNumber()
-	 * @see #getL1()
-	 * @generated
-	 */
-	EAttribute getL1_Number();
-
-	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.L1#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see metamodelHCL.L1#getType()
-	 * @see #getL1()
-	 * @generated
-	 */
-	EAttribute getL1_Type();
 
 	/**
 	 * Returns the meta object for class '{@link metamodelHCL.L2 <em>L2</em>}'.
@@ -1008,28 +1043,6 @@ public interface MetamodelHCLPackage extends EPackage {
 	EClass getL2();
 
 	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.L2#getNumber <em>Number</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Number</em>'.
-	 * @see metamodelHCL.L2#getNumber()
-	 * @see #getL2()
-	 * @generated
-	 */
-	EAttribute getL2_Number();
-
-	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.L2#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see metamodelHCL.L2#getType()
-	 * @see #getL2()
-	 * @generated
-	 */
-	EAttribute getL2_Type();
-
-	/**
 	 * Returns the meta object for class '{@link metamodelHCL.L3 <em>L3</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1038,28 +1051,6 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getL3();
-
-	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.L3#getNumber <em>Number</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Number</em>'.
-	 * @see metamodelHCL.L3#getNumber()
-	 * @see #getL3()
-	 * @generated
-	 */
-	EAttribute getL3_Number();
-
-	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.L3#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see metamodelHCL.L3#getType()
-	 * @see #getL3()
-	 * @generated
-	 */
-	EAttribute getL3_Type();
 
 	/**
 	 * Returns the meta object for class '{@link metamodelHCL.SingleStorage <em>Single Storage</em>}'.
@@ -1168,14 +1159,25 @@ public interface MetamodelHCLPackage extends EPackage {
 	EReference getComputer_Component();
 
 	/**
-	 * Returns the meta object for enum '{@link metamodelHCL.SizeTypeEnum <em>Size Type Enum</em>}'.
+	 * Returns the meta object for class '{@link metamodelHCL.Model <em>Model</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Size Type Enum</em>'.
-	 * @see metamodelHCL.SizeTypeEnum
+	 * @return the meta object for class '<em>Model</em>'.
+	 * @see metamodelHCL.Model
 	 * @generated
 	 */
-	EEnum getSizeTypeEnum();
+	EClass getModel();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link metamodelHCL.Model#getComputer <em>Computer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Computer</em>'.
+	 * @see metamodelHCL.Model#getComputer()
+	 * @see #getModel()
+	 * @generated
+	 */
+	EReference getModel_Computer();
 
 	/**
 	 * Returns the meta object for enum '{@link metamodelHCL.StorageTypeEnum <em>Storage Type Enum</em>}'.
@@ -1186,16 +1188,6 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getStorageTypeEnum();
-
-	/**
-	 * Returns the meta object for enum '{@link metamodelHCL.DisplayTypeEnum <em>Display Type Enum</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Display Type Enum</em>'.
-	 * @see metamodelHCL.DisplayTypeEnum
-	 * @generated
-	 */
-	EEnum getDisplayTypeEnum();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1379,6 +1371,22 @@ public interface MetamodelHCLPackage extends EPackage {
 		EClass CACHE = eINSTANCE.getCache();
 
 		/**
+		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CACHE__NUMBER = eINSTANCE.getCache_Number();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CACHE__TYPE = eINSTANCE.getCache_Type();
+
+		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.L1Impl <em>L1</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1387,22 +1395,6 @@ public interface MetamodelHCLPackage extends EPackage {
 		 * @generated
 		 */
 		EClass L1 = eINSTANCE.getL1();
-
-		/**
-		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute L1__NUMBER = eINSTANCE.getL1_Number();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute L1__TYPE = eINSTANCE.getL1_Type();
 
 		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.L2Impl <em>L2</em>}' class.
@@ -1415,22 +1407,6 @@ public interface MetamodelHCLPackage extends EPackage {
 		EClass L2 = eINSTANCE.getL2();
 
 		/**
-		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute L2__NUMBER = eINSTANCE.getL2_Number();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute L2__TYPE = eINSTANCE.getL2_Type();
-
-		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.L3Impl <em>L3</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1439,22 +1415,6 @@ public interface MetamodelHCLPackage extends EPackage {
 		 * @generated
 		 */
 		EClass L3 = eINSTANCE.getL3();
-
-		/**
-		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute L3__NUMBER = eINSTANCE.getL3_Number();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute L3__TYPE = eINSTANCE.getL3_Type();
 
 		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.SingleStorageImpl <em>Single Storage</em>}' class.
@@ -1545,14 +1505,22 @@ public interface MetamodelHCLPackage extends EPackage {
 		EReference COMPUTER__COMPONENT = eINSTANCE.getComputer_Component();
 
 		/**
-		 * The meta object literal for the '{@link metamodelHCL.SizeTypeEnum <em>Size Type Enum</em>}' enum.
+		 * The meta object literal for the '{@link metamodelHCL.impl.ModelImpl <em>Model</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see metamodelHCL.SizeTypeEnum
-		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getSizeTypeEnum()
+		 * @see metamodelHCL.impl.ModelImpl
+		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getModel()
 		 * @generated
 		 */
-		EEnum SIZE_TYPE_ENUM = eINSTANCE.getSizeTypeEnum();
+		EClass MODEL = eINSTANCE.getModel();
+
+		/**
+		 * The meta object literal for the '<em><b>Computer</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODEL__COMPUTER = eINSTANCE.getModel_Computer();
 
 		/**
 		 * The meta object literal for the '{@link metamodelHCL.StorageTypeEnum <em>Storage Type Enum</em>}' enum.
@@ -1563,16 +1531,6 @@ public interface MetamodelHCLPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum STORAGE_TYPE_ENUM = eINSTANCE.getStorageTypeEnum();
-
-		/**
-		 * The meta object literal for the '{@link metamodelHCL.DisplayTypeEnum <em>Display Type Enum</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see metamodelHCL.DisplayTypeEnum
-		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getDisplayTypeEnum()
-		 * @generated
-		 */
-		EEnum DISPLAY_TYPE_ENUM = eINSTANCE.getDisplayTypeEnum();
 
 	}
 

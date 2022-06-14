@@ -372,6 +372,29 @@ public class MetamodelHCLItemProviderAdapterFactory extends MetamodelHCLAdapterF
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link metamodelHCL.Model} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ModelItemProvider modelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link metamodelHCL.Model}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createModelAdapter() {
+		if (modelItemProvider == null) {
+			modelItemProvider = new ModelItemProvider(this);
+		}
+
+		return modelItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -496,6 +519,8 @@ public class MetamodelHCLItemProviderAdapterFactory extends MetamodelHCLAdapterF
 			typeItemProvider.dispose();
 		if (computerItemProvider != null)
 			computerItemProvider.dispose();
+		if (modelItemProvider != null)
+			modelItemProvider.dispose();
 	}
 
 }

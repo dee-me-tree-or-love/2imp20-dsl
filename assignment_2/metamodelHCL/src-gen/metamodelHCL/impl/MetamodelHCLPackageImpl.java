@@ -9,14 +9,13 @@ import metamodelHCL.Cores;
 import metamodelHCL.Diagonal;
 import metamodelHCL.Display;
 import metamodelHCL.DisplayProperty;
-import metamodelHCL.DisplayTypeEnum;
 import metamodelHCL.MetamodelHCLFactory;
 import metamodelHCL.MetamodelHCLPackage;
+import metamodelHCL.Model;
 import metamodelHCL.Processing;
 import metamodelHCL.ProcessingProperty;
 import metamodelHCL.ReusedComponent;
 import metamodelHCL.SingleStorage;
-import metamodelHCL.SizeTypeEnum;
 import metamodelHCL.Speed;
 import metamodelHCL.Storage;
 import metamodelHCL.StorageProperty;
@@ -169,7 +168,7 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum sizeTypeEnumEEnum = null;
+	private EClass modelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -177,13 +176,6 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * @generated
 	 */
 	private EEnum storageTypeEnumEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum displayTypeEnumEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -407,26 +399,26 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getCache_Number() {
+		return (EAttribute) cacheEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCache_Type() {
+		return (EAttribute) cacheEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getL1() {
 		return l1EClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getL1_Number() {
-		return (EAttribute) l1EClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getL1_Type() {
-		return (EAttribute) l1EClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -443,44 +435,8 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getL2_Number() {
-		return (EAttribute) l2EClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getL2_Type() {
-		return (EAttribute) l2EClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getL3() {
 		return l3EClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getL3_Number() {
-		return (EAttribute) l3EClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getL3_Type() {
-		return (EAttribute) l3EClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -578,8 +534,17 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getSizeTypeEnum() {
-		return sizeTypeEnumEEnum;
+	public EClass getModel() {
+		return modelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getModel_Computer() {
+		return (EReference) modelEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -589,15 +554,6 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 */
 	public EEnum getStorageTypeEnum() {
 		return storageTypeEnumEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getDisplayTypeEnum() {
-		return displayTypeEnumEEnum;
 	}
 
 	/**
@@ -656,18 +612,14 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 		createEAttribute(speedEClass, SPEED__SPEED);
 
 		cacheEClass = createEClass(CACHE);
+		createEAttribute(cacheEClass, CACHE__NUMBER);
+		createEAttribute(cacheEClass, CACHE__TYPE);
 
 		l1EClass = createEClass(L1);
-		createEAttribute(l1EClass, L1__NUMBER);
-		createEAttribute(l1EClass, L1__TYPE);
 
 		l2EClass = createEClass(L2);
-		createEAttribute(l2EClass, L2__NUMBER);
-		createEAttribute(l2EClass, L2__TYPE);
 
 		l3EClass = createEClass(L3);
-		createEAttribute(l3EClass, L3__NUMBER);
-		createEAttribute(l3EClass, L3__TYPE);
 
 		singleStorageEClass = createEClass(SINGLE_STORAGE);
 		createEAttribute(singleStorageEClass, SINGLE_STORAGE__STYPE);
@@ -683,10 +635,11 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 		createEAttribute(computerEClass, COMPUTER__LABEL);
 		createEReference(computerEClass, COMPUTER__COMPONENT);
 
+		modelEClass = createEClass(MODEL);
+		createEReference(modelEClass, MODEL__COMPUTER);
+
 		// Create enums
-		sizeTypeEnumEEnum = createEEnum(SIZE_TYPE_ENUM);
 		storageTypeEnumEEnum = createEEnum(STORAGE_TYPE_ENUM);
-		displayTypeEnumEEnum = createEEnum(DISPLAY_TYPE_ENUM);
 	}
 
 	/**
@@ -771,34 +724,26 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(speedEClass, Speed.class, "Speed", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSpeed_Speed(), ecorePackage.getEDouble(), "speed", null, 1, 1, Speed.class, !IS_TRANSIENT,
+		initEAttribute(getSpeed_Speed(), ecorePackage.getEFloat(), "speed", null, 1, 1, Speed.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cacheEClass, Cache.class, "Cache", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCache_Number(), ecorePackage.getEInt(), "number", null, 0, 1, Cache.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCache_Type(), ecorePackage.getEString(), "type", "", 0, 1, Cache.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(l1EClass, metamodelHCL.L1.class, "L1", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getL1_Number(), ecorePackage.getEInt(), "number", null, 0, 1, metamodelHCL.L1.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getL1_Type(), this.getSizeTypeEnum(), "type", null, 0, 1, metamodelHCL.L1.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(l2EClass, metamodelHCL.L2.class, "L2", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getL2_Number(), ecorePackage.getEInt(), "number", null, 0, 1, metamodelHCL.L2.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getL2_Type(), this.getSizeTypeEnum(), "type", "MiB", 0, 1, metamodelHCL.L2.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(l3EClass, metamodelHCL.L3.class, "L3", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getL3_Number(), ecorePackage.getEInt(), "number", null, 0, 1, metamodelHCL.L3.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getL3_Type(), this.getSizeTypeEnum(), "type", "MiB", 0, 1, metamodelHCL.L3.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(singleStorageEClass, SingleStorage.class, "SingleStorage", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSingleStorage_Stype(), this.getStorageTypeEnum(), "stype", null, 1, 1, SingleStorage.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSingleStorage_Ssize(), this.getSizeTypeEnum(), "ssize", "GiB", 1, 1, SingleStorage.class,
+		initEAttribute(getSingleStorage_Ssize(), ecorePackage.getEString(), "ssize", "", 1, 1, SingleStorage.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(diagonalEClass, Diagonal.class, "Diagonal", !IS_ABSTRACT, !IS_INTERFACE,
@@ -807,7 +752,7 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getType_Dtype(), this.getDisplayTypeEnum(), "dtype", "FiveK", 1, 1, Type.class, !IS_TRANSIENT,
+		initEAttribute(getType_Dtype(), ecorePackage.getEString(), "dtype", "", 1, 1, Type.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(computerEClass, Computer.class, "Computer", !IS_ABSTRACT, !IS_INTERFACE,
@@ -818,21 +763,15 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		// Initialize enums and add enum literals
-		initEEnum(sizeTypeEnumEEnum, SizeTypeEnum.class, "SizeTypeEnum");
-		addEEnumLiteral(sizeTypeEnumEEnum, SizeTypeEnum.KI_B);
-		addEEnumLiteral(sizeTypeEnumEEnum, SizeTypeEnum.MI_B);
-		addEEnumLiteral(sizeTypeEnumEEnum, SizeTypeEnum.GI_B);
+		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getModel_Computer(), this.getComputer(), null, "computer", null, 0, -1, Model.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		// Initialize enums and add enum literals
 		initEEnum(storageTypeEnumEEnum, StorageTypeEnum.class, "StorageTypeEnum");
 		addEEnumLiteral(storageTypeEnumEEnum, StorageTypeEnum.HDD);
 		addEEnumLiteral(storageTypeEnumEEnum, StorageTypeEnum.SSD);
-
-		initEEnum(displayTypeEnumEEnum, DisplayTypeEnum.class, "DisplayTypeEnum");
-		addEEnumLiteral(displayTypeEnumEEnum, DisplayTypeEnum.FOUR_K);
-		addEEnumLiteral(displayTypeEnumEEnum, DisplayTypeEnum.FIVE_K);
-		addEEnumLiteral(displayTypeEnumEEnum, DisplayTypeEnum.HD);
-		addEEnumLiteral(displayTypeEnumEEnum, DisplayTypeEnum.FULL_HD);
 
 		// Create resource
 		createResource(eNS_URI);

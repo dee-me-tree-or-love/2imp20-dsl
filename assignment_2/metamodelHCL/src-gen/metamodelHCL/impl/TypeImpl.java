@@ -2,7 +2,6 @@
  */
 package metamodelHCL.impl;
 
-import metamodelHCL.DisplayTypeEnum;
 import metamodelHCL.MetamodelHCLPackage;
 import metamodelHCL.Type;
 
@@ -34,7 +33,7 @@ public class TypeImpl extends DisplayPropertyImpl implements Type {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final DisplayTypeEnum DTYPE_EDEFAULT = DisplayTypeEnum.FIVE_K;
+	protected static final String DTYPE_EDEFAULT = "";
 
 	/**
 	 * The cached value of the '{@link #getDtype() <em>Dtype</em>}' attribute.
@@ -44,7 +43,7 @@ public class TypeImpl extends DisplayPropertyImpl implements Type {
 	 * @generated
 	 * @ordered
 	 */
-	protected DisplayTypeEnum dtype = DTYPE_EDEFAULT;
+	protected String dtype = DTYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -70,7 +69,7 @@ public class TypeImpl extends DisplayPropertyImpl implements Type {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DisplayTypeEnum getDtype() {
+	public String getDtype() {
 		return dtype;
 	}
 
@@ -79,9 +78,9 @@ public class TypeImpl extends DisplayPropertyImpl implements Type {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDtype(DisplayTypeEnum newDtype) {
-		DisplayTypeEnum oldDtype = dtype;
-		dtype = newDtype == null ? DTYPE_EDEFAULT : newDtype;
+	public void setDtype(String newDtype) {
+		String oldDtype = dtype;
+		dtype = newDtype;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, MetamodelHCLPackage.TYPE__DTYPE, oldDtype, dtype));
 	}
@@ -109,7 +108,7 @@ public class TypeImpl extends DisplayPropertyImpl implements Type {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case MetamodelHCLPackage.TYPE__DTYPE:
-			setDtype((DisplayTypeEnum) newValue);
+			setDtype((String) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -139,7 +138,7 @@ public class TypeImpl extends DisplayPropertyImpl implements Type {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case MetamodelHCLPackage.TYPE__DTYPE:
-			return dtype != DTYPE_EDEFAULT;
+			return DTYPE_EDEFAULT == null ? dtype != null : !DTYPE_EDEFAULT.equals(dtype);
 		}
 		return super.eIsSet(featureID);
 	}

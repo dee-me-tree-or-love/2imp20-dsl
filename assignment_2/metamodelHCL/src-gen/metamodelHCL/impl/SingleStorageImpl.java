@@ -4,7 +4,6 @@ package metamodelHCL.impl;
 
 import metamodelHCL.MetamodelHCLPackage;
 import metamodelHCL.SingleStorage;
-import metamodelHCL.SizeTypeEnum;
 import metamodelHCL.StorageTypeEnum;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -56,7 +55,7 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 	 * @generated
 	 * @ordered
 	 */
-	protected static final SizeTypeEnum SSIZE_EDEFAULT = SizeTypeEnum.GI_B;
+	protected static final String SSIZE_EDEFAULT = "";
 
 	/**
 	 * The cached value of the '{@link #getSsize() <em>Ssize</em>}' attribute.
@@ -66,7 +65,7 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 	 * @generated
 	 * @ordered
 	 */
-	protected SizeTypeEnum ssize = SSIZE_EDEFAULT;
+	protected String ssize = SSIZE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -114,7 +113,7 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SizeTypeEnum getSsize() {
+	public String getSsize() {
 		return ssize;
 	}
 
@@ -123,9 +122,9 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSsize(SizeTypeEnum newSsize) {
-		SizeTypeEnum oldSsize = ssize;
-		ssize = newSsize == null ? SSIZE_EDEFAULT : newSsize;
+	public void setSsize(String newSsize) {
+		String oldSsize = ssize;
+		ssize = newSsize;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, MetamodelHCLPackage.SINGLE_STORAGE__SSIZE, oldSsize,
 					ssize));
@@ -159,7 +158,7 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 			setStype((StorageTypeEnum) newValue);
 			return;
 		case MetamodelHCLPackage.SINGLE_STORAGE__SSIZE:
-			setSsize((SizeTypeEnum) newValue);
+			setSsize((String) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -194,7 +193,7 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 		case MetamodelHCLPackage.SINGLE_STORAGE__STYPE:
 			return stype != STYPE_EDEFAULT;
 		case MetamodelHCLPackage.SINGLE_STORAGE__SSIZE:
-			return ssize != SSIZE_EDEFAULT;
+			return SSIZE_EDEFAULT == null ? ssize != null : !SSIZE_EDEFAULT.equals(ssize);
 		}
 		return super.eIsSet(featureID);
 	}

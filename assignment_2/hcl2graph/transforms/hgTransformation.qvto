@@ -4,23 +4,29 @@ modeltype Graph uses 'http://dsldesign.tue.nl/graph';
 transformation hgTransformation(in hcl : HCL, out Graph);
 
 main() {
-	hcl.rootObjects()[HCL::Computer]->map computer2graph();
+	hcl.rootObjects()[HCL::Model]->map model2graph();
 }
 
-mapping HCL::Computer::computer2graph() : Graph::Graph {
-	name := self.label;
-	nodes := self.component->map component2node();
+mapping HCL::Model::model2graph() : Graph::Graph {
+	nodes := self.computer->map computer2node()->
+			 union(getAllComponents()->map multiComponents2cnode())
 }
+
+//Edge : a BOX Node must have outEdge
+
+//Q: where to set CPU and Display Node
 
 mapping HCL::Computer::computer2node() : Graph::Node {
 	label := self.label;
 	shape := Shape::BOX;
 }
 
-mapping HCL::Component::component2node() : Graph::Node {
+mapping HCL::Component::multiComponents2cnode() : Graph::Node {
 	label := self.label;
 	shape := Shape::BOX;
 }
+
+mapping HCL::Component::compoent2node() : Graph::Node disjuncts HCL::Processing::procseeing2node, HCL::Display::display2node{}
 
 //1
 mapping HCL::Processing::procseeing2node() : Graph::Node {
@@ -43,8 +49,6 @@ mapping HCL::Speed::speed2node() : Graph::Node {
 	label := self.speed.toString() + ' GHz';
 	shape := Shape::BOX;
 }
-
-mapping HCL::Speed::speed2edge() : Graph::Edge {}
 
 //2
 mapping HCL::Cores::cores2node() : Graph::Node {
@@ -77,10 +81,7 @@ mapping HCL::Diagonal::diagonal2node() : Graph::Node {
 //	return UML::DataType.allInstances()->select(e | e.name = "Integer")->asSequence()->first().oclAsType(UML::DataType).map datatype2type();
 //}
 
-query getAllProcessings() : Sequence(HCL::Processing) {
-	return HCL::Processing.allInstances()->asSequence()
+query getAllComponents() : Sequence(HCL::Component) {
+	return HCL::Component.allInstances()->asSequence()
 }
 
-query getAllDisplays() : Sequence(HCL::Display) {
-	return HCL::Display.allInstances()->asSequence()
-}

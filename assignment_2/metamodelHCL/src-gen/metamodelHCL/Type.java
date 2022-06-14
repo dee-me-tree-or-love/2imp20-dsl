@@ -21,28 +21,25 @@ package metamodelHCL;
 public interface Type extends DisplayProperty {
 	/**
 	 * Returns the value of the '<em><b>Dtype</b></em>' attribute.
-	 * The default value is <code>"FiveK"</code>.
-	 * The literals are from the enumeration {@link metamodelHCL.DisplayTypeEnum}.
+	 * The default value is <code>""</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Dtype</em>' attribute.
-	 * @see metamodelHCL.DisplayTypeEnum
-	 * @see #setDtype(DisplayTypeEnum)
+	 * @see #setDtype(String)
 	 * @see metamodelHCL.MetamodelHCLPackage#getType_Dtype()
-	 * @model default="FiveK" required="true"
+	 * @model default="" required="true"
 	 * @generated
 	 */
-	DisplayTypeEnum getDtype();
+	String getDtype();
 
 	/**
 	 * Sets the value of the '{@link metamodelHCL.Type#getDtype <em>Dtype</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Dtype</em>' attribute.
-	 * @see metamodelHCL.DisplayTypeEnum
 	 * @see #getDtype()
 	 * @generated
 	 */
-	void setDtype(DisplayTypeEnum value);
+	void setDtype(String value);
 
 } // Type

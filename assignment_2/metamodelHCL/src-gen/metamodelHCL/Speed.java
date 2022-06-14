@@ -24,12 +24,12 @@ public interface Speed extends ProcessingProperty {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Speed</em>' attribute.
-	 * @see #setSpeed(double)
+	 * @see #setSpeed(float)
 	 * @see metamodelHCL.MetamodelHCLPackage#getSpeed_Speed()
 	 * @model required="true"
 	 * @generated
 	 */
-	double getSpeed();
+	float getSpeed();
 
 	/**
 	 * Sets the value of the '{@link metamodelHCL.Speed#getSpeed <em>Speed</em>}' attribute.
@@ -39,6 +39,6 @@ public interface Speed extends ProcessingProperty {
 	 * @see #getSpeed()
 	 * @generated
 	 */
-	void setSpeed(double value);
+	void setSpeed(float value);
 
 } // Speed

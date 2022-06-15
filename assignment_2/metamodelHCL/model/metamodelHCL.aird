@@ -6,7 +6,7 @@
     <semanticResources>hclModel.xmi</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_eQ6jwOLFEeyyQ6es1tDVCA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_eRE70OLFEeyyQ6es1tDVCA" name="metamodelHCL" repPath="#_eRDGoOLFEeyyQ6es1tDVCA" changeId="a96b4df7-ce9a-4848-8501-1275bb3d16fb">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_eRE70OLFEeyyQ6es1tDVCA" name="metamodelHCL" repPath="#_eRDGoOLFEeyyQ6es1tDVCA" changeId="06de4143-0866-4add-b801-46047b5b3bf7">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="metamodelHCL.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -437,9 +437,9 @@
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
       </ownedElements>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_iWUTduqHEeyGTqdI9DgB3g" name="[0..*] component" sourceNode="_bxO10OqHEeyGTqdI9DgB3g" targetNode="_k54coOd3EeyL_JSR2N_Sxg">
-      <target xmi:type="ecore:EReference" href="metamodelHCL.ecore#//Computer/component"/>
-      <semanticElements xmi:type="ecore:EReference" href="metamodelHCL.ecore#//Computer/component"/>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_iWUTduqHEeyGTqdI9DgB3g" name="[0..*] components" sourceNode="_bxO10OqHEeyGTqdI9DgB3g" targetNode="_k54coOd3EeyL_JSR2N_Sxg">
+      <target xmi:type="ecore:EReference" href="metamodelHCL.ecore#//Computer/components"/>
+      <semanticElements xmi:type="ecore:EReference" href="metamodelHCL.ecore#//Computer/components"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_iWUTd-qHEeyGTqdI9DgB3g" description="_3rx_8Od4EeyL_JSR2N_Sxg" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_iWUTeeqHEeyGTqdI9DgB3g" showIcon="false">
           <customFeatures>labelSize</customFeatures>
@@ -509,9 +509,9 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_v4MrkOttEey64ZScQOJYTw" name="[0..*] computer" sourceNode="_qWogcOttEey64ZScQOJYTw" targetNode="_bxO10OqHEeyGTqdI9DgB3g">
-      <target xmi:type="ecore:EReference" href="metamodelHCL.ecore#//Model/computer"/>
-      <semanticElements xmi:type="ecore:EReference" href="metamodelHCL.ecore#//Model/computer"/>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_v4MrkOttEey64ZScQOJYTw" name="[0..*] computers" sourceNode="_qWogcOttEey64ZScQOJYTw" targetNode="_bxO10OqHEeyGTqdI9DgB3g">
+      <target xmi:type="ecore:EReference" href="metamodelHCL.ecore#//Model/computers"/>
+      <semanticElements xmi:type="ecore:EReference" href="metamodelHCL.ecore#//Model/computers"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_v4NSoOttEey64ZScQOJYTw" description="_3rx_8Od4EeyL_JSR2N_Sxg" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_v4NSouttEey64ZScQOJYTw" showIcon="false">
           <customFeatures>labelSize</customFeatures>

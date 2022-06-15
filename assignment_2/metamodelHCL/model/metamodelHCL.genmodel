@@ -52,10 +52,10 @@
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Computer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Computer/label"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Computer/component"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Computer/components"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Model">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Model/computer"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Model/computers"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

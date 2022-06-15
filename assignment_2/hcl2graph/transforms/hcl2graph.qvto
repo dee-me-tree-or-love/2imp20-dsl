@@ -3,7 +3,17 @@ modeltype Graph uses 'http://dsldesign.tue.nl/graph';
 
 transformation hcl2graph(in hcl : HCL, out Graph);
 
+helper makeNode(l: String) : Graph::Node {
+	// FIXME: solve the warning of no explicit constructor.
+	var n := new Graph::Node();
+	n.label := l;
+	return n;
+}
+
 main() {
+	var processingNode := makeNode('CPU');
+	var displayNode := makeNode('Display');
+	// TODO: pass the nodes down the method here??? or define them as globa somehow??
 	hcl.rootObjects()[HCL::Model] -> map model2graph();
 }
 
@@ -12,10 +22,24 @@ mapping HCL::Model::model2graph() : Graph::Graph {
 }
 
 mapping HCL::Computer::computer2node() : Graph::Node {
-	// TODO: define computer level mappings
+	label := self.label;
+}
+
+// TODO: rename component to resource to align with the assignment description?
+mapping HCL::Processing::component2node() : Graph::Node {
+	label := self.label;
+}
+
+mapping HCL::Display::component2node() : Graph::Node {
+	label := self.label;
 }
 
 // TODO: define all lower level mappings
-// general idea:
+//	resources:
+//		1. https://wiki.eclipse.org/images/e/ee/QVTO_EclipseCon_2009_Presentation.pdf
+//	general idea:
 //		1. define transformation per each level
 //		2. define edges
+//	tips:
+//		1. consider using helpers
+//		2. 

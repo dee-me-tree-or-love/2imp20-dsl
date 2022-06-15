@@ -1,0 +1,21 @@
+modeltype HCL uses 'http://www.example.org/metamodelHCL';
+modeltype Graph uses 'http://dsldesign.tue.nl/graph';
+
+transformation hcl2graph(in hcl : HCL, out Graph);
+
+main() {
+	hcl.rootObjects()[HCL::Model] -> map model2graph();
+}
+
+mapping HCL::Model::model2graph() : Graph::Graph {
+	// TODO: define root level mappings
+}
+
+mapping HCL::Computer::computer2node() : Graph::Node {
+	// TODO: define computer level mappings
+}
+
+// TODO: define all lower level mappings
+// general idea:
+//		1. define transformation per each level
+//		2. define edges

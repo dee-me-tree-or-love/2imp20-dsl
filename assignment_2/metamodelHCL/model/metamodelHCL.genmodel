@@ -9,21 +9,17 @@
   <foreignModel>metamodelHCL.ecore</foreignModel>
   <testsDirectory xsi:nil="true"/>
   <genPackages prefix="MetamodelHCL" disposableProviderFactory="true" ecorePackage="metamodelHCL.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="metamodelHCL.ecore#//StorageTypeEnum">
-      <genEnumLiterals ecoreEnumLiteral="metamodelHCL.ecore#//StorageTypeEnum/HDD"/>
-      <genEnumLiterals ecoreEnumLiteral="metamodelHCL.ecore#//StorageTypeEnum/SSD"/>
-    </genEnums>
     <genClasses ecoreClass="metamodelHCL.ecore#//Component">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Component/label"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Processing">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Processing/processingproperty"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Processing/properties"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Storage">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Storage/storageproperty"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Storage/properties"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Display">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Display/displayproperty"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Display/properties"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//ReusedComponent"/>
     <genClasses ecoreClass="metamodelHCL.ecore#//ProcessingProperty"/>
@@ -34,23 +30,25 @@
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Speed">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Speed/speed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Speed/unit"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Cache">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Cache/number"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Cache/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Cache/size"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Cache/unit"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//L1"/>
     <genClasses ecoreClass="metamodelHCL.ecore#//L2"/>
     <genClasses ecoreClass="metamodelHCL.ecore#//L3"/>
     <genClasses ecoreClass="metamodelHCL.ecore#//SingleStorage">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//SingleStorage/stype"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//SingleStorage/ssize"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//SingleStorage/unit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//SingleStorage/size"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Diagonal">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Diagonal/inch"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Diagonal/size"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Diagonal/unit"/>
     </genClasses>
-    <genClasses ecoreClass="metamodelHCL.ecore#//Type">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Type/dtype"/>
+    <genClasses ecoreClass="metamodelHCL.ecore#//Resolution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Resolution/type"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Computer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Computer/label"/>

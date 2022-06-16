@@ -7,6 +7,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="Processing" eSuperTypes="#//Component">
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="5"
         eType="#//ProcessingProperty" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="coresProperties" upperBound="-1"
+        eType="#//CoresProperty" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="speedProperties" upperBound="-1"
+        eType="#//SpeedProperty" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cacheProperties" upperBound="-1"
+        eType="#//CacheProperty" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Storage" eSuperTypes="#//Component">
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" eType="#//StorageProperty"
@@ -57,5 +63,17 @@
   <eClassifiers xsi:type="ecore:EClass" name="Model">
     <eStructuralFeatures xsi:type="ecore:EReference" name="computers" upperBound="-1"
         eType="#//Computer" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CoresProperty">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SpeedProperty">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="speed" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CacheProperty">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -14,6 +14,9 @@
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Processing">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Processing/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Processing/coresProperties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Processing/speedProperties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Processing/cacheProperties"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Storage">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Storage/properties"/>
@@ -56,6 +59,17 @@
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Model">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Model/computers"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodelHCL.ecore#//CoresProperty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//CoresProperty/number"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodelHCL.ecore#//SpeedProperty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//SpeedProperty/speed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//SpeedProperty/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="metamodelHCL.ecore#//CacheProperty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//CacheProperty/size"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//CacheProperty/unit"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

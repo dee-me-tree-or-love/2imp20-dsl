@@ -4,35 +4,72 @@ modeltype Graph uses 'http://dsldesign.tue.nl/graph';
 transformation hcl2graph(in hcl : HCL, out Graph);
 
 helper makeNode(l: String) : Graph::Node {
-	// FIXME: solve the warning of no explicit constructor.
-	var n := new Graph::Node();
-	n.label := l;
-	return n;
+	return object Graph::Node {label := l};
+}
+
+helper makeEdge(t: Graph::Node, s: Graph::Style) : Graph::Edge {
+	return object Graph::Edge {
+		target := t;
+		style := s;
+	};
 }
 
 main() {
-	var processingNode := makeNode('CPU');
-	var displayNode := makeNode('Display');
 	// TODO: pass the nodes down the method here??? or define them as globa somehow??
 	hcl.rootObjects()[HCL::Model] -> map model2graph();
 }
 
+// MODEL TRANSFORMATIONS
+// ~~~~~~~~~~~~~~~~~~~~~
+
 mapping HCL::Model::model2graph() : Graph::Graph {
+	var processingNode := makeNode('CPU');
+	var displayNode := makeNode('Display');
 	// TODO: define root level mappings
 }
 
 mapping HCL::Computer::computer2node() : Graph::Node {
 	label := self.label;
+	var children := self.components -> map component2node();
+	outEdges := children -> map node2solidedge();
 }
+mapping HCL::Component::component2node() : Graph::Node 
+	disjuncts HCL::Processing::processing2node, HCL::Display::display2node;
 
 // TODO: rename component to resource to align with the assignment description?
-mapping HCL::Processing::component2node() : Graph::Node {
+mapping HCL::Processing::processing2node() : Graph::Node {
+	label := self.label;
+	var coreChildren := self.coresProperties -> map cores2node();
+	var cacheChildren := self.cacheProperties -> map cache2node();
+}
+
+mapping HCL::CoresProperty::cores2node() : Graph::Node {
+	label := self.number.toString() + "cores";
+	shape := Graph::Shape::OVAL;
+}
+
+mapping HCL::CacheProperty::cache2node() : Graph::Node {
+	label := self.size.toString() + self.unit;
+	shape := Graph::Shape::OVAL;
+}
+
+mapping HCL::Display::display2node() : Graph::Node {
 	label := self.label;
 }
 
-mapping HCL::Display::component2node() : Graph::Node {
-	label := self.label;
+// UTILITY TRANSFORMATIONS
+// ~~~~~~~~~~~~~~~~~~~~~~~
+
+mapping Graph::Node::node2solidedge() : Graph::Edge {
+	target := self;
+	style := Graph::Style::SOLID;
 }
+
+mapping Graph::Node::node2dashededge() : Graph::Edge {
+	target := self;
+	style := Graph::Style::DASHED;
+}
+
 
 // TODO: define all lower level mappings
 //	resources:

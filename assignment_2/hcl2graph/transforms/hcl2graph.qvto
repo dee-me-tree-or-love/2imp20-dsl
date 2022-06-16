@@ -99,4 +99,5 @@ mapping Graph::Node::node2dashededge() : Graph::Edge {
 //		2. define edges
 //	tips:
 //		1. consider using helpers
-//		2. 
+//		2. consider queries and the rest
+// TODO: restructure the model to be easier to process for conversion

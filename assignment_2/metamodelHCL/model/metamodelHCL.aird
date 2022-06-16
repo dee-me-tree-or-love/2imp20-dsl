@@ -3,7 +3,6 @@
   <viewpoint:DAnalysis uid="_eQOnQOLFEeyyQ6es1tDVCA" selectedViews="_eQ6jwOLFEeyyQ6es1tDVCA" version="15.0.0.202201261500">
     <semanticResources>metamodelHCL.ecore</semanticResources>
     <semanticResources>metamodelHCL.genmodel</semanticResources>
-    <semanticResources>hclModel.xmi</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_eQ6jwOLFEeyyQ6es1tDVCA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_eRE70OLFEeyyQ6es1tDVCA" name="metamodelHCL" repPath="#_eRDGoOLFEeyyQ6es1tDVCA" changeId="e3503156-d734-4339-94a4-817aab43350b">

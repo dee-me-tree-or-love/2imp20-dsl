@@ -5,24 +5,37 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:metamodelHCL="http://www.example.org/metamodelHCL"
     xsi:schemaLocation="http://www.example.org/metamodelHCL metamodelHCL.ecore">
-  <computers>
+  <computers
+      label="my_computer">
     <components
-        xsi:type="metamodelHCL:Processing">
+        xsi:type="metamodelHCL:Processing"
+        label="my_cpu1">
       <properties
-          xsi:type="metamodelHCL:L1CacheProperty"/>
+          xsi:type="metamodelHCL:L1CacheProperty"
+          size="32"
+          unit="KiB"/>
       <properties
-          xsi:type="metamodelHCL:L2CacheProperty"/>
+          xsi:type="metamodelHCL:L2CacheProperty"
+          size="128"
+          unit="KiB"/>
       <properties
-          xsi:type="metamodelHCL:CoresProperty"/>
+          xsi:type="metamodelHCL:CoresProperty"
+          number="2"/>
       <properties
-          xsi:type="metamodelHCL:SpeedProperty"/>
+          xsi:type="metamodelHCL:SpeedProperty"
+          speed="2.34"
+          unit="GHz"/>
     </components>
     <components
-        xsi:type="metamodelHCL:Display">
+        xsi:type="metamodelHCL:Display"
+        label="my_display">
       <properties
-          xsi:type="metamodelHCL:DiagonalProperty"/>
+          xsi:type="metamodelHCL:DiagonalProperty"
+          size="5"
+          unit="Inch"/>
       <properties
-          xsi:type="metamodelHCL:ResolutionProperty"/>
+          xsi:type="metamodelHCL:ResolutionProperty"
+          type="5K"/>
     </components>
   </computers>
 </metamodelHCL:Model>

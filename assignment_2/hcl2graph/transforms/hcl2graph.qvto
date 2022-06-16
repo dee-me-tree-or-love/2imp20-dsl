@@ -36,10 +36,14 @@ main() {
 mapping HCL::Model::model2graph() : Graph::Graph {
 	var processingTreeRoot : Graph::Node = self.makeProcessingSpeedTree();
 	var processingSpeeds : Collection(Graph::Node) := processingTreeRoot.children;
-	var displayTreeRoot : Graph::Node := makeNode('Display');
+	var displayTreeRoot : Graph::Node := self.makeDisplayDiagonalTree();
 	var displayDiagonals : Collection(Graph::Node) := displayTreeRoot.children;
 	// TODO: define root level mappings
-	
+	var roots : List(Graph::Node) := List {processingTreeRoot, displayTreeRoot};
+	nodes := roots 
+		-> union(processingSpeeds -> asList())
+		-> union(displayDiagonals -> asList())
+		-> asList();
 }
 
 // Critical Property Subgraphs
@@ -50,7 +54,7 @@ helper HCL::Model::makeProcessingSpeedTree() : Graph::Node {
 	var root := makeNode('CPU');
 	var properties : Set(HCL::SpeedProperty) := self.processingSpeeds() -> asSet();
 	var children : Set(Graph::Node) := properties -> map speed2node() -> asSet();
-	var edges : Set(Graph::Edge) := children -> target2solidedge() -> asSet();
+	var edges : Bag(Graph::Edge) := children -> target2solidedge() -> asBag();
 	root.outEdges := edges -> asOrderedSet();
 	root.children := children;
 	return root;
@@ -79,7 +83,7 @@ helper HCL::Model::makeDisplayDiagonalTree() : Graph::Node {
 	var root := makeNode('Display');
 	var properties : Set(HCL::DiagonalProperty) := self.displayDiagonals() -> asSet();
 	var children : Set(Graph::Node) := properties -> map diagonal2node() -> asSet();
-	var edges : Set(Graph::Edge) := children -> target2solidedge() -> asSet();
+	var edges : Bag(Graph::Edge) := children -> target2solidedge() -> asBag();
 	root.outEdges := edges -> asOrderedSet();
 	root.children := children;
 	return root;
@@ -104,7 +108,6 @@ mapping HCL::DiagonalProperty::diagonal2node() : Graph::Node {
 }
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 
 
 mapping HCL::Computer::computer2node() : Graph::Node {

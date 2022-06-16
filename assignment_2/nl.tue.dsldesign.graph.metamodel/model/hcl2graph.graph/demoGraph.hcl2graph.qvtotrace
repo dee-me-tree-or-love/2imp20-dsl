@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trace:Trace xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:trace="http:///www.eclipse.org/m2m/qvt/operational/trace.ecore">
+  <traceRecords>
+    <mappingOperation name="model2graph" package="hcl2graph" module="hcl2graph"/>
+    <context>
+      <context name="self" type="Model">
+        <value>
+          <modelElement href="../../../metamodelHCL/model/demoModelHCL.xmi#/"/>
+        </value>
+      </context>
+    </context>
+    <parameters/>
+    <result>
+      <result kind="OUT" name="result" type="Graph">
+        <value>
+          <modelElement href="demoGraph.xmi#/"/>
+        </value>
+      </result>
+    </result>
+  </traceRecords>
+  <traceRecords>
+    <mappingOperation name="speed2node" package="hcl2graph" module="hcl2graph"/>
+    <context>
+      <context name="self" type="SpeedProperty">
+        <value>
+          <modelElement href="../../../metamodelHCL/model/demoModelHCL.xmi#//@computers.0/@components.0/@properties.3"/>
+        </value>
+      </context>
+    </context>
+    <parameters/>
+    <result>
+      <result kind="OUT" name="result" type="Node">
+        <value>
+          <modelElement href="demoGraph.xmi#//@nodes.2"/>
+        </value>
+      </result>
+    </result>
+  </traceRecords>
+  <traceRecords>
+    <mappingOperation name="diagonal2node" package="hcl2graph" module="hcl2graph"/>
+    <context>
+      <context name="self" type="DiagonalProperty">
+        <value>
+          <modelElement href="../../../metamodelHCL/model/demoModelHCL.xmi#//@computers.0/@components.1/@properties.0"/>
+        </value>
+      </context>
+    </context>
+    <parameters/>
+    <result>
+      <result kind="OUT" name="result" type="Node">
+        <value>
+          <modelElement href="demoGraph.xmi#//@nodes.3"/>
+        </value>
+      </result>
+    </result>
+  </traceRecords>
+</trace:Trace>

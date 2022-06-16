@@ -18,4 +18,112 @@
       </result>
     </result>
   </traceRecords>
+  <traceRecords>
+    <mappingOperation name="core2node" package="hcl2graph" module="hcl2graph"/>
+    <context>
+      <context name="self" type="CoresProperty">
+        <value>
+          <modelElement href="../../../metamodelHCL/model/demoModelHCL.xmi#//@computers.0/@components.0/@properties.2"/>
+        </value>
+      </context>
+    </context>
+    <parameters/>
+    <result>
+      <result kind="OUT" name="result" type="Node">
+        <value>
+          <modelElement href="demoGraph.xmi#//@nodes.5"/>
+        </value>
+      </result>
+    </result>
+  </traceRecords>
+  <traceRecords>
+    <mappingOperation name="l1cache2node" package="hcl2graph" module="hcl2graph"/>
+    <context>
+      <context name="self" type="L1CacheProperty">
+        <value>
+          <modelElement href="../../../metamodelHCL/model/demoModelHCL.xmi#//@computers.0/@components.0/@properties.0"/>
+        </value>
+      </context>
+    </context>
+    <parameters/>
+    <result>
+      <result kind="OUT" name="result" type="Node">
+        <value>
+          <modelElement href="demoGraph.xmi#//@nodes.6"/>
+        </value>
+      </result>
+    </result>
+  </traceRecords>
+  <traceRecords>
+    <mappingOperation name="core2node" package="hcl2graph" module="hcl2graph"/>
+    <context>
+      <context name="self" type="CoresProperty">
+        <value>
+          <modelElement href="../../../metamodelHCL/model/demoModelHCL.xmi#//@computers.0/@components.3/@properties.2"/>
+        </value>
+      </context>
+    </context>
+    <parameters/>
+    <result>
+      <result kind="OUT" name="result" type="Node">
+        <value>
+          <modelElement href="demoGraph.xmi#//@nodes.7"/>
+        </value>
+      </result>
+    </result>
+  </traceRecords>
+  <traceRecords>
+    <mappingOperation name="l1cache2node" package="hcl2graph" module="hcl2graph"/>
+    <context>
+      <context name="self" type="L1CacheProperty">
+        <value>
+          <modelElement href="../../../metamodelHCL/model/demoModelHCL.xmi#//@computers.0/@components.3/@properties.1"/>
+        </value>
+      </context>
+    </context>
+    <parameters/>
+    <result>
+      <result kind="OUT" name="result" type="Node">
+        <value>
+          <modelElement href="demoGraph.xmi#//@nodes.8"/>
+        </value>
+      </result>
+    </result>
+  </traceRecords>
+  <traceRecords>
+    <mappingOperation name="resolution2node" package="hcl2graph" module="hcl2graph"/>
+    <context>
+      <context name="self" type="ResolutionProperty">
+        <value>
+          <modelElement href="../../../metamodelHCL/model/demoModelHCL.xmi#//@computers.0/@components.1/@properties.1"/>
+        </value>
+      </context>
+    </context>
+    <parameters/>
+    <result>
+      <result kind="OUT" name="result" type="Node">
+        <value>
+          <modelElement href="demoGraph.xmi#//@nodes.11"/>
+        </value>
+      </result>
+    </result>
+  </traceRecords>
+  <traceRecords>
+    <mappingOperation name="resolution2node" package="hcl2graph" module="hcl2graph"/>
+    <context>
+      <context name="self" type="ResolutionProperty">
+        <value>
+          <modelElement href="../../../metamodelHCL/model/demoModelHCL.xmi#//@computers.0/@components.2/@properties.1"/>
+        </value>
+      </context>
+    </context>
+    <parameters/>
+    <result>
+      <result kind="OUT" name="result" type="Node">
+        <value>
+          <modelElement href="demoGraph.xmi#//@nodes.12"/>
+        </value>
+      </result>
+    </result>
+  </traceRecords>
 </trace:Trace>

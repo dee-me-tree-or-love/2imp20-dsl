@@ -59,6 +59,9 @@
           xsi:type="metamodelHCL:L1CacheProperty"
           size="24"
           unit="MiB"/>
+      <properties
+          xsi:type="metamodelHCL:CoresProperty"
+          number="4"/>
     </components>
   </computers>
 </metamodelHCL:Model>

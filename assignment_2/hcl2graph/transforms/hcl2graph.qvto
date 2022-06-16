@@ -42,12 +42,15 @@ main() {
 
 mapping HCL::Model::model2graph() : Graph::Graph {
 	var processingTreeRoot : Graph::Node = self.makeProcessingSpeedTree();
-	var processingSpeeds : Collection(Graph::Node) := processingTreeRoot.children;
 	var displayTreeRoot : Graph::Node := self.makeDisplayDiagonalTree();
+	var processingSpeeds : Collection(Graph::Node) := processingTreeRoot.children;
 	var displayDiagonals : Collection(Graph::Node) := displayTreeRoot.children;
 	// TODO: define root level mappings
-	var roots : List(Graph::Node) := List {processingTreeRoot, displayTreeRoot};
-	nodes := roots 
+	var propRoots : List(Graph::Node) := List {processingTreeRoot, displayTreeRoot};
+	var computers : List(Graph::Node) := self.computers 
+		-> collect(c|c.makeComputerSubGraph(processingTreeRoot, displayTreeRoot));
+	nodes := propRoots
+		-> union(computers)
 		-> union(processingSpeeds -> asList())
 		-> union(displayDiagonals -> asList())
 		-> asList();
@@ -67,18 +70,10 @@ helper HCL::Model::makeProcessingSpeedTree() : Graph::Node {
 }
 
 query HCL::Model::uniqueProcessingSpeeds() : Set(Graph::Node) {
-	var props : Collection(HCL::Processing) := self.computers -> collect(c|c.processing());
-	var speeds: Collection(HCL::SpeedProperty) := props -> collect(p | p -> speed());
+	var props : Collection(HCL::Processing) := self.computers -> collect(c|c.processings());
+	var speeds: Collection(HCL::SpeedProperty) := props -> collect(p | p -> speeds());
 	var uniqueSpeedLabels : Set(String) = speeds -> nodeLabel() -> asSet();
 	return uniqueSpeedLabels -> collect(l|makeBoxNode(l)) -> asSet();
-}
-
-query HCL::Computer::processing() : Collection(HCL::Processing) {
-	return self.components[HCL::Processing];
-}
-
-query HCL::Processing::speed() : Collection(HCL::SpeedProperty) {
-	return self.properties[HCL::SpeedProperty];
 }
 
 query HCL::SpeedProperty::nodeLabel() : String {
@@ -96,18 +91,10 @@ helper HCL::Model::makeDisplayDiagonalTree() : Graph::Node {
 }
 
 query HCL::Model::uniqueDisplayDiagonals() : Set(Graph::Node) {
-	var props : Collection(HCL::Display) := self.computers -> collect(c|c.display());
-	var diagonals : Collection(HCL::DiagonalProperty) := props -> collect(p | p -> diagonal());
+	var props : Collection(HCL::Display) := self.computers -> collect(c|c.displays());
+	var diagonals : Collection(HCL::DiagonalProperty) := props -> collect(p | p -> diagonals());
 	var uniqueDiagonalLabels : Set(String) = diagonals -> nodeLabel() -> asSet();
 	return uniqueDiagonalLabels -> collect(l|makeBoxNode(l)) -> asSet();
-}
-
-query HCL::Computer::display() : Collection(HCL::Display) {
-	return self.components[HCL::Display];
-}
-
-query HCL::Display::diagonal() : Collection(HCL::DiagonalProperty) {
-	return self.properties[HCL::DiagonalProperty];
 }
 
 query HCL::DiagonalProperty::nodeLabel() : String {
@@ -116,44 +103,122 @@ query HCL::DiagonalProperty::nodeLabel() : String {
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+// Computer and Components Subgraphs
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-mapping HCL::Computer::computer2node() : Graph::Node {
-	label := self.label;
-	shape := Graph::Shape::BOX;
+helper HCL::Computer::makeComputerSubGraph(
+	globalProcessing : Graph::Node, 
+	globalDisplay : Graph::Node
+) : Collection(Graph::Node) {
+	// root
+	var computer : Graph::Node := makeBoxNode(self.label);
+	// components
+	// TODO: connect these to the global nodes
+	var processings : Collection(Graph::Node) := self.processings() -> collect(p|p.makeProcessingPropsTree(globalProcessing));
+	var displays : Collection(Graph::Node) := self.displays() -> collect(d|d.makeDisplayPropsTree(globalDisplay));
+	// props
+	var processingProps : Collection(Graph::Node) := processings -> collect(c|c.children);
+	var displayProps : Collection(Graph::Node) := displays -> collect(c|c.children);
+	// edges
+	var processingEdges := processings -> target2solidedge();
+	var displayEdges := displays -> target2solidedge();
+	computer.outEdges := processingEdges -> union(displayEdges);
+	var nodes := (List {computer})
+		-> union(processings)
+		-> union(processingProps)
+		-> union(displays)
+		-> union(displayProps)
+		;
+	return nodes;
 }
 
-mapping HCL::Component::component2node() : Graph::Node {
-	label := self.label;
-	shape := Graph::Shape::BOX;
-}
+helper HCL::Processing::makeProcessingPropsTree(
+	globalProcessing : Graph::Node
+) : Graph::Node {
+	var root := makeBoxNode(self.label);
 
+	// connect to the right global nodes
+	var localLabels : List(String) := self.speeds() -> nodeLabel() -> asList();
+	var parentNodes : Collection(Graph::Node) := globalProcessing.children -> asList() -> select(c | localLabels -> includes(c.label));
+	parentNodes -> forEach(n){
+		n.outEdges := n.outEdges -> union(root -> target2solidedge());
+	};
 
-mapping HCL::Computer::computer2subgraph(processingNode : Graph::Node, displayNode : Graph::Node) : Graph::Graph {
-	var computer : Graph::Node := self.map computer2node();
+	var coreChildren : List(Graph::Node) := self.cores() -> map core2node() -> asList();
+	var cacheChildren : List(Graph::Node) := self.l1caches() -> map l1cache2node() -> asList();
+	var coreEdges : List(Graph::Edge) := coreChildren -> target2dashededge();
+	var cacheEdges : List(Graph::Edge) := cacheChildren -> target2dashededge();
 	
+	root.children := coreChildren -> union(cacheChildren);
+	root.outEdges := coreEdges -> union(cacheEdges);
+	
+	return root;
 }
 
-// UTILITY TRANSFORMATIONS
-// ~~~~~~~~~~~~~~~~~~~~~~~
-
-mapping Graph::Node::node2solidedge() : Graph::Edge {
-	target := self;
-	style := Graph::Style::SOLID;
+mapping HCL::CoresProperty::core2node() : Graph::Node {
+	label := self.number.toString() + " cores";
 }
 
-mapping Graph::Node::node2dashededge() : Graph::Edge {
-	target := self;
-	style := Graph::Style::DASHED;
+// TODO: we could reduce a lot of duplication here by
+//		introducing a common interface e.g. IPlainValue and IUnitValue
+mapping HCL::L1CacheProperty::l1cache2node() : Graph::Node {
+	label := self.size.toString() + " " + self.unit;
 }
 
+helper HCL::Display::makeDisplayPropsTree(
+	globalDisplay : Graph::Node
+) : Graph::Node {
+	var root := makeBoxNode(self.label);
 
-// TODO: define all lower level mappings
-//	resources:
-//		1. https://wiki.eclipse.org/images/e/ee/QVTO_EclipseCon_2009_Presentation.pdf
-//	general idea:
-//		1. define transformation per each level
-//		2. define edges
-//	tips:
-//		1. consider using helpers
-//		2. consider queries and the rest
-// TODO: restructure the model to be easier to process for conversion
+	// connect to the right global nodes
+	var localLabels : List(String) := self.diagonals() -> nodeLabel() -> asList();
+	var parentNodes : Collection(Graph::Node) := globalDisplay.children -> asList() -> select(c | localLabels -> includes(c.label));
+	parentNodes -> forEach(n){
+		n.outEdges := n.outEdges -> union(root -> target2solidedge());
+	};
+
+	var children := self.resolutions() -> map resolution2node() -> asList();
+	var edges := children -> target2dashededge();
+
+	root.children := children;
+	root.outEdges := edges;
+
+	return root;
+}
+
+mapping HCL::ResolutionProperty::resolution2node() : Graph::Node {
+	label := self.type;
+}
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+// Utility functions
+// ~~~~~~~~~~~~~~~~~
+
+query HCL::Computer::processings() : Collection(HCL::Processing) {
+	return self.components[HCL::Processing];
+}
+
+query HCL::Processing::speeds() : Collection(HCL::SpeedProperty) {
+	return self.properties[HCL::SpeedProperty];
+}
+
+query HCL::Processing::cores() : Collection(HCL::CoresProperty) {
+	return self.properties[HCL::CoresProperty];
+}
+
+query HCL::Processing::l1caches() : Collection(HCL::L1CacheProperty) {
+	return self.properties[HCL::L1CacheProperty];
+}
+
+query HCL::Computer::displays() : Collection(HCL::Display) {
+	return self.components[HCL::Display];
+}
+
+query HCL::Display::diagonals() : Collection(HCL::DiagonalProperty) {
+	return self.properties[HCL::DiagonalProperty];
+}
+
+query HCL::Display::resolutions() : Collection(HCL::ResolutionProperty) {
+	return self.properties[HCL::ResolutionProperty];
+}

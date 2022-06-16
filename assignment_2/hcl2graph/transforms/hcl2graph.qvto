@@ -14,6 +14,8 @@ helper makeEdge(t: Graph::Node, s: Graph::Style) : Graph::Edge {
 	};
 }
 
+intermediate property Graph::Node::children : Collection(Graph::Node);
+
 main() {
 	// TODO: pass the nodes down the method here??? or define them as globa somehow??
 	hcl.rootObjects()[HCL::Model] -> map model2graph();
@@ -26,21 +28,27 @@ mapping HCL::Model::model2graph() : Graph::Graph {
 	var processingNode := makeNode('CPU');
 	var displayNode := makeNode('Display');
 	// TODO: define root level mappings
+	var computerNodes := self.computers -> map computer2node(processingNode, displayNode);
+	
 }
 
-mapping HCL::Computer::computer2node() : Graph::Node {
+mapping HCL::Computer::computer2node(processing : Graph::Node, display: Graph::Node) : Graph::Node {
 	label := self.label;
-	var children := self.components -> map component2node();
+	children := self.components -> map component2tree();
 	outEdges := children -> map node2solidedge();
 }
-mapping HCL::Component::component2node() : Graph::Node 
-	disjuncts HCL::Processing::processing2node, HCL::Display::display2node;
+
+mapping HCL::Component::component2tree() : Graph::Node 
+	disjuncts HCL::Processing::processing2tree, HCL::Display::display2tree;
 
 // TODO: rename component to resource to align with the assignment description?
-mapping HCL::Processing::processing2node() : Graph::Node {
+mapping HCL::Processing::processing2tree() : Graph::Node {
 	label := self.label;
+	// TODO: go back to single properties attribute with queries?
 	var coreChildren := self.coresProperties -> map cores2node();
-	var cacheChildren := self.cacheProperties -> map cache2node();
+	var l1CacheChildren := self.cacheProperties[HCL::L1CacheProperty] -> map l1cache2node();
+	children := coreChildren -> union(l1CacheChildren);
+	outEdges := children -> map node2dashededge();
 }
 
 mapping HCL::CoresProperty::cores2node() : Graph::Node {
@@ -48,14 +56,26 @@ mapping HCL::CoresProperty::cores2node() : Graph::Node {
 	shape := Graph::Shape::OVAL;
 }
 
-mapping HCL::CacheProperty::cache2node() : Graph::Node {
+mapping HCL::CacheProperty::l1cache2node() : Graph::Node {
 	label := self.size.toString() + self.unit;
 	shape := Graph::Shape::OVAL;
 }
 
-mapping HCL::Display::display2node() : Graph::Node {
+mapping HCL::Display::display2tree() : Graph::Node {
 	label := self.label;
+	children := self.properties[HCL::ResolutionProperty] -> map resolution2node();
+	outEdges := children -> map node2dashededge();
 }
+
+mapping HCL::ResolutionProperty::resolution2node() : Graph::Node {
+	label := self.type;
+}
+
+mapping HCL::DiagonalProperty::diagonal2node() : Graph::Node {
+	label := "";
+}
+
+
 
 // UTILITY TRANSFORMATIONS
 // ~~~~~~~~~~~~~~~~~~~~~~~

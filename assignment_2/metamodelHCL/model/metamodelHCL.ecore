@@ -5,8 +5,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Processing" eSuperTypes="#//Component">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="5"
-        eType="#//ProcessingProperty" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="coresProperties" upperBound="-1"
         eType="#//CoresProperty" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="speedProperties" upperBound="-1"
@@ -23,35 +21,22 @@
         eType="#//DisplayProperty" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReusedComponent" eSuperTypes="#//Component"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessingProperty" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessingProperty" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="StorageProperty" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="DisplayProperty" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Cores" eSuperTypes="#//ProcessingProperty">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Speed" eSuperTypes="#//ProcessingProperty">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="speed" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Cache" abstract="true" eSuperTypes="#//ProcessingProperty">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        defaultValueLiteral=""/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="L1" eSuperTypes="#//Cache"/>
-  <eClassifiers xsi:type="ecore:EClass" name="L2" eSuperTypes="#//Cache"/>
-  <eClassifiers xsi:type="ecore:EClass" name="L3" eSuperTypes="#//Cache"/>
+  <eClassifiers xsi:type="ecore:EClass" name="L1CacheProperty" eSuperTypes="#//CacheProperty"/>
+  <eClassifiers xsi:type="ecore:EClass" name="L2CacheProperty" eSuperTypes="#//CacheProperty"/>
+  <eClassifiers xsi:type="ecore:EClass" name="L3CacheProperty" eSuperTypes="#//CacheProperty"/>
   <eClassifiers xsi:type="ecore:EClass" name="SingleStorage" eSuperTypes="#//StorageProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="0"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Diagonal" eSuperTypes="#//DisplayProperty">
+  <eClassifiers xsi:type="ecore:EClass" name="DiagonalProperty" eSuperTypes="#//DisplayProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Resolution" eSuperTypes="#//DisplayProperty">
+  <eClassifiers xsi:type="ecore:EClass" name="ResolutionProperty" eSuperTypes="#//DisplayProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral=""/>
   </eClassifiers>
@@ -64,15 +49,15 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="computers" upperBound="-1"
         eType="#//Computer" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CoresProperty">
+  <eClassifiers xsi:type="ecore:EClass" name="CoresProperty" eSuperTypes="#//ProcessingProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="number" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SpeedProperty">
+  <eClassifiers xsi:type="ecore:EClass" name="SpeedProperty" eSuperTypes="#//ProcessingProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="speed" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CacheProperty">
+  <eClassifiers xsi:type="ecore:EClass" name="CacheProperty" abstract="true" eSuperTypes="#//ProcessingProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>

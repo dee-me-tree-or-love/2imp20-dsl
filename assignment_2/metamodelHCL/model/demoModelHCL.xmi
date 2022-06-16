@@ -37,5 +37,28 @@
           xsi:type="metamodelHCL:ResolutionProperty"
           type="5K"/>
     </components>
+    <components
+        xsi:type="metamodelHCL:Display"
+        label="my_display2">
+      <properties
+          xsi:type="metamodelHCL:DiagonalProperty"
+          size="5"
+          unit="Inch"/>
+      <properties
+          xsi:type="metamodelHCL:ResolutionProperty"
+          type="4K"/>
+    </components>
+    <components
+        xsi:type="metamodelHCL:Processing"
+        label="my_cpu2">
+      <properties
+          xsi:type="metamodelHCL:SpeedProperty"
+          speed="3.2"
+          unit="GHz"/>
+      <properties
+          xsi:type="metamodelHCL:L1CacheProperty"
+          size="24"
+          unit="MiB"/>
+    </components>
   </computers>
 </metamodelHCL:Model>

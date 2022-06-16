@@ -3,8 +3,15 @@ modeltype Graph uses 'http://dsldesign.tue.nl/graph';
 
 transformation hcl2graph(in hcl : HCL, out Graph);
 
-helper makeNode(l: String) : Graph::Node {
-	return object Graph::Node {label := l};
+helper makeNode(l: String, s: Graph::Shape) : Graph::Node {
+	return object Graph::Node {
+		label := l; 
+		shape := s;
+	};
+}
+
+helper makeBoxNode(l: String) : Graph::Node {
+	return makeNode(l, Graph::Shape::BOX);
 }
 
 helper makeEdge(t: Graph::Node, s: Graph::Style) : Graph::Edge {
@@ -51,18 +58,19 @@ mapping HCL::Model::model2graph() : Graph::Graph {
 
 // TODO: (tech debt) overcome duplication with Display.
 helper HCL::Model::makeProcessingSpeedTree() : Graph::Node {
-	var root := makeNode('CPU');
-	var properties : Set(HCL::SpeedProperty) := self.processingSpeeds() -> asSet();
-	var children : Set(Graph::Node) := properties -> map speed2node() -> asSet();
-	var edges : Bag(Graph::Edge) := children -> target2solidedge() -> asBag();
+	var root := makeBoxNode('CPU');
+	var children : Set(Graph::Node) := self.uniqueProcessingSpeeds();
+	var edges : Set(Graph::Edge) := children -> target2solidedge() -> asSet();
 	root.outEdges := edges -> asOrderedSet();
 	root.children := children;
 	return root;
 }
 
-query HCL::Model::processingSpeeds() : Collection(HCL::SpeedProperty) {
-	var processingProperties : Collection(HCL::Processing) := self.computers -> collect(c|c.processing());
-	return processingProperties -> collect(p | p -> speed());
+query HCL::Model::uniqueProcessingSpeeds() : Set(Graph::Node) {
+	var props : Collection(HCL::Processing) := self.computers -> collect(c|c.processing());
+	var speeds: Collection(HCL::SpeedProperty) := props -> collect(p | p -> speed());
+	var uniqueSpeedLabels : Set(String) = speeds -> nodeLabel() -> asSet();
+	return uniqueSpeedLabels -> collect(l|makeBoxNode(l)) -> asSet();
 }
 
 query HCL::Computer::processing() : Collection(HCL::Processing) {
@@ -73,25 +81,25 @@ query HCL::Processing::speed() : Collection(HCL::SpeedProperty) {
 	return self.properties[HCL::SpeedProperty];
 }
 
-mapping HCL::SpeedProperty::speed2node() : Graph::Node {
-	label := self.speed.toString() + " " + self.unit;
-	shape := Graph::Shape::BOX;
+query HCL::SpeedProperty::nodeLabel() : String {
+	return self.speed.toString() + " " + self.unit;
 }
 
 // TODO: (tech debt) overcome duplication with CPU.
 helper HCL::Model::makeDisplayDiagonalTree() : Graph::Node {
-	var root := makeNode('Display');
-	var properties : Set(HCL::DiagonalProperty) := self.displayDiagonals() -> asSet();
-	var children : Set(Graph::Node) := properties -> map diagonal2node() -> asSet();
-	var edges : Bag(Graph::Edge) := children -> target2solidedge() -> asBag();
+	var root := makeBoxNode('Display');
+	var children : Set(Graph::Node) := self.uniqueDisplayDiagonals();
+	var edges : Set(Graph::Edge) := children -> target2solidedge() -> asSet();
 	root.outEdges := edges -> asOrderedSet();
 	root.children := children;
 	return root;
 }
 
-query HCL::Model::displayDiagonals() : Collection(HCL::DiagonalProperty) {
+query HCL::Model::uniqueDisplayDiagonals() : Set(Graph::Node) {
 	var props : Collection(HCL::Display) := self.computers -> collect(c|c.display());
-	return props -> collect(p | p -> diagonal());
+	var diagonals : Collection(HCL::DiagonalProperty) := props -> collect(p | p -> diagonal());
+	var uniqueDiagonalLabels : Set(String) = diagonals -> nodeLabel() -> asSet();
+	return uniqueDiagonalLabels -> collect(l|makeBoxNode(l)) -> asSet();
 }
 
 query HCL::Computer::display() : Collection(HCL::Display) {
@@ -102,9 +110,8 @@ query HCL::Display::diagonal() : Collection(HCL::DiagonalProperty) {
 	return self.properties[HCL::DiagonalProperty];
 }
 
-mapping HCL::DiagonalProperty::diagonal2node() : Graph::Node {
-	label := self.size.toString() + " " + self.unit;
-	shape := Graph::Shape::BOX;
+query HCL::DiagonalProperty::nodeLabel() : String {
+	return self.size.toString() + " " + self.unit;
 }
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

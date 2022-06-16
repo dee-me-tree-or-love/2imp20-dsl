@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link metamodelHCL.impl.ComputerImpl#getLabel <em>Label</em>}</li>
- *   <li>{@link metamodelHCL.impl.ComputerImpl#getComponent <em>Component</em>}</li>
+ *   <li>{@link metamodelHCL.impl.ComputerImpl#getComponents <em>Components</em>}</li>
  * </ul>
  *
  * @generated
@@ -58,14 +58,14 @@ public class ComputerImpl extends MinimalEObjectImpl.Container implements Comput
 	protected String label = LABEL_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getComponent() <em>Component</em>}' containment reference list.
+	 * The cached value of the '{@link #getComponents() <em>Components</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getComponent()
+	 * @see #getComponents()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Component> component;
+	protected EList<Component> components;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -113,12 +113,12 @@ public class ComputerImpl extends MinimalEObjectImpl.Container implements Comput
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Component> getComponent() {
-		if (component == null) {
-			component = new EObjectContainmentEList<Component>(Component.class, this,
-					MetamodelHCLPackage.COMPUTER__COMPONENT);
+	public EList<Component> getComponents() {
+		if (components == null) {
+			components = new EObjectContainmentEList<Component>(Component.class, this,
+					MetamodelHCLPackage.COMPUTER__COMPONENTS);
 		}
-		return component;
+		return components;
 	}
 
 	/**
@@ -129,8 +129,8 @@ public class ComputerImpl extends MinimalEObjectImpl.Container implements Comput
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case MetamodelHCLPackage.COMPUTER__COMPONENT:
-			return ((InternalEList<?>) getComponent()).basicRemove(otherEnd, msgs);
+		case MetamodelHCLPackage.COMPUTER__COMPONENTS:
+			return ((InternalEList<?>) getComponents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -145,8 +145,8 @@ public class ComputerImpl extends MinimalEObjectImpl.Container implements Comput
 		switch (featureID) {
 		case MetamodelHCLPackage.COMPUTER__LABEL:
 			return getLabel();
-		case MetamodelHCLPackage.COMPUTER__COMPONENT:
-			return getComponent();
+		case MetamodelHCLPackage.COMPUTER__COMPONENTS:
+			return getComponents();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -163,9 +163,9 @@ public class ComputerImpl extends MinimalEObjectImpl.Container implements Comput
 		case MetamodelHCLPackage.COMPUTER__LABEL:
 			setLabel((String) newValue);
 			return;
-		case MetamodelHCLPackage.COMPUTER__COMPONENT:
-			getComponent().clear();
-			getComponent().addAll((Collection<? extends Component>) newValue);
+		case MetamodelHCLPackage.COMPUTER__COMPONENTS:
+			getComponents().clear();
+			getComponents().addAll((Collection<? extends Component>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -182,8 +182,8 @@ public class ComputerImpl extends MinimalEObjectImpl.Container implements Comput
 		case MetamodelHCLPackage.COMPUTER__LABEL:
 			setLabel(LABEL_EDEFAULT);
 			return;
-		case MetamodelHCLPackage.COMPUTER__COMPONENT:
-			getComponent().clear();
+		case MetamodelHCLPackage.COMPUTER__COMPONENTS:
+			getComponents().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -199,8 +199,8 @@ public class ComputerImpl extends MinimalEObjectImpl.Container implements Comput
 		switch (featureID) {
 		case MetamodelHCLPackage.COMPUTER__LABEL:
 			return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-		case MetamodelHCLPackage.COMPUTER__COMPONENT:
-			return component != null && !component.isEmpty();
+		case MetamodelHCLPackage.COMPUTER__COMPONENTS:
+			return components != null && !components.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

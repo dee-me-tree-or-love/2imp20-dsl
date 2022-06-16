@@ -11,11 +11,10 @@
   <genPackages prefix="MetamodelHCL" disposableProviderFactory="true" ecorePackage="metamodelHCL.ecore#/">
     <genClasses ecoreClass="metamodelHCL.ecore#//Component">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metamodelHCL.ecore#//Component/label"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Component/computer"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Processing">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Processing/coresProperties"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Processing/speedProperties"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Processing/cacheProperties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Processing/properties"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//Storage">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Storage/properties"/>
@@ -24,9 +23,15 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//Display/properties"/>
     </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//ReusedComponent"/>
-    <genClasses ecoreClass="metamodelHCL.ecore#//ProcessingProperty"/>
-    <genClasses image="false" ecoreClass="metamodelHCL.ecore#//StorageProperty"/>
-    <genClasses image="false" ecoreClass="metamodelHCL.ecore#//DisplayProperty"/>
+    <genClasses ecoreClass="metamodelHCL.ecore#//ProcessingProperty">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//ProcessingProperty/processing"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="metamodelHCL.ecore#//StorageProperty">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//StorageProperty/storage"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="metamodelHCL.ecore#//DisplayProperty">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference metamodelHCL.ecore#//DisplayProperty/display"/>
+    </genClasses>
     <genClasses ecoreClass="metamodelHCL.ecore#//L1CacheProperty"/>
     <genClasses ecoreClass="metamodelHCL.ecore#//L2CacheProperty"/>
     <genClasses ecoreClass="metamodelHCL.ecore#//L3CacheProperty"/>

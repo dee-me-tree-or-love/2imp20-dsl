@@ -4,8 +4,6 @@ package metamodelHCL.impl;
 
 import metamodelHCL.MetamodelHCLPackage;
 import metamodelHCL.SingleStorage;
-import metamodelHCL.StorageTypeEnum;
-
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -20,52 +18,52 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link metamodelHCL.impl.SingleStorageImpl#getStype <em>Stype</em>}</li>
- *   <li>{@link metamodelHCL.impl.SingleStorageImpl#getSsize <em>Ssize</em>}</li>
+ *   <li>{@link metamodelHCL.impl.SingleStorageImpl#getUnit <em>Unit</em>}</li>
+ *   <li>{@link metamodelHCL.impl.SingleStorageImpl#getSize <em>Size</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class SingleStorageImpl extends StoragePropertyImpl implements SingleStorage {
 	/**
-	 * The default value of the '{@link #getStype() <em>Stype</em>}' attribute.
+	 * The default value of the '{@link #getUnit() <em>Unit</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStype()
+	 * @see #getUnit()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final StorageTypeEnum STYPE_EDEFAULT = StorageTypeEnum.HDD;
+	protected static final String UNIT_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getStype() <em>Stype</em>}' attribute.
+	 * The cached value of the '{@link #getUnit() <em>Unit</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStype()
+	 * @see #getUnit()
 	 * @generated
 	 * @ordered
 	 */
-	protected StorageTypeEnum stype = STYPE_EDEFAULT;
+	protected String unit = UNIT_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getSsize() <em>Ssize</em>}' attribute.
+	 * The default value of the '{@link #getSize() <em>Size</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSsize()
+	 * @see #getSize()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String SSIZE_EDEFAULT = "";
+	protected static final int SIZE_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getSsize() <em>Ssize</em>}' attribute.
+	 * The cached value of the '{@link #getSize() <em>Size</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSsize()
+	 * @see #getSize()
 	 * @generated
 	 * @ordered
 	 */
-	protected String ssize = SSIZE_EDEFAULT;
+	protected int size = SIZE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -91,8 +89,8 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StorageTypeEnum getStype() {
-		return stype;
+	public String getUnit() {
+		return unit;
 	}
 
 	/**
@@ -100,12 +98,12 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStype(StorageTypeEnum newStype) {
-		StorageTypeEnum oldStype = stype;
-		stype = newStype == null ? STYPE_EDEFAULT : newStype;
+	public void setUnit(String newUnit) {
+		String oldUnit = unit;
+		unit = newUnit;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MetamodelHCLPackage.SINGLE_STORAGE__STYPE, oldStype,
-					stype));
+			eNotify(new ENotificationImpl(this, Notification.SET, MetamodelHCLPackage.SINGLE_STORAGE__UNIT, oldUnit,
+					unit));
 	}
 
 	/**
@@ -113,8 +111,8 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getSsize() {
-		return ssize;
+	public int getSize() {
+		return size;
 	}
 
 	/**
@@ -122,12 +120,12 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSsize(String newSsize) {
-		String oldSsize = ssize;
-		ssize = newSsize;
+	public void setSize(int newSize) {
+		int oldSize = size;
+		size = newSize;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MetamodelHCLPackage.SINGLE_STORAGE__SSIZE, oldSsize,
-					ssize));
+			eNotify(new ENotificationImpl(this, Notification.SET, MetamodelHCLPackage.SINGLE_STORAGE__SIZE, oldSize,
+					size));
 	}
 
 	/**
@@ -138,10 +136,10 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case MetamodelHCLPackage.SINGLE_STORAGE__STYPE:
-			return getStype();
-		case MetamodelHCLPackage.SINGLE_STORAGE__SSIZE:
-			return getSsize();
+		case MetamodelHCLPackage.SINGLE_STORAGE__UNIT:
+			return getUnit();
+		case MetamodelHCLPackage.SINGLE_STORAGE__SIZE:
+			return getSize();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -154,11 +152,11 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case MetamodelHCLPackage.SINGLE_STORAGE__STYPE:
-			setStype((StorageTypeEnum) newValue);
+		case MetamodelHCLPackage.SINGLE_STORAGE__UNIT:
+			setUnit((String) newValue);
 			return;
-		case MetamodelHCLPackage.SINGLE_STORAGE__SSIZE:
-			setSsize((String) newValue);
+		case MetamodelHCLPackage.SINGLE_STORAGE__SIZE:
+			setSize((Integer) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -172,11 +170,11 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case MetamodelHCLPackage.SINGLE_STORAGE__STYPE:
-			setStype(STYPE_EDEFAULT);
+		case MetamodelHCLPackage.SINGLE_STORAGE__UNIT:
+			setUnit(UNIT_EDEFAULT);
 			return;
-		case MetamodelHCLPackage.SINGLE_STORAGE__SSIZE:
-			setSsize(SSIZE_EDEFAULT);
+		case MetamodelHCLPackage.SINGLE_STORAGE__SIZE:
+			setSize(SIZE_EDEFAULT);
 			return;
 		}
 		super.eUnset(featureID);
@@ -190,10 +188,10 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case MetamodelHCLPackage.SINGLE_STORAGE__STYPE:
-			return stype != STYPE_EDEFAULT;
-		case MetamodelHCLPackage.SINGLE_STORAGE__SSIZE:
-			return SSIZE_EDEFAULT == null ? ssize != null : !SSIZE_EDEFAULT.equals(ssize);
+		case MetamodelHCLPackage.SINGLE_STORAGE__UNIT:
+			return UNIT_EDEFAULT == null ? unit != null : !UNIT_EDEFAULT.equals(unit);
+		case MetamodelHCLPackage.SINGLE_STORAGE__SIZE:
+			return size != SIZE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -209,10 +207,10 @@ public class SingleStorageImpl extends StoragePropertyImpl implements SingleStor
 			return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (stype: ");
-		result.append(stype);
-		result.append(", ssize: ");
-		result.append(ssize);
+		result.append(" (unit: ");
+		result.append(unit);
+		result.append(", size: ");
+		result.append(size);
 		result.append(')');
 		return result.toString();
 	}

@@ -5,11 +5,13 @@ package metamodelHCL.provider;
 import java.util.Collection;
 import java.util.List;
 
+import metamodelHCL.MetamodelHCLPackage;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -47,8 +49,24 @@ public class DisplayPropertyItemProvider extends ItemProviderAdapter implements 
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addDisplayPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Display feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDisplayPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_DisplayProperty_display_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_DisplayProperty_display_feature",
+								"_UI_DisplayProperty_type"),
+						MetamodelHCLPackage.Literals.DISPLAY_PROPERTY__DISPLAY, true, false, true, null, null, null));
 	}
 
 	/**

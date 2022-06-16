@@ -107,33 +107,18 @@ public class MetamodelHCLAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseCores(Cores object) {
-			return createCoresAdapter();
+		public Adapter caseL1CacheProperty(L1CacheProperty object) {
+			return createL1CachePropertyAdapter();
 		}
 
 		@Override
-		public Adapter caseSpeed(Speed object) {
-			return createSpeedAdapter();
+		public Adapter caseL2CacheProperty(L2CacheProperty object) {
+			return createL2CachePropertyAdapter();
 		}
 
 		@Override
-		public Adapter caseCache(Cache object) {
-			return createCacheAdapter();
-		}
-
-		@Override
-		public Adapter caseL1(L1 object) {
-			return createL1Adapter();
-		}
-
-		@Override
-		public Adapter caseL2(L2 object) {
-			return createL2Adapter();
-		}
-
-		@Override
-		public Adapter caseL3(L3 object) {
-			return createL3Adapter();
+		public Adapter caseL3CacheProperty(L3CacheProperty object) {
+			return createL3CachePropertyAdapter();
 		}
 
 		@Override
@@ -142,13 +127,13 @@ public class MetamodelHCLAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseDiagonal(Diagonal object) {
-			return createDiagonalAdapter();
+		public Adapter caseDiagonalProperty(DiagonalProperty object) {
+			return createDiagonalPropertyAdapter();
 		}
 
 		@Override
-		public Adapter caseType(Type object) {
-			return createTypeAdapter();
+		public Adapter caseResolutionProperty(ResolutionProperty object) {
+			return createResolutionPropertyAdapter();
 		}
 
 		@Override
@@ -159,6 +144,21 @@ public class MetamodelHCLAdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseModel(Model object) {
 			return createModelAdapter();
+		}
+
+		@Override
+		public Adapter caseCoresProperty(CoresProperty object) {
+			return createCoresPropertyAdapter();
+		}
+
+		@Override
+		public Adapter caseSpeedProperty(SpeedProperty object) {
+			return createSpeedPropertyAdapter();
+		}
+
+		@Override
+		public Adapter caseCacheProperty(CacheProperty object) {
+			return createCachePropertyAdapter();
 		}
 
 		@Override
@@ -293,86 +293,44 @@ public class MetamodelHCLAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link metamodelHCL.Cores <em>Cores</em>}'.
+	 * Creates a new adapter for an object of class '{@link metamodelHCL.L1CacheProperty <em>L1 Cache Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see metamodelHCL.Cores
+	 * @see metamodelHCL.L1CacheProperty
 	 * @generated
 	 */
-	public Adapter createCoresAdapter() {
+	public Adapter createL1CachePropertyAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link metamodelHCL.Speed <em>Speed</em>}'.
+	 * Creates a new adapter for an object of class '{@link metamodelHCL.L2CacheProperty <em>L2 Cache Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see metamodelHCL.Speed
+	 * @see metamodelHCL.L2CacheProperty
 	 * @generated
 	 */
-	public Adapter createSpeedAdapter() {
+	public Adapter createL2CachePropertyAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link metamodelHCL.Cache <em>Cache</em>}'.
+	 * Creates a new adapter for an object of class '{@link metamodelHCL.L3CacheProperty <em>L3 Cache Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see metamodelHCL.Cache
+	 * @see metamodelHCL.L3CacheProperty
 	 * @generated
 	 */
-	public Adapter createCacheAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link metamodelHCL.L1 <em>L1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see metamodelHCL.L1
-	 * @generated
-	 */
-	public Adapter createL1Adapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link metamodelHCL.L2 <em>L2</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see metamodelHCL.L2
-	 * @generated
-	 */
-	public Adapter createL2Adapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link metamodelHCL.L3 <em>L3</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see metamodelHCL.L3
-	 * @generated
-	 */
-	public Adapter createL3Adapter() {
+	public Adapter createL3CachePropertyAdapter() {
 		return null;
 	}
 
@@ -391,30 +349,30 @@ public class MetamodelHCLAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link metamodelHCL.Diagonal <em>Diagonal</em>}'.
+	 * Creates a new adapter for an object of class '{@link metamodelHCL.DiagonalProperty <em>Diagonal Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see metamodelHCL.Diagonal
+	 * @see metamodelHCL.DiagonalProperty
 	 * @generated
 	 */
-	public Adapter createDiagonalAdapter() {
+	public Adapter createDiagonalPropertyAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link metamodelHCL.Type <em>Type</em>}'.
+	 * Creates a new adapter for an object of class '{@link metamodelHCL.ResolutionProperty <em>Resolution Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see metamodelHCL.Type
+	 * @see metamodelHCL.ResolutionProperty
 	 * @generated
 	 */
-	public Adapter createTypeAdapter() {
+	public Adapter createResolutionPropertyAdapter() {
 		return null;
 	}
 
@@ -443,6 +401,48 @@ public class MetamodelHCLAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createModelAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link metamodelHCL.CoresProperty <em>Cores Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see metamodelHCL.CoresProperty
+	 * @generated
+	 */
+	public Adapter createCoresPropertyAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link metamodelHCL.SpeedProperty <em>Speed Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see metamodelHCL.SpeedProperty
+	 * @generated
+	 */
+	public Adapter createSpeedPropertyAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link metamodelHCL.CacheProperty <em>Cache Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see metamodelHCL.CacheProperty
+	 * @generated
+	 */
+	public Adapter createCachePropertyAdapter() {
 		return null;
 	}
 

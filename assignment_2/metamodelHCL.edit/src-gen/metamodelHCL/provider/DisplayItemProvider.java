@@ -61,7 +61,7 @@ public class DisplayItemProvider extends ComponentItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(MetamodelHCLPackage.Literals.DISPLAY__DISPLAYPROPERTY);
+			childrenFeatures.add(MetamodelHCLPackage.Literals.DISPLAY__PROPERTIES);
 		}
 		return childrenFeatures;
 	}
@@ -125,7 +125,7 @@ public class DisplayItemProvider extends ComponentItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Display.class)) {
-		case MetamodelHCLPackage.DISPLAY__DISPLAYPROPERTY:
+		case MetamodelHCLPackage.DISPLAY__PROPERTIES:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -143,11 +143,11 @@ public class DisplayItemProvider extends ComponentItemProvider {
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.DISPLAY__DISPLAYPROPERTY,
-				MetamodelHCLFactory.eINSTANCE.createDiagonal()));
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.DISPLAY__PROPERTIES,
+				MetamodelHCLFactory.eINSTANCE.createDiagonalProperty()));
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.DISPLAY__DISPLAYPROPERTY,
-				MetamodelHCLFactory.eINSTANCE.createType()));
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.DISPLAY__PROPERTIES,
+				MetamodelHCLFactory.eINSTANCE.createResolutionProperty()));
 	}
 
 }

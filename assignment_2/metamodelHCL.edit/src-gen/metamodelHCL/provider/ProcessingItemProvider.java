@@ -61,7 +61,7 @@ public class ProcessingItemProvider extends ComponentItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(MetamodelHCLPackage.Literals.PROCESSING__PROCESSINGPROPERTY);
+			childrenFeatures.add(MetamodelHCLPackage.Literals.PROCESSING__PROPERTIES);
 		}
 		return childrenFeatures;
 	}
@@ -125,7 +125,7 @@ public class ProcessingItemProvider extends ComponentItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Processing.class)) {
-		case MetamodelHCLPackage.PROCESSING__PROCESSINGPROPERTY:
+		case MetamodelHCLPackage.PROCESSING__PROPERTIES:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -143,20 +143,20 @@ public class ProcessingItemProvider extends ComponentItemProvider {
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.PROCESSING__PROCESSINGPROPERTY,
-				MetamodelHCLFactory.eINSTANCE.createCores()));
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.PROCESSING__PROPERTIES,
+				MetamodelHCLFactory.eINSTANCE.createL1CacheProperty()));
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.PROCESSING__PROCESSINGPROPERTY,
-				MetamodelHCLFactory.eINSTANCE.createSpeed()));
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.PROCESSING__PROPERTIES,
+				MetamodelHCLFactory.eINSTANCE.createL2CacheProperty()));
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.PROCESSING__PROCESSINGPROPERTY,
-				MetamodelHCLFactory.eINSTANCE.createL1()));
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.PROCESSING__PROPERTIES,
+				MetamodelHCLFactory.eINSTANCE.createL3CacheProperty()));
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.PROCESSING__PROCESSINGPROPERTY,
-				MetamodelHCLFactory.eINSTANCE.createL2()));
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.PROCESSING__PROPERTIES,
+				MetamodelHCLFactory.eINSTANCE.createCoresProperty()));
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.PROCESSING__PROCESSINGPROPERTY,
-				MetamodelHCLFactory.eINSTANCE.createL3()));
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.PROCESSING__PROPERTIES,
+				MetamodelHCLFactory.eINSTANCE.createSpeedProperty()));
 	}
 
 }

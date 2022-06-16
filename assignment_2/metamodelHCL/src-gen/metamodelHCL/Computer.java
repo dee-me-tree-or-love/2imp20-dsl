@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link metamodelHCL.Computer#getLabel <em>Label</em>}</li>
- *   <li>{@link metamodelHCL.Computer#getComponent <em>Component</em>}</li>
+ *   <li>{@link metamodelHCL.Computer#getComponents <em>Components</em>}</li>
  * </ul>
  *
  * @see metamodelHCL.MetamodelHCLPackage#getComputer()
@@ -47,15 +47,15 @@ public interface Computer extends EObject {
 	void setLabel(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Component</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Components</b></em>' containment reference list.
 	 * The list contents are of type {@link metamodelHCL.Component}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Component</em>' containment reference list.
-	 * @see metamodelHCL.MetamodelHCLPackage#getComputer_Component()
+	 * @return the value of the '<em>Components</em>' containment reference list.
+	 * @see metamodelHCL.MetamodelHCLPackage#getComputer_Components()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Component> getComponent();
+	EList<Component> getComponents();
 
 } // Computer

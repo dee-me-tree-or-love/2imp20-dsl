@@ -89,7 +89,7 @@ public class ComputerItemProvider extends ItemProviderAdapter implements IEditin
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(MetamodelHCLPackage.Literals.COMPUTER__COMPONENT);
+			childrenFeatures.add(MetamodelHCLPackage.Literals.COMPUTER__COMPONENTS);
 		}
 		return childrenFeatures;
 	}
@@ -156,7 +156,7 @@ public class ComputerItemProvider extends ItemProviderAdapter implements IEditin
 		case MetamodelHCLPackage.COMPUTER__LABEL:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
-		case MetamodelHCLPackage.COMPUTER__COMPONENT:
+		case MetamodelHCLPackage.COMPUTER__COMPONENTS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -174,16 +174,16 @@ public class ComputerItemProvider extends ItemProviderAdapter implements IEditin
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.COMPUTER__COMPONENT,
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.COMPUTER__COMPONENTS,
 				MetamodelHCLFactory.eINSTANCE.createProcessing()));
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.COMPUTER__COMPONENT,
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.COMPUTER__COMPONENTS,
 				MetamodelHCLFactory.eINSTANCE.createStorage()));
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.COMPUTER__COMPONENT,
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.COMPUTER__COMPONENTS,
 				MetamodelHCLFactory.eINSTANCE.createDisplay()));
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.COMPUTER__COMPONENT,
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.COMPUTER__COMPONENTS,
 				MetamodelHCLFactory.eINSTANCE.createReusedComponent()));
 	}
 

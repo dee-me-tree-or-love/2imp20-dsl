@@ -54,6 +54,7 @@ public class ComponentItemProvider extends ItemProviderAdapter implements IEditi
 			super.getPropertyDescriptors(object);
 
 			addLabelPropertyDescriptor(object);
+			addComputerPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -72,6 +73,21 @@ public class ComponentItemProvider extends ItemProviderAdapter implements IEditi
 								"_UI_Component_type"),
 						MetamodelHCLPackage.Literals.COMPONENT__LABEL, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Computer feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addComputerPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_Component_computer_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Component_computer_feature",
+								"_UI_Component_type"),
+						MetamodelHCLPackage.Literals.COMPONENT__COMPUTER, true, false, true, null, null, null));
 	}
 
 	/**

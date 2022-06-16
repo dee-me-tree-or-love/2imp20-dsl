@@ -11,7 +11,7 @@ package metamodelHCL;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link metamodelHCL.Storage#getStorageproperty <em>Storageproperty</em>}</li>
+ *   <li>{@link metamodelHCL.Storage#getProperties <em>Properties</em>}</li>
  * </ul>
  *
  * @see metamodelHCL.MetamodelHCLPackage#getStorage()
@@ -20,25 +20,25 @@ package metamodelHCL;
  */
 public interface Storage extends Component {
 	/**
-	 * Returns the value of the '<em><b>Storageproperty</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Properties</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Storageproperty</em>' containment reference.
-	 * @see #setStorageproperty(StorageProperty)
-	 * @see metamodelHCL.MetamodelHCLPackage#getStorage_Storageproperty()
-	 * @model containment="true" required="true"
+	 * @return the value of the '<em>Properties</em>' containment reference.
+	 * @see #setProperties(StorageProperty)
+	 * @see metamodelHCL.MetamodelHCLPackage#getStorage_Properties()
+	 * @model containment="true"
 	 * @generated
 	 */
-	StorageProperty getStorageproperty();
+	StorageProperty getProperties();
 
 	/**
-	 * Sets the value of the '{@link metamodelHCL.Storage#getStorageproperty <em>Storageproperty</em>}' containment reference.
+	 * Sets the value of the '{@link metamodelHCL.Storage#getProperties <em>Properties</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Storageproperty</em>' containment reference.
-	 * @see #getStorageproperty()
+	 * @param value the new value of the '<em>Properties</em>' containment reference.
+	 * @see #getProperties()
 	 * @generated
 	 */
-	void setStorageproperty(StorageProperty value);
+	void setProperties(StorageProperty value);
 
 } // Storage

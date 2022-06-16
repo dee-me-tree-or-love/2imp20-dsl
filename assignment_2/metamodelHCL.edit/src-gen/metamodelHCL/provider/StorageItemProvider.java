@@ -61,7 +61,7 @@ public class StorageItemProvider extends ComponentItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(MetamodelHCLPackage.Literals.STORAGE__STORAGEPROPERTY);
+			childrenFeatures.add(MetamodelHCLPackage.Literals.STORAGE__PROPERTIES);
 		}
 		return childrenFeatures;
 	}
@@ -125,7 +125,7 @@ public class StorageItemProvider extends ComponentItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Storage.class)) {
-		case MetamodelHCLPackage.STORAGE__STORAGEPROPERTY:
+		case MetamodelHCLPackage.STORAGE__PROPERTIES:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -143,7 +143,7 @@ public class StorageItemProvider extends ComponentItemProvider {
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.STORAGE__STORAGEPROPERTY,
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.STORAGE__PROPERTIES,
 				MetamodelHCLFactory.eINSTANCE.createSingleStorage()));
 	}
 

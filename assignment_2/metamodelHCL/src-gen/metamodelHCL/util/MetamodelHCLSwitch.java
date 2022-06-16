@@ -130,62 +130,35 @@ public class MetamodelHCLSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case MetamodelHCLPackage.CORES: {
-			Cores cores = (Cores) theEObject;
-			T result = caseCores(cores);
+		case MetamodelHCLPackage.L1_CACHE_PROPERTY: {
+			L1CacheProperty l1CacheProperty = (L1CacheProperty) theEObject;
+			T result = caseL1CacheProperty(l1CacheProperty);
 			if (result == null)
-				result = caseProcessingProperty(cores);
+				result = caseCacheProperty(l1CacheProperty);
 			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case MetamodelHCLPackage.SPEED: {
-			Speed speed = (Speed) theEObject;
-			T result = caseSpeed(speed);
-			if (result == null)
-				result = caseProcessingProperty(speed);
+				result = caseProcessingProperty(l1CacheProperty);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case MetamodelHCLPackage.CACHE: {
-			Cache cache = (Cache) theEObject;
-			T result = caseCache(cache);
+		case MetamodelHCLPackage.L2_CACHE_PROPERTY: {
+			L2CacheProperty l2CacheProperty = (L2CacheProperty) theEObject;
+			T result = caseL2CacheProperty(l2CacheProperty);
 			if (result == null)
-				result = caseProcessingProperty(cache);
+				result = caseCacheProperty(l2CacheProperty);
 			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case MetamodelHCLPackage.L1: {
-			L1 l1 = (L1) theEObject;
-			T result = caseL1(l1);
-			if (result == null)
-				result = caseCache(l1);
-			if (result == null)
-				result = caseProcessingProperty(l1);
+				result = caseProcessingProperty(l2CacheProperty);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case MetamodelHCLPackage.L2: {
-			L2 l2 = (L2) theEObject;
-			T result = caseL2(l2);
+		case MetamodelHCLPackage.L3_CACHE_PROPERTY: {
+			L3CacheProperty l3CacheProperty = (L3CacheProperty) theEObject;
+			T result = caseL3CacheProperty(l3CacheProperty);
 			if (result == null)
-				result = caseCache(l2);
+				result = caseCacheProperty(l3CacheProperty);
 			if (result == null)
-				result = caseProcessingProperty(l2);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case MetamodelHCLPackage.L3: {
-			L3 l3 = (L3) theEObject;
-			T result = caseL3(l3);
-			if (result == null)
-				result = caseCache(l3);
-			if (result == null)
-				result = caseProcessingProperty(l3);
+				result = caseProcessingProperty(l3CacheProperty);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -199,20 +172,20 @@ public class MetamodelHCLSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case MetamodelHCLPackage.DIAGONAL: {
-			Diagonal diagonal = (Diagonal) theEObject;
-			T result = caseDiagonal(diagonal);
+		case MetamodelHCLPackage.DIAGONAL_PROPERTY: {
+			DiagonalProperty diagonalProperty = (DiagonalProperty) theEObject;
+			T result = caseDiagonalProperty(diagonalProperty);
 			if (result == null)
-				result = caseDisplayProperty(diagonal);
+				result = caseDisplayProperty(diagonalProperty);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case MetamodelHCLPackage.TYPE: {
-			Type type = (Type) theEObject;
-			T result = caseType(type);
+		case MetamodelHCLPackage.RESOLUTION_PROPERTY: {
+			ResolutionProperty resolutionProperty = (ResolutionProperty) theEObject;
+			T result = caseResolutionProperty(resolutionProperty);
 			if (result == null)
-				result = caseDisplayProperty(type);
+				result = caseDisplayProperty(resolutionProperty);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -227,6 +200,33 @@ public class MetamodelHCLSwitch<T> extends Switch<T> {
 		case MetamodelHCLPackage.MODEL: {
 			Model model = (Model) theEObject;
 			T result = caseModel(model);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case MetamodelHCLPackage.CORES_PROPERTY: {
+			CoresProperty coresProperty = (CoresProperty) theEObject;
+			T result = caseCoresProperty(coresProperty);
+			if (result == null)
+				result = caseProcessingProperty(coresProperty);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case MetamodelHCLPackage.SPEED_PROPERTY: {
+			SpeedProperty speedProperty = (SpeedProperty) theEObject;
+			T result = caseSpeedProperty(speedProperty);
+			if (result == null)
+				result = caseProcessingProperty(speedProperty);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case MetamodelHCLPackage.CACHE_PROPERTY: {
+			CacheProperty cacheProperty = (CacheProperty) theEObject;
+			T result = caseCacheProperty(cacheProperty);
+			if (result == null)
+				result = caseProcessingProperty(cacheProperty);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -357,92 +357,47 @@ public class MetamodelHCLSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Cores</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>L1 Cache Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Cores</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>L1 Cache Property</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseCores(Cores object) {
+	public T caseL1CacheProperty(L1CacheProperty object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Speed</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>L2 Cache Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Speed</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>L2 Cache Property</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSpeed(Speed object) {
+	public T caseL2CacheProperty(L2CacheProperty object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Cache</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>L3 Cache Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Cache</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>L3 Cache Property</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseCache(Cache object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>L1</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>L1</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseL1(L1 object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>L2</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>L2</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseL2(L2 object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>L3</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>L3</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseL3(L3 object) {
+	public T caseL3CacheProperty(L3CacheProperty object) {
 		return null;
 	}
 
@@ -462,32 +417,32 @@ public class MetamodelHCLSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Diagonal</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Diagonal Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Diagonal</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Diagonal Property</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseDiagonal(Diagonal object) {
+	public T caseDiagonalProperty(DiagonalProperty object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Resolution Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Resolution Property</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseType(Type object) {
+	public T caseResolutionProperty(ResolutionProperty object) {
 		return null;
 	}
 
@@ -518,6 +473,51 @@ public class MetamodelHCLSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseModel(Model object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Cores Property</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Cores Property</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCoresProperty(CoresProperty object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Speed Property</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Speed Property</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSpeedProperty(SpeedProperty object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Cache Property</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Cache Property</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCacheProperty(CacheProperty object) {
 		return null;
 	}
 

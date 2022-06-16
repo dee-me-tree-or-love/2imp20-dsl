@@ -5,7 +5,6 @@ package metamodelHCL.impl;
 import metamodelHCL.*;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -65,58 +64,28 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 			return createDisplay();
 		case MetamodelHCLPackage.REUSED_COMPONENT:
 			return createReusedComponent();
-		case MetamodelHCLPackage.CORES:
-			return createCores();
-		case MetamodelHCLPackage.SPEED:
-			return createSpeed();
-		case MetamodelHCLPackage.L1:
-			return createL1();
-		case MetamodelHCLPackage.L2:
-			return createL2();
-		case MetamodelHCLPackage.L3:
-			return createL3();
+		case MetamodelHCLPackage.L1_CACHE_PROPERTY:
+			return createL1CacheProperty();
+		case MetamodelHCLPackage.L2_CACHE_PROPERTY:
+			return createL2CacheProperty();
+		case MetamodelHCLPackage.L3_CACHE_PROPERTY:
+			return createL3CacheProperty();
 		case MetamodelHCLPackage.SINGLE_STORAGE:
 			return createSingleStorage();
-		case MetamodelHCLPackage.DIAGONAL:
-			return createDiagonal();
-		case MetamodelHCLPackage.TYPE:
-			return createType();
+		case MetamodelHCLPackage.DIAGONAL_PROPERTY:
+			return createDiagonalProperty();
+		case MetamodelHCLPackage.RESOLUTION_PROPERTY:
+			return createResolutionProperty();
 		case MetamodelHCLPackage.COMPUTER:
 			return createComputer();
 		case MetamodelHCLPackage.MODEL:
 			return createModel();
+		case MetamodelHCLPackage.CORES_PROPERTY:
+			return createCoresProperty();
+		case MetamodelHCLPackage.SPEED_PROPERTY:
+			return createSpeedProperty();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object createFromString(EDataType eDataType, String initialValue) {
-		switch (eDataType.getClassifierID()) {
-		case MetamodelHCLPackage.STORAGE_TYPE_ENUM:
-			return createStorageTypeEnumFromString(eDataType, initialValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String convertToString(EDataType eDataType, Object instanceValue) {
-		switch (eDataType.getClassifierID()) {
-		case MetamodelHCLPackage.STORAGE_TYPE_ENUM:
-			return convertStorageTypeEnumToString(eDataType, instanceValue);
-		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -165,9 +134,9 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Cores createCores() {
-		CoresImpl cores = new CoresImpl();
-		return cores;
+	public L1CacheProperty createL1CacheProperty() {
+		L1CachePropertyImpl l1CacheProperty = new L1CachePropertyImpl();
+		return l1CacheProperty;
 	}
 
 	/**
@@ -175,9 +144,9 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Speed createSpeed() {
-		SpeedImpl speed = new SpeedImpl();
-		return speed;
+	public L2CacheProperty createL2CacheProperty() {
+		L2CachePropertyImpl l2CacheProperty = new L2CachePropertyImpl();
+		return l2CacheProperty;
 	}
 
 	/**
@@ -185,29 +154,9 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public L1 createL1() {
-		L1Impl l1 = new L1Impl();
-		return l1;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public L2 createL2() {
-		L2Impl l2 = new L2Impl();
-		return l2;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public L3 createL3() {
-		L3Impl l3 = new L3Impl();
-		return l3;
+	public L3CacheProperty createL3CacheProperty() {
+		L3CachePropertyImpl l3CacheProperty = new L3CachePropertyImpl();
+		return l3CacheProperty;
 	}
 
 	/**
@@ -225,9 +174,9 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Diagonal createDiagonal() {
-		DiagonalImpl diagonal = new DiagonalImpl();
-		return diagonal;
+	public DiagonalProperty createDiagonalProperty() {
+		DiagonalPropertyImpl diagonalProperty = new DiagonalPropertyImpl();
+		return diagonalProperty;
 	}
 
 	/**
@@ -235,9 +184,9 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Type createType() {
-		TypeImpl type = new TypeImpl();
-		return type;
+	public ResolutionProperty createResolutionProperty() {
+		ResolutionPropertyImpl resolutionProperty = new ResolutionPropertyImpl();
+		return resolutionProperty;
 	}
 
 	/**
@@ -265,12 +214,9 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StorageTypeEnum createStorageTypeEnumFromString(EDataType eDataType, String initialValue) {
-		StorageTypeEnum result = StorageTypeEnum.get(initialValue);
-		if (result == null)
-			throw new IllegalArgumentException(
-					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
+	public CoresProperty createCoresProperty() {
+		CoresPropertyImpl coresProperty = new CoresPropertyImpl();
+		return coresProperty;
 	}
 
 	/**
@@ -278,8 +224,9 @@ public class MetamodelHCLFactoryImpl extends EFactoryImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertStorageTypeEnumToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
+	public SpeedProperty createSpeedProperty() {
+		SpeedPropertyImpl speedProperty = new SpeedPropertyImpl();
+		return speedProperty;
 	}
 
 	/**

@@ -11,8 +11,8 @@ package metamodelHCL;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link metamodelHCL.SingleStorage#getStype <em>Stype</em>}</li>
- *   <li>{@link metamodelHCL.SingleStorage#getSsize <em>Ssize</em>}</li>
+ *   <li>{@link metamodelHCL.SingleStorage#getUnit <em>Unit</em>}</li>
+ *   <li>{@link metamodelHCL.SingleStorage#getSize <em>Size</em>}</li>
  * </ul>
  *
  * @see metamodelHCL.MetamodelHCLPackage#getSingleStorage()
@@ -21,51 +21,48 @@ package metamodelHCL;
  */
 public interface SingleStorage extends StorageProperty {
 	/**
-	 * Returns the value of the '<em><b>Stype</b></em>' attribute.
-	 * The literals are from the enumeration {@link metamodelHCL.StorageTypeEnum}.
+	 * Returns the value of the '<em><b>Unit</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Stype</em>' attribute.
-	 * @see metamodelHCL.StorageTypeEnum
-	 * @see #setStype(StorageTypeEnum)
-	 * @see metamodelHCL.MetamodelHCLPackage#getSingleStorage_Stype()
+	 * @return the value of the '<em>Unit</em>' attribute.
+	 * @see #setUnit(String)
+	 * @see metamodelHCL.MetamodelHCLPackage#getSingleStorage_Unit()
 	 * @model required="true"
 	 * @generated
 	 */
-	StorageTypeEnum getStype();
+	String getUnit();
 
 	/**
-	 * Sets the value of the '{@link metamodelHCL.SingleStorage#getStype <em>Stype</em>}' attribute.
+	 * Sets the value of the '{@link metamodelHCL.SingleStorage#getUnit <em>Unit</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Stype</em>' attribute.
-	 * @see metamodelHCL.StorageTypeEnum
-	 * @see #getStype()
+	 * @param value the new value of the '<em>Unit</em>' attribute.
+	 * @see #getUnit()
 	 * @generated
 	 */
-	void setStype(StorageTypeEnum value);
+	void setUnit(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Ssize</b></em>' attribute.
-	 * The default value is <code>""</code>.
+	 * Returns the value of the '<em><b>Size</b></em>' attribute.
+	 * The default value is <code>"0"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Ssize</em>' attribute.
-	 * @see #setSsize(String)
-	 * @see metamodelHCL.MetamodelHCLPackage#getSingleStorage_Ssize()
-	 * @model default="" required="true"
+	 * @return the value of the '<em>Size</em>' attribute.
+	 * @see #setSize(int)
+	 * @see metamodelHCL.MetamodelHCLPackage#getSingleStorage_Size()
+	 * @model default="0" required="true"
 	 * @generated
 	 */
-	String getSsize();
+	int getSize();
 
 	/**
-	 * Sets the value of the '{@link metamodelHCL.SingleStorage#getSsize <em>Ssize</em>}' attribute.
+	 * Sets the value of the '{@link metamodelHCL.SingleStorage#getSize <em>Size</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Ssize</em>' attribute.
-	 * @see #getSsize()
+	 * @param value the new value of the '<em>Size</em>' attribute.
+	 * @see #getSize()
 	 * @generated
 	 */
-	void setSsize(String value);
+	void setSize(int value);
 
 } // SingleStorage

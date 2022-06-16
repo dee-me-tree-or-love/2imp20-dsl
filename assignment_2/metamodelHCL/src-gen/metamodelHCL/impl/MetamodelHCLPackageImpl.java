@@ -2,29 +2,29 @@
  */
 package metamodelHCL.impl;
 
-import metamodelHCL.Cache;
+import metamodelHCL.CacheProperty;
 import metamodelHCL.Component;
 import metamodelHCL.Computer;
-import metamodelHCL.Cores;
-import metamodelHCL.Diagonal;
+import metamodelHCL.CoresProperty;
+import metamodelHCL.DiagonalProperty;
 import metamodelHCL.Display;
 import metamodelHCL.DisplayProperty;
+import metamodelHCL.L1CacheProperty;
+import metamodelHCL.L2CacheProperty;
+import metamodelHCL.L3CacheProperty;
 import metamodelHCL.MetamodelHCLFactory;
 import metamodelHCL.MetamodelHCLPackage;
 import metamodelHCL.Model;
 import metamodelHCL.Processing;
 import metamodelHCL.ProcessingProperty;
+import metamodelHCL.ResolutionProperty;
 import metamodelHCL.ReusedComponent;
 import metamodelHCL.SingleStorage;
-import metamodelHCL.Speed;
+import metamodelHCL.SpeedProperty;
 import metamodelHCL.Storage;
 import metamodelHCL.StorageProperty;
-import metamodelHCL.StorageTypeEnum;
-import metamodelHCL.Type;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -98,42 +98,21 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass coresEClass = null;
+	private EClass l1CachePropertyEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass speedEClass = null;
+	private EClass l2CachePropertyEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass cacheEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass l1EClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass l2EClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass l3EClass = null;
+	private EClass l3CachePropertyEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -147,14 +126,14 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass diagonalEClass = null;
+	private EClass diagonalPropertyEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass typeEClass = null;
+	private EClass resolutionPropertyEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -175,7 +154,21 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum storageTypeEnumEEnum = null;
+	private EClass coresPropertyEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass speedPropertyEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass cachePropertyEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -264,6 +257,15 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getComponent_Computer() {
+		return (EReference) componentEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getProcessing() {
 		return processingEClass;
 	}
@@ -273,7 +275,7 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getProcessing_Processingproperty() {
+	public EReference getProcessing_Properties() {
 		return (EReference) processingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -291,7 +293,7 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getStorage_Storageproperty() {
+	public EReference getStorage_Properties() {
 		return (EReference) storageEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -309,7 +311,7 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDisplay_Displayproperty() {
+	public EReference getDisplay_Properties() {
 		return (EReference) displayEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -336,8 +338,26 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getProcessingProperty_Processing() {
+		return (EReference) processingPropertyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getStorageProperty() {
 		return storagePropertyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getStorageProperty_Storage() {
+		return (EReference) storagePropertyEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -354,8 +374,8 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCores() {
-		return coresEClass;
+	public EReference getDisplayProperty_Display() {
+		return (EReference) displayPropertyEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -363,8 +383,8 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCores_Number() {
-		return (EAttribute) coresEClass.getEStructuralFeatures().get(0);
+	public EClass getL1CacheProperty() {
+		return l1CachePropertyEClass;
 	}
 
 	/**
@@ -372,8 +392,8 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSpeed() {
-		return speedEClass;
+	public EClass getL2CacheProperty() {
+		return l2CachePropertyEClass;
 	}
 
 	/**
@@ -381,62 +401,8 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSpeed_Speed() {
-		return (EAttribute) speedEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getCache() {
-		return cacheEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getCache_Number() {
-		return (EAttribute) cacheEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getCache_Type() {
-		return (EAttribute) cacheEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getL1() {
-		return l1EClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getL2() {
-		return l2EClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getL3() {
-		return l3EClass;
+	public EClass getL3CacheProperty() {
+		return l3CachePropertyEClass;
 	}
 
 	/**
@@ -453,7 +419,7 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSingleStorage_Stype() {
+	public EAttribute getSingleStorage_Unit() {
 		return (EAttribute) singleStorageEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -462,7 +428,7 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSingleStorage_Ssize() {
+	public EAttribute getSingleStorage_Size() {
 		return (EAttribute) singleStorageEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -471,8 +437,8 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getDiagonal() {
-		return diagonalEClass;
+	public EClass getDiagonalProperty() {
+		return diagonalPropertyEClass;
 	}
 
 	/**
@@ -480,8 +446,8 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDiagonal_Inch() {
-		return (EAttribute) diagonalEClass.getEStructuralFeatures().get(0);
+	public EAttribute getDiagonalProperty_Size() {
+		return (EAttribute) diagonalPropertyEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -489,8 +455,8 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getType() {
-		return typeEClass;
+	public EAttribute getDiagonalProperty_Unit() {
+		return (EAttribute) diagonalPropertyEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -498,8 +464,17 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getType_Dtype() {
-		return (EAttribute) typeEClass.getEStructuralFeatures().get(0);
+	public EClass getResolutionProperty() {
+		return resolutionPropertyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getResolutionProperty_Type() {
+		return (EAttribute) resolutionPropertyEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -525,7 +500,7 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getComputer_Component() {
+	public EReference getComputer_Components() {
 		return (EReference) computerEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -543,7 +518,7 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModel_Computer() {
+	public EReference getModel_Computers() {
 		return (EReference) modelEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -552,8 +527,71 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getStorageTypeEnum() {
-		return storageTypeEnumEEnum;
+	public EClass getCoresProperty() {
+		return coresPropertyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCoresProperty_Number() {
+		return (EAttribute) coresPropertyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSpeedProperty() {
+		return speedPropertyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSpeedProperty_Speed() {
+		return (EAttribute) speedPropertyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSpeedProperty_Unit() {
+		return (EAttribute) speedPropertyEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCacheProperty() {
+		return cachePropertyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCacheProperty_Size() {
+		return (EAttribute) cachePropertyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCacheProperty_Unit() {
+		return (EAttribute) cachePropertyEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -587,59 +625,62 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 		// Create classes and their features
 		componentEClass = createEClass(COMPONENT);
 		createEAttribute(componentEClass, COMPONENT__LABEL);
+		createEReference(componentEClass, COMPONENT__COMPUTER);
 
 		processingEClass = createEClass(PROCESSING);
-		createEReference(processingEClass, PROCESSING__PROCESSINGPROPERTY);
+		createEReference(processingEClass, PROCESSING__PROPERTIES);
 
 		storageEClass = createEClass(STORAGE);
-		createEReference(storageEClass, STORAGE__STORAGEPROPERTY);
+		createEReference(storageEClass, STORAGE__PROPERTIES);
 
 		displayEClass = createEClass(DISPLAY);
-		createEReference(displayEClass, DISPLAY__DISPLAYPROPERTY);
+		createEReference(displayEClass, DISPLAY__PROPERTIES);
 
 		reusedComponentEClass = createEClass(REUSED_COMPONENT);
 
 		processingPropertyEClass = createEClass(PROCESSING_PROPERTY);
+		createEReference(processingPropertyEClass, PROCESSING_PROPERTY__PROCESSING);
 
 		storagePropertyEClass = createEClass(STORAGE_PROPERTY);
+		createEReference(storagePropertyEClass, STORAGE_PROPERTY__STORAGE);
 
 		displayPropertyEClass = createEClass(DISPLAY_PROPERTY);
+		createEReference(displayPropertyEClass, DISPLAY_PROPERTY__DISPLAY);
 
-		coresEClass = createEClass(CORES);
-		createEAttribute(coresEClass, CORES__NUMBER);
+		l1CachePropertyEClass = createEClass(L1_CACHE_PROPERTY);
 
-		speedEClass = createEClass(SPEED);
-		createEAttribute(speedEClass, SPEED__SPEED);
+		l2CachePropertyEClass = createEClass(L2_CACHE_PROPERTY);
 
-		cacheEClass = createEClass(CACHE);
-		createEAttribute(cacheEClass, CACHE__NUMBER);
-		createEAttribute(cacheEClass, CACHE__TYPE);
-
-		l1EClass = createEClass(L1);
-
-		l2EClass = createEClass(L2);
-
-		l3EClass = createEClass(L3);
+		l3CachePropertyEClass = createEClass(L3_CACHE_PROPERTY);
 
 		singleStorageEClass = createEClass(SINGLE_STORAGE);
-		createEAttribute(singleStorageEClass, SINGLE_STORAGE__STYPE);
-		createEAttribute(singleStorageEClass, SINGLE_STORAGE__SSIZE);
+		createEAttribute(singleStorageEClass, SINGLE_STORAGE__UNIT);
+		createEAttribute(singleStorageEClass, SINGLE_STORAGE__SIZE);
 
-		diagonalEClass = createEClass(DIAGONAL);
-		createEAttribute(diagonalEClass, DIAGONAL__INCH);
+		diagonalPropertyEClass = createEClass(DIAGONAL_PROPERTY);
+		createEAttribute(diagonalPropertyEClass, DIAGONAL_PROPERTY__SIZE);
+		createEAttribute(diagonalPropertyEClass, DIAGONAL_PROPERTY__UNIT);
 
-		typeEClass = createEClass(TYPE);
-		createEAttribute(typeEClass, TYPE__DTYPE);
+		resolutionPropertyEClass = createEClass(RESOLUTION_PROPERTY);
+		createEAttribute(resolutionPropertyEClass, RESOLUTION_PROPERTY__TYPE);
 
 		computerEClass = createEClass(COMPUTER);
 		createEAttribute(computerEClass, COMPUTER__LABEL);
-		createEReference(computerEClass, COMPUTER__COMPONENT);
+		createEReference(computerEClass, COMPUTER__COMPONENTS);
 
 		modelEClass = createEClass(MODEL);
-		createEReference(modelEClass, MODEL__COMPUTER);
+		createEReference(modelEClass, MODEL__COMPUTERS);
 
-		// Create enums
-		storageTypeEnumEEnum = createEEnum(STORAGE_TYPE_ENUM);
+		coresPropertyEClass = createEClass(CORES_PROPERTY);
+		createEAttribute(coresPropertyEClass, CORES_PROPERTY__NUMBER);
+
+		speedPropertyEClass = createEClass(SPEED_PROPERTY);
+		createEAttribute(speedPropertyEClass, SPEED_PROPERTY__SPEED);
+		createEAttribute(speedPropertyEClass, SPEED_PROPERTY__UNIT);
+
+		cachePropertyEClass = createEClass(CACHE_PROPERTY);
+		createEAttribute(cachePropertyEClass, CACHE_PROPERTY__SIZE);
+		createEAttribute(cachePropertyEClass, CACHE_PROPERTY__UNIT);
 	}
 
 	/**
@@ -675,35 +716,38 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 		storageEClass.getESuperTypes().add(this.getComponent());
 		displayEClass.getESuperTypes().add(this.getComponent());
 		reusedComponentEClass.getESuperTypes().add(this.getComponent());
-		coresEClass.getESuperTypes().add(this.getProcessingProperty());
-		speedEClass.getESuperTypes().add(this.getProcessingProperty());
-		cacheEClass.getESuperTypes().add(this.getProcessingProperty());
-		l1EClass.getESuperTypes().add(this.getCache());
-		l2EClass.getESuperTypes().add(this.getCache());
-		l3EClass.getESuperTypes().add(this.getCache());
+		l1CachePropertyEClass.getESuperTypes().add(this.getCacheProperty());
+		l2CachePropertyEClass.getESuperTypes().add(this.getCacheProperty());
+		l3CachePropertyEClass.getESuperTypes().add(this.getCacheProperty());
 		singleStorageEClass.getESuperTypes().add(this.getStorageProperty());
-		diagonalEClass.getESuperTypes().add(this.getDisplayProperty());
-		typeEClass.getESuperTypes().add(this.getDisplayProperty());
+		diagonalPropertyEClass.getESuperTypes().add(this.getDisplayProperty());
+		resolutionPropertyEClass.getESuperTypes().add(this.getDisplayProperty());
+		coresPropertyEClass.getESuperTypes().add(this.getProcessingProperty());
+		speedPropertyEClass.getESuperTypes().add(this.getProcessingProperty());
+		cachePropertyEClass.getESuperTypes().add(this.getProcessingProperty());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(componentEClass, Component.class, "Component", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComponent_Label(), ecorePackage.getEString(), "label", null, 1, 1, Component.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComponent_Computer(), this.getComputer(), null, "computer", null, 0, 1, Component.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(processingEClass, Processing.class, "Processing", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getProcessing_Processingproperty(), this.getProcessingProperty(), null, "processingproperty",
-				null, 5, 5, Processing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProcessing_Properties(), this.getProcessingProperty(), null, "properties", null, 0, 5,
+				Processing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(storageEClass, Storage.class, "Storage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getStorage_Storageproperty(), this.getStorageProperty(), null, "storageproperty", null, 1, 1,
+		initEReference(getStorage_Properties(), this.getStorageProperty(), null, "properties", null, 0, 1,
 				Storage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(displayEClass, Display.class, "Display", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDisplay_Displayproperty(), this.getDisplayProperty(), null, "displayproperty", null, 2, 2,
+		initEReference(getDisplay_Properties(), this.getDisplayProperty(), null, "properties", null, 0, 2,
 				Display.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -712,66 +756,83 @@ public class MetamodelHCLPackageImpl extends EPackageImpl implements MetamodelHC
 
 		initEClass(processingPropertyEClass, ProcessingProperty.class, "ProcessingProperty", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getProcessingProperty_Processing(), this.getProcessing(), null, "processing", null, 0, 1,
+				ProcessingProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(storagePropertyEClass, StorageProperty.class, "StorageProperty", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getStorageProperty_Storage(), this.getStorage(), null, "storage", null, 0, 1,
+				StorageProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(displayPropertyEClass, DisplayProperty.class, "DisplayProperty", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDisplayProperty_Display(), this.getDisplay(), null, "display", null, 0, 1,
+				DisplayProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(coresEClass, Cores.class, "Cores", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCores_Number(), ecorePackage.getEInt(), "number", null, 1, 1, Cores.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(l1CachePropertyEClass, L1CacheProperty.class, "L1CacheProperty", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(speedEClass, Speed.class, "Speed", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSpeed_Speed(), ecorePackage.getEFloat(), "speed", null, 1, 1, Speed.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(l2CachePropertyEClass, L2CacheProperty.class, "L2CacheProperty", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(cacheEClass, Cache.class, "Cache", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCache_Number(), ecorePackage.getEInt(), "number", null, 0, 1, Cache.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCache_Type(), ecorePackage.getEString(), "type", "", 0, 1, Cache.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(l1EClass, metamodelHCL.L1.class, "L1", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(l2EClass, metamodelHCL.L2.class, "L2", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(l3EClass, metamodelHCL.L3.class, "L3", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(l3CachePropertyEClass, L3CacheProperty.class, "L3CacheProperty", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(singleStorageEClass, SingleStorage.class, "SingleStorage", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSingleStorage_Stype(), this.getStorageTypeEnum(), "stype", null, 1, 1, SingleStorage.class,
+		initEAttribute(getSingleStorage_Unit(), ecorePackage.getEString(), "unit", null, 1, 1, SingleStorage.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSingleStorage_Ssize(), ecorePackage.getEString(), "ssize", "", 1, 1, SingleStorage.class,
+		initEAttribute(getSingleStorage_Size(), ecorePackage.getEInt(), "size", "0", 1, 1, SingleStorage.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(diagonalEClass, Diagonal.class, "Diagonal", !IS_ABSTRACT, !IS_INTERFACE,
+		initEClass(diagonalPropertyEClass, DiagonalProperty.class, "DiagonalProperty", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDiagonal_Inch(), ecorePackage.getEInt(), "inch", null, 1, 1, Diagonal.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagonalProperty_Size(), ecorePackage.getEInt(), "size", null, 1, 1, DiagonalProperty.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagonalProperty_Unit(), ecorePackage.getEString(), "unit", null, 1, 1,
+				DiagonalProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
-		initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getType_Dtype(), ecorePackage.getEString(), "dtype", "", 1, 1, Type.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(resolutionPropertyEClass, ResolutionProperty.class, "ResolutionProperty", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getResolutionProperty_Type(), ecorePackage.getEString(), "type", "", 1, 1,
+				ResolutionProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
 		initEClass(computerEClass, Computer.class, "Computer", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getComputer_Label(), ecorePackage.getEString(), "label", null, 1, 1, Computer.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getComputer_Component(), this.getComponent(), null, "component", null, 0, -1, Computer.class,
+		initEReference(getComputer_Components(), this.getComponent(), null, "components", null, 0, -1, Computer.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getModel_Computer(), this.getComputer(), null, "computer", null, 0, -1, Model.class,
+		initEReference(getModel_Computers(), this.getComputer(), null, "computers", null, 0, -1, Model.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		// Initialize enums and add enum literals
-		initEEnum(storageTypeEnumEEnum, StorageTypeEnum.class, "StorageTypeEnum");
-		addEEnumLiteral(storageTypeEnumEEnum, StorageTypeEnum.HDD);
-		addEEnumLiteral(storageTypeEnumEEnum, StorageTypeEnum.SSD);
+		initEClass(coresPropertyEClass, CoresProperty.class, "CoresProperty", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCoresProperty_Number(), ecorePackage.getEInt(), "number", null, 1, 1, CoresProperty.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(speedPropertyEClass, SpeedProperty.class, "SpeedProperty", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSpeedProperty_Speed(), ecorePackage.getEFloat(), "speed", null, 1, 1, SpeedProperty.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSpeedProperty_Unit(), ecorePackage.getEString(), "unit", null, 1, 1, SpeedProperty.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(cachePropertyEClass, CacheProperty.class, "CacheProperty", IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCacheProperty_Size(), ecorePackage.getEInt(), "size", null, 1, 1, CacheProperty.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCacheProperty_Unit(), ecorePackage.getEString(), "unit", null, 1, 1, CacheProperty.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -14,6 +14,15 @@ helper makeEdge(t: Graph::Node, s: Graph::Style) : Graph::Edge {
 	};
 }
 
+helper Graph::Node::target2solidedge() : Graph::Edge {
+	return makeEdge(self, Graph::Style::SOLID);
+}
+
+helper Graph::Node::target2dashededge() : Graph::Edge {
+	return makeEdge(self, Graph::Style::DASHED);
+}
+
+// Property to contain the immediate children of the Node.
 intermediate property Graph::Node::children : Collection(Graph::Node);
 
 main() {
@@ -25,57 +34,94 @@ main() {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 mapping HCL::Model::model2graph() : Graph::Graph {
-	var processingNode := makeNode('CPU');
-	var displayNode := makeNode('Display');
+	var processingTreeRoot : Graph::Node = self.makeProcessingSpeedTree();
+	var processingSpeeds : Collection(Graph::Node) := processingTreeRoot.children;
+	var displayTreeRoot : Graph::Node := makeNode('Display');
+	var displayDiagonals : Collection(Graph::Node) := displayTreeRoot.children;
 	// TODO: define root level mappings
-	var computerNodes := self.computers -> map computer2node(processingNode, displayNode);
 	
 }
 
-mapping HCL::Computer::computer2node(processing : Graph::Node, display: Graph::Node) : Graph::Node {
-	label := self.label;
-	children := self.components -> map component2tree();
-	outEdges := children -> map node2solidedge();
+// Critical Property Subgraphs
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// TODO: (tech debt) overcome duplication with Display.
+helper HCL::Model::makeProcessingSpeedTree() : Graph::Node {
+	var root := makeNode('CPU');
+	var properties : Set(HCL::SpeedProperty) := self.processingSpeeds() -> asSet();
+	var children : Set(Graph::Node) := properties -> map speed2node() -> asSet();
+	var edges : Set(Graph::Edge) := children -> target2solidedge() -> asSet();
+	root.outEdges := edges -> asOrderedSet();
+	root.children := children;
+	return root;
 }
 
-mapping HCL::Component::component2tree() : Graph::Node 
-	disjuncts HCL::Processing::processing2tree, HCL::Display::display2tree;
-
-// TODO: rename component to resource to align with the assignment description?
-mapping HCL::Processing::processing2tree() : Graph::Node {
-	label := self.label;
-	// TODO: go back to single properties attribute with queries?
-	var coreChildren := self.coresProperties -> map cores2node();
-	var l1CacheChildren := self.cacheProperties[HCL::L1CacheProperty] -> map l1cache2node();
-	children := coreChildren -> union(l1CacheChildren);
-	outEdges := children -> map node2dashededge();
+query HCL::Model::processingSpeeds() : Collection(HCL::SpeedProperty) {
+	var processingProperties : Collection(HCL::Processing) := self.computers -> collect(c|c.processing());
+	return processingProperties -> collect(p | p -> speed());
 }
 
-mapping HCL::CoresProperty::cores2node() : Graph::Node {
-	label := self.number.toString() + "cores";
-	shape := Graph::Shape::OVAL;
+query HCL::Computer::processing() : Collection(HCL::Processing) {
+	return self.components[HCL::Processing];
 }
 
-mapping HCL::CacheProperty::l1cache2node() : Graph::Node {
-	label := self.size.toString() + self.unit;
-	shape := Graph::Shape::OVAL;
+query HCL::Processing::speed() : Collection(HCL::SpeedProperty) {
+	return self.properties[HCL::SpeedProperty];
 }
 
-mapping HCL::Display::display2tree() : Graph::Node {
-	label := self.label;
-	children := self.properties[HCL::ResolutionProperty] -> map resolution2node();
-	outEdges := children -> map node2dashededge();
+mapping HCL::SpeedProperty::speed2node() : Graph::Node {
+	label := self.speed.toString() + " " + self.unit;
+	shape := Graph::Shape::BOX;
 }
 
-mapping HCL::ResolutionProperty::resolution2node() : Graph::Node {
-	label := self.type;
+// TODO: (tech debt) overcome duplication with CPU.
+helper HCL::Model::makeDisplayDiagonalTree() : Graph::Node {
+	var root := makeNode('Display');
+	var properties : Set(HCL::DiagonalProperty) := self.displayDiagonals() -> asSet();
+	var children : Set(Graph::Node) := properties -> map diagonal2node() -> asSet();
+	var edges : Set(Graph::Edge) := children -> target2solidedge() -> asSet();
+	root.outEdges := edges -> asOrderedSet();
+	root.children := children;
+	return root;
+}
+
+query HCL::Model::displayDiagonals() : Collection(HCL::DiagonalProperty) {
+	var props : Collection(HCL::Display) := self.computers -> collect(c|c.display());
+	return props -> collect(p | p -> diagonal());
+}
+
+query HCL::Computer::display() : Collection(HCL::Display) {
+	return self.components[HCL::Display];
+}
+
+query HCL::Display::diagonal() : Collection(HCL::DiagonalProperty) {
+	return self.properties[HCL::DiagonalProperty];
 }
 
 mapping HCL::DiagonalProperty::diagonal2node() : Graph::Node {
-	label := "";
+	label := self.size.toString() + " " + self.unit;
+	shape := Graph::Shape::BOX;
+}
+
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+mapping HCL::Computer::computer2node() : Graph::Node {
+	label := self.label;
+	shape := Graph::Shape::BOX;
+}
+
+mapping HCL::Component::component2node() : Graph::Node {
+	label := self.label;
+	shape := Graph::Shape::BOX;
 }
 
 
+mapping HCL::Computer::computer2subgraph(processingNode : Graph::Node, displayNode : Graph::Node) : Graph::Graph {
+	var computer : Graph::Node := self.map computer2node();
+	
+}
 
 // UTILITY TRANSFORMATIONS
 // ~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metamodelHCL:Model
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:metamodelHCL="http://www.example.org/metamodelHCL"
+    xsi:schemaLocation="http://www.example.org/metamodelHCL metamodelHCL.ecore">
+  <computers>
+    <components
+        xsi:type="metamodelHCL:Processing">
+      <properties
+          xsi:type="metamodelHCL:L1CacheProperty"/>
+      <properties
+          xsi:type="metamodelHCL:L2CacheProperty"/>
+      <properties
+          xsi:type="metamodelHCL:CoresProperty"/>
+      <properties
+          xsi:type="metamodelHCL:SpeedProperty"/>
+    </components>
+    <components
+        xsi:type="metamodelHCL:Display">
+      <properties
+          xsi:type="metamodelHCL:DiagonalProperty"/>
+      <properties
+          xsi:type="metamodelHCL:ResolutionProperty"/>
+    </components>
+  </computers>
+</metamodelHCL:Model>

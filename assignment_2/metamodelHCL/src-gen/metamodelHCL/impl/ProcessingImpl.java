@@ -26,21 +26,21 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link metamodelHCL.impl.ProcessingImpl#getProcessingproperty <em>Processingproperty</em>}</li>
+ *   <li>{@link metamodelHCL.impl.ProcessingImpl#getProperties <em>Properties</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ProcessingImpl extends ComponentImpl implements Processing {
 	/**
-	 * The cached value of the '{@link #getProcessingproperty() <em>Processingproperty</em>}' containment reference list.
+	 * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getProcessingproperty()
+	 * @see #getProperties()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ProcessingProperty> processingproperty;
+	protected EList<ProcessingProperty> properties;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -66,12 +66,12 @@ public class ProcessingImpl extends ComponentImpl implements Processing {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ProcessingProperty> getProcessingproperty() {
-		if (processingproperty == null) {
-			processingproperty = new EObjectContainmentEList<ProcessingProperty>(ProcessingProperty.class, this,
-					MetamodelHCLPackage.PROCESSING__PROCESSINGPROPERTY);
+	public EList<ProcessingProperty> getProperties() {
+		if (properties == null) {
+			properties = new EObjectContainmentEList<ProcessingProperty>(ProcessingProperty.class, this,
+					MetamodelHCLPackage.PROCESSING__PROPERTIES);
 		}
-		return processingproperty;
+		return properties;
 	}
 
 	/**
@@ -82,8 +82,8 @@ public class ProcessingImpl extends ComponentImpl implements Processing {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case MetamodelHCLPackage.PROCESSING__PROCESSINGPROPERTY:
-			return ((InternalEList<?>) getProcessingproperty()).basicRemove(otherEnd, msgs);
+		case MetamodelHCLPackage.PROCESSING__PROPERTIES:
+			return ((InternalEList<?>) getProperties()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -96,8 +96,8 @@ public class ProcessingImpl extends ComponentImpl implements Processing {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case MetamodelHCLPackage.PROCESSING__PROCESSINGPROPERTY:
-			return getProcessingproperty();
+		case MetamodelHCLPackage.PROCESSING__PROPERTIES:
+			return getProperties();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -111,9 +111,9 @@ public class ProcessingImpl extends ComponentImpl implements Processing {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case MetamodelHCLPackage.PROCESSING__PROCESSINGPROPERTY:
-			getProcessingproperty().clear();
-			getProcessingproperty().addAll((Collection<? extends ProcessingProperty>) newValue);
+		case MetamodelHCLPackage.PROCESSING__PROPERTIES:
+			getProperties().clear();
+			getProperties().addAll((Collection<? extends ProcessingProperty>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -127,8 +127,8 @@ public class ProcessingImpl extends ComponentImpl implements Processing {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case MetamodelHCLPackage.PROCESSING__PROCESSINGPROPERTY:
-			getProcessingproperty().clear();
+		case MetamodelHCLPackage.PROCESSING__PROPERTIES:
+			getProperties().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -142,8 +142,8 @@ public class ProcessingImpl extends ComponentImpl implements Processing {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case MetamodelHCLPackage.PROCESSING__PROCESSINGPROPERTY:
-			return processingproperty != null && !processingproperty.isEmpty();
+		case MetamodelHCLPackage.PROCESSING__PROPERTIES:
+			return properties != null && !properties.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

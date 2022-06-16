@@ -70,7 +70,7 @@ public class ModelItemProvider extends ItemProviderAdapter implements IEditingDo
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(MetamodelHCLPackage.Literals.MODEL__COMPUTER);
+			childrenFeatures.add(MetamodelHCLPackage.Literals.MODEL__COMPUTERS);
 		}
 		return childrenFeatures;
 	}
@@ -132,7 +132,7 @@ public class ModelItemProvider extends ItemProviderAdapter implements IEditingDo
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Model.class)) {
-		case MetamodelHCLPackage.MODEL__COMPUTER:
+		case MetamodelHCLPackage.MODEL__COMPUTERS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -150,7 +150,7 @@ public class ModelItemProvider extends ItemProviderAdapter implements IEditingDo
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.MODEL__COMPUTER,
+		newChildDescriptors.add(createChildParameter(MetamodelHCLPackage.Literals.MODEL__COMPUTERS,
 				MetamodelHCLFactory.eINSTANCE.createComputer()));
 	}
 

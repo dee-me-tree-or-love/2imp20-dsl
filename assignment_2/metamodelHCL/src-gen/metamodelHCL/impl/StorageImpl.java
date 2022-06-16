@@ -22,21 +22,21 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link metamodelHCL.impl.StorageImpl#getStorageproperty <em>Storageproperty</em>}</li>
+ *   <li>{@link metamodelHCL.impl.StorageImpl#getProperties <em>Properties</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class StorageImpl extends ComponentImpl implements Storage {
 	/**
-	 * The cached value of the '{@link #getStorageproperty() <em>Storageproperty</em>}' containment reference.
+	 * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStorageproperty()
+	 * @see #getProperties()
 	 * @generated
 	 * @ordered
 	 */
-	protected StorageProperty storageproperty;
+	protected StorageProperty properties;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -62,8 +62,8 @@ public class StorageImpl extends ComponentImpl implements Storage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StorageProperty getStorageproperty() {
-		return storageproperty;
+	public StorageProperty getProperties() {
+		return properties;
 	}
 
 	/**
@@ -71,12 +71,12 @@ public class StorageImpl extends ComponentImpl implements Storage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetStorageproperty(StorageProperty newStorageproperty, NotificationChain msgs) {
-		StorageProperty oldStorageproperty = storageproperty;
-		storageproperty = newStorageproperty;
+	public NotificationChain basicSetProperties(StorageProperty newProperties, NotificationChain msgs) {
+		StorageProperty oldProperties = properties;
+		properties = newProperties;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					MetamodelHCLPackage.STORAGE__STORAGEPROPERTY, oldStorageproperty, newStorageproperty);
+					MetamodelHCLPackage.STORAGE__PROPERTIES, oldProperties, newProperties);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -90,21 +90,21 @@ public class StorageImpl extends ComponentImpl implements Storage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setStorageproperty(StorageProperty newStorageproperty) {
-		if (newStorageproperty != storageproperty) {
+	public void setProperties(StorageProperty newProperties) {
+		if (newProperties != properties) {
 			NotificationChain msgs = null;
-			if (storageproperty != null)
-				msgs = ((InternalEObject) storageproperty).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE - MetamodelHCLPackage.STORAGE__STORAGEPROPERTY, null, msgs);
-			if (newStorageproperty != null)
-				msgs = ((InternalEObject) newStorageproperty).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE - MetamodelHCLPackage.STORAGE__STORAGEPROPERTY, null, msgs);
-			msgs = basicSetStorageproperty(newStorageproperty, msgs);
+			if (properties != null)
+				msgs = ((InternalEObject) properties).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - MetamodelHCLPackage.STORAGE__PROPERTIES, null, msgs);
+			if (newProperties != null)
+				msgs = ((InternalEObject) newProperties).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - MetamodelHCLPackage.STORAGE__PROPERTIES, null, msgs);
+			msgs = basicSetProperties(newProperties, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, MetamodelHCLPackage.STORAGE__STORAGEPROPERTY,
-					newStorageproperty, newStorageproperty));
+			eNotify(new ENotificationImpl(this, Notification.SET, MetamodelHCLPackage.STORAGE__PROPERTIES,
+					newProperties, newProperties));
 	}
 
 	/**
@@ -115,8 +115,8 @@ public class StorageImpl extends ComponentImpl implements Storage {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case MetamodelHCLPackage.STORAGE__STORAGEPROPERTY:
-			return basicSetStorageproperty(null, msgs);
+		case MetamodelHCLPackage.STORAGE__PROPERTIES:
+			return basicSetProperties(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -129,8 +129,8 @@ public class StorageImpl extends ComponentImpl implements Storage {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case MetamodelHCLPackage.STORAGE__STORAGEPROPERTY:
-			return getStorageproperty();
+		case MetamodelHCLPackage.STORAGE__PROPERTIES:
+			return getProperties();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -143,8 +143,8 @@ public class StorageImpl extends ComponentImpl implements Storage {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case MetamodelHCLPackage.STORAGE__STORAGEPROPERTY:
-			setStorageproperty((StorageProperty) newValue);
+		case MetamodelHCLPackage.STORAGE__PROPERTIES:
+			setProperties((StorageProperty) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -158,8 +158,8 @@ public class StorageImpl extends ComponentImpl implements Storage {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case MetamodelHCLPackage.STORAGE__STORAGEPROPERTY:
-			setStorageproperty((StorageProperty) null);
+		case MetamodelHCLPackage.STORAGE__PROPERTIES:
+			setProperties((StorageProperty) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -173,8 +173,8 @@ public class StorageImpl extends ComponentImpl implements Storage {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case MetamodelHCLPackage.STORAGE__STORAGEPROPERTY:
-			return storageproperty != null;
+		case MetamodelHCLPackage.STORAGE__PROPERTIES:
+			return properties != null;
 		}
 		return super.eIsSet(featureID);
 	}

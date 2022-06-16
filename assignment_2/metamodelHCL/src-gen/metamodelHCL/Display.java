@@ -13,7 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link metamodelHCL.Display#getDisplayproperty <em>Displayproperty</em>}</li>
+ *   <li>{@link metamodelHCL.Display#getProperties <em>Properties</em>}</li>
  * </ul>
  *
  * @see metamodelHCL.MetamodelHCLPackage#getDisplay()
@@ -22,15 +22,15 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Display extends Component {
 	/**
-	 * Returns the value of the '<em><b>Displayproperty</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
 	 * The list contents are of type {@link metamodelHCL.DisplayProperty}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Displayproperty</em>' containment reference list.
-	 * @see metamodelHCL.MetamodelHCLPackage#getDisplay_Displayproperty()
-	 * @model containment="true" lower="2" upper="2"
+	 * @return the value of the '<em>Properties</em>' containment reference list.
+	 * @see metamodelHCL.MetamodelHCLPackage#getDisplay_Properties()
+	 * @model containment="true" upper="2"
 	 * @generated
 	 */
-	EList<DisplayProperty> getDisplayproperty();
+	EList<DisplayProperty> getProperties();
 
 } // Display

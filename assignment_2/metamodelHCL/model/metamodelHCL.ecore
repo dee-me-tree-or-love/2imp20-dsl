@@ -3,14 +3,11 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="metamodelHCL" nsURI="http://www.example.org/metamodelHCL" nsPrefix="metamodelHCL">
   <eClassifiers xsi:type="ecore:EClass" name="Component" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="computer" eType="#//Computer"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Processing" eSuperTypes="#//Component">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="coresProperties" upperBound="-1"
-        eType="#//CoresProperty" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="speedProperties" upperBound="-1"
-        eType="#//SpeedProperty" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="cacheProperties" upperBound="-1"
-        eType="#//CacheProperty" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="5"
+        eType="#//ProcessingProperty" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Storage" eSuperTypes="#//Component">
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" eType="#//StorageProperty"
@@ -21,9 +18,15 @@
         eType="#//DisplayProperty" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReusedComponent" eSuperTypes="#//Component"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcessingProperty" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="StorageProperty" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DisplayProperty" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcessingProperty" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processing" eType="#//Processing"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StorageProperty" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="storage" eType="#//Storage"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DisplayProperty" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="display" eType="#//Display"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="L1CacheProperty" eSuperTypes="#//CacheProperty"/>
   <eClassifiers xsi:type="ecore:EClass" name="L2CacheProperty" eSuperTypes="#//CacheProperty"/>
   <eClassifiers xsi:type="ecore:EClass" name="L3CacheProperty" eSuperTypes="#//CacheProperty"/>

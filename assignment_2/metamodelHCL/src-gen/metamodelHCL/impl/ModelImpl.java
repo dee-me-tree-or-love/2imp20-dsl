@@ -28,21 +28,21 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link metamodelHCL.impl.ModelImpl#getComputer <em>Computer</em>}</li>
+ *   <li>{@link metamodelHCL.impl.ModelImpl#getComputers <em>Computers</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	/**
-	 * The cached value of the '{@link #getComputer() <em>Computer</em>}' containment reference list.
+	 * The cached value of the '{@link #getComputers() <em>Computers</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getComputer()
+	 * @see #getComputers()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Computer> computer;
+	protected EList<Computer> computers;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -68,11 +68,12 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Computer> getComputer() {
-		if (computer == null) {
-			computer = new EObjectContainmentEList<Computer>(Computer.class, this, MetamodelHCLPackage.MODEL__COMPUTER);
+	public EList<Computer> getComputers() {
+		if (computers == null) {
+			computers = new EObjectContainmentEList<Computer>(Computer.class, this,
+					MetamodelHCLPackage.MODEL__COMPUTERS);
 		}
-		return computer;
+		return computers;
 	}
 
 	/**
@@ -83,8 +84,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case MetamodelHCLPackage.MODEL__COMPUTER:
-			return ((InternalEList<?>) getComputer()).basicRemove(otherEnd, msgs);
+		case MetamodelHCLPackage.MODEL__COMPUTERS:
+			return ((InternalEList<?>) getComputers()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -97,8 +98,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case MetamodelHCLPackage.MODEL__COMPUTER:
-			return getComputer();
+		case MetamodelHCLPackage.MODEL__COMPUTERS:
+			return getComputers();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -112,9 +113,9 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case MetamodelHCLPackage.MODEL__COMPUTER:
-			getComputer().clear();
-			getComputer().addAll((Collection<? extends Computer>) newValue);
+		case MetamodelHCLPackage.MODEL__COMPUTERS:
+			getComputers().clear();
+			getComputers().addAll((Collection<? extends Computer>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -128,8 +129,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case MetamodelHCLPackage.MODEL__COMPUTER:
-			getComputer().clear();
+		case MetamodelHCLPackage.MODEL__COMPUTERS:
+			getComputers().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -143,8 +144,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case MetamodelHCLPackage.MODEL__COMPUTER:
-			return computer != null && !computer.isEmpty();
+		case MetamodelHCLPackage.MODEL__COMPUTERS:
+			return computers != null && !computers.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

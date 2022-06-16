@@ -26,21 +26,21 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link metamodelHCL.impl.DisplayImpl#getDisplayproperty <em>Displayproperty</em>}</li>
+ *   <li>{@link metamodelHCL.impl.DisplayImpl#getProperties <em>Properties</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class DisplayImpl extends ComponentImpl implements Display {
 	/**
-	 * The cached value of the '{@link #getDisplayproperty() <em>Displayproperty</em>}' containment reference list.
+	 * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDisplayproperty()
+	 * @see #getProperties()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<DisplayProperty> displayproperty;
+	protected EList<DisplayProperty> properties;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -66,12 +66,12 @@ public class DisplayImpl extends ComponentImpl implements Display {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<DisplayProperty> getDisplayproperty() {
-		if (displayproperty == null) {
-			displayproperty = new EObjectContainmentEList<DisplayProperty>(DisplayProperty.class, this,
-					MetamodelHCLPackage.DISPLAY__DISPLAYPROPERTY);
+	public EList<DisplayProperty> getProperties() {
+		if (properties == null) {
+			properties = new EObjectContainmentEList<DisplayProperty>(DisplayProperty.class, this,
+					MetamodelHCLPackage.DISPLAY__PROPERTIES);
 		}
-		return displayproperty;
+		return properties;
 	}
 
 	/**
@@ -82,8 +82,8 @@ public class DisplayImpl extends ComponentImpl implements Display {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-		case MetamodelHCLPackage.DISPLAY__DISPLAYPROPERTY:
-			return ((InternalEList<?>) getDisplayproperty()).basicRemove(otherEnd, msgs);
+		case MetamodelHCLPackage.DISPLAY__PROPERTIES:
+			return ((InternalEList<?>) getProperties()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -96,8 +96,8 @@ public class DisplayImpl extends ComponentImpl implements Display {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case MetamodelHCLPackage.DISPLAY__DISPLAYPROPERTY:
-			return getDisplayproperty();
+		case MetamodelHCLPackage.DISPLAY__PROPERTIES:
+			return getProperties();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -111,9 +111,9 @@ public class DisplayImpl extends ComponentImpl implements Display {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case MetamodelHCLPackage.DISPLAY__DISPLAYPROPERTY:
-			getDisplayproperty().clear();
-			getDisplayproperty().addAll((Collection<? extends DisplayProperty>) newValue);
+		case MetamodelHCLPackage.DISPLAY__PROPERTIES:
+			getProperties().clear();
+			getProperties().addAll((Collection<? extends DisplayProperty>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -127,8 +127,8 @@ public class DisplayImpl extends ComponentImpl implements Display {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case MetamodelHCLPackage.DISPLAY__DISPLAYPROPERTY:
-			getDisplayproperty().clear();
+		case MetamodelHCLPackage.DISPLAY__PROPERTIES:
+			getProperties().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -142,8 +142,8 @@ public class DisplayImpl extends ComponentImpl implements Display {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case MetamodelHCLPackage.DISPLAY__DISPLAYPROPERTY:
-			return displayproperty != null && !displayproperty.isEmpty();
+		case MetamodelHCLPackage.DISPLAY__PROPERTIES:
+			return properties != null && !properties.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

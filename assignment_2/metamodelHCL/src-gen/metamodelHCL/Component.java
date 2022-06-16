@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link metamodelHCL.Component#getLabel <em>Label</em>}</li>
+ *   <li>{@link metamodelHCL.Component#getComputer <em>Computer</em>}</li>
  * </ul>
  *
  * @see metamodelHCL.MetamodelHCLPackage#getComponent()
@@ -42,5 +43,27 @@ public interface Component extends EObject {
 	 * @generated
 	 */
 	void setLabel(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Computer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Computer</em>' reference.
+	 * @see #setComputer(Computer)
+	 * @see metamodelHCL.MetamodelHCLPackage#getComponent_Computer()
+	 * @model
+	 * @generated
+	 */
+	Computer getComputer();
+
+	/**
+	 * Sets the value of the '{@link metamodelHCL.Component#getComputer <em>Computer</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Computer</em>' reference.
+	 * @see #getComputer()
+	 * @generated
+	 */
+	void setComputer(Computer value);
 
 } // Component

@@ -58,49 +58,31 @@ public interface MetamodelHCLFactory extends EFactory {
 	ReusedComponent createReusedComponent();
 
 	/**
-	 * Returns a new object of class '<em>Cores</em>'.
+	 * Returns a new object of class '<em>L1 Cache Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Cores</em>'.
+	 * @return a new object of class '<em>L1 Cache Property</em>'.
 	 * @generated
 	 */
-	Cores createCores();
+	L1CacheProperty createL1CacheProperty();
 
 	/**
-	 * Returns a new object of class '<em>Speed</em>'.
+	 * Returns a new object of class '<em>L2 Cache Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Speed</em>'.
+	 * @return a new object of class '<em>L2 Cache Property</em>'.
 	 * @generated
 	 */
-	Speed createSpeed();
+	L2CacheProperty createL2CacheProperty();
 
 	/**
-	 * Returns a new object of class '<em>L1</em>'.
+	 * Returns a new object of class '<em>L3 Cache Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>L1</em>'.
+	 * @return a new object of class '<em>L3 Cache Property</em>'.
 	 * @generated
 	 */
-	L1 createL1();
-
-	/**
-	 * Returns a new object of class '<em>L2</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>L2</em>'.
-	 * @generated
-	 */
-	L2 createL2();
-
-	/**
-	 * Returns a new object of class '<em>L3</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>L3</em>'.
-	 * @generated
-	 */
-	L3 createL3();
+	L3CacheProperty createL3CacheProperty();
 
 	/**
 	 * Returns a new object of class '<em>Single Storage</em>'.
@@ -112,22 +94,22 @@ public interface MetamodelHCLFactory extends EFactory {
 	SingleStorage createSingleStorage();
 
 	/**
-	 * Returns a new object of class '<em>Diagonal</em>'.
+	 * Returns a new object of class '<em>Diagonal Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Diagonal</em>'.
+	 * @return a new object of class '<em>Diagonal Property</em>'.
 	 * @generated
 	 */
-	Diagonal createDiagonal();
+	DiagonalProperty createDiagonalProperty();
 
 	/**
-	 * Returns a new object of class '<em>Type</em>'.
+	 * Returns a new object of class '<em>Resolution Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Type</em>'.
+	 * @return a new object of class '<em>Resolution Property</em>'.
 	 * @generated
 	 */
-	Type createType();
+	ResolutionProperty createResolutionProperty();
 
 	/**
 	 * Returns a new object of class '<em>Computer</em>'.
@@ -146,6 +128,24 @@ public interface MetamodelHCLFactory extends EFactory {
 	 * @generated
 	 */
 	Model createModel();
+
+	/**
+	 * Returns a new object of class '<em>Cores Property</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Cores Property</em>'.
+	 * @generated
+	 */
+	CoresProperty createCoresProperty();
+
+	/**
+	 * Returns a new object of class '<em>Speed Property</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Speed Property</em>'.
+	 * @generated
+	 */
+	SpeedProperty createSpeedProperty();
 
 	/**
 	 * Returns the package supported by this factory.

@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link metamodelHCL.Model#getComputer <em>Computer</em>}</li>
+ *   <li>{@link metamodelHCL.Model#getComputers <em>Computers</em>}</li>
  * </ul>
  *
  * @see metamodelHCL.MetamodelHCLPackage#getModel()
@@ -24,15 +24,15 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Model extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Computer</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Computers</b></em>' containment reference list.
 	 * The list contents are of type {@link metamodelHCL.Computer}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Computer</em>' containment reference list.
-	 * @see metamodelHCL.MetamodelHCLPackage#getModel_Computer()
+	 * @return the value of the '<em>Computers</em>' containment reference list.
+	 * @see metamodelHCL.MetamodelHCLPackage#getModel_Computers()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Computer> getComputer();
+	EList<Computer> getComputers();
 
 } // Model

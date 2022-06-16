@@ -4,7 +4,6 @@ package metamodelHCL;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -77,13 +76,22 @@ public interface MetamodelHCLPackage extends EPackage {
 	int COMPONENT__LABEL = 0;
 
 	/**
+	 * The feature id for the '<em><b>Computer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT__COMPUTER = 1;
+
+	/**
 	 * The number of structural features of the '<em>Component</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_FEATURE_COUNT = 1;
+	int COMPONENT_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Component</em>' class.
@@ -114,13 +122,22 @@ public interface MetamodelHCLPackage extends EPackage {
 	int PROCESSING__LABEL = COMPONENT__LABEL;
 
 	/**
-	 * The feature id for the '<em><b>Processingproperty</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Computer</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCESSING__PROCESSINGPROPERTY = COMPONENT_FEATURE_COUNT + 0;
+	int PROCESSING__COMPUTER = COMPONENT__COMPUTER;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSING__PROPERTIES = COMPONENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Processing</em>' class.
@@ -160,13 +177,22 @@ public interface MetamodelHCLPackage extends EPackage {
 	int STORAGE__LABEL = COMPONENT__LABEL;
 
 	/**
-	 * The feature id for the '<em><b>Storageproperty</b></em>' containment reference.
+	 * The feature id for the '<em><b>Computer</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STORAGE__STORAGEPROPERTY = COMPONENT_FEATURE_COUNT + 0;
+	int STORAGE__COMPUTER = COMPONENT__COMPUTER;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STORAGE__PROPERTIES = COMPONENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Storage</em>' class.
@@ -206,13 +232,22 @@ public interface MetamodelHCLPackage extends EPackage {
 	int DISPLAY__LABEL = COMPONENT__LABEL;
 
 	/**
-	 * The feature id for the '<em><b>Displayproperty</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Computer</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DISPLAY__DISPLAYPROPERTY = COMPONENT_FEATURE_COUNT + 0;
+	int DISPLAY__COMPUTER = COMPONENT__COMPUTER;
+
+	/**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY__PROPERTIES = COMPONENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Display</em>' class.
@@ -252,6 +287,15 @@ public interface MetamodelHCLPackage extends EPackage {
 	int REUSED_COMPONENT__LABEL = COMPONENT__LABEL;
 
 	/**
+	 * The feature id for the '<em><b>Computer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REUSED_COMPONENT__COMPUTER = COMPONENT__COMPUTER;
+
+	/**
 	 * The number of structural features of the '<em>Reused Component</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -280,13 +324,22 @@ public interface MetamodelHCLPackage extends EPackage {
 	int PROCESSING_PROPERTY = 5;
 
 	/**
+	 * The feature id for the '<em><b>Processing</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCESSING_PROPERTY__PROCESSING = 0;
+
+	/**
 	 * The number of structural features of the '<em>Processing Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCESSING_PROPERTY_FEATURE_COUNT = 0;
+	int PROCESSING_PROPERTY_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Processing Property</em>' class.
@@ -308,13 +361,22 @@ public interface MetamodelHCLPackage extends EPackage {
 	int STORAGE_PROPERTY = 6;
 
 	/**
+	 * The feature id for the '<em><b>Storage</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STORAGE_PROPERTY__STORAGE = 0;
+
+	/**
 	 * The number of structural features of the '<em>Storage Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STORAGE_PROPERTY_FEATURE_COUNT = 0;
+	int STORAGE_PROPERTY_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Storage Property</em>' class.
@@ -336,13 +398,22 @@ public interface MetamodelHCLPackage extends EPackage {
 	int DISPLAY_PROPERTY = 7;
 
 	/**
+	 * The feature id for the '<em><b>Display</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISPLAY_PROPERTY__DISPLAY = 0;
+
+	/**
 	 * The number of structural features of the '<em>Display Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DISPLAY_PROPERTY_FEATURE_COUNT = 0;
+	int DISPLAY_PROPERTY_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Display Property</em>' class.
@@ -354,262 +425,224 @@ public interface MetamodelHCLPackage extends EPackage {
 	int DISPLAY_PROPERTY_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link metamodelHCL.impl.CoresImpl <em>Cores</em>}' class.
+	 * The meta object id for the '{@link metamodelHCL.impl.CachePropertyImpl <em>Cache Property</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see metamodelHCL.impl.CoresImpl
-	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getCores()
+	 * @see metamodelHCL.impl.CachePropertyImpl
+	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getCacheProperty()
 	 * @generated
 	 */
-	int CORES = 8;
+	int CACHE_PROPERTY = 18;
 
 	/**
-	 * The feature id for the '<em><b>Number</b></em>' attribute.
+	 * The feature id for the '<em><b>Processing</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CORES__NUMBER = PROCESSING_PROPERTY_FEATURE_COUNT + 0;
+	int CACHE_PROPERTY__PROCESSING = PROCESSING_PROPERTY__PROCESSING;
 
 	/**
-	 * The number of structural features of the '<em>Cores</em>' class.
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CORES_FEATURE_COUNT = PROCESSING_PROPERTY_FEATURE_COUNT + 1;
+	int CACHE_PROPERTY__SIZE = PROCESSING_PROPERTY_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Cores</em>' class.
+	 * The feature id for the '<em><b>Unit</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CORES_OPERATION_COUNT = PROCESSING_PROPERTY_OPERATION_COUNT + 0;
+	int CACHE_PROPERTY__UNIT = PROCESSING_PROPERTY_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link metamodelHCL.impl.SpeedImpl <em>Speed</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see metamodelHCL.impl.SpeedImpl
-	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getSpeed()
-	 * @generated
-	 */
-	int SPEED = 9;
-
-	/**
-	 * The feature id for the '<em><b>Speed</b></em>' attribute.
+	 * The number of structural features of the '<em>Cache Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SPEED__SPEED = PROCESSING_PROPERTY_FEATURE_COUNT + 0;
+	int CACHE_PROPERTY_FEATURE_COUNT = PROCESSING_PROPERTY_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the '<em>Speed</em>' class.
+	 * The number of operations of the '<em>Cache Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SPEED_FEATURE_COUNT = PROCESSING_PROPERTY_FEATURE_COUNT + 1;
+	int CACHE_PROPERTY_OPERATION_COUNT = PROCESSING_PROPERTY_OPERATION_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Speed</em>' class.
+	 * The meta object id for the '{@link metamodelHCL.impl.L1CachePropertyImpl <em>L1 Cache Property</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see metamodelHCL.impl.L1CachePropertyImpl
+	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getL1CacheProperty()
+	 * @generated
+	 */
+	int L1_CACHE_PROPERTY = 8;
+
+	/**
+	 * The feature id for the '<em><b>Processing</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SPEED_OPERATION_COUNT = PROCESSING_PROPERTY_OPERATION_COUNT + 0;
+	int L1_CACHE_PROPERTY__PROCESSING = CACHE_PROPERTY__PROCESSING;
 
 	/**
-	 * The meta object id for the '{@link metamodelHCL.impl.CacheImpl <em>Cache</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see metamodelHCL.impl.CacheImpl
-	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getCache()
-	 * @generated
-	 */
-	int CACHE = 10;
-
-	/**
-	 * The feature id for the '<em><b>Number</b></em>' attribute.
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CACHE__NUMBER = PROCESSING_PROPERTY_FEATURE_COUNT + 0;
+	int L1_CACHE_PROPERTY__SIZE = CACHE_PROPERTY__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * The feature id for the '<em><b>Unit</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CACHE__TYPE = PROCESSING_PROPERTY_FEATURE_COUNT + 1;
+	int L1_CACHE_PROPERTY__UNIT = CACHE_PROPERTY__UNIT;
 
 	/**
-	 * The number of structural features of the '<em>Cache</em>' class.
+	 * The number of structural features of the '<em>L1 Cache Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CACHE_FEATURE_COUNT = PROCESSING_PROPERTY_FEATURE_COUNT + 2;
+	int L1_CACHE_PROPERTY_FEATURE_COUNT = CACHE_PROPERTY_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Cache</em>' class.
+	 * The number of operations of the '<em>L1 Cache Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CACHE_OPERATION_COUNT = PROCESSING_PROPERTY_OPERATION_COUNT + 0;
+	int L1_CACHE_PROPERTY_OPERATION_COUNT = CACHE_PROPERTY_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link metamodelHCL.impl.L1Impl <em>L1</em>}' class.
+	 * The meta object id for the '{@link metamodelHCL.impl.L2CachePropertyImpl <em>L2 Cache Property</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see metamodelHCL.impl.L1Impl
-	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getL1()
+	 * @see metamodelHCL.impl.L2CachePropertyImpl
+	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getL2CacheProperty()
 	 * @generated
 	 */
-	int L1 = 11;
+	int L2_CACHE_PROPERTY = 9;
 
 	/**
-	 * The feature id for the '<em><b>Number</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1__NUMBER = CACHE__NUMBER;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * The feature id for the '<em><b>Processing</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int L1__TYPE = CACHE__TYPE;
+	int L2_CACHE_PROPERTY__PROCESSING = CACHE_PROPERTY__PROCESSING;
 
 	/**
-	 * The number of structural features of the '<em>L1</em>' class.
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int L1_FEATURE_COUNT = CACHE_FEATURE_COUNT + 0;
+	int L2_CACHE_PROPERTY__SIZE = CACHE_PROPERTY__SIZE;
 
 	/**
-	 * The number of operations of the '<em>L1</em>' class.
+	 * The feature id for the '<em><b>Unit</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int L1_OPERATION_COUNT = CACHE_OPERATION_COUNT + 0;
+	int L2_CACHE_PROPERTY__UNIT = CACHE_PROPERTY__UNIT;
 
 	/**
-	 * The meta object id for the '{@link metamodelHCL.impl.L2Impl <em>L2</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see metamodelHCL.impl.L2Impl
-	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getL2()
-	 * @generated
-	 */
-	int L2 = 12;
-
-	/**
-	 * The feature id for the '<em><b>Number</b></em>' attribute.
+	 * The number of structural features of the '<em>L2 Cache Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int L2__NUMBER = CACHE__NUMBER;
+	int L2_CACHE_PROPERTY_FEATURE_COUNT = CACHE_PROPERTY_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * The number of operations of the '<em>L2 Cache Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int L2__TYPE = CACHE__TYPE;
+	int L2_CACHE_PROPERTY_OPERATION_COUNT = CACHE_PROPERTY_OPERATION_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>L2</em>' class.
+	 * The meta object id for the '{@link metamodelHCL.impl.L3CachePropertyImpl <em>L3 Cache Property</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see metamodelHCL.impl.L3CachePropertyImpl
+	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getL3CacheProperty()
+	 * @generated
+	 */
+	int L3_CACHE_PROPERTY = 10;
+
+	/**
+	 * The feature id for the '<em><b>Processing</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int L2_FEATURE_COUNT = CACHE_FEATURE_COUNT + 0;
+	int L3_CACHE_PROPERTY__PROCESSING = CACHE_PROPERTY__PROCESSING;
 
 	/**
-	 * The number of operations of the '<em>L2</em>' class.
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int L2_OPERATION_COUNT = CACHE_OPERATION_COUNT + 0;
+	int L3_CACHE_PROPERTY__SIZE = CACHE_PROPERTY__SIZE;
 
 	/**
-	 * The meta object id for the '{@link metamodelHCL.impl.L3Impl <em>L3</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see metamodelHCL.impl.L3Impl
-	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getL3()
-	 * @generated
-	 */
-	int L3 = 13;
-
-	/**
-	 * The feature id for the '<em><b>Number</b></em>' attribute.
+	 * The feature id for the '<em><b>Unit</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int L3__NUMBER = CACHE__NUMBER;
+	int L3_CACHE_PROPERTY__UNIT = CACHE_PROPERTY__UNIT;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * The number of structural features of the '<em>L3 Cache Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int L3__TYPE = CACHE__TYPE;
+	int L3_CACHE_PROPERTY_FEATURE_COUNT = CACHE_PROPERTY_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>L3</em>' class.
+	 * The number of operations of the '<em>L3 Cache Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int L3_FEATURE_COUNT = CACHE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of operations of the '<em>L3</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L3_OPERATION_COUNT = CACHE_OPERATION_COUNT + 0;
+	int L3_CACHE_PROPERTY_OPERATION_COUNT = CACHE_PROPERTY_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link metamodelHCL.impl.SingleStorageImpl <em>Single Storage</em>}' class.
@@ -619,25 +652,34 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getSingleStorage()
 	 * @generated
 	 */
-	int SINGLE_STORAGE = 14;
+	int SINGLE_STORAGE = 11;
 
 	/**
-	 * The feature id for the '<em><b>Stype</b></em>' attribute.
+	 * The feature id for the '<em><b>Storage</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SINGLE_STORAGE__STYPE = STORAGE_PROPERTY_FEATURE_COUNT + 0;
+	int SINGLE_STORAGE__STORAGE = STORAGE_PROPERTY__STORAGE;
 
 	/**
-	 * The feature id for the '<em><b>Ssize</b></em>' attribute.
+	 * The feature id for the '<em><b>Unit</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SINGLE_STORAGE__SSIZE = STORAGE_PROPERTY_FEATURE_COUNT + 1;
+	int SINGLE_STORAGE__UNIT = STORAGE_PROPERTY_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SINGLE_STORAGE__SIZE = STORAGE_PROPERTY_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Single Storage</em>' class.
@@ -658,78 +700,105 @@ public interface MetamodelHCLPackage extends EPackage {
 	int SINGLE_STORAGE_OPERATION_COUNT = STORAGE_PROPERTY_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link metamodelHCL.impl.DiagonalImpl <em>Diagonal</em>}' class.
+	 * The meta object id for the '{@link metamodelHCL.impl.DiagonalPropertyImpl <em>Diagonal Property</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see metamodelHCL.impl.DiagonalImpl
-	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getDiagonal()
+	 * @see metamodelHCL.impl.DiagonalPropertyImpl
+	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getDiagonalProperty()
 	 * @generated
 	 */
-	int DIAGONAL = 15;
+	int DIAGONAL_PROPERTY = 12;
 
 	/**
-	 * The feature id for the '<em><b>Inch</b></em>' attribute.
+	 * The feature id for the '<em><b>Display</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGONAL__INCH = DISPLAY_PROPERTY_FEATURE_COUNT + 0;
+	int DIAGONAL_PROPERTY__DISPLAY = DISPLAY_PROPERTY__DISPLAY;
 
 	/**
-	 * The number of structural features of the '<em>Diagonal</em>' class.
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGONAL_FEATURE_COUNT = DISPLAY_PROPERTY_FEATURE_COUNT + 1;
+	int DIAGONAL_PROPERTY__SIZE = DISPLAY_PROPERTY_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Diagonal</em>' class.
+	 * The feature id for the '<em><b>Unit</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGONAL_OPERATION_COUNT = DISPLAY_PROPERTY_OPERATION_COUNT + 0;
+	int DIAGONAL_PROPERTY__UNIT = DISPLAY_PROPERTY_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link metamodelHCL.impl.TypeImpl <em>Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see metamodelHCL.impl.TypeImpl
-	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getType()
-	 * @generated
-	 */
-	int TYPE = 16;
-
-	/**
-	 * The feature id for the '<em><b>Dtype</b></em>' attribute.
+	 * The number of structural features of the '<em>Diagonal Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE__DTYPE = DISPLAY_PROPERTY_FEATURE_COUNT + 0;
+	int DIAGONAL_PROPERTY_FEATURE_COUNT = DISPLAY_PROPERTY_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the '<em>Type</em>' class.
+	 * The number of operations of the '<em>Diagonal Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_FEATURE_COUNT = DISPLAY_PROPERTY_FEATURE_COUNT + 1;
+	int DIAGONAL_PROPERTY_OPERATION_COUNT = DISPLAY_PROPERTY_OPERATION_COUNT + 0;
 
 	/**
-	 * The number of operations of the '<em>Type</em>' class.
+	 * The meta object id for the '{@link metamodelHCL.impl.ResolutionPropertyImpl <em>Resolution Property</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see metamodelHCL.impl.ResolutionPropertyImpl
+	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getResolutionProperty()
+	 * @generated
+	 */
+	int RESOLUTION_PROPERTY = 13;
+
+	/**
+	 * The feature id for the '<em><b>Display</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_OPERATION_COUNT = DISPLAY_PROPERTY_OPERATION_COUNT + 0;
+	int RESOLUTION_PROPERTY__DISPLAY = DISPLAY_PROPERTY__DISPLAY;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESOLUTION_PROPERTY__TYPE = DISPLAY_PROPERTY_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Resolution Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESOLUTION_PROPERTY_FEATURE_COUNT = DISPLAY_PROPERTY_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Resolution Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESOLUTION_PROPERTY_OPERATION_COUNT = DISPLAY_PROPERTY_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link metamodelHCL.impl.ComputerImpl <em>Computer</em>}' class.
@@ -739,7 +808,7 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getComputer()
 	 * @generated
 	 */
-	int COMPUTER = 17;
+	int COMPUTER = 14;
 
 	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -751,13 +820,13 @@ public interface MetamodelHCLPackage extends EPackage {
 	int COMPUTER__LABEL = 0;
 
 	/**
-	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Components</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPUTER__COMPONENT = 1;
+	int COMPUTER__COMPONENTS = 1;
 
 	/**
 	 * The number of structural features of the '<em>Computer</em>' class.
@@ -785,16 +854,16 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getModel()
 	 * @generated
 	 */
-	int MODEL = 18;
+	int MODEL = 15;
 
 	/**
-	 * The feature id for the '<em><b>Computer</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Computers</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL__COMPUTER = 0;
+	int MODEL__COMPUTERS = 0;
 
 	/**
 	 * The number of structural features of the '<em>Model</em>' class.
@@ -815,14 +884,105 @@ public interface MetamodelHCLPackage extends EPackage {
 	int MODEL_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link metamodelHCL.StorageTypeEnum <em>Storage Type Enum</em>}' enum.
+	 * The meta object id for the '{@link metamodelHCL.impl.CoresPropertyImpl <em>Cores Property</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see metamodelHCL.StorageTypeEnum
-	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getStorageTypeEnum()
+	 * @see metamodelHCL.impl.CoresPropertyImpl
+	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getCoresProperty()
 	 * @generated
 	 */
-	int STORAGE_TYPE_ENUM = 19;
+	int CORES_PROPERTY = 16;
+
+	/**
+	 * The feature id for the '<em><b>Processing</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CORES_PROPERTY__PROCESSING = PROCESSING_PROPERTY__PROCESSING;
+
+	/**
+	 * The feature id for the '<em><b>Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CORES_PROPERTY__NUMBER = PROCESSING_PROPERTY_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Cores Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CORES_PROPERTY_FEATURE_COUNT = PROCESSING_PROPERTY_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Cores Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CORES_PROPERTY_OPERATION_COUNT = PROCESSING_PROPERTY_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link metamodelHCL.impl.SpeedPropertyImpl <em>Speed Property</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see metamodelHCL.impl.SpeedPropertyImpl
+	 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getSpeedProperty()
+	 * @generated
+	 */
+	int SPEED_PROPERTY = 17;
+
+	/**
+	 * The feature id for the '<em><b>Processing</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPEED_PROPERTY__PROCESSING = PROCESSING_PROPERTY__PROCESSING;
+
+	/**
+	 * The feature id for the '<em><b>Speed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPEED_PROPERTY__SPEED = PROCESSING_PROPERTY_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Unit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPEED_PROPERTY__UNIT = PROCESSING_PROPERTY_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Speed Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPEED_PROPERTY_FEATURE_COUNT = PROCESSING_PROPERTY_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Speed Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SPEED_PROPERTY_OPERATION_COUNT = PROCESSING_PROPERTY_OPERATION_COUNT + 0;
 
 	/**
 	 * Returns the meta object for class '{@link metamodelHCL.Component <em>Component</em>}'.
@@ -846,6 +1006,17 @@ public interface MetamodelHCLPackage extends EPackage {
 	EAttribute getComponent_Label();
 
 	/**
+	 * Returns the meta object for the reference '{@link metamodelHCL.Component#getComputer <em>Computer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Computer</em>'.
+	 * @see metamodelHCL.Component#getComputer()
+	 * @see #getComponent()
+	 * @generated
+	 */
+	EReference getComponent_Computer();
+
+	/**
 	 * Returns the meta object for class '{@link metamodelHCL.Processing <em>Processing</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -856,15 +1027,15 @@ public interface MetamodelHCLPackage extends EPackage {
 	EClass getProcessing();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link metamodelHCL.Processing#getProcessingproperty <em>Processingproperty</em>}'.
+	 * Returns the meta object for the containment reference list '{@link metamodelHCL.Processing#getProperties <em>Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Processingproperty</em>'.
-	 * @see metamodelHCL.Processing#getProcessingproperty()
+	 * @return the meta object for the containment reference list '<em>Properties</em>'.
+	 * @see metamodelHCL.Processing#getProperties()
 	 * @see #getProcessing()
 	 * @generated
 	 */
-	EReference getProcessing_Processingproperty();
+	EReference getProcessing_Properties();
 
 	/**
 	 * Returns the meta object for class '{@link metamodelHCL.Storage <em>Storage</em>}'.
@@ -877,15 +1048,15 @@ public interface MetamodelHCLPackage extends EPackage {
 	EClass getStorage();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link metamodelHCL.Storage#getStorageproperty <em>Storageproperty</em>}'.
+	 * Returns the meta object for the containment reference '{@link metamodelHCL.Storage#getProperties <em>Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Storageproperty</em>'.
-	 * @see metamodelHCL.Storage#getStorageproperty()
+	 * @return the meta object for the containment reference '<em>Properties</em>'.
+	 * @see metamodelHCL.Storage#getProperties()
 	 * @see #getStorage()
 	 * @generated
 	 */
-	EReference getStorage_Storageproperty();
+	EReference getStorage_Properties();
 
 	/**
 	 * Returns the meta object for class '{@link metamodelHCL.Display <em>Display</em>}'.
@@ -898,15 +1069,15 @@ public interface MetamodelHCLPackage extends EPackage {
 	EClass getDisplay();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link metamodelHCL.Display#getDisplayproperty <em>Displayproperty</em>}'.
+	 * Returns the meta object for the containment reference list '{@link metamodelHCL.Display#getProperties <em>Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Displayproperty</em>'.
-	 * @see metamodelHCL.Display#getDisplayproperty()
+	 * @return the meta object for the containment reference list '<em>Properties</em>'.
+	 * @see metamodelHCL.Display#getProperties()
 	 * @see #getDisplay()
 	 * @generated
 	 */
-	EReference getDisplay_Displayproperty();
+	EReference getDisplay_Properties();
 
 	/**
 	 * Returns the meta object for class '{@link metamodelHCL.ReusedComponent <em>Reused Component</em>}'.
@@ -929,6 +1100,17 @@ public interface MetamodelHCLPackage extends EPackage {
 	EClass getProcessingProperty();
 
 	/**
+	 * Returns the meta object for the reference '{@link metamodelHCL.ProcessingProperty#getProcessing <em>Processing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Processing</em>'.
+	 * @see metamodelHCL.ProcessingProperty#getProcessing()
+	 * @see #getProcessingProperty()
+	 * @generated
+	 */
+	EReference getProcessingProperty_Processing();
+
+	/**
 	 * Returns the meta object for class '{@link metamodelHCL.StorageProperty <em>Storage Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -937,6 +1119,17 @@ public interface MetamodelHCLPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getStorageProperty();
+
+	/**
+	 * Returns the meta object for the reference '{@link metamodelHCL.StorageProperty#getStorage <em>Storage</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Storage</em>'.
+	 * @see metamodelHCL.StorageProperty#getStorage()
+	 * @see #getStorageProperty()
+	 * @generated
+	 */
+	EReference getStorageProperty_Storage();
 
 	/**
 	 * Returns the meta object for class '{@link metamodelHCL.DisplayProperty <em>Display Property</em>}'.
@@ -949,108 +1142,45 @@ public interface MetamodelHCLPackage extends EPackage {
 	EClass getDisplayProperty();
 
 	/**
-	 * Returns the meta object for class '{@link metamodelHCL.Cores <em>Cores</em>}'.
+	 * Returns the meta object for the reference '{@link metamodelHCL.DisplayProperty#getDisplay <em>Display</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Cores</em>'.
-	 * @see metamodelHCL.Cores
+	 * @return the meta object for the reference '<em>Display</em>'.
+	 * @see metamodelHCL.DisplayProperty#getDisplay()
+	 * @see #getDisplayProperty()
 	 * @generated
 	 */
-	EClass getCores();
+	EReference getDisplayProperty_Display();
 
 	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.Cores#getNumber <em>Number</em>}'.
+	 * Returns the meta object for class '{@link metamodelHCL.L1CacheProperty <em>L1 Cache Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Number</em>'.
-	 * @see metamodelHCL.Cores#getNumber()
-	 * @see #getCores()
+	 * @return the meta object for class '<em>L1 Cache Property</em>'.
+	 * @see metamodelHCL.L1CacheProperty
 	 * @generated
 	 */
-	EAttribute getCores_Number();
+	EClass getL1CacheProperty();
 
 	/**
-	 * Returns the meta object for class '{@link metamodelHCL.Speed <em>Speed</em>}'.
+	 * Returns the meta object for class '{@link metamodelHCL.L2CacheProperty <em>L2 Cache Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Speed</em>'.
-	 * @see metamodelHCL.Speed
+	 * @return the meta object for class '<em>L2 Cache Property</em>'.
+	 * @see metamodelHCL.L2CacheProperty
 	 * @generated
 	 */
-	EClass getSpeed();
+	EClass getL2CacheProperty();
 
 	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.Speed#getSpeed <em>Speed</em>}'.
+	 * Returns the meta object for class '{@link metamodelHCL.L3CacheProperty <em>L3 Cache Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Speed</em>'.
-	 * @see metamodelHCL.Speed#getSpeed()
-	 * @see #getSpeed()
+	 * @return the meta object for class '<em>L3 Cache Property</em>'.
+	 * @see metamodelHCL.L3CacheProperty
 	 * @generated
 	 */
-	EAttribute getSpeed_Speed();
-
-	/**
-	 * Returns the meta object for class '{@link metamodelHCL.Cache <em>Cache</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Cache</em>'.
-	 * @see metamodelHCL.Cache
-	 * @generated
-	 */
-	EClass getCache();
-
-	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.Cache#getNumber <em>Number</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Number</em>'.
-	 * @see metamodelHCL.Cache#getNumber()
-	 * @see #getCache()
-	 * @generated
-	 */
-	EAttribute getCache_Number();
-
-	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.Cache#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see metamodelHCL.Cache#getType()
-	 * @see #getCache()
-	 * @generated
-	 */
-	EAttribute getCache_Type();
-
-	/**
-	 * Returns the meta object for class '{@link metamodelHCL.L1 <em>L1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>L1</em>'.
-	 * @see metamodelHCL.L1
-	 * @generated
-	 */
-	EClass getL1();
-
-	/**
-	 * Returns the meta object for class '{@link metamodelHCL.L2 <em>L2</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>L2</em>'.
-	 * @see metamodelHCL.L2
-	 * @generated
-	 */
-	EClass getL2();
-
-	/**
-	 * Returns the meta object for class '{@link metamodelHCL.L3 <em>L3</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>L3</em>'.
-	 * @see metamodelHCL.L3
-	 * @generated
-	 */
-	EClass getL3();
+	EClass getL3CacheProperty();
 
 	/**
 	 * Returns the meta object for class '{@link metamodelHCL.SingleStorage <em>Single Storage</em>}'.
@@ -1063,68 +1193,79 @@ public interface MetamodelHCLPackage extends EPackage {
 	EClass getSingleStorage();
 
 	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.SingleStorage#getStype <em>Stype</em>}'.
+	 * Returns the meta object for the attribute '{@link metamodelHCL.SingleStorage#getUnit <em>Unit</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Stype</em>'.
-	 * @see metamodelHCL.SingleStorage#getStype()
+	 * @return the meta object for the attribute '<em>Unit</em>'.
+	 * @see metamodelHCL.SingleStorage#getUnit()
 	 * @see #getSingleStorage()
 	 * @generated
 	 */
-	EAttribute getSingleStorage_Stype();
+	EAttribute getSingleStorage_Unit();
 
 	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.SingleStorage#getSsize <em>Ssize</em>}'.
+	 * Returns the meta object for the attribute '{@link metamodelHCL.SingleStorage#getSize <em>Size</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Ssize</em>'.
-	 * @see metamodelHCL.SingleStorage#getSsize()
+	 * @return the meta object for the attribute '<em>Size</em>'.
+	 * @see metamodelHCL.SingleStorage#getSize()
 	 * @see #getSingleStorage()
 	 * @generated
 	 */
-	EAttribute getSingleStorage_Ssize();
+	EAttribute getSingleStorage_Size();
 
 	/**
-	 * Returns the meta object for class '{@link metamodelHCL.Diagonal <em>Diagonal</em>}'.
+	 * Returns the meta object for class '{@link metamodelHCL.DiagonalProperty <em>Diagonal Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Diagonal</em>'.
-	 * @see metamodelHCL.Diagonal
+	 * @return the meta object for class '<em>Diagonal Property</em>'.
+	 * @see metamodelHCL.DiagonalProperty
 	 * @generated
 	 */
-	EClass getDiagonal();
+	EClass getDiagonalProperty();
 
 	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.Diagonal#getInch <em>Inch</em>}'.
+	 * Returns the meta object for the attribute '{@link metamodelHCL.DiagonalProperty#getSize <em>Size</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Inch</em>'.
-	 * @see metamodelHCL.Diagonal#getInch()
-	 * @see #getDiagonal()
+	 * @return the meta object for the attribute '<em>Size</em>'.
+	 * @see metamodelHCL.DiagonalProperty#getSize()
+	 * @see #getDiagonalProperty()
 	 * @generated
 	 */
-	EAttribute getDiagonal_Inch();
+	EAttribute getDiagonalProperty_Size();
 
 	/**
-	 * Returns the meta object for class '{@link metamodelHCL.Type <em>Type</em>}'.
+	 * Returns the meta object for the attribute '{@link metamodelHCL.DiagonalProperty#getUnit <em>Unit</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Type</em>'.
-	 * @see metamodelHCL.Type
+	 * @return the meta object for the attribute '<em>Unit</em>'.
+	 * @see metamodelHCL.DiagonalProperty#getUnit()
+	 * @see #getDiagonalProperty()
 	 * @generated
 	 */
-	EClass getType();
+	EAttribute getDiagonalProperty_Unit();
 
 	/**
-	 * Returns the meta object for the attribute '{@link metamodelHCL.Type#getDtype <em>Dtype</em>}'.
+	 * Returns the meta object for class '{@link metamodelHCL.ResolutionProperty <em>Resolution Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Dtype</em>'.
-	 * @see metamodelHCL.Type#getDtype()
-	 * @see #getType()
+	 * @return the meta object for class '<em>Resolution Property</em>'.
+	 * @see metamodelHCL.ResolutionProperty
 	 * @generated
 	 */
-	EAttribute getType_Dtype();
+	EClass getResolutionProperty();
+
+	/**
+	 * Returns the meta object for the attribute '{@link metamodelHCL.ResolutionProperty#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see metamodelHCL.ResolutionProperty#getType()
+	 * @see #getResolutionProperty()
+	 * @generated
+	 */
+	EAttribute getResolutionProperty_Type();
 
 	/**
 	 * Returns the meta object for class '{@link metamodelHCL.Computer <em>Computer</em>}'.
@@ -1148,15 +1289,15 @@ public interface MetamodelHCLPackage extends EPackage {
 	EAttribute getComputer_Label();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link metamodelHCL.Computer#getComponent <em>Component</em>}'.
+	 * Returns the meta object for the containment reference list '{@link metamodelHCL.Computer#getComponents <em>Components</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Component</em>'.
-	 * @see metamodelHCL.Computer#getComponent()
+	 * @return the meta object for the containment reference list '<em>Components</em>'.
+	 * @see metamodelHCL.Computer#getComponents()
 	 * @see #getComputer()
 	 * @generated
 	 */
-	EReference getComputer_Component();
+	EReference getComputer_Components();
 
 	/**
 	 * Returns the meta object for class '{@link metamodelHCL.Model <em>Model</em>}'.
@@ -1169,25 +1310,100 @@ public interface MetamodelHCLPackage extends EPackage {
 	EClass getModel();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link metamodelHCL.Model#getComputer <em>Computer</em>}'.
+	 * Returns the meta object for the containment reference list '{@link metamodelHCL.Model#getComputers <em>Computers</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Computer</em>'.
-	 * @see metamodelHCL.Model#getComputer()
+	 * @return the meta object for the containment reference list '<em>Computers</em>'.
+	 * @see metamodelHCL.Model#getComputers()
 	 * @see #getModel()
 	 * @generated
 	 */
-	EReference getModel_Computer();
+	EReference getModel_Computers();
 
 	/**
-	 * Returns the meta object for enum '{@link metamodelHCL.StorageTypeEnum <em>Storage Type Enum</em>}'.
+	 * Returns the meta object for class '{@link metamodelHCL.CoresProperty <em>Cores Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Storage Type Enum</em>'.
-	 * @see metamodelHCL.StorageTypeEnum
+	 * @return the meta object for class '<em>Cores Property</em>'.
+	 * @see metamodelHCL.CoresProperty
 	 * @generated
 	 */
-	EEnum getStorageTypeEnum();
+	EClass getCoresProperty();
+
+	/**
+	 * Returns the meta object for the attribute '{@link metamodelHCL.CoresProperty#getNumber <em>Number</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Number</em>'.
+	 * @see metamodelHCL.CoresProperty#getNumber()
+	 * @see #getCoresProperty()
+	 * @generated
+	 */
+	EAttribute getCoresProperty_Number();
+
+	/**
+	 * Returns the meta object for class '{@link metamodelHCL.SpeedProperty <em>Speed Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Speed Property</em>'.
+	 * @see metamodelHCL.SpeedProperty
+	 * @generated
+	 */
+	EClass getSpeedProperty();
+
+	/**
+	 * Returns the meta object for the attribute '{@link metamodelHCL.SpeedProperty#getSpeed <em>Speed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Speed</em>'.
+	 * @see metamodelHCL.SpeedProperty#getSpeed()
+	 * @see #getSpeedProperty()
+	 * @generated
+	 */
+	EAttribute getSpeedProperty_Speed();
+
+	/**
+	 * Returns the meta object for the attribute '{@link metamodelHCL.SpeedProperty#getUnit <em>Unit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Unit</em>'.
+	 * @see metamodelHCL.SpeedProperty#getUnit()
+	 * @see #getSpeedProperty()
+	 * @generated
+	 */
+	EAttribute getSpeedProperty_Unit();
+
+	/**
+	 * Returns the meta object for class '{@link metamodelHCL.CacheProperty <em>Cache Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Cache Property</em>'.
+	 * @see metamodelHCL.CacheProperty
+	 * @generated
+	 */
+	EClass getCacheProperty();
+
+	/**
+	 * Returns the meta object for the attribute '{@link metamodelHCL.CacheProperty#getSize <em>Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Size</em>'.
+	 * @see metamodelHCL.CacheProperty#getSize()
+	 * @see #getCacheProperty()
+	 * @generated
+	 */
+	EAttribute getCacheProperty_Size();
+
+	/**
+	 * Returns the meta object for the attribute '{@link metamodelHCL.CacheProperty#getUnit <em>Unit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Unit</em>'.
+	 * @see metamodelHCL.CacheProperty#getUnit()
+	 * @see #getCacheProperty()
+	 * @generated
+	 */
+	EAttribute getCacheProperty_Unit();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1231,6 +1447,14 @@ public interface MetamodelHCLPackage extends EPackage {
 		EAttribute COMPONENT__LABEL = eINSTANCE.getComponent_Label();
 
 		/**
+		 * The meta object literal for the '<em><b>Computer</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPONENT__COMPUTER = eINSTANCE.getComponent_Computer();
+
+		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.ProcessingImpl <em>Processing</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1241,12 +1465,12 @@ public interface MetamodelHCLPackage extends EPackage {
 		EClass PROCESSING = eINSTANCE.getProcessing();
 
 		/**
-		 * The meta object literal for the '<em><b>Processingproperty</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PROCESSING__PROCESSINGPROPERTY = eINSTANCE.getProcessing_Processingproperty();
+		EReference PROCESSING__PROPERTIES = eINSTANCE.getProcessing_Properties();
 
 		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.StorageImpl <em>Storage</em>}' class.
@@ -1259,12 +1483,12 @@ public interface MetamodelHCLPackage extends EPackage {
 		EClass STORAGE = eINSTANCE.getStorage();
 
 		/**
-		 * The meta object literal for the '<em><b>Storageproperty</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Properties</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference STORAGE__STORAGEPROPERTY = eINSTANCE.getStorage_Storageproperty();
+		EReference STORAGE__PROPERTIES = eINSTANCE.getStorage_Properties();
 
 		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.DisplayImpl <em>Display</em>}' class.
@@ -1277,12 +1501,12 @@ public interface MetamodelHCLPackage extends EPackage {
 		EClass DISPLAY = eINSTANCE.getDisplay();
 
 		/**
-		 * The meta object literal for the '<em><b>Displayproperty</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference DISPLAY__DISPLAYPROPERTY = eINSTANCE.getDisplay_Displayproperty();
+		EReference DISPLAY__PROPERTIES = eINSTANCE.getDisplay_Properties();
 
 		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.ReusedComponentImpl <em>Reused Component</em>}' class.
@@ -1305,6 +1529,14 @@ public interface MetamodelHCLPackage extends EPackage {
 		EClass PROCESSING_PROPERTY = eINSTANCE.getProcessingProperty();
 
 		/**
+		 * The meta object literal for the '<em><b>Processing</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PROCESSING_PROPERTY__PROCESSING = eINSTANCE.getProcessingProperty_Processing();
+
+		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.StoragePropertyImpl <em>Storage Property</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1313,6 +1545,14 @@ public interface MetamodelHCLPackage extends EPackage {
 		 * @generated
 		 */
 		EClass STORAGE_PROPERTY = eINSTANCE.getStorageProperty();
+
+		/**
+		 * The meta object literal for the '<em><b>Storage</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STORAGE_PROPERTY__STORAGE = eINSTANCE.getStorageProperty_Storage();
 
 		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.DisplayPropertyImpl <em>Display Property</em>}' class.
@@ -1325,96 +1565,42 @@ public interface MetamodelHCLPackage extends EPackage {
 		EClass DISPLAY_PROPERTY = eINSTANCE.getDisplayProperty();
 
 		/**
-		 * The meta object literal for the '{@link metamodelHCL.impl.CoresImpl <em>Cores</em>}' class.
+		 * The meta object literal for the '<em><b>Display</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see metamodelHCL.impl.CoresImpl
-		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getCores()
 		 * @generated
 		 */
-		EClass CORES = eINSTANCE.getCores();
+		EReference DISPLAY_PROPERTY__DISPLAY = eINSTANCE.getDisplayProperty_Display();
 
 		/**
-		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
+		 * The meta object literal for the '{@link metamodelHCL.impl.L1CachePropertyImpl <em>L1 Cache Property</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see metamodelHCL.impl.L1CachePropertyImpl
+		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getL1CacheProperty()
 		 * @generated
 		 */
-		EAttribute CORES__NUMBER = eINSTANCE.getCores_Number();
+		EClass L1_CACHE_PROPERTY = eINSTANCE.getL1CacheProperty();
 
 		/**
-		 * The meta object literal for the '{@link metamodelHCL.impl.SpeedImpl <em>Speed</em>}' class.
+		 * The meta object literal for the '{@link metamodelHCL.impl.L2CachePropertyImpl <em>L2 Cache Property</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see metamodelHCL.impl.SpeedImpl
-		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getSpeed()
+		 * @see metamodelHCL.impl.L2CachePropertyImpl
+		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getL2CacheProperty()
 		 * @generated
 		 */
-		EClass SPEED = eINSTANCE.getSpeed();
+		EClass L2_CACHE_PROPERTY = eINSTANCE.getL2CacheProperty();
 
 		/**
-		 * The meta object literal for the '<em><b>Speed</b></em>' attribute feature.
+		 * The meta object literal for the '{@link metamodelHCL.impl.L3CachePropertyImpl <em>L3 Cache Property</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see metamodelHCL.impl.L3CachePropertyImpl
+		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getL3CacheProperty()
 		 * @generated
 		 */
-		EAttribute SPEED__SPEED = eINSTANCE.getSpeed_Speed();
-
-		/**
-		 * The meta object literal for the '{@link metamodelHCL.impl.CacheImpl <em>Cache</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see metamodelHCL.impl.CacheImpl
-		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getCache()
-		 * @generated
-		 */
-		EClass CACHE = eINSTANCE.getCache();
-
-		/**
-		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CACHE__NUMBER = eINSTANCE.getCache_Number();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CACHE__TYPE = eINSTANCE.getCache_Type();
-
-		/**
-		 * The meta object literal for the '{@link metamodelHCL.impl.L1Impl <em>L1</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see metamodelHCL.impl.L1Impl
-		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getL1()
-		 * @generated
-		 */
-		EClass L1 = eINSTANCE.getL1();
-
-		/**
-		 * The meta object literal for the '{@link metamodelHCL.impl.L2Impl <em>L2</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see metamodelHCL.impl.L2Impl
-		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getL2()
-		 * @generated
-		 */
-		EClass L2 = eINSTANCE.getL2();
-
-		/**
-		 * The meta object literal for the '{@link metamodelHCL.impl.L3Impl <em>L3</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see metamodelHCL.impl.L3Impl
-		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getL3()
-		 * @generated
-		 */
-		EClass L3 = eINSTANCE.getL3();
+		EClass L3_CACHE_PROPERTY = eINSTANCE.getL3CacheProperty();
 
 		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.SingleStorageImpl <em>Single Storage</em>}' class.
@@ -1427,56 +1613,64 @@ public interface MetamodelHCLPackage extends EPackage {
 		EClass SINGLE_STORAGE = eINSTANCE.getSingleStorage();
 
 		/**
-		 * The meta object literal for the '<em><b>Stype</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute SINGLE_STORAGE__STYPE = eINSTANCE.getSingleStorage_Stype();
+		EAttribute SINGLE_STORAGE__UNIT = eINSTANCE.getSingleStorage_Unit();
 
 		/**
-		 * The meta object literal for the '<em><b>Ssize</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute SINGLE_STORAGE__SSIZE = eINSTANCE.getSingleStorage_Ssize();
+		EAttribute SINGLE_STORAGE__SIZE = eINSTANCE.getSingleStorage_Size();
 
 		/**
-		 * The meta object literal for the '{@link metamodelHCL.impl.DiagonalImpl <em>Diagonal</em>}' class.
+		 * The meta object literal for the '{@link metamodelHCL.impl.DiagonalPropertyImpl <em>Diagonal Property</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see metamodelHCL.impl.DiagonalImpl
-		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getDiagonal()
+		 * @see metamodelHCL.impl.DiagonalPropertyImpl
+		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getDiagonalProperty()
 		 * @generated
 		 */
-		EClass DIAGONAL = eINSTANCE.getDiagonal();
+		EClass DIAGONAL_PROPERTY = eINSTANCE.getDiagonalProperty();
 
 		/**
-		 * The meta object literal for the '<em><b>Inch</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute DIAGONAL__INCH = eINSTANCE.getDiagonal_Inch();
+		EAttribute DIAGONAL_PROPERTY__SIZE = eINSTANCE.getDiagonalProperty_Size();
 
 		/**
-		 * The meta object literal for the '{@link metamodelHCL.impl.TypeImpl <em>Type</em>}' class.
+		 * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see metamodelHCL.impl.TypeImpl
-		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getType()
 		 * @generated
 		 */
-		EClass TYPE = eINSTANCE.getType();
+		EAttribute DIAGONAL_PROPERTY__UNIT = eINSTANCE.getDiagonalProperty_Unit();
 
 		/**
-		 * The meta object literal for the '<em><b>Dtype</b></em>' attribute feature.
+		 * The meta object literal for the '{@link metamodelHCL.impl.ResolutionPropertyImpl <em>Resolution Property</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see metamodelHCL.impl.ResolutionPropertyImpl
+		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getResolutionProperty()
+		 * @generated
+		 */
+		EClass RESOLUTION_PROPERTY = eINSTANCE.getResolutionProperty();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TYPE__DTYPE = eINSTANCE.getType_Dtype();
+		EAttribute RESOLUTION_PROPERTY__TYPE = eINSTANCE.getResolutionProperty_Type();
 
 		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.ComputerImpl <em>Computer</em>}' class.
@@ -1497,12 +1691,12 @@ public interface MetamodelHCLPackage extends EPackage {
 		EAttribute COMPUTER__LABEL = eINSTANCE.getComputer_Label();
 
 		/**
-		 * The meta object literal for the '<em><b>Component</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Components</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPUTER__COMPONENT = eINSTANCE.getComputer_Component();
+		EReference COMPUTER__COMPONENTS = eINSTANCE.getComputer_Components();
 
 		/**
 		 * The meta object literal for the '{@link metamodelHCL.impl.ModelImpl <em>Model</em>}' class.
@@ -1515,22 +1709,82 @@ public interface MetamodelHCLPackage extends EPackage {
 		EClass MODEL = eINSTANCE.getModel();
 
 		/**
-		 * The meta object literal for the '<em><b>Computer</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Computers</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODEL__COMPUTER = eINSTANCE.getModel_Computer();
+		EReference MODEL__COMPUTERS = eINSTANCE.getModel_Computers();
 
 		/**
-		 * The meta object literal for the '{@link metamodelHCL.StorageTypeEnum <em>Storage Type Enum</em>}' enum.
+		 * The meta object literal for the '{@link metamodelHCL.impl.CoresPropertyImpl <em>Cores Property</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see metamodelHCL.StorageTypeEnum
-		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getStorageTypeEnum()
+		 * @see metamodelHCL.impl.CoresPropertyImpl
+		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getCoresProperty()
 		 * @generated
 		 */
-		EEnum STORAGE_TYPE_ENUM = eINSTANCE.getStorageTypeEnum();
+		EClass CORES_PROPERTY = eINSTANCE.getCoresProperty();
+
+		/**
+		 * The meta object literal for the '<em><b>Number</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CORES_PROPERTY__NUMBER = eINSTANCE.getCoresProperty_Number();
+
+		/**
+		 * The meta object literal for the '{@link metamodelHCL.impl.SpeedPropertyImpl <em>Speed Property</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see metamodelHCL.impl.SpeedPropertyImpl
+		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getSpeedProperty()
+		 * @generated
+		 */
+		EClass SPEED_PROPERTY = eINSTANCE.getSpeedProperty();
+
+		/**
+		 * The meta object literal for the '<em><b>Speed</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SPEED_PROPERTY__SPEED = eINSTANCE.getSpeedProperty_Speed();
+
+		/**
+		 * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SPEED_PROPERTY__UNIT = eINSTANCE.getSpeedProperty_Unit();
+
+		/**
+		 * The meta object literal for the '{@link metamodelHCL.impl.CachePropertyImpl <em>Cache Property</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see metamodelHCL.impl.CachePropertyImpl
+		 * @see metamodelHCL.impl.MetamodelHCLPackageImpl#getCacheProperty()
+		 * @generated
+		 */
+		EClass CACHE_PROPERTY = eINSTANCE.getCacheProperty();
+
+		/**
+		 * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CACHE_PROPERTY__SIZE = eINSTANCE.getCacheProperty_Size();
+
+		/**
+		 * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CACHE_PROPERTY__UNIT = eINSTANCE.getCacheProperty_Unit();
 
 	}
 

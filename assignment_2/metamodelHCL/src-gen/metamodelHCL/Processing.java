@@ -13,7 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link metamodelHCL.Processing#getProcessingproperty <em>Processingproperty</em>}</li>
+ *   <li>{@link metamodelHCL.Processing#getProperties <em>Properties</em>}</li>
  * </ul>
  *
  * @see metamodelHCL.MetamodelHCLPackage#getProcessing()
@@ -22,15 +22,15 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Processing extends Component {
 	/**
-	 * Returns the value of the '<em><b>Processingproperty</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
 	 * The list contents are of type {@link metamodelHCL.ProcessingProperty}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Processingproperty</em>' containment reference list.
-	 * @see metamodelHCL.MetamodelHCLPackage#getProcessing_Processingproperty()
-	 * @model containment="true" lower="5" upper="5"
+	 * @return the value of the '<em>Properties</em>' containment reference list.
+	 * @see metamodelHCL.MetamodelHCLPackage#getProcessing_Properties()
+	 * @model containment="true" upper="5"
 	 * @generated
 	 */
-	EList<ProcessingProperty> getProcessingproperty();
+	EList<ProcessingProperty> getProperties();
 
 } // Processing

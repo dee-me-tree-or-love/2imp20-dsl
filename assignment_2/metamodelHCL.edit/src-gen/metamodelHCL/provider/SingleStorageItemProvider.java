@@ -7,8 +7,6 @@ import java.util.List;
 
 import metamodelHCL.MetamodelHCLPackage;
 import metamodelHCL.SingleStorage;
-import metamodelHCL.StorageTypeEnum;
-
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -45,42 +43,42 @@ public class SingleStorageItemProvider extends StoragePropertyItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addStypePropertyDescriptor(object);
-			addSsizePropertyDescriptor(object);
+			addUnitPropertyDescriptor(object);
+			addSizePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Stype feature.
+	 * This adds a property descriptor for the Unit feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addStypePropertyDescriptor(Object object) {
+	protected void addUnitPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_SingleStorage_stype_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_SingleStorage_stype_feature",
+						getResourceLocator(), getString("_UI_SingleStorage_unit_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_SingleStorage_unit_feature",
 								"_UI_SingleStorage_type"),
-						MetamodelHCLPackage.Literals.SINGLE_STORAGE__STYPE, true, false, false,
+						MetamodelHCLPackage.Literals.SINGLE_STORAGE__UNIT, true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Ssize feature.
+	 * This adds a property descriptor for the Size feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addSsizePropertyDescriptor(Object object) {
+	protected void addSizePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_SingleStorage_ssize_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_SingleStorage_ssize_feature",
+						getResourceLocator(), getString("_UI_SingleStorage_size_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_SingleStorage_size_feature",
 								"_UI_SingleStorage_type"),
-						MetamodelHCLPackage.Literals.SINGLE_STORAGE__SSIZE, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+						MetamodelHCLPackage.Literals.SINGLE_STORAGE__SIZE, true, false, false,
+						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -112,8 +110,7 @@ public class SingleStorageItemProvider extends StoragePropertyItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		StorageTypeEnum labelValue = ((SingleStorage) object).getStype();
-		String label = labelValue == null ? null : labelValue.toString();
+		String label = ((SingleStorage) object).getUnit();
 		return label == null || label.length() == 0 ? getString("_UI_SingleStorage_type")
 				: getString("_UI_SingleStorage_type") + " " + label;
 	}
@@ -130,8 +127,8 @@ public class SingleStorageItemProvider extends StoragePropertyItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(SingleStorage.class)) {
-		case MetamodelHCLPackage.SINGLE_STORAGE__STYPE:
-		case MetamodelHCLPackage.SINGLE_STORAGE__SSIZE:
+		case MetamodelHCLPackage.SINGLE_STORAGE__UNIT:
+		case MetamodelHCLPackage.SINGLE_STORAGE__SIZE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

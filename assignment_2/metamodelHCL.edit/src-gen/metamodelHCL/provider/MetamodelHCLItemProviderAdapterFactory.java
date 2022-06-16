@@ -165,118 +165,72 @@ public class MetamodelHCLItemProviderAdapterFactory extends MetamodelHCLAdapterF
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link metamodelHCL.Cores} instances.
+	 * This keeps track of the one adapter used for all {@link metamodelHCL.L1CacheProperty} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected CoresItemProvider coresItemProvider;
+	protected L1CachePropertyItemProvider l1CachePropertyItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link metamodelHCL.Cores}.
+	 * This creates an adapter for a {@link metamodelHCL.L1CacheProperty}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createCoresAdapter() {
-		if (coresItemProvider == null) {
-			coresItemProvider = new CoresItemProvider(this);
+	public Adapter createL1CachePropertyAdapter() {
+		if (l1CachePropertyItemProvider == null) {
+			l1CachePropertyItemProvider = new L1CachePropertyItemProvider(this);
 		}
 
-		return coresItemProvider;
+		return l1CachePropertyItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link metamodelHCL.Speed} instances.
+	 * This keeps track of the one adapter used for all {@link metamodelHCL.L2CacheProperty} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SpeedItemProvider speedItemProvider;
+	protected L2CachePropertyItemProvider l2CachePropertyItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link metamodelHCL.Speed}.
+	 * This creates an adapter for a {@link metamodelHCL.L2CacheProperty}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createSpeedAdapter() {
-		if (speedItemProvider == null) {
-			speedItemProvider = new SpeedItemProvider(this);
+	public Adapter createL2CachePropertyAdapter() {
+		if (l2CachePropertyItemProvider == null) {
+			l2CachePropertyItemProvider = new L2CachePropertyItemProvider(this);
 		}
 
-		return speedItemProvider;
+		return l2CachePropertyItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link metamodelHCL.L1} instances.
+	 * This keeps track of the one adapter used for all {@link metamodelHCL.L3CacheProperty} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected L1ItemProvider l1ItemProvider;
+	protected L3CachePropertyItemProvider l3CachePropertyItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link metamodelHCL.L1}.
+	 * This creates an adapter for a {@link metamodelHCL.L3CacheProperty}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createL1Adapter() {
-		if (l1ItemProvider == null) {
-			l1ItemProvider = new L1ItemProvider(this);
+	public Adapter createL3CachePropertyAdapter() {
+		if (l3CachePropertyItemProvider == null) {
+			l3CachePropertyItemProvider = new L3CachePropertyItemProvider(this);
 		}
 
-		return l1ItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link metamodelHCL.L2} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected L2ItemProvider l2ItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link metamodelHCL.L2}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createL2Adapter() {
-		if (l2ItemProvider == null) {
-			l2ItemProvider = new L2ItemProvider(this);
-		}
-
-		return l2ItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link metamodelHCL.L3} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected L3ItemProvider l3ItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link metamodelHCL.L3}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createL3Adapter() {
-		if (l3ItemProvider == null) {
-			l3ItemProvider = new L3ItemProvider(this);
-		}
-
-		return l3ItemProvider;
+		return l3CachePropertyItemProvider;
 	}
 
 	/**
@@ -303,49 +257,49 @@ public class MetamodelHCLItemProviderAdapterFactory extends MetamodelHCLAdapterF
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link metamodelHCL.Diagonal} instances.
+	 * This keeps track of the one adapter used for all {@link metamodelHCL.DiagonalProperty} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected DiagonalItemProvider diagonalItemProvider;
+	protected DiagonalPropertyItemProvider diagonalPropertyItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link metamodelHCL.Diagonal}.
+	 * This creates an adapter for a {@link metamodelHCL.DiagonalProperty}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createDiagonalAdapter() {
-		if (diagonalItemProvider == null) {
-			diagonalItemProvider = new DiagonalItemProvider(this);
+	public Adapter createDiagonalPropertyAdapter() {
+		if (diagonalPropertyItemProvider == null) {
+			diagonalPropertyItemProvider = new DiagonalPropertyItemProvider(this);
 		}
 
-		return diagonalItemProvider;
+		return diagonalPropertyItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link metamodelHCL.Type} instances.
+	 * This keeps track of the one adapter used for all {@link metamodelHCL.ResolutionProperty} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TypeItemProvider typeItemProvider;
+	protected ResolutionPropertyItemProvider resolutionPropertyItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link metamodelHCL.Type}.
+	 * This creates an adapter for a {@link metamodelHCL.ResolutionProperty}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createTypeAdapter() {
-		if (typeItemProvider == null) {
-			typeItemProvider = new TypeItemProvider(this);
+	public Adapter createResolutionPropertyAdapter() {
+		if (resolutionPropertyItemProvider == null) {
+			resolutionPropertyItemProvider = new ResolutionPropertyItemProvider(this);
 		}
 
-		return typeItemProvider;
+		return resolutionPropertyItemProvider;
 	}
 
 	/**
@@ -392,6 +346,52 @@ public class MetamodelHCLItemProviderAdapterFactory extends MetamodelHCLAdapterF
 		}
 
 		return modelItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link metamodelHCL.CoresProperty} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CoresPropertyItemProvider coresPropertyItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link metamodelHCL.CoresProperty}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCoresPropertyAdapter() {
+		if (coresPropertyItemProvider == null) {
+			coresPropertyItemProvider = new CoresPropertyItemProvider(this);
+		}
+
+		return coresPropertyItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link metamodelHCL.SpeedProperty} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SpeedPropertyItemProvider speedPropertyItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link metamodelHCL.SpeedProperty}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSpeedPropertyAdapter() {
+		if (speedPropertyItemProvider == null) {
+			speedPropertyItemProvider = new SpeedPropertyItemProvider(this);
+		}
+
+		return speedPropertyItemProvider;
 	}
 
 	/**
@@ -501,26 +501,26 @@ public class MetamodelHCLItemProviderAdapterFactory extends MetamodelHCLAdapterF
 			displayItemProvider.dispose();
 		if (reusedComponentItemProvider != null)
 			reusedComponentItemProvider.dispose();
-		if (coresItemProvider != null)
-			coresItemProvider.dispose();
-		if (speedItemProvider != null)
-			speedItemProvider.dispose();
-		if (l1ItemProvider != null)
-			l1ItemProvider.dispose();
-		if (l2ItemProvider != null)
-			l2ItemProvider.dispose();
-		if (l3ItemProvider != null)
-			l3ItemProvider.dispose();
+		if (l1CachePropertyItemProvider != null)
+			l1CachePropertyItemProvider.dispose();
+		if (l2CachePropertyItemProvider != null)
+			l2CachePropertyItemProvider.dispose();
+		if (l3CachePropertyItemProvider != null)
+			l3CachePropertyItemProvider.dispose();
 		if (singleStorageItemProvider != null)
 			singleStorageItemProvider.dispose();
-		if (diagonalItemProvider != null)
-			diagonalItemProvider.dispose();
-		if (typeItemProvider != null)
-			typeItemProvider.dispose();
+		if (diagonalPropertyItemProvider != null)
+			diagonalPropertyItemProvider.dispose();
+		if (resolutionPropertyItemProvider != null)
+			resolutionPropertyItemProvider.dispose();
 		if (computerItemProvider != null)
 			computerItemProvider.dispose();
 		if (modelItemProvider != null)
 			modelItemProvider.dispose();
+		if (coresPropertyItemProvider != null)
+			coresPropertyItemProvider.dispose();
+		if (speedPropertyItemProvider != null)
+			speedPropertyItemProvider.dispose();
 	}
 
 }

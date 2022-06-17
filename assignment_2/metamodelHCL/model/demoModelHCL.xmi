@@ -64,4 +64,33 @@
           number="4"/>
     </components>
   </computers>
+  <computers
+      label="computer_2 ">
+    <components
+        xsi:type="metamodelHCL:Processing"
+        label="ryzen 5">
+      <properties
+          xsi:type="metamodelHCL:CoresProperty"
+          number="6"/>
+      <properties
+          xsi:type="metamodelHCL:SpeedProperty"
+          speed="3.8"
+          unit="GHz"/>
+      <properties
+          xsi:type="metamodelHCL:L1CacheProperty"
+          size="32"
+          unit="KiB"/>
+    </components>
+    <components
+        xsi:type="metamodelHCL:Display"
+        label="benq">
+      <properties
+          xsi:type="metamodelHCL:DiagonalProperty"
+          size="27"
+          unit="inch"/>
+      <properties
+          xsi:type="metamodelHCL:ResolutionProperty"
+          type="5K"/>
+    </components>
+  </computers>
 </metamodelHCL:Model>

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<graph:Graph xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:graph="http://dsldesign.tue.nl/graph" xsi:schemaLocation="http://dsldesign.tue.nl/graph ../graph.ecore">
+<graph:Graph xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:graph="http://dsldesign.tue.nl/graph" xsi:schemaLocation="http://dsldesign.tue.nl/graph ../../nl.tue.dsldesign.graph.metamodel/model/graph.ecore">
   <nodes label="CPU">
-    <outEdges target="//@nodes.14"/>
-    <outEdges target="//@nodes.13"/>
+    <outEdges target="//@nodes.21"/>
+    <outEdges target="//@nodes.19"/>
+    <outEdges target="//@nodes.20"/>
   </nodes>
   <nodes label="Display">
-    <outEdges target="//@nodes.15"/>
+    <outEdges target="//@nodes.22"/>
+    <outEdges target="//@nodes.23"/>
   </nodes>
   <nodes label="my_computer">
     <outEdges target="//@nodes.3"/>
@@ -33,11 +35,31 @@
   </nodes>
   <nodes label="5K"/>
   <nodes label="4K"/>
+  <nodes label="computer_2 ">
+    <outEdges target="//@nodes.14"/>
+    <outEdges target="//@nodes.17"/>
+  </nodes>
+  <nodes label="ryzen 5">
+    <outEdges style="DASHED" target="//@nodes.15"/>
+    <outEdges style="DASHED" target="//@nodes.16"/>
+  </nodes>
+  <nodes label="6 cores"/>
+  <nodes label="32 KiB"/>
+  <nodes label="benq">
+    <outEdges style="DASHED" target="//@nodes.18"/>
+  </nodes>
+  <nodes label="5K"/>
+  <nodes label="3.2 GHz">
+    <outEdges target="//@nodes.4"/>
+  </nodes>
   <nodes label="2.34 GHz">
     <outEdges target="//@nodes.3"/>
   </nodes>
-  <nodes label="3.2 GHz">
-    <outEdges target="//@nodes.4"/>
+  <nodes label="3.8 GHz">
+    <outEdges target="//@nodes.14"/>
+  </nodes>
+  <nodes label="27 inch">
+    <outEdges target="//@nodes.17"/>
   </nodes>
   <nodes label="5 Inch">
     <outEdges target="//@nodes.10"/>

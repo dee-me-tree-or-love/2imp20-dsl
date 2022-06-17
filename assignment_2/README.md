@@ -32,7 +32,7 @@
 
 #### Transformation Example
 
-- Below is a view of the result `xmi` of our transformed HCL model instance.
+- Below is a view of the result `xmi` file of our transformed HCL model instance.
 ![graph](https://user-images.githubusercontent.com/32551030/174292802-2515e73a-eb11-4169-85b2-7854c0c623d9.svg)
 
 

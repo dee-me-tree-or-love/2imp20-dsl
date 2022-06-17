@@ -8,7 +8,7 @@
 
 - The `metamodelHCL` directory includes the metamodel we designed for `HCL` language. The metamodel can be found in `metamodelHCL/model` , the root class is `Model`. 
 
-##### model transfermation
+##### model transformation
 
 - The QVTo transformation project directory is `hcl2graph` , the transformation code is located in `hcl2graph/transforms`. 
 

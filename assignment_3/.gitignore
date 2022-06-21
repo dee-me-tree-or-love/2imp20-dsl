@@ -1,0 +1,5 @@
+# Generation outputs
+bin/
+lex.yy.c
+*.out
+

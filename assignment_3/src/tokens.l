@@ -1,5 +1,9 @@
 /* This is a syntax definition file */
 
+%{
+# include "parser.tab.h"
+%}
+
 /* This is some basic trial */
 %%
 "greet"     { printf("GREET\n"); }

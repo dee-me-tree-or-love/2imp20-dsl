@@ -7,10 +7,12 @@ PARSER_OUT=${BUILD_DIR}/parser.out
 parser: src/parser.y src/tokens.l
 	@echo "📝 Compile bison sources..."
 	bison -d src/parser.y -o ${BUILD_DIR}/parser.tab.c -v
+
 	@echo "🔨 Compile flex sources..."
 	flex -o ${BUILD_DIR}/lex.yy.c src/tokens.l
+
 	@echo "👷 Compile and link parser..."
-	cc 	${BUILD_DIR}/parser.tab.c \
+	cc  ${BUILD_DIR}/parser.tab.c \
 		${BUILD_DIR}/lex.yy.c -ll \
 		-o ${PARSER_OUT}
 

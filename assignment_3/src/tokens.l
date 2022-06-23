@@ -7,15 +7,55 @@
 
 #include "parser.tab.h"
 
-%}
+// list datatype in .ail
+enum symbolType
+{
+    string,boolean,real,integer
+};
+// build symboltable struct to store symbols and types;
+struct SymbolTable
+{
+    char _name[200];
+    char _type[20];
+};
+struct SymbolTable allSymbolTable[200];
+int allSymbolCount = 0;
+char content[256];
+int lineCount = 0;
 
+//this function works to collect every token 
+void newContent() {
+    strcat(content,yytext); 
+    }
+
+%}
+// alias
+letter	[A-Za-z]
+number	[0-9]
+numbers	{number}+
+%x COMMENT //https://stackoverflow.com/a/2130124
 %%
 
+/*
 [ \t]       { ; }  // ignore all whitespace
 [0-9]+      {yylval.ival = atoi(yytext); return T_INT;}
 \n          {return T_NEWLINE;}
 "greet"     {return T_GREET;}
 "exit"      {return T_QUIT;}
 "quit"      {return T_QUIT;}
+*/
+
+\n	{lineCount++;content[0]='\0';}
+[ \t]	{newContent();}
+"//".*	{newContent();}// suppress whatever is in the comment 
+
+//Multi comment
+"/*"  {newContent(); BEGIN(COMMENT);}
+<COMMENT>.	{newContent();}  
+<COMMENT>\n	{ 
+				lineCount++; 
+				content[0]='\0'; //end a string, means null
+ 			}
+<COMMENT>"*/"	{newContent();BEGIN(INITIAL);} //INITIAL is predefined
 
 %%

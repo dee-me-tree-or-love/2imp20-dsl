@@ -7,6 +7,7 @@ PARSER_OUT=${BUILD_DIR}/parser.out
 CHICKEN_DIST_DIR=./chicken-5.3.0
 INCLUDES=-I./chicken-5.3.0 -lchicken
 
+# CHICKEN language libraries
 chicken-5.3.0/chicken.h: chicken-5.3.0.tar.gz
 	@[ -f chicken-5.3.0/chicken.h ] \
 		&& echo "🐥 Chicken headers exist." \

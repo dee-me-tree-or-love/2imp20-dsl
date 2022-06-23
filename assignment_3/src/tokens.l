@@ -12,7 +12,15 @@ enum symbolType
 {
     string,boolean,real,integer
 };
-// build symboltable struct to store symbols and types;
+// build symboltable struct to store symbols and types;  
+
+/* 
+STATEMENT : I'm not sure if we should start from `highlighting` work, 
+if we wanna show it is recognized, we not only need `return` tokens, 
+but also print recognization and show codes, 
+then this part(line: 24-30) is easiler and clear for hightlighting since it onlys records name&type, 
+which is what a terminal wanna show about token-level syntax. 
+*/
 struct SymbolTable
 {
     char _name[200];
@@ -20,9 +28,9 @@ struct SymbolTable
 };
 struct SymbolTable allSymbolTable[200];
 int allSymbolCount = 0;
-char content[256];
-int lineCount = 0;
 
+int lineCount = 0;
+char content[256];
 //this function works to collect every token 
 void newContent() {
     strcat(content,yytext); 

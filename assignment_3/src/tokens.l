@@ -34,7 +34,7 @@ char content[256];
 //this function works to collect every token 
 void newContent() {
     strcat(content,yytext); 
-    }
+}
 
 %}
 // alias

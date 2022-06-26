@@ -30,6 +30,12 @@ struct SymbolTable allSymbolTable[200];
 int allSymbolCount = 0;
 
 int lineCount = 0;
+char content[256];
+//this function works to collect every token 
+void newContent() {
+    strcat(content,yytext); 
+}
+
 %}
 // alias
 letter	[A-Za-z]
@@ -38,12 +44,16 @@ numbers	{number}+
 %x COMMENT //https://stackoverflow.com/a/2130124
 %%
 \n	{lineCount++;content[0]='\0';}
-[ \t]	{}
-"//".*	{}// suppress whatever is in the comment 
+[ \t]	{newContent();}
+"//".*	{newContent();}// suppress whatever is in the comment 
 
-"/*"  {BEGIN(COMMENT);} // Multi comment 
-<COMMENT>.	{}  
-<COMMENT>\n	{ lineCount++; }
-<COMMENT>"*/"	{BEGIN(INITIAL);} //INITIAL is predefined
+//Multi comment
+"/*"  {newContent(); BEGIN(COMMENT);}
+<COMMENT>.	{newContent();}  
+<COMMENT>\n	{ 
+				lineCount++; 
+				content[0]='\0'; //end a string, means null
+ 			}
+<COMMENT>"*/"	{newContent();BEGIN(INITIAL);} //INITIAL is predefined
 
 %%

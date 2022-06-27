@@ -10,7 +10,7 @@
 // list datatype in .ail
 enum symbolType
 {
-    string,boolean,real,integer
+    string,boolean,real,integer,unit
 };
 // build symboltable struct to store symbols and types;  
 
@@ -35,15 +35,154 @@ int lineCount = 0;
 letter	[A-Za-z]
 number	[0-9]
 numbers	{number}+
-%x COMMENT //https://stackoverflow.com/a/2130124
+%x COMMENT 
 %%
-\n	{lineCount++;content[0]='\0';}
+","	{return COMMA;}
+"." {return DOT;}
+":"	{return COLON;}
+";"	{return SEMICOLON;}
+"("	{return LEFTPARENTHESE;}
+")"	{return RIGHTPARENTHESE;}
+"["	{return LEFTSQUAREBRACKET;}
+"]"	{return RIGHTSQUAREBRACKET;}
+"{"	{return LEFTBRACKET;}
+"}"	{return RIGHTBRACKET;}
+"<" {return LESS;} //ISSUE: I don't know if the overlap grammar of < > would cause problem
+">" {return GREATER;}
+"“" {return LEFTQUOTE};
+"”" {return RIGHTQUOTE};
+
+"+"	{return PLUS;}
+"-"	{return MINUS;}
+"*"	{return MULTIPLY;}
+"/"	{return DIVIDE;}
+"%"	{return PERCENT;}
+"^" {return POWER;}
+
+"$" {return TRANSFER;}
+"@" {return AT;}
+"_" {return DASH;}
+"|" {return LINE;}
+"=="  {return DEEPEQUAL;} 
+"!="  {return NOTEQUAL;}
+"~~"  {return APPROXMATCH;}
+"and" {return AND;} 
+"or"  {return OR;}
+"||"  {return OR;} // two 'or' ex.ail:line 105 / 25
+
+"@>" {return DOACTION;}
+"#>" {return FILTER;}
+"|>" {return FEED;}
+"|*" {return PARALLEL;}
+"|&" {return ;} //ex.ail: line 100
+
+
+// Built-ins:
+//    Iteration:
+//        <Collection> @> { x | a }    - does action `a` with value `x`
+//        <Collection> @> { _ | a }    - does action `a` ignoring value
+//        <Collection> #> { x | c }    - filters collection by `c`
+
+// size = %src.items @> {_, + 1};
+// total = %src.items @> {i, + i.temp}; //define datatype?
+
+
+Module      {return MODULE;}
+Import      {return IMPORT;}
+Plants      {return PLANTS;}
+Actions     {return ACTIONS;}
+Assets      {return ASSETS;}
+Plantation  {return PLANTATION;}
+WaterSource {return WATERSOURCE;}
+Channels    {return CHANNELS;}
+Controllers {return CONTROLLERS;}
+MONITOR     {return MONITOR;}
+
+%src {return SRC;}
+items {return ITEMS;}
+
+water_use {return WATERUSE;}
+min_temp  {return MINTEMP;}
+max_temp  {return MAXTEMP;}
+max_water {return MAXWATER;}
+min_water {return MINWATER;}
+
+capacity          {return CAPACITY;}  
+sensors           {return SENSORS;}
+desc              {return DESC;}  //so how to define 'desc' 'area'? 
+area              {return AREA;}
+plantation_date   {return PDATE;}
+installation_date {return IDATE;}
+
+l|kl|m|cm|mm|C|s|min|hour {return UNIT;} //or like below	 
+l    {return L;}
+kl   {return KL;}
+m    {return M;}
+cm   {return CM;}
+mm   {return MM;}
+C    {return C;}
+s    {return S;}
+min  {return MIN;}
+hour {return HOUR;}
+
+if    {return IF;}
+meets {return MEETS;} // here I think we can drop 'meets' 
+then  {return THEN;}
+do    {return DO;}
+else  {return ELSE;} // need to specify 'if-else' criteria, waht do you think? or we can also add 'while-do'
+
+collection {return COLLECTION;}
+integer {return INTEGER;}
+real    {return REAL;}
+number  {return NUMBER;} // do we really need to set UnitNumber Type? or just represent it in "real/integer unit"
+string  {return STRING;}
+boolean {return BOOLEAN;}
+
+true|false	{return BOOLEANCONSTANT;}
+{digits}	{return INTEGERCONSTANT;}
+{digits}"."{digits}([Ee][+-]?{digits})?	{return REALCONSTANT;}
+
+\"[^\"]*\"	{
+				char c=input();	
+				if(c=='\"')
+					yymore();	
+				else
+				{	
+					for(int i=0;i<yyleng-1;i++)
+						yytext[i]=yytext[i+1];
+					yytext[yyleng-2]='\0';
+					for(int i=0;i<yyleng-1;i++)
+					{
+						if(yytext[i]=='\"' && yytext[i+1]=='\"')
+						{
+							for(int j=i;j<yyleng-1;j++)
+								yytext[j]=yytext[j+1];
+						}
+					}	
+					unput(c);	
+					strcpy(yylval.stringVal,yytext);
+					return STRINGCONSTANT;
+				}	
+				unput(c);
+			}
+
+{letter}({letter}|{digit})*	{
+                                if(lookup(allSymbolTable,yytext,allSymbolCount)==-1)
+								{
+									addSymbol(allSymbolTable,yytext,allSymbolCount);
+									allSymbolCount++;
+								}	
+								sscanf(yytext,"%s",&yylval);
+								return IDENTIFIER;
+							}
+
+\n	{lineCount++;}
 [ \t]	{}
 "//".*	{}// suppress whatever is in the comment 
 
 "/*"  {BEGIN(COMMENT);} // Multi comment 
 <COMMENT>.	{}  
-<COMMENT>\n	{ lineCount++; }
+<COMMENT>\n	{lineCount++;}
 <COMMENT>"*/"	{BEGIN(INITIAL);} //INITIAL is predefined
 
 %%

@@ -8,10 +8,10 @@
 #include "parser.tab.h"
 
 // list datatype in .ail
-enum symbolType
-{
-    string,boolean,real,integer,unit
-};
+// enum symbolType
+// {
+//     number, boolean, unit, string
+// };
 // build symboltable struct to store symbols and types;  
 
 /* 
@@ -21,15 +21,15 @@ but also print recognization and show codes,
 then this part(line: 24-30) is easiler and clear for hightlighting since it onlys records name&type, 
 which is what a terminal wanna show about token-level syntax. 
 */
-struct SymbolTable
-{
-    char _name[200];
-    char _type[20];
-};
-struct SymbolTable allSymbolTable[200];
-int allSymbolCount = 0;
+// struct SymbolTable
+// {
+//     char _name[200];
+//     char _type[20];
+// };
+// struct SymbolTable allSymbolTable[200];
+// int allSymbolCount = 0;
 
-int lineCount = 0;
+// int lineCount = 0;
 %}
 // alias
 letter	[A-Za-z]
@@ -167,11 +167,6 @@ true|false	{return BOOLEANCONSTANT;}
 			}
 
 {letter}({letter}|{digit})*	{
-                                if(lookup(allSymbolTable,yytext,allSymbolCount)==-1)
-								{
-									addSymbol(allSymbolTable,yytext,allSymbolCount);
-									allSymbolCount++;
-								}	
 								sscanf(yytext,"%s",&yylval);
 								return IDENTIFIER;
 							}

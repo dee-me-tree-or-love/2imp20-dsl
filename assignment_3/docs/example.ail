@@ -83,9 +83,9 @@ Actions : {
         if %src.water meets condition then do job else {}
     ],
     // multiple statements + variables
-    check_avg_temp : <%src, condition, job> [
-        size = %src.items @> {_, + 1};
-        total = %src.items @> {i, + i.temp};
+    check_avg_temp : <%src, condition(> 30 mm), job> [
+        size = %src.items @> {_ | + 1};
+        total = %src.items @> {i | + i.temp};
         if total/size meets condition then do job;
     ],
     // composition of multiple actions
@@ -97,10 +97,10 @@ Actions : {
     > [
         if (
             check_water : {condition_water, {}} 
-            |& check_avg_temp : {condition_temp, {}}
+            |> check_avg_temp : {condition_temp, {}}
         )
         then do
-        vjob.
+        vjob
         // Additional composition operations for the future:
         // `||` = or (try first, if fails, try next)
         // `|>` = feed (pass output to)
@@ -120,7 +120,7 @@ Assets : {
     strawberry_plants : Plantation<Strawberry> {
         sensors : {
             water_level : Sensor<
-                “daily 9 am”,
+                "daily 9 am",
                 check_water : { > 30 mm, notify : {@ support.} }
             >
         }
@@ -139,7 +139,7 @@ Assets : {
                 “every 5 min”,
                 check_avg_temp : {
                     > %src.max_temp,
-                    notify : {Channels #> {c | c ~~ “abie”}}.
+                    notify : {Channels #> {c | c ~~ “abie”}}
                 }
             >
         }

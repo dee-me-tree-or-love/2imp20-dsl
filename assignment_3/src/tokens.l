@@ -46,11 +46,9 @@ numbers	{number}+
 "["	{return LEFTSQUAREBRACKET;}
 "]"	{return RIGHTSQUAREBRACKET;}
 "{"	{return LEFTBRACKET;}
-"}"	{return RIGHTBRACKET;}
+"}"	{return RIGHTBRACKET;} 
 "<" {return LESS;} //ISSUE: I don't know if the overlap grammar of < > would cause problem
 ">" {return GREATER;}
-"“" {return LEFTQUOTE};
-"”" {return RIGHTQUOTE};
 
 "+"	{return PLUS;}
 "-"	{return MINUS;}
@@ -68,24 +66,13 @@ numbers	{number}+
 "~~"  {return APPROXMATCH;}
 "and" {return AND;} 
 "or"  {return OR;}
-"||"  {return OR;} // two 'or' ex.ail:line 105 / 25
+"||"  {return ACTIONOR;} 
 
 "@>" {return DOACTION;}
 "#>" {return FILTER;}
 "|>" {return FEED;}
 "|*" {return PARALLEL;}
 "|&" {return ;} //ex.ail: line 100
-
-
-// Built-ins:
-//    Iteration:
-//        <Collection> @> { x | a }    - does action `a` with value `x`
-//        <Collection> @> { _ | a }    - does action `a` ignoring value
-//        <Collection> #> { x | c }    - filters collection by `c`
-
-// size = %src.items @> {_, + 1};
-// total = %src.items @> {i, + i.temp}; //define datatype?
-
 
 Module      {return MODULE;}
 Import      {return IMPORT;}
@@ -101,12 +88,14 @@ MONITOR     {return MONITOR;}
 %src {return SRC;}
 items {return ITEMS;}
 
+//change
 water_use {return WATERUSE;}
 min_temp  {return MINTEMP;}
 max_temp  {return MAXTEMP;}
 max_water {return MAXWATER;}
 min_water {return MINWATER;}
 
+//change
 capacity          {return CAPACITY;}  
 sensors           {return SENSORS;}
 desc              {return DESC;}  //so how to define 'desc' 'area'? 
@@ -114,29 +103,16 @@ area              {return AREA;}
 plantation_date   {return PDATE;}
 installation_date {return IDATE;}
 
-l|kl|m|cm|mm|C|s|min|hour {return UNIT;} //or like below	 
-l    {return L;}
-kl   {return KL;}
-m    {return M;}
-cm   {return CM;}
-mm   {return MM;}
-C    {return C;}
-s    {return S;}
-min  {return MIN;}
-hour {return HOUR;}
 
 if    {return IF;}
-meets {return MEETS;} // here I think we can drop 'meets' 
+meets {return MEETS;} 
 then  {return THEN;}
 do    {return DO;}
 else  {return ELSE;} // need to specify 'if-else' criteria, waht do you think? or we can also add 'while-do'
 
+l|kl|m|cm|mm|C|s|min|hour {return UNIT;} //or like below	 12 cm ; 100 mm;  UnitNumber
 collection {return COLLECTION;}
-integer {return INTEGER;}
-real    {return REAL;}
 number  {return NUMBER;} // do we really need to set UnitNumber Type? or just represent it in "real/integer unit"
-string  {return STRING;}
-boolean {return BOOLEAN;}
 
 true|false	{return BOOLEANCONSTANT;}
 {digits}	{return INTEGERCONSTANT;}

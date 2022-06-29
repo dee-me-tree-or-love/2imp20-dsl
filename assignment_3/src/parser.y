@@ -39,11 +39,7 @@ void yyerror(const char* s);
 // semantic type
 /* %type<istr> greet_request */
 
-%type <istr> STRING
 %type <istr> IDENTIFIER
-%type <istr> INTEGER
-%type <istr> REAL
-%type <istr> BOOLEAN
 %type <ival> INTEGERCONSTANTS
 %type <ival> BOOLEANCONSTANTS
 %type <istr> STRINGCONSTANTS
@@ -51,7 +47,7 @@ void yyerror(const char* s);
 
 %left OR
 %left AND
-%new opeators
+// %new opeators
 %left LESS LESSEQUAL EQUAL GREATEREQUAL GREATER NOTEQUAL
 %left PLUS MINUS
 %left MULTIPLY DIVIDE

@@ -10,6 +10,18 @@ extern int yyparse();
 extern int lineCount;
 extern FILE* yyin;
 
+//SymbolTable
+enum varEnum {
+    constant, unit, datatype
+};
+struct SymbolTableStruct {
+    char name[100];
+    char type[10];
+    enum varEnum variables;
+    int intValue;
+    char strValue[100];
+};
+
 void yyerror(const char* s);
 %}
 
@@ -27,12 +39,23 @@ void yyerror(const char* s);
 // semantic type
 /* %type<istr> greet_request */
 
-%type <istr> IDENTIFIER
 %type <istr> STRING
+%type <istr> IDENTIFIER
+%type <istr> INTEGER
+%type <istr> REAL
+%type <istr> BOOLEAN
+%type <ival> INTEGERCONSTANTS
+%type <ival> BOOLEANCONSTANTS
+%type <istr> STRINGCONSTANTS
 
 
 %left OR
 %left AND
+%new opeators
+%left LESS LESSEQUAL EQUAL GREATEREQUAL GREATER NOTEQUAL
+%left PLUS MINUS
+%left MULTIPLY DIVIDE
+%nonassoc UMINUS
 
 %start program
 
@@ -62,6 +85,7 @@ int main() {
         yyparse();
     } while(!feof(yyin));
 
+    fclose(yyin);
     return 0;
 }
 

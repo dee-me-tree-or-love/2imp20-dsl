@@ -13,18 +13,36 @@ extern FILE* yyin;
 //SymbolTable
 enum typeEnum
 {
-    action, module, asset, channel, variable, collection
+    action, module, asset, channel, variable, collection, unit
 };
 struct SymbolTableStruct {
     char label[100];
     enum typeEnum typeenum;
+    char unit[10];
     int intValue;
     float realValue;
     char strValue[100];
 };
-
 struct SymbolTableStruct globalSymbolTable[200];  
 struct SymbolTableStruct localSymbolTable[200]; // size = %src.items @> {_ | + 1};
+int globalSymbolCount=0;
+int localSymbolCount=0;
+
+//Scope
+enum scopeEnum
+{
+    global,local
+};
+enum scopeEnum scope=global;
+void checkScope(char label[]) {
+    if(lookup(localSymbolTable, label, localSymbolCount)==-1 && lookup(globalSymbolTable,label,globalSymbolCount)==-1)
+        printf("\"%s\" 未声明:line%d\n",label,lineCount+1);
+}
+void checkall(char label[])
+{
+    if(lookup(localSymbolTable,label,localSymbolCount)==-1 && lookup(globalSymbolTable,label,globalSymbolCount)==-1 && lookupProcedure(procedureTable,label,procedureCount)==-1)
+        printf("\"%s\" 未声明:line%d\n",label,lineCount+1);
+}
 
 //basic symbol look up function 
 int lookup(struct SymbolTableStruct symbolTable[],char compareString[],int symbolCount) { 
@@ -34,32 +52,44 @@ int lookup(struct SymbolTableStruct symbolTable[],char compareString[],int symbo
     }
     return -1;
 }
+
 //get symbol type
 char* getSymbolType(char label[]) {
-    int index = lookup(symbolTable, label, symbolCount);
+    int index = lookup(localSymbolTable, label, localSymbolCount);
     if(index != -1) {
-        return symbolTable[index].type;
+        return localSymbolTable[index].type;
     }
+	index=lookup(globalSymbolTable,label,globalSymbolCount);
+	if(index != -1)
+		return globalSymbolTable[index].type;
     return strdup("null");
 }
-void addSymbol(char label[])	{
-    if(!strcmp("",label))return;
-    if(lookup(symbolTable, label, symbolCount) == -1) {
-        sscanf(label, "%s", symbolTable[symbolCount].label);
-        symbolCount++;
+
+void addSymbol(char label[]) {
+if(!strcmp("",label)) return;
+    if(scope == global)
+    {
+        if(lookup(globalSymbolTable, label, globalSymbolCount) == -1)
+        {
+            sscanf(label,"%s", globalSymbolTable[globalSymbolCount].label);
+            globalSymbolCount++;
+        }
     }
+    else
+    {
+        if(lookup(localSymbolTable,label,localSymbolCount) == -1)
+        {
+            sscanf(label, "%s", localSymbolTable[localSymbolCount].label);
+            localSymbolCount++;
+        }
+    }	
 }
 
-//Constant Value
-int constInt;
-float constReal;
-char constString[100];
-void addIntValue(int intValue, real realValue, char strValue[])
-{
-    symbolTable[symbolCount-1].intValue = intValue;
-    symbolTable[symbolCount-1].realValue = realValue;
-    strcpy(symbolTable[symbolCount-1].strValue,strValue);
-}
+//Constant Value: collection 
+//Actions Name
+
+
+
 //if label
 int ifLabelCount = 0;
 

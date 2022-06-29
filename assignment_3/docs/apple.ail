@@ -1,0 +1,51 @@
+Module : { AppleFarm1 }
+
+Plants : {
+    Apple <
+        water_use : 15 mm,
+        min_temp  : 18 C,
+        max_water : 150 mm,
+    >
+}
+
+Actions : {
+    notify : <%src, channels*> [
+        channels @> {c | send_msg : {c, %src.metadata}}  
+    ],
+    check_water : <%src, condition, job> [
+        if %src.water meets condition then do job
+    ]
+}
+
+Assets : {
+    /* desc: “AppleFarm along the West border”,
+    /* area: 500 m^2,
+    /* plantation_date: 2018-03-02,
+    apple_plants : Plantation<Apple> {
+        sensors : {
+            water_level : Sensor<
+                daily 9 am,
+                check_water : { > 30 mm, notify : {@ support.} }
+            >
+        }
+    },
+    /* installation_date: 2020-02-02,
+    water_tank : WaterSource<max_temp: 60 C, capacity: 30 l> {
+        sensors : {
+            water_level : Sensor<
+                every 10 min, 
+                check_water : {
+                    > 50 mm,
+                    notify : {@ support, admin, rss.} 
+                }    
+            >, 
+            water_temp : Sensor<
+                every 5 min,
+                check_avg_temp : {
+                    > %src.max_temp,
+                    notify : {Channels #> {c | c ~~ “abie”}}
+                }
+            >
+        }
+    }
+}

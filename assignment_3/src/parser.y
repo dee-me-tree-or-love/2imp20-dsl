@@ -11,18 +11,58 @@ extern int lineCount;
 extern FILE* yyin;
 
 //SymbolTable
-enum varEnum {
-    constant, unit, datatype
+enum typeEnum
+{
+    action, module, asset, channel, variable, collection
 };
 struct SymbolTableStruct {
-    char name[100];
-    char type[10];
-    enum varEnum variables;
+    char label[100];
+    enum typeEnum typeenum;
     int intValue;
+    float realValue;
     char strValue[100];
 };
 
-void yyerror(const char* s);
+struct SymbolTableStruct globalSymbolTable[200];  
+struct SymbolTableStruct localSymbolTable[200]; // size = %src.items @> {_ | + 1};
+
+//basic symbol look up function 
+int lookup(struct SymbolTableStruct symbolTable[],char compareString[],int symbolCount) { 
+    for(int i=0; i<symbolCount; i++) {
+        if(!strcmp(symbolTable[i].label,compareString))// if input string euqals symboltable
+            return i;
+    }
+    return -1;
+}
+//get symbol type
+char* getSymbolType(char label[]) {
+    int index = lookup(symbolTable, label, symbolCount);
+    if(index != -1) {
+        return symbolTable[index].type;
+    }
+    return strdup("null");
+}
+void addSymbol(char label[])	{
+    if(!strcmp("",label))return;
+    if(lookup(symbolTable, label, symbolCount) == -1) {
+        sscanf(label, "%s", symbolTable[symbolCount].label);
+        symbolCount++;
+    }
+}
+
+//Constant Value
+int constInt;
+float constReal;
+char constString[100];
+void addIntValue(int intValue, real realValue, char strValue[])
+{
+    symbolTable[symbolCount-1].intValue = intValue;
+    symbolTable[symbolCount-1].realValue = realValue;
+    strcpy(symbolTable[symbolCount-1].strValue,strValue);
+}
+//if label
+int ifLabelCount = 0;
+
 %}
 
 %token COMMA DOT COLON COLON SEMICOLON LEFTPARENTHESE RIGHTPARENTHESE LEFTSQUAREBRACKET RIGHTSQUAREBRACKET LEFTBRACKET RIGHTBRACKET LESS GREATER LEFTQUOTE RIGHTQUOTE
@@ -69,6 +109,10 @@ greet_request:
     T_GREET T_INT     { }
 
 %%
+void yyerror(const char* s) {
+    fprintf(stderr, "Parse error: %s\n", s);
+    exit(1);
+}
 
 int main() {
     yyin = stdin;
@@ -83,9 +127,4 @@ int main() {
 
     fclose(yyin);
     return 0;
-}
-
-void yyerror(const char* s) {
-    fprintf(stderr, "Parse error: %s\n", s);
-    exit(1);
 }

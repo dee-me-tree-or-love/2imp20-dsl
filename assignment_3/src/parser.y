@@ -143,17 +143,34 @@ ACTIONS COLON LEFTBRACKET actions_decs RIGHTBRACKET
 ASSETS COLON LEFTBRACKET assets_decs RIGHTBRACKET
 CHANNELS COLON LEFTBRACKET channels_decs RIGHTBRACKET
 CONTROLLERS COLON LEFTBRACKET controllers_decs RIGHTBRACKET
+;
 
 plants_decs:
+;
 
 actions_decs:
+;
 
 assets_decs:
+;
 
 channels_decs:
+;
 
 controllers_decs:
+;
 
+//Expression
+expression:MINUS expression %prec UMINUS //disambiguate
+|expression MULTIPLY expression	
+|expression DIVIDE expression
+|expression PLUS expression	
+|expression MINUS expression
+|expression REMAINDER expression
+|LEFTPARENTHESES expression RIGHTPARENTHESES	
+|constant
+|IDENTIFIER
+//add more expression situations
 %%
 void yyerror(const char* s) {
     fprintf(stderr, "Parse error: %s\n", s);

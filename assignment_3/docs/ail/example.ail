@@ -30,7 +30,7 @@
 //    ^     : –||- (same story)
 //    $     : Unit Number x Unit -> Unit Number (translates the units)
 //
-// For `Unit`’s there will be a predefined “translation” table.
+// For `Unit`’s there will be a predefined "translation" table.
 //    e.g.
 //        x cm $ m == (x / 100) m
 //
@@ -60,7 +60,7 @@ Plants : {
     // Strawberry, like this, becomes a user-defined `Plant`.
     // This is what `Plantation`’s (see below) need.
     // In fact, this makes `Strawberry` a user-defined construct.
-    // However, it includes all “basic” properties of a `Plant`.
+    // However, it includes all "basic" properties of a `Plant`.
     Strawberry <
         water_use : 5 mm,
         min_temp  : 20 C,
@@ -112,35 +112,34 @@ Actions : {
 // These are all the physical assets of the farm.
 // For now, it includes only `Plantation`’s and `WaterSource`’s.
 Assets : {
-    // This defines metadata of any Construct.
-    ^^ desc: “Strawberry fruits along the South border”.
-    ^^ area: 300 m^2.
-    ^^ plantation_date: 2022-03-02.
     strawberry_plants : Plantation<Strawberry> : {
+        desc: "Strawberry fruits along the South border",
+        area: 300 m^2,
+        plantation_date: "2022-03-02",
         sensors : {
-            water_level : Sensor<
+            water_level : Sensor : {
                 "daily 9 am",
                 check_water : { > 30 mm, notify : { [support] } }
-            >
+            }
         }
     },
-    ^^ installation_date: 2020-02-02.
     water_tank : WaterSource : {
+        installation_date: "2020-02-02",
         max_temp: 60 C, 
         capacity: 30 l,
         sensors : {
             water_level : Sensor : {
-                “every 10 min”, 
+                "every 10 min", 
                 check_water : {
                     > 50 mm,
-                    notify : { [support, admin, rss] } 
+                    notify : { [ support, admin, rss ] } 
                 }
             }, 
             water_temp : Sensor : {
-                “every 5 min”,
+                "every 5 min",
                 check_avg_temp : {
                     > %src.max_temp,
-                    notify : {Channels #> {c | c ~~ “abie”}}
+                    notify : {Channels #> {c | c ~~ "abie"}}.
                 }
             }
         }
@@ -149,7 +148,7 @@ Assets : {
 
 // Message receiving channels.
 // For now, it only represents a destination text.
-// In the future, it can be extended to “event-bus” communication.
+// In the future, it can be extended to "event-bus" communication.
 Channels : {
     support<support@farm.cool>, 
     admin<admin@farm.cool>, 
@@ -157,7 +156,7 @@ Channels : {
     abie<abie@service.farm.cool>
 }
 
-// Used to define which “execution” scenarios have to be active.
+// Used to define which "execution" scenarios have to be active.
 Controllers: {
     // Predefined construct, controls the sensor schedule.
     MONITOR

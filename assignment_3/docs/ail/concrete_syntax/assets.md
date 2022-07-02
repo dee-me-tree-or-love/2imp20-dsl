@@ -53,7 +53,7 @@ Assets : {
 > For `<<PLANT_IDENTIFIER>>` see [plants](./plants.md).  
 > For `<<ATTRIBUTE>>` see [basics.md](./basics.md).  
 > For `<<TRIGGER_VALUE>>` see [scheduling.md](./scheduling.md).  
-> For `<<ACTION_SETUP>>` see [actions.md](./actions.md).  
+> For `<<ACTION_CONFIG>>` see [actions.md](./actions.md).  
 
 ```plaintext
 <<ASSET_CONFIG>>        := <<ASSET_IDENTIFIER>> ":" <<ASSET_TYPE>> ": {" <<ASSET_ATTRIBUTES>> "}
@@ -65,7 +65,7 @@ Assets : {
 <<SENSOR_IDENTIFIER>>   := <<IDENTIFIER>>
 <<SENSOR_TYPE>>         := "Sensor"
 <<SENSOR_ATTRIBUTES>>   := {<<SENSOR_ATTRIBUTE>> ","}*
-<<SENSOR_ATTRIBUTE>>    := <<TRIGGER_VALUE>> | <<ACTION_SETUP>>
+<<SENSOR_ATTRIBUTE>>    := <<TRIGGER_VALUE>> | <<ACTION_CONFIG>>
 ```
 
 #### Remarks

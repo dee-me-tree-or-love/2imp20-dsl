@@ -117,8 +117,7 @@ int ifLabelCount = 0;
 
 %left OR
 %left AND
-// %new opeators
-%left LESS LESSEQUAL EQUAL GREATEREQUAL GREATER NOTEQUAL
+%left LESS LESSEQUAL DEEPEQUAL GREATEREQUAL GREATER NOTEQUAL
 %left PLUS MINUS
 %left MULTIPLY DIVIDE
 %nonassoc UMINUS
@@ -127,16 +126,23 @@ int ifLabelCount = 0;
 
 %%
 
-program:
-    | program statement
+program: 
+MODULE COLON LEFTBRACKET IDENTIFIER RIGHTBRACKET
+PLANTS COLON LEFTBRACKET plants_decs RIGHTBRACKET
+ACTIONS COLON LEFTBRACKET actions_decs RIGHTBRACKET
+ASSETS COLON LEFTBRACKET assets_decs RIGHTBRACKET
+CHANNELS COLON LEFTBRACKET channels_decs RIGHTBRACKET
+CONTROLLERS COLON LEFTBRACKET controllers_decs RIGHTBRACKET
 
-statement: 
-    T_NEWLINE         { ; } // ignore new line
-    | T_QUIT T_NEWLINE  { printf("bye!\n"); exit(0); }
-    | greet_request     { printf("\tResult: greet request \n"); }
+plants_decs:
 
-greet_request:
-    T_GREET T_INT     { }
+actions_decs:
+
+assets_decs:
+
+channels_decs:
+
+controllers_decs:
 
 %%
 void yyerror(const char* s) {

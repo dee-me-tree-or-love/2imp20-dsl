@@ -47,7 +47,7 @@ numbers	{number}+
 "]"	{return RIGHTSQUAREBRACKET;}
 "{"	{return LEFTBRACKET;}
 "}"	{return RIGHTBRACKET;} 
-"<" {return LESS;} //ISSUE: I don't know if the overlap grammar of < > would cause problem
+"<" {return LESS;} 
 ">" {return GREATER;}
 
 "+"	{return PLUS;}
@@ -56,6 +56,8 @@ numbers	{number}+
 "/"	{return DIVIDE;}
 "%"	{return PERCENT;}
 "^" {return POWER;}
+"<=" {return LESSEQUAL;} 
+">=" {return GREATEREQUAL;}
 
 "$" {return TRANSFER;}
 "@" {return AT;}
@@ -72,7 +74,6 @@ numbers	{number}+
 "#>" {return FILTER;}
 "|>" {return FEED;}
 "|*" {return PARALLEL;}
-"|&" {return ;} //ex.ail: line 100
 
 Module      {return MODULE;}
 Import      {return IMPORT;}

@@ -151,9 +151,9 @@ true|false	{return BOOLEANCONSTANT;}
 [ \t]	{}
 "//".*	{}// suppress whatever is in the comment 
 
-"/*"  {BEGIN(COMMENT);} // Multi comment 
-<COMMENT>.	{}  
-<COMMENT>\n	{lineCount++;}
-<COMMENT>"*/"	{BEGIN(INITIAL);} //INITIAL is predefined
+// "/*"  {BEGIN(COMMENT);} // Multi comment 
+// <COMMENT>.	{}  
+// <COMMENT>\n	{lineCount++;}
+// <COMMENT>"*/"	{BEGIN(INITIAL);} //INITIAL is predefined
 
 %%

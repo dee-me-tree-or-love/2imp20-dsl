@@ -15,6 +15,7 @@ enum typeEnum
 {
     action, module, asset, channel, variable, collection, unit
 };
+
 struct SymbolTableStruct {
     char label[100];
     enum typeEnum typeenum;
@@ -34,13 +35,9 @@ enum scopeEnum
     global,local
 };
 enum scopeEnum scope=global;
+
 void checkScope(char label[]) {
     if(lookup(localSymbolTable, label, localSymbolCount)==-1 && lookup(globalSymbolTable,label,globalSymbolCount)==-1)
-        printf("\"%s\" 未声明:line%d\n",label,lineCount+1);
-}
-void checkall(char label[])
-{
-    if(lookup(localSymbolTable,label,localSymbolCount)==-1 && lookup(globalSymbolTable,label,globalSymbolCount)==-1 && lookupProcedure(procedureTable,label,procedureCount)==-1)
         printf("\"%s\" 未声明:line%d\n",label,lineCount+1);
 }
 
@@ -86,7 +83,20 @@ if(!strcmp("",label)) return;
 }
 
 //Constant Value: collection 
-//Actions Name
+typedef struct unitnumber{
+    int intNum;
+    float realNum;
+    char unit[10];
+} unitNumber;
+
+typedef struct collection Collection{
+    int intType;
+    char charType;
+    unitNumber unitnumberType;
+    float floatType;
+    const char* stringType;
+    Collection *collectionType
+};
 
 
 

@@ -9,10 +9,10 @@ Assets : {
     ^^ plantation_date: 2022-03-02.
     strawberry_plants : Plantation<Strawberry> : {
         sensors : {
-            water_level : Sensor<
+            water_level : Sensor : {
                 “daily 9 am”,
-                check_water : { > 30 mm, notify : {@ support.} }
-            >
+                check_water : { > 30 mm, notify : { [support] } }
+            }
         }
     },
     ^^ installation_date: 2020-02-02.
@@ -24,7 +24,7 @@ Assets : {
                 “every 10 min”, 
                 check_water : {
                     > 50 mm,
-                    notify : {@ support, admin, rss.} 
+                    notify : { [ support, admin, rss ] } 
                 }
             }, 
             water_temp : Sensor : {
@@ -49,13 +49,16 @@ Assets : {
 
 ### Individual asset config
 
-> For `<<ATTRIBUTE>>` see [basics.md](./basics.md)
-> For `<<TRIGGER_VALUE>>` see [scheduling.md](./scheduling.md)
-> For `<<ACTION_SETUP>>` see [actions.md](./actions.md)
+> For `<<IDENTIFIER>>` see [basics.md](./basics.md).  
+> For `<<PLANT_IDENTIFIER>>` see [plants](./plants.md).  
+> For `<<ATTRIBUTE>>` see [basics.md](./basics.md).  
+> For `<<TRIGGER_VALUE>>` see [scheduling.md](./scheduling.md).  
+> For `<<ACTION_SETUP>>` see [actions.md](./actions.md).  
 
 ```plaintext
 <<ASSET_CONFIG>>        := <<ASSET_IDENTIFIER>> ":" <<ASSET_TYPE>> ": {" <<ASSET_ATTRIBUTES>> "}
 <<ASSET_IDENTIFIER>>    := <<IDENTIFIER>>
+<<ASSET_TYPE>>          := "WaterSource" | "Plantation<" <<PLANT_IDENTIFIER>> ">"
 <<ASSET_ATTRIBUTES>>    := {<<ASSET_ATTRIBUTE>> ","}*
 <<ASSET_ATTRIBUTE>>     := <<ATTRIBUTE>> | "sensors : {" <<SENSOR_CONFIG>> "}"
 <<SENSOR_CONFIG>>       := <<SENSOR_IDENTIFIER>> ":" <<SENSOR_TYPE>> ": {" <<SENSOR_ATTRIBUTES>> "}

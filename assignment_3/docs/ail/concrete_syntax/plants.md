@@ -22,7 +22,8 @@ Plants : {
 
 ### Individual plant config
 
-> For `<<ATTRIBUTE>>` see [basics.md](./basics.md)
+> For `<<IDENTIFIER>>` see [basics.md](./basics.md).  
+> For `<<ATTRIBUTE>>` see [basics.md](./basics.md).  
 
 ```plaintext
 <<PLANT_CONFIG>>        := <<PLANT_IDENTIFIER>> "<" <<PLANT_ATTRIBUTES>> ">"

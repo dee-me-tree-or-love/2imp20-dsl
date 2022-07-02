@@ -68,10 +68,10 @@ numbers	{number}+
 "~~"  {return APPROXMATCH;}
 "and" {return AND;} 
 "or"  {return OR;}
-"||"  {return ACTIONOR;} 
 
 "@>" {return DOACTION;}
 "#>" {return FILTER;}
+"||"  {return ACTIONOR;} 
 "|>" {return FEED;}
 "|*" {return PARALLEL;}
 

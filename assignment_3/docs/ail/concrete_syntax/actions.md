@@ -5,7 +5,7 @@ Example:
 ```plaintext
 Actions : {
     notify : <%src, channels*> (
-        channels @> {c, send_msg : {c, %src.metadata}}
+        channels @> {c | send_msg : {c, %src.metadata}}
     ),
     check_water : <%src, condition, job, fail_job> (
         if %src.water meets condition then do job else do fail_job
@@ -40,23 +40,54 @@ notify : <%src, channels*> (
 ### Individual action config
 
 > For `<<IDENTIFIER>>` see [basics.md](./basics.md).  
-> For `<<PLANT_IDENTIFIER>>` see [plants](./plants.md).  
-> For `<<ATTRIBUTE>>` see [basics.md](./basics.md).  
+> For `<<VALUE>>` see [basics.md](./basics.md).  
 
 ```plaintext
-<<ACTION_CONFIG>>           := <<ACTION_IDENTIFER>> : ("<" <<ACTION_ARGUMENTS>> ">")? "(" <<ACTION_BODY>> ")"
-<<ACTION_IDENTIFER>>        := <<IDENTIFIER>>
-<<ACTION_ARGUMENTS>>        := <<ACTION_BASIC_ARGUMENTS>> | <<ACTION_SOURCE_ARUGMENTS>>
-<<ACTION_BASIC_ARGUMENTS>>  := {<<ACTION_ARGUMENT>> ","}*
-<<ACTION_SOURCE_ARUGMENTS>> := <<ACTION_SOURCE_ARGUMENT>> ("," {<<ACTION_ARGUMENT>> ","}+)?
-<<ACTION_ARGUMENT>>         := <<IDENTIFIER>>
-<<ACTION_BODY>>             := {<<EXPRESSION>> ";"}+
+<<ACTION_CONFIG>>               := <<ACTION_IDENTIFER>> : ("<" <<ACTION_PARAMETERS>> ">")? "(" <<ACTION_BODY>> ")"
+<<ACTION_IDENTIFER>>            := <<IDENTIFIER>>
+<<ACTION_PARAMETERS>>           := <<ACTION_BASIC_PARAMETERS>> | <<ACTION_SOURCE_PARAMETERS>>
+<<ACTION_BASIC_PARAMETERS>>     := {<<ACTION_PARAMETER>> ","}*
+<<ACTION_SOURCE_PARAMETERS>>    := <<ACTION_SOURCE_PARAMETER>> ("," {<<ACTION_PARAMETER>> ","}+)?
+<<ACTION_PARAMETER>>            := <<IDENTIFIER>>
+<<ACTION_SOURCE_PARAMETER>>     := "%src"
+<<ACTION_BODY>>                 := {<<EXPRESSION_BODY>> ";"}+
 ```
+
+### Action composition
+
+_TODO: this needs to still be worked out._
 
 ## Expression syntax
 
 Examples:
 
 ```plaintext
+2;
+size = 2.0 ml;
+(size = 42);
+size;
+people = [ "Buzz", "Woody", "Mr. Potato Head" ];
+people @> {c | c $> {a, char | a ++ char } };
+channels @> {c, send_msg : {c, %src.metadata}};
+```
 
+### Expression body
+
+
+> For `<<IDENTIFIER>>` see [basics.md](./basics.md).  
+> For `<<PLANT_IDENTIFIER>>` see [plants](./plants.md).  
+> For `<<ATTRIBUTE>>` see [basics.md](./basics.md).  
+
+```plaintext
+<<EXPRESSION_BODY>>     := {<<LINE_EXPRESSION>> ";"}*
+<<LINE_EXPRESSION>>     := "(" <<EXPRESSION>> ")" | <<EXPRESSION>>
+<<EXPRESSION>>          := <<VALUE_EXPRESSION>>
+                            | <<PLUS_EXPRESSION>>
+                            | <<MINUS_EXPRESSION>>
+                            | <<CONCAT_EXPRESSION>>
+                            | <<ITERATE_EXPRESSION>>
+                            | <<COLLECT_EXPRESSION>>
+                            | <<FILTER_EXPRESSION>>
+                            | <<ACTION_EXPRESSION>>
+<<VALUE_EXPRESSION>>    := <<VALUE>> | <<IDENTIFIER>>
 ```

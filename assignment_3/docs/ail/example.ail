@@ -73,40 +73,20 @@ Plants : {
 //    <name> - is a basic type parameter
 //    <name>* - is wrapped in a Collection if Singular
 Actions : {
-    // iteration
-    notify : <%src, channels*> [
-        channels @> {c, send_msg : {c, %src.metadata}}
-    ],
-    // conditionals
-    check_water : <%src, condition, job> [
-        if %src.water meets condition then do job else {}
-    ],
-    // multiple statements + variables
-    check_avg_temp : <%src, condition(> 30 mm), job> [
-        size = %src.items @> {_ | + 1};
-        total = %src.items @> {i | + i.temp};
+    notify : <%src, channels*> (
+        channels @> {c | send_msg : {c, %src.metadata}}
+    ),
+    check_water : <%src, condition, job, fail_job> (
+        if %src.water meets condition then do job else do fail_job
+    ),
+    check_avg_temp : <%src, condition(> 30 mm), job> (
+        size = %src.items $> {_ | + 1};
+        total = %src.items $> {i | + i.temp};
         if total/size meets condition then do job;
-    ],
-    // composition of multiple actions
-    check_water_and_temp : <
-        %src, 
-        condition_water, 
-        condition_temp, 
-        job // job, as can be seen is any bas
-    > [
-        if (
-            check_water : {condition_water, {}} 
-            |> check_avg_temp : {condition_temp, {}}
-        )
-        then do
-        vjob
-        // Additional composition operations for the future:
-        // `||` = or (try first, if fails, try next)
-        // `|>` = feed (pass output to)
-        // `|*` = run in parallel
-        // Supporting brackets like
-        // (action1) || ((action2 |> action3) |* action4)
-    ]
+    ),
+    send_report : <%src, channels*, name_match> (
+        channels  #> {c | c ~~ "abie"}} @> {c, send_msg : {c, %src.metadata}}
+    )
 }
 
 // These are all the physical assets of the farm.

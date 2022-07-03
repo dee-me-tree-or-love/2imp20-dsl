@@ -27,7 +27,7 @@ Example:
 
 ```plaintext
 notify : <%src, channels*> (
-    channels @> {c, send_msg : {c, %src.metadata}}
+   ...
 ),
 ```
 
@@ -65,29 +65,33 @@ Examples:
 2;
 size = 2.0 ml;
 (size = 42);
+age = 3 + 5.0;
 size;
 people = [ "Buzz", "Woody", "Mr. Potato Head" ];
 people @> {c | c $> {a, char | a ++ char } };
-channels @> {c, send_msg : {c, %src.metadata}};
+channels @> {c | send_msg : {c, %src.metadata}};
+* > 30;
 ```
 
 ### Expression body
-
 
 > For `<<IDENTIFIER>>` see [basics.md](./basics.md).  
 > For `<<PLANT_IDENTIFIER>>` see [plants](./plants.md).  
 > For `<<ATTRIBUTE>>` see [basics.md](./basics.md).  
 
 ```plaintext
-<<EXPRESSION_BODY>>     := {<<LINE_EXPRESSION>> ";"}*
-<<LINE_EXPRESSION>>     := "(" <<EXPRESSION>> ")" | <<EXPRESSION>>
-<<EXPRESSION>>          := <<VALUE_EXPRESSION>>
-                            | <<PLUS_EXPRESSION>>
-                            | <<MINUS_EXPRESSION>>
-                            | <<CONCAT_EXPRESSION>>
-                            | <<ITERATE_EXPRESSION>>
-                            | <<COLLECT_EXPRESSION>>
-                            | <<FILTER_EXPRESSION>>
-                            | <<ACTION_EXPRESSION>>
-<<VALUE_EXPRESSION>>    := <<VALUE>> | <<IDENTIFIER>>
+<<EXPRESSION_BODY>>         := {<<LINE_EXPRESSION>> ";"}*
+<<LINE_EXPRESSION>>         := "(" <<CORE_EXPRESSION>> ")" | <<CORE_EXPRESSION>>
+<<CORE_EXPRESSION>>         :=  <<UNIT_EXPRESSION>>
+                                | <<STATEMENT_EXPRESSION>>
+                                | <<IF_THEN_ELSE_EXPRESSION>>
+                                | <<PL_THRESHOLD_EXPRESSION>>
+<<UNIT_EXPRESSION>>         := <<IDENTIFIER>> | <<VALUE>> | <<ACTION_EXPRESSION>>
+<<STATEMENT_EXPRESSION>>    := <<UNIT_EXPRESSION>> <<OPERATOR>> <<STATEMENT_EXPRESSION>>
+                                | <<UNIT_EXPRESSION>>
+<<IF_THEN_ELSE_EXPRESSION>> := "if" <<UNIT_EXPRESSION>>
+                                "meets" <<PL_THRESHOLD_EXPRESSION>>
+                                "then do" <<STATEMENT_EXPRESSION>>
+                                "else do" <<STATEMENT_EXPRESSION>>
+<<PL_THRESHOLD_EXPRESSION>> := "*" <<OPERATOR>> <<UNIT_EXPRESSION>>
 ```

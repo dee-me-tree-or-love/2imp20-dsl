@@ -11,8 +11,8 @@ Actions : {
         if %src.water meets condition then do job else do fail_job
     ),
     check_avg_temp : <%src, condition, job> (
-        size = %src.items $> {_ | + 1};
-        total = %src.items $> {i | + i.temp};
+        size = %src.items $> {a, _ | a + 1};
+        total = %src.items $> {a, i | a + i.temp};
         if total/size meets condition then do job;
     ),
     send_report : <%src, channels*, name_match> (

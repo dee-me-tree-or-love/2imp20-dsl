@@ -88,7 +88,8 @@ total_age = my_plant.age + 30;
                                     | <<UNIT_EXPRESSION>>
 <<STATEMENT_EXPRESSION>>        := <<UNIT_EXPRESSION>> <<OPERATOR>> <<STATEMENT_EXPRESSION>>
                                     | <<UNIT_EXPRESSION>>
-<<UNIT_EXPRESSION>>             := <<IDENTIFIER>>
+<<UNIT_EXPRESSION>>             := "(" <<CORE_UNIT_EXPRESSION>> ")" | <<CORE_UNIT_EXPRESSION>>
+<<CORE_UNIT_EXPRESSION>>        := <<IDENTIFIER>>
                                     | <<ATTRIBUTE_ACCESS>>
                                     | <<VALUE>>
                                     | <<ACTION_EXPRESSION>>

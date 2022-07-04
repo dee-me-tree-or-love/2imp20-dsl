@@ -58,6 +58,7 @@ Strawberry
 my_plant : Strawberry
 my_water_level : 35 ml
 other_water_level : my_water_level
+my_plant.my_water_level
 ```
 
 ### Identifier and Attribute syntax
@@ -65,7 +66,8 @@ other_water_level : my_water_level
 > For `<<VALUE>>`, see [values](#values).  
 
 ```plaintext
-<<IDENTIFIER>>  := [w/]
-<<IDENTIFIER>>  := [w/]
-<<ATTRIBUTE>>   := <<IDENTIFIER>> ":" (<<VALUE>> | <<IDENTIFIER>>)
+<<IDENTIFIER>>          := [w/]
+<<ATTRIBUTE>>           := <<IDENTIFIER>> ":" (<<VALUE>> | <<IDENTIFIER>>)
+<<ATTRIBUTE_ACCESS>>    := <<IDENTIFIER>> "." <<ATTRIBUTE_ACCESS>>
+                            | <<IDENTIFIER>> "." <<IDENTIFIER>>
 ```

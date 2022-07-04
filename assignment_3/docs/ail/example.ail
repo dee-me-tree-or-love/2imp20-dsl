@@ -79,7 +79,7 @@ Actions : {
     check_water : <%src, condition, job, fail_job> (
         if %src.water meets condition then do job else do fail_job
     ),
-    check_avg_temp : <%src, condition(> 30 mm), job> (
+    check_avg_temp : <%src, condition, job> (
         size = %src.items $> {_ | + 1};
         total = %src.items $> {i | + i.temp};
         if total/size meets condition then do job;

@@ -13,16 +13,16 @@ extern FILE* yyin;
 //SymbolTable
 enum typeEnum
 {
-    action, module, asset, channel, variable, collection, unit
+    action, module, asset, channel, variable
 };
 
 struct SymbolTableStruct {
     char label[100];
-    enum typeEnum typeenum;
-    char unit[10];
+    enum typeEnum type_;
+    unitNumber unitnumberValue;
     int intValue;
     float realValue;
-    char strValue[100];
+    Collection collectionValue[100];
 };
 struct SymbolTableStruct globalSymbolTable[200];  
 struct SymbolTableStruct localSymbolTable[200]; // size = %src.items @> {_ | + 1};

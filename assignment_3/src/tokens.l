@@ -69,6 +69,7 @@ numbers	{number}+
 "and" {return AND;} 
 "or"  {return OR;}
 
+"$>" {return REDUCE;}
 "@>" {return DOACTION;}
 "#>" {return FILTER;}
 "||"  {return ACTIONOR;} 

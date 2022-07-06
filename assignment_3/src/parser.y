@@ -18,7 +18,7 @@ enum typeEnum
 
 struct SymbolTableStruct {
     char label[100];
-    enum typeEnum type_;
+    enum typeEnum type_; 
     unitNumber unitnumberValue;
     int intValue;
     float realValue;
@@ -28,6 +28,15 @@ struct SymbolTableStruct globalSymbolTable[200];
 struct SymbolTableStruct localSymbolTable[200]; // size = %src.items @> {_ | + 1};
 int globalSymbolCount=0;
 int localSymbolCount=0;
+
+//todo: extract actiontable 
+struct ActionTableStruct {
+    char label[100];
+    unitNumber unitnumberValue;
+    int intValue;
+    float realValue;
+    Collection collectionValue[100];
+};
 
 //Scope
 enum scopeEnum

@@ -10,6 +10,23 @@ extern int yyparse();
 extern int lineCount;
 extern FILE* yyin;
 
+
+//unitnumber and collection typedef
+typedef struct unitnumber{
+    int intNum;
+    float realNum;
+    char unit[10];
+} unitNumber;
+
+typedef struct collection Collection{
+    int intType;
+    char charType;
+    unitNumber unitnumberType;
+    float floatType;
+    const char* stringType;
+    Collection *collectionType
+};
+
 //SymbolTable
 enum typeEnum
 {
@@ -29,36 +46,63 @@ struct SymbolTableStruct localSymbolTable[200]; // size = %src.items @> {_ | + 1
 int globalSymbolCount=0;
 int localSymbolCount=0;
 
-//Action table : used to check if called actions in assets exist
-struct ActionTableStruct {
-    char label[100];
-    char type[100];
-};
-struct ActionTableStruct actionTable[100];
-int actionCount = 0;
+// //Action table : used to check if called actions in assets exist
+// struct ActionTableStruct {
+//     char label[100];
+//     char type[100];// check or send(notify)
+// };
+// struct ActionTableStruct actionTable[100];
+// int actionCount = 0;
 
-int lookupAction(struct ActionTableStruct actionTable[],char compareString[],int actionCount) {
-    for(int i = 0; i < actionCount; i++) {
-        if(!strcmp(actionTable[i].label, compareString))
+// int lookupAction(struct ActionTableStruct actionTable[],char compareString[],int actionCount) {
+//     for(int i = 0; i < actionCount; i++) {
+//         if(!strcmp(actionTable[i].label, compareString))
+//             return i;
+//     }
+//     return -1;
+// }
+
+// void addAction(char label[]) {
+//     if(lookupAction(actionTable, label, actionCount) == -1) {
+//         actionTable[actionCount].label[0]='\0';
+//         strcat(actionTable[actionCount].label, label);
+//         actionCount++;
+//     }
+// }
+
+// void checkAction(char label[]) {
+//     if(lookupAction(actionTable, label, actionCount) == -1)
+//         printf("\"%s\" Error: The action is not defined:line%d\n", label, lineCount+1);
+// }
+
+//Cronjob table : used to stroe and check if cronjobs in assets exist
+struct CronjobTableStruct {
+    char label[100];
+    char [100];// check or send(notify)
+};
+struct CronjobTableStruct cronjobTable[100];
+int cronjobCount = 0;
+
+int lookupCronjob(struct CronjobsTableStruct cronjobTable[],char compareString[],int cronjobCount) {
+    for(int i = 0; i < cronjobCount; i++) {
+        if(!strcmp(cronjobTable[i].label, compareString))
             return i;
     }
     return -1;
 }
 
-void addAction(char label[]) {
-    if(lookupAction(actionTable, label, actionCount) == -1) {
-        actionTable[actionCount].label[0]='\0';
-        strcat(actionTable[actionCount].label, label);
-        actionCount++;
+void addCronjob(char label[]) {
+    if(lookupCronjob(cronjobTable, label, cronjobCount) == -1) {
+        cronjobTable[cronjobCount].label[0]='\0';
+        strcat(cronjobTable[cronjobCount].label, label);
+        cronjobCount++;
     }
 }
 
-void checkAction(char label[])
-{
-    if(lookupAction(actionTable, label, actionCount) == -1)
-        printf("\"%s\" Error: The action is not defined:line%d\n", label, lineCount+1);
+void checkCronjob(char label[]) {
+    if(lookupCronjob(cronjobTable, label, cronjobCount) == -1)
+        printf("\"%s\" Error: The cronjob is not defined:line%d\n", label, lineCount+1);
 }
-
 
 //Scope
 enum scopeEnum
@@ -73,7 +117,7 @@ void checkScope(char label[]) {
 }
 
 void checkall(char label[]) {
-		if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1 && lookupAction(actionTable, label, actionCount) == -1)
+		if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1 && lookupAction(actionTable, label, actionCount) == -1 && lookupCronjob(actionTable, label, actionCount) == -1)
 			printf("\"%s\" Error:Undeclared variable:line%d\n",label,lineCount+1);
 }
 
@@ -119,23 +163,6 @@ if(!strcmp("",label)) return;
     }	
 }
 
-//Constant Value: collection 
-typedef struct unitnumber{
-    int intNum;
-    float realNum;
-    char unit[10];
-} unitNumber;
-
-typedef struct collection Collection{
-    int intType;
-    char charType;
-    unitNumber unitnumberType;
-    float floatType;
-    const char* stringType;
-    Collection *collectionType
-};
-
-
 
 //if label
 int ifLabelCount = 0;
@@ -176,7 +203,9 @@ int ifLabelCount = 0;
 program: 
 MODULE COLON LEFTBRACKET IDENTIFIER RIGHTBRACKET
 PLANTS COLON LEFTBRACKET plants_decs RIGHTBRACKET
-ACTIONS COLON LEFTBRACKET actions_decs RIGHTBRACKET
+ACTIONS COLON LEFTBRACKET actions_decs RIGHTBRACKET{
+    we do both check and code generation here
+}
 ASSETS COLON LEFTBRACKET assets_decs RIGHTBRACKET
 CHANNELS COLON LEFTBRACKET channels_decs RIGHTBRACKET
 CONTROLLERS COLON LEFTBRACKET controllers_decs RIGHTBRACKET

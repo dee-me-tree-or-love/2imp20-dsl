@@ -8,10 +8,24 @@ Controllers: {
 }
 ```
 
-## `MONITOR` controller
+## Top level controllers declaration
 
-This is a built-in controller, responsible for performing
-the scheduled [`Actions`](./actions.md) in a [`Sensor`](./assets.md).
+```f#
+<<CONTROLLER_DECLARATIONS>>     := "Controllers : {" {<<CONTROLLER_CONFIG>> ","}* "}"
+<<CONTROLLER_CONFIG>>           := <<CONTROLLER_IDENTIFIER>>
+```
+
+### Built-in controllers
+
+> `MONITOR` controller is there to perform scheduled actions.  
+
+```f#
+<<CONTROLLER_IDENTIFIER>>       := "MONITOR"
+```
+
+## Action triggers for the controlers
+
+[`Actions`](./actions.md) can be scheduled for a [`Sensor`](./assets.md).
 
 Example
 

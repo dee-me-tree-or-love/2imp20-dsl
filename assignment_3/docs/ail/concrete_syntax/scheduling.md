@@ -26,7 +26,7 @@ Example
     ...
 ```
 
-### Declaring triggers
+### CRON triggers
 
 Examples:
 
@@ -120,3 +120,7 @@ Examples:
 <<CRON_WEEK_DAY_LIST>>      := <<CRON_WEEK_DAY_RANGE>> "," <<CRON_WEEK_DAY_RANGE_LIST>>
                                 | <<CRON_WEEK_DAY_RANGE>>
 ```
+
+### Fuzzy triggers
+
+- TODO: needs to still be supported.

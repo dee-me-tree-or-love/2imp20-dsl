@@ -4,4 +4,5 @@
 - [assets](./assets.md)
 - [plants](./plants.md)
 - [actions](./actions.md)
+- [observers](./observers.md)
 - [scheduling](./scheduling.md)

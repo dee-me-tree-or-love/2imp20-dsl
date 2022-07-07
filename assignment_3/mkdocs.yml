@@ -1,10 +1,14 @@
 site_name: 'AIL Documentation'
 
+theme:
+    name: readthedocs
+
 nav:
     - Home: 'index.md'
     - AIL:
       - About: 'ail/index.md'
-      - 'Concrete Syntax': 'ail/concrete_syntax/index.md'
+      - 'Concrete Syntax': 
+        - Contents: 'ail/concrete_syntax/index.md'
 
 markdown_extensions:
     - toc:

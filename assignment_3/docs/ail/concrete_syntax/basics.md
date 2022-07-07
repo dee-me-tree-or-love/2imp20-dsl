@@ -32,13 +32,14 @@ True
 
 ### Value syntax
 
-```plaintext
+```f#
 <<NIL>>             := "{}"
 <<UNIT>>            := ([w/] | <<NIL>>)
 <<BOOLEAN_TRUE>>    := "True"
 <<BOOLEAN_FALSE>>   := "False"
 <<BOOLEAN>>         := <<BOOLEAN_FALSE>> | <<BOOLEAN_TRUE>>
-<<NUMBER>>          := (-)?[0-9]+("."[0-9]+)?
+<<NATURAL_NUMBER>>  := [0-9]+
+<<NUMBER>>          := (-)?<<NATURAL_NUMBER>>+("."<<NATURAL_NUMBER>>+)?
 <<UNIT_NUMBER>>     := <<NUMBER>> <<UNIT>>
 <<STRING>>          := "\"" .* "\""
 <<COLLECTION>>      := "[" (<<VALUE>>)* "]"
@@ -65,7 +66,7 @@ my_plant.my_water_level
 
 > For `<<VALUE>>`, see [values](#values).  
 
-```plaintext
+```f#
 <<IDENTIFIER>>          := [w/]
 <<ATTRIBUTE>>           := <<IDENTIFIER>> ":" (<<VALUE>> | <<IDENTIFIER>>)
 <<ATTRIBUTE_ACCESS>>    := <<IDENTIFIER>> "." <<ATTRIBUTE_ACCESS>>

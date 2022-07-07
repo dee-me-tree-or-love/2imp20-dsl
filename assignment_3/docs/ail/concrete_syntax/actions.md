@@ -33,7 +33,7 @@ notify : <%src, channels*> (
 
 ### Top level action collection
 
-```plaintext
+```f#
 <<ACTION_DECLARATIONS>>  := "Actions : {" {<<ACTION_CONFIG>> ","}* "}"
 ```
 
@@ -42,7 +42,7 @@ notify : <%src, channels*> (
 > For `<<IDENTIFIER>>` see [basics.md](./basics.md).  
 > For `<<VALUE>>` see [basics.md](./basics.md).  
 
-```plaintext
+```f#
 <<ACTION_CONFIG>>               := <<ACTION_IDENTIFER>> : ("<" <<ACTION_PARAMETERS>> ">")? "(" <<ACTION_BODY>> ")"
 <<ACTION_IDENTIFER>>            := <<IDENTIFIER>>
 <<ACTION_PARAMETERS>>           := <<ACTION_BASIC_PARAMETERS>> | <<ACTION_SOURCE_PARAMETERS>>
@@ -79,7 +79,7 @@ total_age = my_plant.age + 30;
 > For `<<IDENTIFIER>>` see [basics.md](./basics.md).  
 > For `<<ATTRIBUTE_ACCESS>>` see [basics.md](./basics.md).  
 
-```plaintext
+```f#
 <<EXPRESSION_BODY>>             := {<<LINE_EXPRESSION>> ";"}*
 <<LINE_EXPRESSION>>             := "(" <<CORE_EXPRESSION>> ")" | <<CORE_EXPRESSION>>
 <<CORE_EXPRESSION>>             := <<STATEMENT_EXPRESSION>>

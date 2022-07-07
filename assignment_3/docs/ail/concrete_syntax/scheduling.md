@@ -123,4 +123,13 @@ Examples:
 
 ### Fuzzy triggers
 
+Examples:
+
+```plaintext
+every 3 hours
+every Monday at 4 AM
+every April on Mondays at 4 AM
+...
+```
+
 - TODO: needs to still be supported.

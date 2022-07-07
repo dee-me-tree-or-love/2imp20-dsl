@@ -67,7 +67,7 @@ my_plant.my_water_level
 > For `<<VALUE>>`, see [values](#values).  
 
 ```f#
-<<IDENTIFIER>>          := [w/]
+<<IDENTIFIER>>          := (\w)+
 <<ATTRIBUTE>>           := <<IDENTIFIER>> ":" (<<VALUE>> | <<IDENTIFIER>>)
 <<ATTRIBUTE_ACCESS>>    := <<IDENTIFIER>> "." <<ATTRIBUTE_ACCESS>>
                             | <<IDENTIFIER>> "." <<IDENTIFIER>>

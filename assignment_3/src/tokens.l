@@ -31,53 +31,101 @@ which is what a terminal wanna show about token-level syntax.
 
 // int lineCount = 0;
 %}
-// alias
-letter	[A-Za-z]
-number	[0-9]
-numbers	{number}+
-%x COMMENT 
+
+/* Aliases */
+/* ^^^^^^^ */
+
+nil             "{}"
+word            (\w+)
+unit_word       {word}("^")?{natural_number}
+unit            {unit_word}|{nil}
+digit           [0-9]
+natural_number  {digit}+
+real_number     ("-")?{natural_number}("."{natural_number})?
+unit_number     {real_number}" "{unit}
+string          "\"".*"\""
+boolean         "True"|"False"
+value           {nil}|{boolean}|{real_number}|{unit_number}|{string}
+collection      '[' {value} ']'
+
+/* Token Matching */
+/* ^^^^^^^^^^^^^^ */
+
 %%
-","	{return COMMA;}
-"." {return DOT;}
-":"	{return COLON;}
-";"	{return SEMICOLON;}
-"("	{return LEFTPARENTHESE;}
-")"	{return RIGHTPARENTHESE;}
-"["	{return LEFTSQUAREBRACKET;}
-"]"	{return RIGHTSQUAREBRACKET;}
-"{"	{return LEFTBRACKET;}
-"}"	{return RIGHTBRACKET;} 
-"<" {return LESS;} 
-">" {return GREATER;}
+    /* Basics */
+    /* ~~~~~~ */
 
-"+"	{return PLUS;}
-"-"	{return MINUS;}
-"*"	{return MULTIPLY;}
-"/"	{return DIVIDE;}
-"%"	{return PERCENT;}
-"^" {return POWER;}
-"<=" {return LESSEQUAL;} 
-">=" {return GREATEREQUAL;}
+","     {return COMMA;}
+"."     {return DOT;}
+":"     {return COLON;}
+";"     {return SEMICOLON;}
+"("     {return LEFTPARENTHESE;}
+")"     {return RIGHTPARENTHESE;}
+"["     {return LEFTSQUAREBRACKET;}
+"]"     {return RIGHTSQUAREBRACKET;}
+"{"     {return LEFTBRACKET;}
+"}"     {return RIGHTBRACKET;}
+"<<"    {return DOUBLE_LANGLE;} 
+">>"    {return DOUBLE_RANGLE;}
 
-"$" {return TRANSFER;}
-"@" {return AT;}
-"_" {return DASH;}
-"|" {return LINE;}
-"=="  {return DEEPEQUAL;} 
-"!="  {return NOTEQUAL;}
-"~~"  {return APPROXMATCH;}
-"and" {return AND;} 
-"or"  {return OR;}
+    /* Identifier */
+    /* ~~~~~~~~~~ */
 
-"$>" {return REDUCE;}
-"@>" {return DOACTION;}
-"#>" {return FILTER;}
-"||"  {return ACTIONOR;} 
-"|>" {return FEED;}
-"|*" {return PARALLEL;}
+{word}  {return IDENTIFIER;}
+
+    /* Values */
+    /* ~~~~~~ */
+
+{nil}               {return NIL;}
+{unit}              {return UNIT;}
+{boolean}           {return BOOLEAN;}
+{natural_number}    {return NATURAL_NUMBER;}
+{real_number}       {return NUMBER;}
+{unit_number}       {return UNIT_NUMBER;}
+{string}            {return STRING;}
+{collection}        {return COLLECTION;}
+
+    /* Language expressions */
+    /* ~~~~~~~~~~~~~~~~~~~~ */
+
+"+"         {return PLUS;}
+"-"         {return MINUS;}
+"*"         {return MULTIPLY;}
+"/"         {return DIVIDE;}
+"%"         {return PERCENT;}
+"^"         {return POWER;}
+"<"         {return LESS;}
+">"         {return GREATER;}
+"<="        {return LESSEQUAL;} 
+">="        {return GREATEREQUAL;}
+
+"$"         {return TRANSFER;}
+"@"         {return AT;}
+"_"         {return DASH;}
+"|"         {return LINE;}
+"=="        {return DEEPEQUAL;} 
+"!="        {return NOTEQUAL;}
+"~~"        {return APPROXMATCH;}
+"and"       {return AND;} 
+"or"        {return OR;}
+
+"$>"        {return REDUCE;}
+"@>"        {return DOACTION;}
+"#>"        {return FILTER;}
+
+"||"        {return ACTIONOR;} 
+"|>"        {return FEED;}
+"|*"        {return PARALLEL;}
+
+"if"        {return IF;}
+"meets"     {return MEETS;} 
+"then do"   {return THEN;}
+"else do"   {return ELSE;}
+
+    /* Language constructs */
+    /* ~~~~~~~~~~~~~~~~~~~ */
 
 Module      {return MODULE;}
-Import      {return IMPORT;}
 Plants      {return PLANTS;}
 Actions     {return ACTIONS;}
 Assets      {return ASSETS;}
@@ -86,76 +134,4 @@ WaterSource {return WATERSOURCE;}
 Channels    {return CHANNELS;}
 Controllers {return CONTROLLERS;}
 MONITOR     {return MONITOR;}
-
-%src {return SRC;}
-items {return ITEMS;}
-
-//change
-water_use {return WATERUSE;}
-min_temp  {return MINTEMP;}
-max_temp  {return MAXTEMP;}
-max_water {return MAXWATER;}
-min_water {return MINWATER;}
-
-//change
-capacity          {return CAPACITY;}  
-sensors           {return SENSORS;}
-desc              {return DESC;}  //so how to define 'desc' 'area'? 
-area              {return AREA;}
-plantation_date   {return PDATE;}
-installation_date {return IDATE;}
-
-
-if    {return IF;}
-meets {return MEETS;} 
-then  {return THEN;}
-do    {return DO;}
-else  {return ELSE;} // need to specify 'if-else' criteria, waht do you think? or we can also add 'while-do'
-
-l|kl|m|cm|mm|C|s|min|hour {return UNIT;} //or like below	 12 cm ; 100 mm;  UnitNumber
-collection {return COLLECTION;}
-number  {return NUMBER;} // do we really need to set UnitNumber Type? or just represent it in "real/integer unit"
-
-true|false	{return BOOLEANCONSTANT;}
-{digits}	{return INTEGERCONSTANT;}
-{digits}"."{digits}([Ee][+-]?{digits})?	{return REALCONSTANT;}
-
-\"[^\"]*\"	{
-				char c=input();	
-				if(c=='\"')
-					yymore();	
-				else
-				{	
-					for(int i=0;i<yyleng-1;i++)
-						yytext[i]=yytext[i+1];
-					yytext[yyleng-2]='\0';
-					for(int i=0;i<yyleng-1;i++)
-					{
-						if(yytext[i]=='\"' && yytext[i+1]=='\"')
-						{
-							for(int j=i;j<yyleng-1;j++)
-								yytext[j]=yytext[j+1];
-						}
-					}	
-					unput(c);	
-					strcpy(yylval.stringVal,yytext);
-					return STRINGCONSTANT;
-				}	
-				unput(c);
-			}
-
-{letter}({letter}|{digit})*	{
-								sscanf(yytext,"%s",&yylval);
-								return IDENTIFIER;
-							}
-
-\n	{lineCount++;}
-[ \t]	{}
-"//".*	{}// suppress whatever is in the comment 
-
-// "/*"  {BEGIN(COMMENT);} // Multi comment 
-// <COMMENT>.	{}  
-// <COMMENT>\n	{lineCount++;}
-// <COMMENT>"*/"	{BEGIN(INITIAL);} //INITIAL is predefined
-
 %%

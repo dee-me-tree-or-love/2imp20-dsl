@@ -255,8 +255,12 @@ CONTROLLERS COLON LEFTBRACKET controllers_decs RIGHTBRACKET
 // }
 ;
 
-plants_decs:
+plants_decs:plant_config plants_decs 
+|
 ;
+
+plant_config:IDENTIFIER ;
+
 
 actions_decs:
 ;

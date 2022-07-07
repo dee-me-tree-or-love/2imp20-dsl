@@ -59,12 +59,12 @@ collection      '[' {value} ']'
 "."     {return DOT;}
 ":"     {return COLON;}
 ";"     {return SEMICOLON;}
-"("     {return LEFTPARENTHESE;}
-")"     {return RIGHTPARENTHESE;}
-"["     {return LEFTSQUAREBRACKET;}
-"]"     {return RIGHTSQUAREBRACKET;}
-"{"     {return LEFTBRACKET;}
-"}"     {return RIGHTBRACKET;}
+"("     {return LEFT_PARENTHESE;}
+")"     {return RIGHT_PARENTHESE;}
+"["     {return LEFT_SQUAREBRACKET;}
+"]"     {return RIGHT_SQUAREBRACKET;}
+"{"     {return LEFT_BRACKET;}
+"}"     {return RIGHT_BRACKET;}
 "<<"    {return DOUBLE_LANGLE;} 
 ">>"    {return DOUBLE_RANGLE;}
 
@@ -80,7 +80,7 @@ collection      '[' {value} ']'
 {unit}              {return UNIT;}
 {boolean}           {return BOOLEAN;}
 {natural_number}    {return NATURAL_NUMBER;}
-{real_number}       {return NUMBER;}
+{real_number}       {return REAL_NUMBER;}
 {unit_number}       {return UNIT_NUMBER;}
 {string}            {return STRING;}
 {collection}        {return COLLECTION;}
@@ -96,16 +96,16 @@ collection      '[' {value} ']'
 "^"         {return POWER;}
 "<"         {return LESS;}
 ">"         {return GREATER;}
-"<="        {return LESSEQUAL;} 
-">="        {return GREATEREQUAL;}
+"<="        {return LESS_EQUAL;} 
+">="        {return GREATER_EQUAL;}
 
-"$"         {return TRANSFER;}
+"$"         {return TRANSFER;} /* this is not supported yet */
 "@"         {return AT;}
 "_"         {return DASH;}
 "|"         {return LINE;}
-"=="        {return DEEPEQUAL;} 
-"!="        {return NOTEQUAL;}
-"~~"        {return APPROXMATCH;}
+"=="        {return DEEP_EQUAL;} 
+"!="        {return NOT_EQUAL;}
+"~~"        {return APPROX_MATCH;}
 "and"       {return AND;} 
 "or"        {return OR;}
 
@@ -113,9 +113,10 @@ collection      '[' {value} ']'
 "@>"        {return DOACTION;}
 "#>"        {return FILTER;}
 
-"||"        {return ACTIONOR;} 
-"|>"        {return FEED;}
-"|*"        {return PARALLEL;}
+"||"        {return ACTION_ALTERNATIVE;} /* this is not yet supported */
+"|>"        {return ACTION_FEED;} /* this is not yet supported */
+"|&"        {return ACTION_SEQUENCE;} /* this is not yet supported */
+"|*"        {return ACTION_PARALLEL;} /* this is not yet supported */
 
 "if"        {return IF;}
 "meets"     {return MEETS;} 

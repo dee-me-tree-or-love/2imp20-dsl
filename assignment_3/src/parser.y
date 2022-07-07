@@ -200,39 +200,109 @@ int ifLabelCount = 0;
 
 %}
 
-%token COMMA DOT COLON COLON SEMICOLON LEFTPARENTHESE RIGHTPARENTHESE LEFTSQUAREBRACKET RIGHTSQUAREBRACKET LEFTBRACKET RIGHTBRACKET LESS GREATER LEFTQUOTE RIGHTQUOTE
-%token PLUS MINUS MULTIPLY DIVIDE PERCENT POWER TRANSFER AT DASH LINE
-%token DEEPEQUAL NOTEQUAL APPROXMATCH AND OR DOACTION FILTER FEED PARALLEL
-%token MODULE IMPORT PLANTS ACTIONS ASSETS PLANTATION WATERSOURCE CHANNELS CONTROLLERS MONITOR SRC ITEMS
-%token WATERUSE...
-%token CAPACITY...
+// TOKENS
+// ~~~~~~
+
+%token COMMA
+%token DOT
+%token COLON
+%token SEMICOLON
+%token LEFT_PARENTHESE
+%token RIGHT_PARENTHESE
+%token LEFT_SQUAREBRACKET
+%token RIGHT_SQUAREBRACKET
+%token LEFT_BRACKET
+%token RIGHT_BRACKET
+%token DOUBLE_LANGLE 
+%token DOUBLE_RANGLE
+
+%token IDENTIFIER
+
+%token NIL
+%token UNIT
+%token BOOLEAN
+%token NATURAL_NUMBER
+%token REAL_NUMBER
+%token UNIT_NUMBER
+%token STRING
+%token COLLECTION
+
+%token PLUS
+%token MINUS
+%token MULTIPLY
+%token DIVIDE
+%token PERCENT
+%token POWER
+%token LESS
+%token GREATER
+%token LESS_EQUAL 
+%token GREATER_EQUAL
+
+%token TRANSFER
+%token AT
+%token DASH
+%token LINE
+%token DEEP_EQUAL 
+%token NOT_EQUAL
+%token APPROX_MATCH
+%token AND 
+%token OR
+
+%token REDUCE
+%token DOACTION
+%token FILTER
+
+%token ACTION_ALTERNATIVE
+%token ACTION_FEED
+%token ACTION_SEQUENCE
+%token ACTION_PARALLEL
+
+%token IF
+%token MEETS 
+%token THEN
+%token ELSE
+
+%token MODULE
+%token PLANTS
+%token ACTIONS
+%token ASSETS
+%token PLANTATION
+%token WATERSOURCE
+%token CHANNELS
+%token CONTROLLERS
+%token MONITOR
+
+// Semantics
+// ~~~~~~~~~
 
 %union {
     int ival;
     char istr[100];
 }
-// semantic type
-/* %type<istr> greet_request */
 
 %type <istr> IDENTIFIER
-%type <ival> INTEGERCONSTANTS
-%type <ival> BOOLEANCONSTANTS
-%type <istr> STRINGCONSTANTS
-
+%type <ival> REAL_NUMBER
+%type <ival> NATURAL_NUMBER
+%type <ival> UNIT_NUMBER
+%type <ival> BOOLEAN
+%type <istr> STRING
+%type <ival> COLLECTION
 
 %left OR
 %left AND
-%left LESS LESSEQUAL DEEPEQUAL GREATEREQUAL GREATER NOTEQUAL APPROXMATCH
+%left LESS LESS_EQUAL DEEP_EQUAL GREATER_EQUAL GREATER NOT_EQUAL APPROX_MATCH
 %left PLUS MINUS
 %left MULTIPLY DIVIDE
-%nonassoc UMINUS
+
+// Grammars
+// ~~~~~~~~
 
 %start program
 
 %%
 
 program: 
-MODULE COLON LEFTBRACKET 
+MODULE COLON LEFT_BRACKET 
 IDENTIFIER 
 {
     //python
@@ -240,12 +310,12 @@ IDENTIFIER
     fprintf(yyin, " '''\n ************Python Code************* \n''' ");
     fprintf(yyin, " #This is the python code for ail module %s. \n", $4);
 }
-RIGHTBRACKET
-PLANTS COLON LEFTBRACKET plants_decs RIGHTBRACKET
-ACTIONS COLON LEFTBRACKET actions_decs RIGHTBRACKET
-ASSETS COLON LEFTBRACKET assets_decs RIGHTBRACKET
-CHANNELS COLON LEFTBRACKET channels_decs RIGHTBRACKET
-CONTROLLERS COLON LEFTBRACKET controllers_decs RIGHTBRACKET
+RIGHT_BRACKET
+// PLANTS COLON LEFTBRACKET plants_decs RIGHTBRACKET
+// ACTIONS COLON LEFTBRACKET actions_decs RIGHTBRACKET
+// ASSETS COLON LEFTBRACKET assets_decs RIGHTBRACKET
+// CHANNELS COLON LEFTBRACKET channels_decs RIGHTBRACKET
+// CONTROLLERS COLON LEFTBRACKET controllers_decs RIGHTBRACKET
 //END IDENTIFIER
 // {
 //     if(strcmp($4,$33))
@@ -255,37 +325,43 @@ CONTROLLERS COLON LEFTBRACKET controllers_decs RIGHTBRACKET
 // }
 ;
 
-plants_decs:plant_config plants_decs 
-|
-;
+// plants_decs:plant_config plants_decs 
+// |
+// ;
 
-plant_config:IDENTIFIER ;
+// plant_config:IDENTIFIER ;
 
 
-actions_decs:
-;
+// actions_decs:
+// ;
 
-assets_decs:
-;
+// assets_decs:
+// ;
 
-channels_decs:
-;
+// channels_decs:
+// ;
 
-controllers_decs:
-;
+// controllers_decs:
+// ;
 
-//Expression
-expression:MINUS expression %prec UMINUS //disambiguate
-|expression MULTIPLY expression	
-|expression DIVIDE expression
-|expression PLUS expression	
-|expression MINUS expression
-|expression REMAINDER expression
-|LEFTPARENTHESES expression RIGHTPARENTHESES	
-|constant
-|IDENTIFIER
-//add more expression situations
+// //Expression
+// expression:MINUS expression %prec UMINUS //disambiguate
+// |expression MULTIPLY expression	
+// |expression DIVIDE expression
+// |expression PLUS expression	
+// |expression MINUS expression
+// |expression REMAINDER expression
+// |LEFTPARENTHESES expression RIGHTPARENTHESES	
+// |constant
+// |IDENTIFIER
+// //add more expression situations
+
+
 %%
+
+// Additional C code
+// ~~~~~~~~~~~~~~~~~
+
 void yyerror(const char* s) {
     fprintf(stderr, "Parse error: %s\n", s);
     exit(1);

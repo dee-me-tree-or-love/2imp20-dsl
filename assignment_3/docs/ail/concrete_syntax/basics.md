@@ -39,11 +39,11 @@ True
 <<BOOLEAN_FALSE>>   := "False"
 <<BOOLEAN>>         := <<BOOLEAN_FALSE>> | <<BOOLEAN_TRUE>>
 <<NATURAL_NUMBER>>  := [0-9]+
-<<NUMBER>>          := (-)?<<NATURAL_NUMBER>>+("."<<NATURAL_NUMBER>>+)?
-<<UNIT_NUMBER>>     := <<NUMBER>> <<UNIT>>
+<<REAL_NUMBER>>     := (-)?<<NATURAL_NUMBER>>+("."<<NATURAL_NUMBER>>+)?
+<<UNIT_NUMBER>>     := <<REAL_NUMBER>> <<UNIT>>
 <<STRING>>          := "\"" .* "\""
 <<COLLECTION>>      := "[" (<<VALUE>>)* "]"
-<<VALUE>>           := <<NIL>> | <<BOOLEAN>> | <<NUMBER>> | <<STRING>> | <<UNIT_NUMBER>> | <<COLLECTION>>
+<<VALUE>>           := <<NIL>> | <<BOOLEAN>> | <<REAL_NUMBER>> | <<STRING>> | <<UNIT_NUMBER>> | <<COLLECTION>>
 ```
 
 #### Remarks on values

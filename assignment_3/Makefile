@@ -13,14 +13,18 @@ chicken-5.3.0/chicken.h: chicken-5.3.0.tar.gz
 		&& echo "🐥 Chicken headers exist." \
 		|| tar -xvf chicken-5.3.0.tar.gz
 
-# Complete Bison + Flex parser compilation
-parser: src/parser.y src/tokens.l chicken-5.3.0/chicken.h
-	@echo "🦬 Compile bison sources..."
-	bison -d src/parser.y -o ${BUILD_DIR}/parser.tab.c -v
-
-	@echo "🔨 Compile flex sources..."
+# Build the Flex tokenizer
+tokenizer: src/tokens.l
+	@echo "🔨 Compiling flex sources..."
 	flex -o ${BUILD_DIR}/lex.yy.c src/tokens.l
 
+# Build the parser
+parser: src/parser.y
+	@echo "🦬 Compiling bison sources..."
+	bison -d src/parser.y -o ${BUILD_DIR}/parser.tab.c -v
+
+# Complete Bison + Flex compilation
+all: chicken-5.3.0/chicken.h tokenizer parser
 	@echo "👷 Compile and link parser..."
 	cc	\
 		${BUILD_DIR}/parser.tab.c \

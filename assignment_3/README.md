@@ -5,9 +5,9 @@
 <!-- TODO: provide the project description -->
 ...
 
-### TODOs
+## Development
 
-- [ ] Define the tokenizer (concrete syntax) in `tokens.l`
-- [ ] Define the parser (abstract syntax) in `parser.y`
-- [ ] 
-- [ ] Compile the parser 
+### Requirements
+
+- `Python 3.8+`
+- `MkDocs`

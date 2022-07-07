@@ -5,3 +5,6 @@ lex.yy.c
 
 # Compilation dependencies
 chicken-5.3.0/
+
+# Documentation site
+site/

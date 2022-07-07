@@ -28,13 +28,28 @@ parser: src/parser.y src/tokens.l chicken-5.3.0/chicken.h
 		${INCLUDES} \
 		-o ${PARSER_OUT}
 
-
 # Run the parser interactively
 run-parser-interactive run-parser: ${PARSER_OUT}
 	${PARSER_OUT}
 
-
 # Clean build directory
+.PHONY: cleanbin
 cleanbin:
 	@echo "🧹 Cleaning the build directory..."
 	rm -rf ${BUILD_DIR}/*
+
+##############################################
+# Extra utilities
+##############################################
+
+# Serve local documentation website
+.PHONY: serve-docs
+serve-docs: mkdocs.yml
+	@echo "💡 Make sure you have `mkdocs` installed."
+	@echo "> See https://www.mkdocs.org/getting-started/ for more info"
+	mkdocs serve
+
+build-docs: mkdocs.yml
+	@echo "💡 Make sure you have `mkdocs` installed."
+	@echo "> See https://www.mkdocs.org/getting-started/ for more info"
+	mkdocs build

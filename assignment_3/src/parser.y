@@ -18,7 +18,7 @@ enum typeEnum
 
 struct SymbolTableStruct {
     char label[100];
-    enum typeEnum type_; 
+    enum typeEnum type; 
     unitNumber unitnumberValue;
     int intValue;
     float realValue;
@@ -29,14 +29,36 @@ struct SymbolTableStruct localSymbolTable[200]; // size = %src.items @> {_ | + 1
 int globalSymbolCount=0;
 int localSymbolCount=0;
 
-//todo: extract actiontable 
+//Action table : used to check if called actions in assets exist
 struct ActionTableStruct {
     char label[100];
-    unitNumber unitnumberValue;
-    int intValue;
-    float realValue;
-    Collection collectionValue[100];
+    char type[100];
 };
+struct ActionTableStruct actionTable[100];
+int actionCount = 0;
+
+int lookupAction(struct ActionTableStruct actionTable[],char compareString[],int actionCount) {
+    for(int i = 0; i < actionCount; i++) {
+        if(!strcmp(actionTable[i].label, compareString))
+            return i;
+    }
+    return -1;
+}
+
+void addAction(char label[]) {
+    if(lookupAction(actionTable, label, actionCount) == -1) {
+        actionTable[actionCount].label[0]='\0';
+        strcat(actionTable[actionCount].label, label);
+        actionCount++;
+    }
+}
+
+void checkAction(char label[])
+{
+    if(lookupAction(actionTable, label, actionCount) == -1)
+        printf("\"%s\" Error: The action is not defined:line%d\n", label, lineCount+1);
+}
+
 
 //Scope
 enum scopeEnum
@@ -46,9 +68,15 @@ enum scopeEnum
 enum scopeEnum scope=global;
 
 void checkScope(char label[]) {
-    if(lookup(localSymbolTable, label, localSymbolCount)==-1 && lookup(globalSymbolTable,label,globalSymbolCount)==-1)
-        printf("\"%s\" 未声明:line%d\n",label,lineCount+1);
+    if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1)
+        printf("\"%s\" Error:Undeclared variable:line%d\n", label, lineCount+1);
 }
+
+void checkall(char label[]) {
+		if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1 && lookupAction(actionTable, label, actionCount) == -1)
+			printf("\"%s\" Error:Undeclared variable:line%d\n",label,lineCount+1);
+}
+
 
 //basic symbol look up function 
 int lookup(struct SymbolTableStruct symbolTable[],char compareString[],int symbolCount) { 

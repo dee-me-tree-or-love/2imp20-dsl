@@ -16,7 +16,7 @@ Plants : {
 
 ### Top level plant collection
 
-```plaintext
+```f#
 <<PLANT_DECLARATIONS>>  := "Plants : {" {<<PLANT_CONFIG>> ","}* "}"
 ```
 
@@ -25,7 +25,7 @@ Plants : {
 > For `<<IDENTIFIER>>` see [basics.md](./basics.md).  
 > For `<<ATTRIBUTE>>` see [basics.md](./basics.md).  
 
-```plaintext
+```f#
 <<PLANT_CONFIG>>        := <<PLANT_IDENTIFIER>> "<" <<PLANT_ATTRIBUTES>> ">"
 <<PLANT_IDENTIFIER>>    := <<IDENTIFIER>>
 <<PLANT_ATTRIBUTES>>    := {<<ATTRIBUTE>> ","}*

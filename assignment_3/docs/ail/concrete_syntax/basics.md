@@ -32,7 +32,7 @@ True
 
 ### Value syntax
 
-```plaintext
+```f#
 <<NIL>>             := "{}"
 <<UNIT>>            := ([w/] | <<NIL>>)
 <<BOOLEAN_TRUE>>    := "True"
@@ -66,7 +66,7 @@ my_plant.my_water_level
 
 > For `<<VALUE>>`, see [values](#values).  
 
-```plaintext
+```f#
 <<IDENTIFIER>>          := [w/]
 <<ATTRIBUTE>>           := <<IDENTIFIER>> ":" (<<VALUE>> | <<IDENTIFIER>>)
 <<ATTRIBUTE_ACCESS>>    := <<IDENTIFIER>> "." <<ATTRIBUTE_ACCESS>>

@@ -55,13 +55,13 @@ Assets : {
 > For `<<TRIGGER_VALUE>>` see [scheduling.md](./scheduling.md).  
 > For `<<ACTION_CONFIG>>` see [actions.md](./actions.md).  
 
-```plaintext
-<<ASSET_CONFIG>>        := <<ASSET_IDENTIFIER>> ":" <<ASSET_TYPE>> ": {" <<ASSET_ATTRIBUTES>> "}
+```f#
+<<ASSET_CONFIG>>        := <<ASSET_IDENTIFIER>> ":" <<ASSET_TYPE>> ": {" <<ASSET_ATTRIBUTES>> "}"
 <<ASSET_IDENTIFIER>>    := <<IDENTIFIER>>
 <<ASSET_TYPE>>          := "WaterSource" | "Plantation<" <<PLANT_IDENTIFIER>> ">"
 <<ASSET_ATTRIBUTES>>    := {<<ASSET_ATTRIBUTE>> ","}*
 <<ASSET_ATTRIBUTE>>     := <<ATTRIBUTE>> | "sensors : {" <<SENSOR_CONFIG>> "}"
-<<SENSOR_CONFIG>>       := <<SENSOR_IDENTIFIER>> ":" <<SENSOR_TYPE>> ": {" <<SENSOR_ATTRIBUTES>> "}
+<<SENSOR_CONFIG>>       := <<SENSOR_IDENTIFIER>> ":" <<SENSOR_TYPE>> ": {" <<SENSOR_ATTRIBUTES>> "}"
 <<SENSOR_IDENTIFIER>>   := <<IDENTIFIER>>
 <<SENSOR_TYPE>>         := "Sensor"
 <<SENSOR_ATTRIBUTES>>   := {<<SENSOR_ATTRIBUTE>> ","}*

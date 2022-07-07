@@ -8,19 +8,21 @@ CHICKEN_DIST_DIR=./chicken-5.3.0
 INCLUDES=-I./chicken-5.3.0 -lchicken
 
 # CHICKEN language libraries
-chicken-5.3.0/chicken.h: chicken-5.3.0.tar.gz
-	@[ -f chicken-5.3.0/chicken.h ] \
-		&& echo "🐥 Chicken headers exist." \
+${CHICKEN_DIST_DIR}/chicken.h: chicken-5.3.0.tar.gz
+	@echo "🥚 Getting CHICKEN ready..."
+	@[ -f ${CHICKEN_DIST_DIR}/chicken.h ] \
+		&& echo "🐣 CHICKEN headers exist." \
 		|| tar -xvf chicken-5.3.0.tar.gz
+	@echo "🐥 CHICKEN is ready."
 
 # Build the Flex tokenizer
 tokenizer: src/tokens.l
-	@echo "🔨 Compiling flex sources..."
+	@echo "🤸 Compiling flex sources..."
 	flex -o ${BUILD_DIR}/lex.yy.c src/tokens.l
 
 # Build the parser
 parser: src/parser.y
-	@echo "🦬 Compiling bison sources..."
+	@echo "🦬  Compiling bison sources..."
 	bison -d src/parser.y -o ${BUILD_DIR}/parser.tab.c -v
 
 # Complete Bison + Flex compilation
@@ -37,10 +39,16 @@ run-parser-interactive run-parser: ${PARSER_OUT}
 	${PARSER_OUT}
 
 # Clean build directory
-.PHONY: cleanbin
-cleanbin:
+.PHONY: clean-bin
+clean-bin:
 	@echo "🧹 Cleaning the build directory..."
 	rm -rf ${BUILD_DIR}/*
+
+# Clean extras
+.PHONY: clean-extras
+clean-extras:
+	@echo "🧹 Cleaning all the extras..."
+	rm -rf ${CHICKEN_DIST_DIR}
 
 ##############################################
 # Extra utilities

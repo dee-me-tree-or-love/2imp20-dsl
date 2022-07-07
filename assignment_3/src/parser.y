@@ -39,6 +39,7 @@ struct SymbolTableStruct {
     unitNumber unitnumberValue;
     int intValue;
     float realValue;
+    char strValue;
     Collection collectionValue[100];
 };
 struct SymbolTableStruct globalSymbolTable[200];  
@@ -143,26 +144,56 @@ char* getSymbolType(char label[]) {
     return strdup("null");
 }
 
-void addSymbol(char label[]) {
-if(!strcmp("",label)) return;
+void addType(char type[],enum typeEnum type) {
     if(scope == global)
     {
-        if(lookup(globalSymbolTable, label, globalSymbolCount) == -1)
-        {
-            sscanf(label,"%s", globalSymbolTable[globalSymbolCount].label);
-            globalSymbolCount++;
+        for(int i = globalSymbolCount-typeCount; i<globalSymbolCount; i++) {
+            sscanf(type, "%s",globalSymbolTable[i].type);
+            globalSymbolTable[i].type=type;
         }
     }
     else
     {
-        if(lookup(localSymbolTable,label,localSymbolCount) == -1)
+        for(int i = localSymbolCount - typeCount; i < localSymbolCount; i++)
         {
+            sscanf(type,"%s",localSymbolTable[i].type);
+            localSymbolTable[i].type = type;
+        }
+    }
+    typeCount=0;
+}
+
+void addSymbol(char label[]) {
+if(!strcmp("",label)) return;
+    if(scope == global) {
+        if(lookup(globalSymbolTable, label, globalSymbolCount) == -1) {
+            sscanf(label,"%s", globalSymbolTable[globalSymbolCount].label);
+            globalSymbolCount++;
+        }
+    }
+    else {
+        if(lookup(localSymbolTable,label,localSymbolCount) == -1) {
             sscanf(label, "%s", localSymbolTable[localSymbolCount].label);
             localSymbolCount++;
         }
     }	
+//TODO: add collection, unit number
+//TODO: initialize 
+int _int;
+float _real;
+char _string[100];
+void addValue(int intValue, char strValue[], float realValue) {
+    if(scope == global) {
+        globalSymbolTable[globalSymbolCount - 1].intValue = intValue;
+        globalSymbolTable[globalSymbolCount - 1].realValue = realValue;
+        strcpy(globalSymbolTable[globalSymbolCount-1].strValue, strValue);
+    }
+    else {
+        localSymbolTable[localSymbolCount - 1].intValue=intValue;
+        localSymbolTable[localSymbolCount - 1].realValue = realValue;
+        strcpy(localSymbolTable[localSymbolCount-1].strValue,strValue);
+    }	
 }
-
 
 //if label
 int ifLabelCount = 0;

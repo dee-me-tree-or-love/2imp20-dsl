@@ -208,8 +208,6 @@ extern FILE* yyin;
 // TOKENS
 // ~~~~~~
 
-%token MODULE_END
-
 %token COMMA
 %token DOT
 %token COLON
@@ -308,33 +306,24 @@ extern FILE* yyin;
 
 %%
 
-program: 
-MODULE COLON LEFT_BRACKET
-IDENTIFIER
-{
-    // TODO: create a "debug" function
-    printf("Module name: %s\n", $4);
-    // TODO: add to python skeleton
-}
-RIGHT_BRACKET
-/* MODULE_END */
-// PLANTS COLON LEFTBRACKET plants_decs RIGHTBRACKET
-// ACTIONS COLON LEFTBRACKET actions_decs RIGHTBRACKET
-// ASSETS COLON LEFTBRACKET assets_decs RIGHTBRACKET
-// CHANNELS COLON LEFTBRACKET channels_decs RIGHTBRACKET
-// CONTROLLERS COLON LEFTBRACKET controllers_decs RIGHTBRACKET
-//END IDENTIFIER
-// {
-//     if(strcmp($4,$33))
-// 		printf("Error:Wrong label:line%d\n",lineCount+1);
-// 	//javaa
-// 	fprintf(fp,"return\n}\n}");
-// }
-;
+program:
+    MODULE COLON LEFT_BRACKET
+    IDENTIFIER {
+        // TODO: create a "debug" function and make it work right
+        printf("Module name: %s\n", str($4));
+        // TODO: add to python skeleton
+    }
+    RIGHT_BRACKET
+    module_body
+    ;
 
-// plants_decs:plant_config plants_decs 
-// |
-// ;
+module_body : plants_decls;
+
+plants_decls :
+    PLANTS COLON LEFT_BRACKET
+    RIGHT_BRACKET
+    | /* nothing */
+    ;
 
 // plant_config:IDENTIFIER ;
 

@@ -116,5 +116,5 @@ MONITOR     {return MONITOR;}
     /* Identifier */
     /* ~~~~~~~~~~ */
 
-{identifier}  {return IDENTIFIER;}
+{identifier}    {return IDENTIFIER;}
 %%

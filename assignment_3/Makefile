@@ -38,6 +38,11 @@ all: chicken-5.3.0/chicken.h tokenizer parser
 run-parser-interactive run-parser: ${PARSER_OUT}
 	${PARSER_OUT}
 
+# Run the test files against the parser
+run-tests: ${PARSER_OUT}
+	@echo "🎢 Brace yourself, running all tests now!"
+	@ls	test | xargs -I[] sh -c "echo '\n💡 Running []' ; cat test/[] | ${PARSER_OUT}"
+
 # Clean build directory
 .PHONY: clean-bin
 clean-bin:

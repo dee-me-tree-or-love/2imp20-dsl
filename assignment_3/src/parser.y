@@ -201,14 +201,27 @@ int ifLabelCount = 0;
 %%
 
 program: 
-MODULE COLON LEFTBRACKET IDENTIFIER RIGHTBRACKET
-PLANTS COLON LEFTBRACKET plants_decs RIGHTBRACKET
-ACTIONS COLON LEFTBRACKET actions_decs RIGHTBRACKET{
-    we do both check and code generation here
+MODULE COLON LEFTBRACKET 
+IDENTIFIER 
+{
+    //python
+    yyin = fopen("ail2py.py", "w");
+    fprintf(yyin, " '''\n ************Python Code************* \n''' ");
+    fprintf(yyin, " #This is the python code for ail module %s. \n", $4);
 }
+RIGHTBRACKET
+PLANTS COLON LEFTBRACKET plants_decs RIGHTBRACKET
+ACTIONS COLON LEFTBRACKET actions_decs RIGHTBRACKET
 ASSETS COLON LEFTBRACKET assets_decs RIGHTBRACKET
 CHANNELS COLON LEFTBRACKET channels_decs RIGHTBRACKET
 CONTROLLERS COLON LEFTBRACKET controllers_decs RIGHTBRACKET
+//END IDENTIFIER
+// {
+//     if(strcmp($4,$33))
+// 		printf("Error:Wrong label:line%d\n",lineCount+1);
+// 	//javaa
+// 	fprintf(fp,"return\n}\n}");
+// }
 ;
 
 plants_decs:

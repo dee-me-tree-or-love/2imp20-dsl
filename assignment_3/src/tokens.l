@@ -2,41 +2,18 @@
 
 %{
 #include <stdio.h>
-
-#define YY_DECL int yylex()
-
 #include "parser.tab.h"
 
-// list datatype in .ail
-// enum symbolType
-// {
-//     number, boolean, unit, string
-// };
-// build symboltable struct to store symbols and types;  
-
-/* 
-STATEMENT : I'm not sure if we should start from `highlighting` work, 
-if we wanna show it is recognized, we not only need `return` tokens, 
-but also print recognization and show codes, 
-then this part(line: 24-30) is easiler and clear for hightlighting since it onlys records name&type, 
-which is what a terminal wanna show about token-level syntax. 
-*/
-// struct SymbolTable
-// {
-//     char _name[200];
-//     char _type[20];
-// };
-// struct SymbolTable allSymbolTable[200];
-// int allSymbolCount = 0;
-
-// int lineCount = 0;
+#define YY_DECL int yylex()
 %}
 
 /* Aliases */
 /* ^^^^^^^ */
 
 nil             "{}"
-word            (\w+)
+letter          [[:alpha:]]
+identifier      {letter}({letter}|"-"|"_"|[0-9])*
+word            {letter}({letter}|[0-9])*
 unit_word       {word}("^")?{natural_number}
 unit            {unit_word}|{nil}
 digit           [0-9]
@@ -52,6 +29,11 @@ collection      '[' {value} ']'
 /* ^^^^^^^^^^^^^^ */
 
 %%
+    /* Special characters */
+    /* ~~~~~~~~~~~~~~~~~~ */
+
+    /* <<EOF>> {return MODULE_END;} */
+
     /* Basics */
     /* ~~~~~~ */
 
@@ -67,11 +49,6 @@ collection      '[' {value} ']'
 "}"     {return RIGHT_BRACKET;}
 "<<"    {return DOUBLE_LANGLE;} 
 ">>"    {return DOUBLE_RANGLE;}
-
-    /* Identifier */
-    /* ~~~~~~~~~~ */
-
-{word}  {return IDENTIFIER;}
 
     /* Values */
     /* ~~~~~~ */
@@ -101,7 +78,7 @@ collection      '[' {value} ']'
 
 "$"         {return TRANSFER;} /* this is not supported yet */
 "@"         {return AT;}
-"_"         {return DASH;}
+"_"         {return UNDERSCORE;}
 "|"         {return LINE;}
 "=="        {return DEEP_EQUAL;} 
 "!="        {return NOT_EQUAL;}
@@ -135,4 +112,9 @@ WaterSource {return WATERSOURCE;}
 Channels    {return CHANNELS;}
 Controllers {return CONTROLLERS;}
 MONITOR     {return MONITOR;}
+
+    /* Identifier */
+    /* ~~~~~~~~~~ */
+
+{identifier}  {return IDENTIFIER;}
 %%

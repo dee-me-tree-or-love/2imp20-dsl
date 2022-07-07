@@ -18,12 +18,12 @@ ${CHICKEN_DIST_DIR}/chicken.h: chicken-5.3.0.tar.gz
 # Build the Flex tokenizer
 tokenizer: src/tokens.l
 	@echo "🤸 Compiling flex sources..."
-	flex -o ${BUILD_DIR}/lex.yy.c src/tokens.l
+	flex --debug -o ${BUILD_DIR}/lex.yy.c src/tokens.l
 
 # Build the parser
 parser: src/parser.y
 	@echo "🦬  Compiling bison sources..."
-	bison -d src/parser.y -o ${BUILD_DIR}/parser.tab.c -v
+	bison --debug -t -d src/parser.y -o ${BUILD_DIR}/parser.tab.c -v
 
 # Complete Bison + Flex compilation
 all: chicken-5.3.0/chicken.h tokenizer parser

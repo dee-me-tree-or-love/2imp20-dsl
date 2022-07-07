@@ -5,47 +5,50 @@
 #include <stdlib.h>
 #include "../chicken-5.3.0/chicken.h"
 
+// Explicit defintions of the YY API
 extern int yylex();
 extern int yyparse();
-extern int lineCount;
+extern void yyerror(const char *s);
 extern FILE* yyin;
 
+// extern int lineCount;
 
-//unitnumber and collection typedef
-typedef struct unitnumber{
-    int intNum;
-    float realNum;
-    char unit[10];
-} unitNumber;
+// FIXME: temporarily commented it out, because it fails to compile
+// //unitnumber and collection typedef
+// typedef struct unitnumber{
+//     int intNum;
+//     float realNum;
+//     char unit[10];
+// } unitNumber;
 
-typedef struct collection Collection{
-    int intType;
-    char charType;
-    unitNumber unitnumberType;
-    float floatType;
-    const char* stringType;
-    Collection *collectionType
-};
+// typedef struct collection Collection{
+//     int intType;
+//     char charType;
+//     unitNumber unitnumberType;
+//     float floatType;
+//     const char* stringType;
+//     Collection *collectionType
+// };
 
-//SymbolTable
-enum typeEnum
-{
-    action, module, asset, channel, variable
-};
+// //SymbolTable
+// enum typeEnum
+// {
+//     action, module, asset, channel, variable
+// };
 
-struct SymbolTableStruct {
-    char label[100];
-    enum typeEnum type; 
-    unitNumber unitnumberValue;
-    int intValue;
-    float realValue;
-    char strValue;
-    Collection collectionValue[100];
-};
-struct SymbolTableStruct globalSymbolTable[200];  
-struct SymbolTableStruct localSymbolTable[200]; // size = %src.items @> {_ | + 1};
-int globalSymbolCount=0;
-int localSymbolCount=0;
+// struct SymbolTableStruct {
+//     char label[100];
+//     enum typeEnum type; 
+//     unitNumber unitnumberValue;
+//     int intValue;
+//     float realValue;
+//     char strValue;
+//     Collection collectionValue[100];
+// };
+// struct SymbolTableStruct globalSymbolTable[200];  
+// struct SymbolTableStruct localSymbolTable[200]; // size = %src.items @> {_ | + 1};
+// int globalSymbolCount=0;
+// int localSymbolCount=0;
 
 // //Action table : used to check if called actions in assets exist
 // struct ActionTableStruct {
@@ -76,132 +79,136 @@ int localSymbolCount=0;
 //         printf("\"%s\" Error: The action is not defined:line%d\n", label, lineCount+1);
 // }
 
-//Cronjob table : used to stroe and check if cronjobs in assets exist
-struct CronjobTableStruct {
-    char label[100];
-    char [100];// check or send(notify)
-};
-struct CronjobTableStruct cronjobTable[100];
-int cronjobCount = 0;
+// TODO: move this to `symbol_table.h` file?
+// FIXME: this produces errors and prevents compiling the code
+// //Cronjob table : used to stroe and check if cronjobs in assets exist
+// struct CronjobTableStruct {
+//     char label[100];
+//     char [100];// check or send(notify)
+// };
+// struct CronjobTableStruct cronjobTable[100];
+// int cronjobCount = 0;
 
-int lookupCronjob(struct CronjobsTableStruct cronjobTable[],char compareString[],int cronjobCount) {
-    for(int i = 0; i < cronjobCount; i++) {
-        if(!strcmp(cronjobTable[i].label, compareString))
-            return i;
-    }
-    return -1;
-}
+// int lookupCronjob(struct CronjobsTableStruct cronjobTable[],char compareString[],int cronjobCount) {
+//     for(int i = 0; i < cronjobCount; i++) {
+//         if(!strcmp(cronjobTable[i].label, compareString))
+//             return i;
+//     }
+//     return -1;
+// }
 
-void addCronjob(char label[]) {
-    if(lookupCronjob(cronjobTable, label, cronjobCount) == -1) {
-        cronjobTable[cronjobCount].label[0]='\0';
-        strcat(cronjobTable[cronjobCount].label, label);
-        cronjobCount++;
-    }
-}
+// void addCronjob(char label[]) {
+//     if(lookupCronjob(cronjobTable, label, cronjobCount) == -1) {
+//         cronjobTable[cronjobCount].label[0]='\0';
+//         strcat(cronjobTable[cronjobCount].label, label);
+//         cronjobCount++;
+//     }
+// }
 
-void checkCronjob(char label[]) {
-    if(lookupCronjob(cronjobTable, label, cronjobCount) == -1)
-        printf("\"%s\" Error: The cronjob is not defined:line%d\n", label, lineCount+1);
-}
+// void checkCronjob(char label[]) {
+//     if(lookupCronjob(cronjobTable, label, cronjobCount) == -1)
+//         printf("\"%s\" Error: The cronjob is not defined:line%d\n", label, lineCount+1);
+// }
 
-//Scope
-enum scopeEnum
-{
-    global,local
-};
-enum scopeEnum scope=global;
+// //Scope
+// enum scopeEnum
+// {
+//     global,local
+// };
+// enum scopeEnum scope=global;
 
-void checkScope(char label[]) {
-    if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1)
-        printf("\"%s\" Error:Undeclared variable:line%d\n", label, lineCount+1);
-}
+// void checkScope(char label[]) {
+//     if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1)
+//         printf("\"%s\" Error:Undeclared variable:line%d\n", label, lineCount+1);
+// }
 
-void checkall(char label[]) {
-		if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1 && lookupAction(actionTable, label, actionCount) == -1 && lookupCronjob(actionTable, label, actionCount) == -1)
-			printf("\"%s\" Error:Undeclared variable:line%d\n",label,lineCount+1);
-}
+// void checkall(char label[]) {
+// 		if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1 && lookupAction(actionTable, label, actionCount) == -1 && lookupCronjob(actionTable, label, actionCount) == -1)
+// 			printf("\"%s\" Error:Undeclared variable:line%d\n",label,lineCount+1);
+// }
 
 
-//basic symbol look up function 
-int lookup(struct SymbolTableStruct symbolTable[],char compareString[],int symbolCount) { 
-    for(int i=0; i<symbolCount; i++) {
-        if(!strcmp(symbolTable[i].label,compareString))// if input string euqals symboltable
-            return i;
-    }
-    return -1;
-}
+// //basic symbol look up function 
+// int lookup(struct SymbolTableStruct symbolTable[],char compareString[],int symbolCount) { 
+//     for(int i=0; i<symbolCount; i++) {
+//         if(!strcmp(symbolTable[i].label,compareString))// if input string euqals symboltable
+//             return i;
+//     }
+//     return -1;
+// }
 
-//get symbol type
-char* getSymbolType(char label[]) {
-    int index = lookup(localSymbolTable, label, localSymbolCount);
-    if(index != -1) {
-        return localSymbolTable[index].type;
-    }
-	index=lookup(globalSymbolTable,label,globalSymbolCount);
-	if(index != -1)
-		return globalSymbolTable[index].type;
-    return strdup("null");
-}
+// //get symbol type
+// char* getSymbolType(char label[]) {
+//     int index = lookup(localSymbolTable, label, localSymbolCount);
+//     if(index != -1) {
+//         return localSymbolTable[index].type;
+//     }
+// 	index=lookup(globalSymbolTable,label,globalSymbolCount);
+// 	if(index != -1)
+// 		return globalSymbolTable[index].type;
+//     return strdup("null");
+// }
 
-void addType(char type[],enum typeEnum type) {
-    if(scope == global)
-    {
-        for(int i = globalSymbolCount-typeCount; i<globalSymbolCount; i++) {
-            sscanf(type, "%s",globalSymbolTable[i].type);
-            globalSymbolTable[i].type=type;
-        }
-    }
-    else
-    {
-        for(int i = localSymbolCount - typeCount; i < localSymbolCount; i++)
-        {
-            sscanf(type,"%s",localSymbolTable[i].type);
-            localSymbolTable[i].type = type;
-        }
-    }
-    typeCount=0;
-}
+// void addType(char type[],enum typeEnum type) {
+//     if(scope == global)
+//     {
+//         for(int i = globalSymbolCount-typeCount; i<globalSymbolCount; i++) {
+//             sscanf(type, "%s",globalSymbolTable[i].type);
+//             globalSymbolTable[i].type=type;
+//         }
+//     }
+//     else
+//     {
+//         for(int i = localSymbolCount - typeCount; i < localSymbolCount; i++)
+//         {
+//             sscanf(type,"%s",localSymbolTable[i].type);
+//             localSymbolTable[i].type = type;
+//         }
+//     }
+//     typeCount=0;
+// }
 
-void addSymbol(char label[]) {
-if(!strcmp("",label)) return;
-    if(scope == global) {
-        if(lookup(globalSymbolTable, label, globalSymbolCount) == -1) {
-            sscanf(label,"%s", globalSymbolTable[globalSymbolCount].label);
-            globalSymbolCount++;
-        }
-    }
-    else {
-        if(lookup(localSymbolTable,label,localSymbolCount) == -1) {
-            sscanf(label, "%s", localSymbolTable[localSymbolCount].label);
-            localSymbolCount++;
-        }
-    }	
-//TODO: add collection, unit number
-//TODO: initialize 
-int _int;
-float _real;
-char _string[100];
-void addValue(int intValue, char strValue[], float realValue) {
-    if(scope == global) {
-        globalSymbolTable[globalSymbolCount - 1].intValue = intValue;
-        globalSymbolTable[globalSymbolCount - 1].realValue = realValue;
-        strcpy(globalSymbolTable[globalSymbolCount-1].strValue, strValue);
-    }
-    else {
-        localSymbolTable[localSymbolCount - 1].intValue=intValue;
-        localSymbolTable[localSymbolCount - 1].realValue = realValue;
-        strcpy(localSymbolTable[localSymbolCount-1].strValue,strValue);
-    }	
-}
+// void addSymbol(char label[]) {
+// if(!strcmp("",label)) return;
+//     if(scope == global) {
+//         if(lookup(globalSymbolTable, label, globalSymbolCount) == -1) {
+//             sscanf(label,"%s", globalSymbolTable[globalSymbolCount].label);
+//             globalSymbolCount++;
+//         }
+//     }
+//     else {
+//         if(lookup(localSymbolTable,label,localSymbolCount) == -1) {
+//             sscanf(label, "%s", localSymbolTable[localSymbolCount].label);
+//             localSymbolCount++;
+//         }
+//     }	
+// //TODO: add collection, unit number
+// //TODO: initialize 
+// int _int;
+// float _real;
+// char _string[100];
+// void addValue(int intValue, char strValue[], float realValue) {
+//     if(scope == global) {
+//         globalSymbolTable[globalSymbolCount - 1].intValue = intValue;
+//         globalSymbolTable[globalSymbolCount - 1].realValue = realValue;
+//         strcpy(globalSymbolTable[globalSymbolCount-1].strValue, strValue);
+//     }
+//     else {
+//         localSymbolTable[localSymbolCount - 1].intValue=intValue;
+//         localSymbolTable[localSymbolCount - 1].realValue = realValue;
+//         strcpy(localSymbolTable[localSymbolCount-1].strValue,strValue);
+//     }	
+// }
 
-//if label
-int ifLabelCount = 0;
+// //if label
+// int ifLabelCount = 0;
 
 %}
 
 // TOKENS
 // ~~~~~~
+
+%token MODULE_END
 
 %token COMMA
 %token DOT
@@ -240,7 +247,7 @@ int ifLabelCount = 0;
 
 %token TRANSFER
 %token AT
-%token DASH
+%token UNDERSCORE
 %token LINE
 %token DEEP_EQUAL 
 %token NOT_EQUAL
@@ -302,15 +309,15 @@ int ifLabelCount = 0;
 %%
 
 program: 
-MODULE COLON LEFT_BRACKET 
-IDENTIFIER 
+MODULE COLON LEFT_BRACKET
+IDENTIFIER
 {
-    //python
-    yyin = fopen("ail2py.py", "w");
-    fprintf(yyin, " '''\n ************Python Code************* \n''' ");
-    fprintf(yyin, " #This is the python code for ail module %s. \n", $4);
+    // TODO: create a "debug" function
+    printf("Module name: %s\n", $4);
+    // TODO: add to python skeleton
 }
 RIGHT_BRACKET
+/* MODULE_END */
 // PLANTS COLON LEFTBRACKET plants_decs RIGHTBRACKET
 // ACTIONS COLON LEFTBRACKET actions_decs RIGHTBRACKET
 // ASSETS COLON LEFTBRACKET assets_decs RIGHTBRACKET
@@ -368,16 +375,20 @@ void yyerror(const char* s) {
 }
 
 int main() {
-    yyin = stdin;
+    #ifdef YYDEBUG
+        yydebug = 1;
+    #endif
 
+    /* yyin = stdin; */
+
+    // TODO: remove this demo CHICKEN binding.
     C_word x;
     CHICKEN_run(CHICKEN_default_toplevel);
     CHICKEN_eval_string("(print \"hello from CHICKEN\")", &x);
 
-    do {
-        yyparse();
-    } while(!feof(yyin));
+    // TODO: adjust this to use a file input in the future
+    yyparse();
 
-    fclose(yyin);
-    return 0;
+    // Done parsing.
 }
+

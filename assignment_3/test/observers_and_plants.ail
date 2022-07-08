@@ -1,4 +1,4 @@
-Module : { TEST_GARLIC_AND_POTATO }
+Module : { TEST_OBSERVER_AND_PLANTS }
 
 Plants : {
     Garlic <<
@@ -12,4 +12,11 @@ Plants : {
         max_water : 100,
         breed : "Opperdoezer Ronde",
     >>
+}
+
+Observers : {
+    support <<support@farm.cool>>, 
+    admin <<admin@farm.cool>>, 
+    rss <<farm.feed.rss>>,
+    abie <<abie@service.farm.cool>>
 }

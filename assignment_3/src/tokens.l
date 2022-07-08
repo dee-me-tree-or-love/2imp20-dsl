@@ -44,6 +44,7 @@ collection      '[' {value} ']'
 "}"     {return RIGHT_BRACKET;}
 "<<"    {return DOUBLE_LANGLE;} 
 ">>"    {return DOUBLE_RANGLE;}
+"://"   {return PROTOCOL;}
 
     /* Values */
     /* ~~~~~~ */
@@ -100,11 +101,11 @@ collection      '[' {value} ']'
 
 Module      {return MODULE;}
 Plants      {return PLANTS;}
+Observers   {return OBSERVERS;}
 Actions     {return ACTIONS;}
 Assets      {return ASSETS;}
 Plantation  {return PLANTATION;}
 WaterSource {return WATERSOURCE;}
-Channels    {return CHANNELS;}
 Controllers {return CONTROLLERS;}
 MONITOR     {return MONITOR;}
 

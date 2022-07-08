@@ -220,6 +220,7 @@ extern FILE* yyin;
 %token RIGHT_BRACKET
 %token DOUBLE_LANGLE 
 %token DOUBLE_RANGLE
+%token PROTOCOL
 
 %token IDENTIFIER
 
@@ -269,11 +270,11 @@ extern FILE* yyin;
 
 %token MODULE
 %token PLANTS
+%token OBSERVERS
 %token ACTIONS
 %token ASSETS
 %token PLANTATION
 %token WATERSOURCE
-%token CHANNELS
 %token CONTROLLERS
 %token MONITOR
 
@@ -321,7 +322,15 @@ program :
 
 /* Contents of the module */
 
-module_body : plants_decls;
+module_body :
+    item_decl module_body
+    | /* empty module */
+    ;
+
+item_decl :
+    plants_decls 
+    | observer_decls
+    ;
 
 /* Plants */
 
@@ -352,6 +361,56 @@ plant_body :
     attribute COMMA plant_body
     | attribute
     | /* empty body */
+    ;
+
+/* Observers */
+
+observer_decls :
+    OBSERVERS COLON LEFT_BRACKET
+    observer_configs
+    RIGHT_BRACKET
+    | /* nothing */
+    ;
+
+observer_configs :
+    observer_config COMMA observer_configs
+    | observer_config /* single observer config */
+    | /* empty body */
+    ;
+
+observer_config :
+    IDENTIFIER {
+        // FIXME: create a "debug" function and make it work right
+        printf("Observer name: %s\n", $1);
+    }
+    DOUBLE_LANGLE
+    observer_body
+    DOUBLE_RANGLE
+    ;
+
+observer_body :
+    observer_misc {
+        printf("Observer misc body.\n");
+    }
+    | observer_email {
+        printf("Observer email body.\n");
+    }
+    | observer_url {
+        printf("Observer email body.\n");
+    }
+    ;
+
+observer_misc :
+    IDENTIFIER DOT observer_misc
+    | IDENTIFIER
+    ;
+
+observer_email :
+    observer_misc AT observer_misc
+    ;
+
+observer_url :
+    IDENTIFIER PROTOCOL observer_misc
     ;
 
 /* Generic attribute syntax */

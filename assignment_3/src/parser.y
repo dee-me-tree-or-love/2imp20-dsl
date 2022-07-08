@@ -4,8 +4,8 @@
 #include <string.h>	
 #include <stdlib.h>
 // #include "../chicken-5.3.0/chicken.h"
-// #include "../api/symbol_table.h"
-#include "../api/python_builder.h"
+#include "../lib/symbol_table.h"
+#include "../lib/python_builder.h"
 
 // Explicit defintions of the YY API
 extern int yylex();

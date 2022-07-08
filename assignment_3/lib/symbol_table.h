@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>	
 #include <stdlib.h>
-extern int lineCount;
+
+int lineCount;
 int typeCount=0;
 //unitnumber and collection typedef
 typedef struct unitnumber {

@@ -45,6 +45,7 @@ extern FILE* yyin;
 %token STRING
 %token COLLECTION
 
+%token EQUALS
 %token PLUS
 %token MINUS
 %token MULTIPLY
@@ -305,23 +306,32 @@ action_body :
 /* ~~~~~~~~~~~ */
 
 expressions :
-    expression SEMICOLON expressions
-    | expression
+    expression_line SEMICOLON expressions
+    | expression_line
     | /* none */
     ;
 
-expression :
-    LEFT_PARENTHESE expression_line RIGHT_PARENTHESE
-    | expression_line
-    ;
-
 expression_line :
-    statement_expression
+    expression_core
+    | expression_assignment
     ;
 
-statement_expression :
-    unit_expression operator expression
+expression_core :
+    LEFT_PARENTHESE expression_statement RIGHT_PARENTHESE
+    | expression_statement
+    ;
+
+expression_statement :
+    unit_expression operator expression_core
     | unit_expression
+    ;
+
+expression_assignment :
+    IDENTIFIER {
+        printf("Got a new identifier: %s\n", $1);
+    }
+    EQUALS
+    expression_core
     ;
 
 unit_expression :

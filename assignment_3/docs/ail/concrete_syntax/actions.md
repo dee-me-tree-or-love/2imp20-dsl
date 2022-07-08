@@ -81,15 +81,17 @@ total_age = my_plant.age + 30;
 
 ```f#
 <<EXPRESSION_BODY>>             := {<<LINE_EXPRESSION>> ";"}*
-<<LINE_EXPRESSION>>             := "(" <<CORE_EXPRESSION>> ")" | <<CORE_EXPRESSION>>
-<<CORE_EXPRESSION>>             := <<STATEMENT_EXPRESSION>>
+<<LINE_EXPRESSION>>             := <<CORE_EXPRESSION>>
+                                    | <<ASSIGNMENT_EXPRESSION>>
                                     | <<IF_THEN_ELSE_EXPRESSION>>
                                     | <<TMPL_STATEMENT_EXPRESSION>>
                                     | <<UNIT_EXPRESSION>>
-<<STATEMENT_EXPRESSION>>        := <<UNIT_EXPRESSION>> <<OPERATOR>> <<STATEMENT_EXPRESSION>>
+<<CORE_EXPRESSION>>             := <<STATEMENT_EXPRESSION>> 
+                                    | "(" <<STATEMENT_EXPRESSION>> ")"
+<<STATEMENT_EXPRESSION>>        := <<UNIT_EXPRESSION>> <<OPERATOR>> <<CORE_EXPRESSION>>
                                     | <<UNIT_EXPRESSION>>
-<<UNIT_EXPRESSION>>             := "(" <<CORE_UNIT_EXPRESSION>> ")" | <<CORE_UNIT_EXPRESSION>>
-<<CORE_UNIT_EXPRESSION>>        := <<IDENTIFIER>>
+<<ASSIGNMENT_EXPRESSION>>       := <<IDENTIFIER>> "=" <<CORE_EXPRESSION>>
+<<UNIT_EXPRESSION>>             := <<IDENTIFIER>>
                                     | <<ATTRIBUTE_ACCESS>>
                                     | <<VALUE>>
                                     | <<ACTION_EXPRESSION>>
@@ -102,6 +104,6 @@ total_age = my_plant.age + 30;
 <<ACTION_EXPRESSION>>           := <<ACTION_IDENTIFIER>> ": {" {<<STATEMENT_EXPRESSION>> ","}* "}"
 <<MAPPER_EXPRESSION>>           := <<UNIT_EXPRESSION>> <<MAPPER>> <<MAPPER_CLAUSE>>
 <<MAPPER_CLAUSE>>               := "{" {<<IDENTIFIER>> ","}* "|" <<STATEMENT_EXPRESSION>> "}"
-<<OPERATOR>>                    := "=" | "+" | "-" | "*" | "/" | "%" | "^" | "++" | "==" | "!=" | "~~" | "and" | "or"
+<<OPERATOR>>                    := "+" | "-" | "*" | "/" | "%" | "^" | "++" | "==" | "!=" | "~~" | "and" | "or"
 <<MAPPER>>                      := "@>" | "#>" | "$>"
 ```

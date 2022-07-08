@@ -2,7 +2,7 @@
 #include <string.h>	
 #include <stdlib.h>
 
-int lineCount;
+extern int lineCount;
 int typeCount=0;
 //unitnumber and collection typedef
 typedef struct unitnumber {
@@ -71,6 +71,39 @@ void addAction(char label[]) {
 void checkAction(char label[]) {
     if(lookupAction(actionTable, label, actionCount) == -1)
         printf("\"%s\" Error: The action is not defined:line%d\n", label, lineCount+1);
+}
+//Observer table
+struct ObserverTableStruct {
+    char label[100];
+    char addr[100];
+};
+struct ObserverTableStruct observerTable[100];
+int observerCount = 0;
+
+int lookupObserver(struct ObserverTableStruct observerTable[],char compareString[],int observerCount) {
+    for(int i = 0; i < observerCount; i++) {
+        if(!strcmp(observerTable[i].label, compareString))
+            return i;
+    }
+    return -1;
+}
+
+void addObserver(char label[], char addr[]) {
+    if(lookupObserver(observerTable, label, observerCount) == -1) {
+        sscanf(label,"%s", observerTable[observerCount].label);
+        sscanf(addr,"%s", observerTable[observerCount].addr);
+        observerCount++;
+    }
+}
+
+void checkObserver(char label[]) {
+    for(int i = 0; i < observerCount - 1; i++) {
+        if(!strcmp(observerTable[i].addr, observerTable[i + 1].addr)) {
+            //error msg
+            return i;
+        }
+    }
+    return -1;
 }
 
 //Cronjob table : used to stroe and check if cronjobs in assets exist
@@ -169,6 +202,7 @@ if(!strcmp("",label)) return;
             globalSymbolCount++;
         } else {
             printf("\"%s\" Error: The label has been used:line%d\n", label, lineCount+1);
+            error = 1;
         }
     }
     else {
@@ -177,6 +211,7 @@ if(!strcmp("",label)) return;
             localSymbolCount++;
         } else {
             printf("\"%s\" Error: The label has been used:line%d\n", label, lineCount+1);
+            error = 1;
         }
     }	
 }

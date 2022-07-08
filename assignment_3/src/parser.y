@@ -204,6 +204,7 @@ observer_config :
         printf("Observer name: %s\n", $1);
         //Symbol
         addSymbol($1, observer);
+        addObserver($1, $4);
     }
     DOUBLE_LANGLE
     observer_body

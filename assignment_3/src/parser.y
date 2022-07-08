@@ -4,15 +4,14 @@
 #include <string.h>	
 #include <stdlib.h>
 // #include "../chicken-5.3.0/chicken.h"
-// FIXME: this fails to compile
-// #include <symbol_table.h>
+// #include "../api/symbol_table.h"
+#include "../api/python_builder.h"
 
 // Explicit defintions of the YY API
 extern int yylex();
 extern int yyparse();
 extern void yyerror(const char *s);
 extern FILE* yyin;
-extern int lineCount;
 
 %}
 

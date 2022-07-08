@@ -213,7 +213,7 @@ observer_config :
         addSymbol($1, observer);
     }
     DOUBLE_LANGLE
-    observer_body {addObserver($1, $4); printf("## %s \n****************n\n", $4)}
+    observer_body {addObserver($1, $4); /*printf("## %s \n****************n\n", $4)*/}
     DOUBLE_RANGLE
     ;
 
@@ -446,6 +446,7 @@ operator :
 attribute_spec :
     IDENTIFIER {
         printf("Attribute key: %s\n", $1);
+        scope = local;
     }
     COLON
     value_spec {
@@ -475,13 +476,15 @@ value :
     | BOOLEAN_TRUE
     | BOOLEAN_FALSE
     /* FIXME: unit numbers seem not to be working yet */
-    | UNIT_NUMBER
+    | unitnumber
     | REAL_NUMBER
     | NATURAL_NUMBER
     | STRING
     | COLLECTION
     ;
 
+unitnumber : REAL_NUMBER UNIT 
+           | NATURAL_NUMBER UNIT 
 
 
 %%

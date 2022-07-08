@@ -26,24 +26,18 @@ enum typeEnum
 {
     action, module, asset, observer, plant
 };
-enum varconstEnum
-{
-    constant, variable
-};
 struct SymbolTableStruct {
     char label[100];
-    char type[10]; 
     enum typeEnum typeValue;
-    // enum varconstEnum varconst;
     unitNumber unitnumberValue;
     int intValue;
     float realValue;
     char strValue[100];
     Collection collectionValue[100];
 };
-struct SymbolTableStruct globalSymbolTable[200];  
+struct SymbolTableStruct symbolTable[200];  
 struct SymbolTableStruct localSymbolTable[200]; // size = %src.items @> {_ | + 1};
-int globalSymbolCount=0;
+int symbolCount=0;
 int localSymbolCount=0;
 
 //Action table : used to check if called actions in assets exist
@@ -118,36 +112,55 @@ void checkObservere(char label[])
 }
 /* Observer table */
 
-
-//Cronjob table : used to stroe and check if cronjobs in assets exist
-struct CronjobTableStruct {
-    char label[100];
-    // char [100];// check or send(notify)
+/* Plant table */
+/*~~~~~~~~~~~~~~~~*/
+struct attribute {
+    char variable[100];
+    char value[100];
 };
-struct CronjobTableStruct cronjobTable[100];
-int cronjobCount = 0;
+struct PlantTableStruct {
+    char label[100];
+    struct attribute allAttrs[100];
+    int attrCount;
+};
+struct PlantTableStruct plantTable[100];
+int plantCount = 0;
 
-int lookupCronjob(struct CronjobTableStruct cronjobTable[],char compareString[],int cronjobCount) {
-    for(int i = 0; i < cronjobCount; i++) {
-        if(!strcmp(cronjobTable[i].label, compareString))
+int lookupPlant(struct PlantTableStruct plantTable[],char compareString[],int plantCount) {
+    for(int i = 0; i < plantCount; i++) {
+        if(!strcmp(plantTable[i].label, compareString))
+            printf("\"%s\" Error:This plant label has been used:line%d\n", compareString, lineCount+1);
             return i;
     }
     return -1;
 }
+int lookupParam(struct PlantTableStruct plantTable[], struct attribute attrs[]) {
+    for(int i = 0; i < plantCount; i++) {
+        for(int j = 0; j < plantTable[i].attrCount; j++) {
+            // if(!strcmp(plantTable[i].allAttrs[j].variable, )) {
+            //     printf("\"%s\" Error:This attr has been defined:line%d\n",  pVar, lineCount+1);
+                return i;
+            // }
+        }
+    }
+    return -1;
+}
 
-void addCronjob(char label[]) {
-    if(lookupCronjob(cronjobTable, label, cronjobCount) == -1) {
-        cronjobTable[cronjobCount].label[0]='\0';
-        strcat(cronjobTable[cronjobCount].label, label);
-        cronjobCount++;
+void addPlant(char label[], struct attribute attrs[]) {
+    if((lookupPlant(plantTable, label, plantCount) == -1) && (lookupParam(plantTable, attrs) == -1)) {
+        sscanf(label,"%s", plantTable[plantCount].label);
+        sscanf(attrs,"%s", plantTable[plantCount].allAttrs);
+        plantCount++;
     }
 }
 
-void checkCronjob(char label[]) {
-    if(lookupCronjob(cronjobTable, label, cronjobCount) == -1)
-        printf("\"%s\" Error: The cronjob is not defined:line%d\n", label, lineCount+1);
+// used in asset
+void checkPlante(char label[])
+{
+    if(lookupPlant(plantTable, label,plantCount)==-1)
+        printf("\"%s\" Error:Unavailable plant:line%d\n", label, lineCount+1);
 }
-
+/* Plant table */
 
 //basic symbol look up function 
 int lookup(struct SymbolTableStruct symbolTable[],char compareString[],int symbolCount) { 
@@ -162,11 +175,11 @@ int lookup(struct SymbolTableStruct symbolTable[],char compareString[],int symbo
 char* getSymbolType(char label[]) {
     int index = lookup(localSymbolTable, label, localSymbolCount);
     if(index != -1) {
-        return localSymbolTable[index].type;
+        return localSymbolTable[index].typeValue;
     }
-	index=lookup(globalSymbolTable,label,globalSymbolCount);
+	index=lookup(symbolTable,label,symbolCount);
 	if(index != -1)
-		return globalSymbolTable[index].type;
+		return symbolTable[index].typeValue;
     return strdup("null");
 }
 
@@ -178,21 +191,21 @@ enum scopeEnum
 enum scopeEnum scope=global;
 
 void checkScope(char label[]) {
-    if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1)
+    if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(symbolTable, label, symbolCount) == -1)
         printf("\"%s\" Error:Undeclared variable:line%d\n", label, lineCount+1);
 }
 
 void checkall(char label[]) {
-		if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1 && lookupAction(actionTable, label, actionCount) == -1 && lookupCronjob(cronjobTable, label, actionCount) == -1)
+		if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(symbolTable, label, symbolCount) == -1 && lookupAction(actionTable, label, actionCount) == -1)
 			printf("\"%s\" Error:Undeclared variable:line%d\n",label,lineCount+1);
 }
 
 // void addType(char type[]) {
 //     if(scope == global)
 //     {
-//         for(int i = globalSymbolCount-typeCount; i < globalSymbolCount; i++) {
-//             sscanf(type, "%s", globalSymbolTable[i].type);
-//             globalSymbolTable[i].varconst = varconst;            
+//         for(int i = symbolCount-typeCount; i < symbolCount; i++) {
+//             sscanf(type, "%s", symbolTable[i].type);
+//             symbolTable[i].varconst = varconst;            
 //         }
 //     }
 //     else
@@ -210,10 +223,10 @@ void addSymbol(char label[], enum typeEnum typeValue) {
     int error;
     if(!strcmp("",label)) return;
         if(scope == global) {
-            if(lookup(globalSymbolTable, label, globalSymbolCount) == -1) {
-                sscanf(label,"%s", globalSymbolTable[globalSymbolCount].label);
-                globalSymbolTable[globalSymbolCount].typeValue = typeValue; 
-                globalSymbolCount++;
+            if(lookup(symbolTable, label, symbolCount) == -1) {
+                sscanf(label,"%s", symbolTable[symbolCount].label);
+                symbolTable[symbolCount].typeValue = typeValue; 
+                symbolCount++;
             } else {
                 printf("\"%s\" Error: The label has been used:line%d\n", label, lineCount+1);
                 error = 1;
@@ -237,9 +250,9 @@ char _string[100];
 
 void addValue(int intValue, char strValue[], float realValue) {
     if(scope == global) {
-        globalSymbolTable[globalSymbolCount - 1].intValue = intValue;
-        globalSymbolTable[globalSymbolCount - 1].realValue = realValue;
-        strcpy(globalSymbolTable[globalSymbolCount - 1].strValue, strValue);
+        symbolTable[symbolCount - 1].intValue = intValue;
+        symbolTable[symbolCount - 1].realValue = realValue;
+        strcpy(symbolTable[symbolCount - 1].strValue, strValue);
     }
     else {
         localSymbolTable[localSymbolCount - 1].intValue=intValue;

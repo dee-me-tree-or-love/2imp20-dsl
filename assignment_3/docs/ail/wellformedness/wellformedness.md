@@ -5,8 +5,7 @@
 -Every module must have at least one action and one asset. 
 
 ### Plants wellformedness
-- Parameter labels of `Plants` must be unique;
-- `Plants` template should not have same configurations.
+- Parameter labels of `Plants` must be unique.
 - `Plants` template should not be empty.
 
 

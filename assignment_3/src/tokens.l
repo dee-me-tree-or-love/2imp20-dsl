@@ -56,7 +56,6 @@ collection      '[' {value} ']'
 {boolean_false}     {sscanf("0","%d",&yylval); return BOOLEAN_FALSE;}
 {natural_number}    {sscanf(yytext,"%d",&yylval); return NATURAL_NUMBER;}
 {real_number}       {sscanf("real_number","%s",&yylval); return REAL_NUMBER;}
-{unit_number}       {sscanf("unit_number","%s",&yylval); return UNIT_NUMBER;}
 {string}            {sscanf("string","%s",&yylval); return STRING;}
 {collection}        {sscanf("collection","%s",&yylval); return COLLECTION;}
 

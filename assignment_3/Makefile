@@ -8,6 +8,11 @@ TMP_DIR=./.tmp
 CHICKEN_DIST_DIR=./chicken-5.3.0
 INCLUDES=-I./chicken-5.3.0 -lchicken
 
+ifeq ($(CI_RUN), 1)
+	TEST_OUTPUT=${TMP_DIR}/test-run-ci.log
+else
+	TEST_OUTPUT=${TMP_DIR}/test-run-`date +%s`.log
+endif
 
 ##############################################
 # Parser development
@@ -53,8 +58,11 @@ run-tests: ${PARSER_OUT}
 	@ls	test \
 		| xargs -I[] \
 			sh -c \
-				"echo '\n💡 Running []' ; cat test/[] | ${PARSER_OUT}" \
-		2>&1 | tee -a ${TMP_DIR}/test-run-`date +%s`.log
+				"echo '\n💡 Running []' ; cat test/[] | ${PARSER_OUT} || echo ❌ TEST FAILED: []" \
+		2>&1 | tee ${TEST_OUTPUT}
+	@grep -q "❌ TEST FAILED" ${TEST_OUTPUT} \
+		&& echo "❌ SOME TESTS FAILED. Quitting." && exit 1 \
+		|| echo "✅ ALL TESTS PASSED"
 
 # Handy command to build and test at once
 all-and-test: all run-tests

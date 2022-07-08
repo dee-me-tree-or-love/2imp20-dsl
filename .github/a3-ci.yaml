@@ -1,0 +1,33 @@
+# All actions have a name that will be displayed in the "Actions" page in GitHub.
+name: Assignment 3 (Project) Build CI
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  # Build the parser and run tests
+  parser:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup dependencies
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+
+  # Build the docs and deploy
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Deploy docs
+        uses: mhausenblas/mkdocs-deploy-gh-pages@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONFIG_FILE: assignment_3/mkdocs.yml
+  

@@ -301,6 +301,9 @@ action_body :
     expressions
     ;
 
+/* Expressions */
+/* ~~~~~~~~~~~ */
+
 expressions :
     expression SEMICOLON expressions
     | expression
@@ -308,7 +311,30 @@ expressions :
     ;
 
 expression :
-    
+    LEFT_PARENTHESE expression_line RIGHT_PARENTHESE
+    | expression_line
+    ;
+
+expression_line :
+    statement_expression
+    ;
+
+statement_expression :
+    unit_expression operator expression
+    | unit_expression
+    ;
+
+unit_expression :
+    /* TODO: fully implement this */
+    IDENTIFIER {
+        printf("Got a unit expression: %s\n", $1);
+    }
+    ;
+
+operator :
+    PLUS | MINUS | MULTIPLY
+    /* TODO: support all operators */
+    ;
 
 /* Generic attribute syntax */
 

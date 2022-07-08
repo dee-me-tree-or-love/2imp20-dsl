@@ -16,7 +16,7 @@ Plants : {
 
 Actions : {
     notify <<%src, foo>> (
-        bar
+        bar + foo;
     )
 }
 

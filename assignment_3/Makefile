@@ -14,7 +14,7 @@ EXTRA_INCLUDES=-I${CHICKEN_DIST_DIR}
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
-	LEX_FLAG=-ll
+	LEX_FLAG=
 endif
 ifeq ($(UNAME), Darwin)
 	LEX_FLAG=-ll

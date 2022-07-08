@@ -1,0 +1,27 @@
+Module : { TEST_ACTIONS_CONTROLLERS_OBSERVER_AND_PLANTS }
+
+Plants : {
+    Garlic <<
+        water_use : 5,
+        min_temp  : 20,
+        max_water : 100,
+    >>,
+    Potato <<
+        water_use : 5,
+        min_temp  : 20,
+        max_water : 100,
+        breed : "Opperdoezer Ronde",
+    >>
+}
+
+Actions : {
+    test_action <<fooooo>> (bar),
+}
+
+Observers : {
+    support <<support@farm.cool>>
+}
+
+Controllers: {
+    MONITOR
+}

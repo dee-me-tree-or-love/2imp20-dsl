@@ -4,18 +4,18 @@ Example:
 
 ```plaintext
 Actions : {
-    notify : <<%src, channels*>> (
+    notify <<%src, channels*>> (
         channels @> {c | send_msg : {c, %src.metadata}}
     ),
-    check_water : <<%src, condition, job, fail_job>> (
+    check_water <<%src, condition, job, fail_job>> (
         if %src.water meets condition then do job else do fail_job
     ),
-    check_avg_temp : <<%src, condition, job>> (
+    check_avg_temp <<%src, condition, job>> (
         size = %src.items $> {a, _ | a + 1};
         total = %src.items $> {a, i | a + i.temp};
         if total/size meets condition then do job;
     ),
-    send_report : <<%src, channels*, name_match>> (
+    send_report <<%src, channels*, name_match>> (
         channels  #> {c | c ~~ "abie"}} @> {c, send_msg : {c, %src.metadata}}
     )
 }
@@ -26,7 +26,7 @@ Actions : {
 Example:
 
 ```plaintext
-notify : <<%src, channels*>> (
+notify <<%src, channels*>> (
    ...
 ),
 ```
@@ -43,7 +43,7 @@ notify : <<%src, channels*>> (
 > For `<<VALUE>>` see [basics.md](./basics.md).  
 
 ```f#
-<<ACTION_CONFIG>>               := <<ACTION_IDENTIFER>> : ("<<" <<ACTION_PARAMETERS>> ">>")? "(" <<ACTION_BODY>> ")"
+<<ACTION_CONFIG>>               := <<ACTION_IDENTIFER>> ("<<" <<ACTION_PARAMETERS>> ">>")? "(" <<ACTION_BODY>> ")"
 <<ACTION_IDENTIFER>>            := <<IDENTIFIER>>
 <<ACTION_PARAMETERS>>           := <<ACTION_BASIC_PARAMETERS>> | <<ACTION_SOURCE_PARAMETERS>>
 <<ACTION_BASIC_PARAMETERS>>     := {<<ACTION_PARAMETER>> ","}*

@@ -331,6 +331,7 @@ item_decl :
     plants_decls 
     | observer_decls
     | controllers_decls
+    | action_decls
     ;
 
 /* Plants */
@@ -433,6 +434,48 @@ controller_config :
     MONITOR {
         // FIXME: create a "debug" function and make it work right
         printf("MONITOR Controller.\n");
+    }
+    ;
+
+/* Actions */
+
+action_decls :
+    ACTIONS COLON LEFT_BRACKET
+    action_configs
+    RIGHT_BRACKET
+    | /* nothing */
+    ;
+
+action_configs :
+    action_config COMMA action_configs
+    | action_config /* single config */
+    | /* empty body */
+    ;
+
+action_config :
+    IDENTIFIER {
+        // FIXME: create a "debug" function and make it work right
+        printf("Action name: %s\n", $1);
+    }
+    DOUBLE_LANGLE
+    action_attributes
+    DOUBLE_RANGLE
+    LEFT_PARENTHESE
+    action_body
+    RIGHT_PARENTHESE
+    ;
+
+action_attributes :
+    IDENTIFIER {
+        // FIXME: create a "debug" function and make it work right
+        printf("Action attributes: %s\n", $1);
+    }
+    ;
+
+action_body :
+    IDENTIFIER {
+        // FIXME: create a "debug" function and make it work right
+        printf("Action body: %s\n", $1);
     }
     ;
 

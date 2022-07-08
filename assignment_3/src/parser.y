@@ -309,7 +309,7 @@ extern FILE* yyin;
 program :
     MODULE COLON LEFT_BRACKET
     IDENTIFIER {
-        // TODO: create a "debug" function and make it work right
+        // FIXME: create a "debug" function and make it work right
         printf("Module name: %s\n", $4);
         // TODO: add to python skeleton
     }
@@ -334,7 +334,7 @@ plant_configs :
 
 plant_config :
     IDENTIFIER {
-        // TODO: create a "debug" function and make it work right
+        // FIXME: create a "debug" function and make it work right
         printf("Plant name: %s\n", $1);
     }
     DOUBLE_LANGLE
@@ -351,7 +351,7 @@ plant_body :
 
 attribute :
     IDENTIFIER  {
-        // TODO: create a "debug" function and make it work right
+        // FIXME: create a "debug" function and make it work right
         printf("Attribute key: %s\n", $1);
     }
     COLON

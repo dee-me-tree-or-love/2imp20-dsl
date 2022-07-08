@@ -40,8 +40,13 @@ run-parser-interactive run-parser: ${PARSER_OUT}
 
 # Run the test files against the parser
 run-tests: ${PARSER_OUT}
+	@mkdir -p .tmp
 	@echo "🎢 Brace yourself, running all tests now!"
-	@ls	test | xargs -I[] sh -c "echo '\n💡 Running []' ; cat test/[] | ${PARSER_OUT}"
+	@ls	test \
+		| xargs -I[] \
+			sh -c \
+				"echo '\n💡 Running []' ; cat test/[] | ${PARSER_OUT}" \
+		2>&1 | tee -a .tmp/test-run-`date +%s`.log
 
 # Clean build directory
 .PHONY: clean-bin

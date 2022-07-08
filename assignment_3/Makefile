@@ -100,15 +100,32 @@ clean-all: clean-bin clean-extras clean-tmp
 # Extra utilities
 ##############################################
 
+# Virtualenv availability target
+.venv: .venv/touchfile
+
+# Virtualenv setup target
+.venv/touchfile: requirements.txt
+	@[ -f ${.venv}/bin/activate ] \
+		&& echo "🦄 virtualenv exists." \
+		|| python3 -m venv .venv
+	. ./.venv/bin/activate; pip install mkdocs
+	touch ./.venv/touchfile
+
 # Serve local documentation website
 .PHONY: serve-docs
-serve-docs: mkdocs.yml
-	@echo "💡 Make sure you have `mkdocs` installed."
+serve-docs: mkdocs.yml .venv
+	@echo "💡 Make sure you have 'mkdocs' installed."
 	@echo "> See https://www.mkdocs.org/getting-started/ for more info"
-	mkdocs serve
+	. ./.venv/bin/activate; mkdocs serve
 
 # Build the docs site html pages
-build-docs: mkdocs.yml
-	@echo "💡 Make sure you have `mkdocs` installed."
+build-docs: mkdocs.yml .venv
+	@echo "💡 Make sure you have 'mkdocs' installed."
 	@echo "> See https://www.mkdocs.org/getting-started/ for more info"
-	mkdocs build
+	. ./.venv/bin/activate; mkdocs build
+
+# Clean .venv
+.PHONY: clean-venv
+clean-venv:
+	@echo "🧹 Cleaning the local virtual environment..."
+	rm -rf ./.venv

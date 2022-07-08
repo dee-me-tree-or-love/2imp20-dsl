@@ -104,6 +104,7 @@ serve-docs: mkdocs.yml
 	@echo "> See https://www.mkdocs.org/getting-started/ for more info"
 	mkdocs serve
 
+# Build the docs site html pages
 build-docs: mkdocs.yml
 	@echo "💡 Make sure you have `mkdocs` installed."
 	@echo "> See https://www.mkdocs.org/getting-started/ for more info"

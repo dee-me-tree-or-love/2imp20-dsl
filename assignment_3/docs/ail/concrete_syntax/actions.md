@@ -100,10 +100,10 @@ total_age = my_plant.age + 30;
                                     | <<ACTION_EXPRESSION>>
                                     | <<MAPPER_EXPRESSION>>
                                     | <<TMPL_STATEMENT_EXPRESSION>>
-<<ACTION_EXPRESSION>>           := <<ACTION_IDENTIFIER>> ": {" {<<STATEMENT_EXPRESSION>> ","}* "}"
+<<ACTION_EXPRESSION>>           := <<ACTION_IDENTIFIER>> ": {" {<<CORE_EXPRESSION>> ","}* "}"
 <<MAPPER_EXPRESSION>>           := <<UNIT_EXPRESSION>> <<MAPPER>> <<MAPPER_CLAUSE>>
-<<MAPPER_CLAUSE>>               := "{" {<<IDENTIFIER>> ","}* "|" <<STATEMENT_EXPRESSION>> "}"
-<<TMPL_STATEMENT_EXPRESSION>>   := "*" <<OPERATOR>> <<VALUE_SPEC>>
+<<MAPPER_CLAUSE>>               := "{" {<<IDENTIFIER>> ","}* "|" <<CORE_EXPRESSION>> "}"
+<<CORE_EXPRESSION>>   := "*" <<OPERATOR>> <<VALUE_SPEC>>
 <<VALUE_SPEC>>                  := <<VALUE>>
                                     | <<IDENTIFIER>>
 <<OPERATOR>>                    := "+" | "-" | "*" | "/" | "%" | "^" | "++" | "==" | "!=" | "~~" | "and" | "or"

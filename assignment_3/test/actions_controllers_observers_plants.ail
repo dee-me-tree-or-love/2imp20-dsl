@@ -15,7 +15,9 @@ Plants : {
 }
 
 Actions : {
-    test_action <<fooooo>> (bar),
+    notify <<%src, foo>> (
+        bar
+    )
 }
 
 Observers : {

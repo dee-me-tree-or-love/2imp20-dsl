@@ -114,6 +114,11 @@ MONITOR     {return MONITOR;}
 
 {identifier}    {return IDENTIFIER;}
 
+    /* Reserved identifiers */
+    /* ~~~~~~~~~~~~~~~~~~~~ */
+
+"%src"          {return SRC_IDENTIFIER;}
+
     /* Special characters */
     /* ~~~~~~~~~~~~~~~~~~ */
 

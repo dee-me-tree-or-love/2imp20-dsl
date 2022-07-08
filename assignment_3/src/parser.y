@@ -223,6 +223,7 @@ extern FILE* yyin;
 %token PROTOCOL
 
 %token IDENTIFIER
+%token SRC_IDENTIFIER
 
 %token NIL
 %token UNIT
@@ -286,7 +287,9 @@ extern FILE* yyin;
     char istr[100];
 }
 
+/* FIXME: extend with the remaining "values" */
 %type <istr> IDENTIFIER
+%type <istr> SRC_IDENTIFIER
 %type <ival> REAL_NUMBER
 %type <ival> NATURAL_NUMBER
 %type <ival> UNIT_NUMBER
@@ -340,7 +343,6 @@ plants_decls :
     PLANTS COLON LEFT_BRACKET
     plant_configs
     RIGHT_BRACKET
-    | /* nothing */
     ;
 
 plant_configs :
@@ -371,7 +373,6 @@ observer_decls :
     OBSERVERS COLON LEFT_BRACKET
     observer_configs
     RIGHT_BRACKET
-    | /* nothing */
     ;
 
 observer_configs :
@@ -421,7 +422,6 @@ controllers_decls :
     CONTROLLERS COLON LEFT_BRACKET
     controller_configs
     RIGHT_BRACKET
-    | /* nothing */
     ;
 
 controller_configs :
@@ -443,7 +443,6 @@ action_decls :
     ACTIONS COLON LEFT_BRACKET
     action_configs
     RIGHT_BRACKET
-    | /* nothing */
     ;
 
 action_configs :
@@ -458,17 +457,27 @@ action_config :
         printf("Action name: %s\n", $1);
     }
     DOUBLE_LANGLE
-    action_attributes
+    action_parameters
     DOUBLE_RANGLE
     LEFT_PARENTHESE
     action_body
     RIGHT_PARENTHESE
     ;
 
-action_attributes :
-    IDENTIFIER {
+action_parameters :
+    action_parameter COMMA action_parameters
+    | action_parameter
+    | /* empty attributes */
+    ;
+
+action_parameter :
+    SRC_IDENTIFIER {
         // FIXME: create a "debug" function and make it work right
-        printf("Action attributes: %s\n", $1);
+        printf("Action attributes as src: %s\n", $1);
+    }
+    | IDENTIFIER {
+        // FIXME: create a "debug" function and make it work right
+        printf("Action attributes as identifier: %s\n", $1);
     }
     ;
 

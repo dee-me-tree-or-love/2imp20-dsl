@@ -1,10 +1,11 @@
 %{
 
-#include <symbol_table.h>
 #include <stdio.h>
 #include <string.h>	
 #include <stdlib.h>
 // #include "../chicken-5.3.0/chicken.h"
+// FIXME: this fails to compile
+// #include <symbol_table.h>
 
 // Explicit defintions of the YY API
 extern int yylex();

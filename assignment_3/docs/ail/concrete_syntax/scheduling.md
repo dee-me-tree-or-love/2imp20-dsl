@@ -1,30 +1,5 @@
 # Declaring Scheduled executions in AIL
 
-Example:
-
-```plaintext
-Controllers: {
-    MONITOR,
-}
-```
-
-## Top level controllers declaration
-
-```f#
-<<CONTROLLER_DECLARATIONS>>     := "Controllers : {" {<<CONTROLLER_CONFIG>> ","}* "}"
-<<CONTROLLER_CONFIG>>           := <<CONTROLLER_IDENTIFIER>>
-```
-
-### Built-in controllers
-
-> `MONITOR` controller is there to perform scheduled actions.  
-
-```f#
-<<CONTROLLER_IDENTIFIER>>       := "MONITOR"
-```
-
-## Action triggers for the controlers
-
 [`Actions`](./actions.md) can be scheduled for a [`Sensor`](./assets.md).
 
 Example
@@ -40,7 +15,7 @@ Example
     ...
 ```
 
-### CRON triggers
+## CRON triggers
 
 Examples:
 
@@ -50,7 +25,7 @@ Examples:
 */5 1,2,3 * * *
 ```
 
-#### Concrete syntax fron CRON triggers
+### Concrete syntax fron CRON triggers
 
 > Based on the [Vixie CRON specification](https://man7.org/linux/man-pages/man5/crontab.5.html).  
 > For `<<NATURAL_NUMBER>>` see [basics](./basics.md).  
@@ -135,7 +110,7 @@ Examples:
                                 | <<CRON_WEEK_DAY_RANGE>>
 ```
 
-### Fuzzy triggers
+## Fuzzy triggers
 
 Examples:
 

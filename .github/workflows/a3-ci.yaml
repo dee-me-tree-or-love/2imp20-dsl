@@ -25,9 +25,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CONFIG_FILE: assignment_3/mkdocs.yml
+      - name: prepare dependencies
+        run: |
+          pip3 install mkdocs
+
+      - name: build docs
+        run: |
+          cd assignment_3
+          mkdocs build
+
+      # TODO: temporary disabled until we set up a public repository
+      # - name: Deploy docs
+      #   uses: mhausenblas/mkdocs-deploy-gh-pages@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     CONFIG_FILE: assignment_3/mkdocs.yml
   

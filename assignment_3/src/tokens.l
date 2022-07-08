@@ -63,6 +63,7 @@ collection      '[' {value} ']'
     /* Language expressions */
     /* ~~~~~~~~~~~~~~~~~~~~ */
 
+"="         {return EQUALS;}
 "+"         {return PLUS;}
 "-"         {return MINUS;}
 "*"         {return MULTIPLY;}

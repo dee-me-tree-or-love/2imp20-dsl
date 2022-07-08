@@ -13,5 +13,8 @@
     {
       "path": "assignment_3"
     }
-  ]
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "assignment_3"
+  }
 }

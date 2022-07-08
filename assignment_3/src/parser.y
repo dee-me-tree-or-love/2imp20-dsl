@@ -330,6 +330,7 @@ module_body :
 item_decl :
     plants_decls 
     | observer_decls
+    | controllers_decls
     ;
 
 /* Plants */
@@ -411,6 +412,28 @@ observer_email :
 
 observer_url :
     IDENTIFIER PROTOCOL observer_misc
+    ;
+
+/* Controllers */
+
+controllers_decls :
+    CONTROLLERS COLON LEFT_BRACKET
+    controller_configs
+    RIGHT_BRACKET
+    | /* nothing */
+    ;
+
+controller_configs :
+    controller_config COMMA controller_configs
+    | controller_config /* single plant config */
+    | /* empty body */
+    ;
+
+controller_config :
+    MONITOR {
+        // FIXME: create a "debug" function and make it work right
+        printf("MONITOR Controller.\n");
+    }
     ;
 
 /* Generic attribute syntax */

@@ -316,20 +316,20 @@ expressions :
     ;
 
 expression_line :
-    expression_core
+    expression
     | assignment_expression
     | if_then_else_expression
-    | value_spec
+    | unit_expression
     ;
 
-expression_core :
+expression :
     LEFT_PARENTHESE expression_statement RIGHT_PARENTHESE
     | expression_statement
     ;
 
 expression_statement :
-    value_spec operator expression_core
-    | value_spec
+    unit_expression operator expression
+    | unit_expression
     ;
 
 assignment_expression :
@@ -337,21 +337,45 @@ assignment_expression :
         printf("Got a new identifier: %s\n", $1);
     }
     EQUALS
-    expression_core
+    expression
     ;
 
 if_then_else_expression :
-    IF expression_core
+    IF expression
     MEETS
     template_statement_expression
     THEN_DO
-    expression_core
+    expression
     ELSE_DO
-    expression_core
+    expression
     ;
 
 template_statement_expression :
-    MULTIPLY operator value_spec
+    MULTIPLY operator unit_expression
+    ;
+
+unit_expression :
+    value_spec {
+        printf("Got a value spec.\n");
+    }
+    | action_expression {
+        printf("Got an action expression.\n");
+    }
+    /* | mapper_expression */
+    ;
+
+action_expression :
+    IDENTIFIER {
+        printf("Got a new identifier: %s\n", $1);
+    }
+    COLON LEFT_BRACKET
+    action_expression_config
+    RIGHT_BRACKET
+    ;
+
+action_expression_config :
+    expression COMMA action_expression_config
+    | expression
     ;
 
 operator :

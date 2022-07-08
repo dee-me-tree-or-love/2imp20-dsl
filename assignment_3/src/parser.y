@@ -213,7 +213,7 @@ observer_config :
         addSymbol($1, observer);
     }
     DOUBLE_LANGLE
-    observer_body {addObserver($1, $4); /*printf("## %s \n****************n\n", $4)*/}
+    observer_body {addObserver($1, $4);}
     DOUBLE_RANGLE
     ;
 

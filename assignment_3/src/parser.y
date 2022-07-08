@@ -213,8 +213,7 @@ observer_config :
         addSymbol($1, observer);
     }
     DOUBLE_LANGLE
-    IDENTIFIER{
-        addObserver($1, $4);}
+    observer_body {addObserver($1, $4);}
     DOUBLE_RANGLE
     ;
 

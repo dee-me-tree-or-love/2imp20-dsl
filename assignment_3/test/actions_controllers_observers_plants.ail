@@ -24,6 +24,7 @@ Actions : {
         if foo meets * > 30 then do (alpha) else do (beta);
         if foo meets * > bar.qoo then do alpha else do (beta);
         notify : {bar};
+        bars @> {b | b + 1 };
     )
 }
 

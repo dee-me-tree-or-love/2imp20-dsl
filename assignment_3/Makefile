@@ -10,7 +10,7 @@ CHICKEN_DIST_DIR=./chicken-5.3.0
 INCLUDES=-I${LIB_DIR}
 EXTRA_INCLUDES=-I${CHICKEN_DIST_DIR}
 
-ifeq ($(TEST_RUNNER_ID), 1)
+ifeq ($(TEST_RUNNER_FIXED_ID), 1)
 	TEST_OUTPUT=${TMP_DIR}/test-run-fixed.log
 else
 	TEST_OUTPUT=${TMP_DIR}/test-run-`date +%s`.log

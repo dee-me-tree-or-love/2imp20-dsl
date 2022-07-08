@@ -62,7 +62,7 @@ extern FILE* yyin;
 %token TRANSFER
 %token AT
 %token UNDERSCORE
-%token LINE
+%token VERTICAL_LINE
 %token DEEP_EQUAL 
 %token NOT_EQUAL
 %token APPROX_MATCH
@@ -135,7 +135,8 @@ extern FILE* yyin;
 program :
     MODULE COLON LEFT_BRACKET
     IDENTIFIER {
-        printf("Module name:%s\n", id);
+        // FIXME: id is undeclared
+        // printf("Module name:%s\n", id);
 
         //Symbol
         addSymbol($4, module);
@@ -210,6 +211,12 @@ observer_config :
         printf("Observer name: %s\n", $1);
         //Symbol
         addSymbol($1, observer);
+<<<<<<< HEAD
+=======
+        // FIXME: this fails with
+        //        `src/parser.y:208.25-26: integer out of range: `$4'`
+        // addObserver($1, $4);
+>>>>>>> 70e11c629ce4e190618268cbb454a526723ea79c
     }
     DOUBLE_LANGLE
     IDENTIFIER{
@@ -370,7 +377,9 @@ unit_expression :
     | action_expression {
         printf("Got an action expression.\n");
     }
-    /* | mapper_expression */
+    | mapper_expression {
+        printf("Got a mapper expression.\n");
+    }
     ;
 
 action_expression :
@@ -387,15 +396,39 @@ action_expression_config :
     | expression
     ;
 
+/* FIXME: this is bad, because we have left recursion. */
+/* FIXME: the expression syntax needs to be reconsidered */
+mapper_expression :
+    unit_expression mapper mapper_clause
+    ;
+
+mapper_clause :
+    LEFT_BRACKET
+    mapper_parameters
+    VERTICAL_LINE
+    expression
+    RIGHT_BRACKET
+    ;
+
+mapper_parameters :
+    mapper_identifier COMMA mapper_parameters
+    | mapper_identifier
+    ;
+
+mapper_identifier :
+    IDENTIFIER
+    | UNDERSCORE
+    ;
+
+mapper :
+    MAP | REDUCE | FILTER
+    ;
+
 operator :
     PLUS | MINUS | MULTIPLY | DIVIDE | PERCENT | POWER | CONCAT
     | NOT_EQUAL | DEEP_EQUAL | APPROX_MATCH
     | LESS | GREATER | LESS_EQUAL | GREATER_EQUAL
     | AND | OR
-    ;
-
-mapper :
-    MAP | REDUCE | FILTER
     ;
 
 /* Generic attribute syntax */

@@ -79,7 +79,7 @@ collection      '[' {value} ']'
 "$"         {return TRANSFER;} /* this is not supported yet */
 "@"         {return AT;}
 "_"         {return UNDERSCORE;}
-"|"         {return LINE;}
+"|"         {return VERTICAL_LINE;}
 "=="        {return DEEP_EQUAL;} 
 "!="        {return NOT_EQUAL;}
 "~~"        {return APPROX_MATCH;}

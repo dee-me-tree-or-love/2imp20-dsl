@@ -15,8 +15,24 @@ jobs:
 
       - name: Setup dependencies
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          sudo apt update
+          sudo apt install build-essential flex bison python3
+          which cc
+          which flex
+          which bison
+
+      - name: Build
+        run: |
+          export TEST_RUNNER_FIXED_ID=1
+          cd assignment_3
+          make all-and-test
+
+      - name: 'Upload test output'
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-output
+          path: assignment_3/.tmp/test-run-fixed.log
+          retention-days: 5
 
   # Build the docs and deploy
   docs:
@@ -34,7 +50,7 @@ jobs:
           cd assignment_3
           mkdocs build
 
-      - name: 'Upload Artifact'
+      - name: 'Upload docs site'
         uses: actions/upload-artifact@v3
         with:
           name: docs-site

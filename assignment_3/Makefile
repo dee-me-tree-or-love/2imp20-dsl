@@ -45,6 +45,7 @@ all: chicken-5.3.0/chicken.h tokenizer parser
 	cc	\
 		${BUILD_DIR}/parser.tab.c \
 		${BUILD_DIR}/lex.yy.c -ll \
+		-I./lib \
 		-o ${PARSER_OUT}
 
 # Run the parser interactively

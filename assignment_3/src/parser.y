@@ -4,8 +4,8 @@
 #include <string.h>	
 #include <stdlib.h>
 // #include "../chicken-5.3.0/chicken.h"
-// #include "../api/symbol_table.h"
-#include "../api/python_builder.h"
+#include "../lib/symbol_table.h"
+#include "../lib/python_builder.h"
 
 // Explicit defintions of the YY API
 extern int yylex();
@@ -292,7 +292,7 @@ action_parameter :
         // FIXME: create a "debug" function and make it work right
         printf("Action attributes as identifier: %s\n", $1);
     }
-    /* TODO: add support for optionally collection parameters */
+    /* TODO: add support for optional collection parameters */
     ;
 
 action_body :

@@ -34,7 +34,7 @@ True
 
 ```f#
 <<NIL>>             := "{}"
-<<UNIT>>            := ([w/] | <<NIL>>)
+<<UNIT>>            := ((\w)+ | <<NIL>>)
 <<BOOLEAN_TRUE>>    := "True"
 <<BOOLEAN_FALSE>>   := "False"
 <<BOOLEAN>>         := <<BOOLEAN_FALSE>> | <<BOOLEAN_TRUE>>
@@ -67,7 +67,7 @@ my_plant.my_water_level
 > For `<<VALUE>>`, see [values](#values).  
 
 ```f#
-<<IDENTIFIER>>          := (\w)+
+<<IDENTIFIER>>          := (\w)(\w|"-"|"_")+
 <<ATTRIBUTE>>           := <<IDENTIFIER>> ":" (<<VALUE>> | <<IDENTIFIER>>)
 <<ATTRIBUTE_ACCESS>>    := <<IDENTIFIER>> "." <<ATTRIBUTE_ACCESS>>
                             | <<IDENTIFIER>> "." <<IDENTIFIER>>

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>	
 #include <stdlib.h>
-#include "../chicken-5.3.0/chicken.h"
+// #include "../chicken-5.3.0/chicken.h"
 
 // Explicit defintions of the YY API
 extern int yylex();
@@ -537,9 +537,9 @@ int main() {
     /* yyin = stdin; */
 
     // TODO: remove this demo CHICKEN binding.
-    C_word x;
-    CHICKEN_run(CHICKEN_default_toplevel);
-    CHICKEN_eval_string("(print \"hello from CHICKEN\")", &x);
+    /* C_word x; */
+    /* CHICKEN_run(CHICKEN_default_toplevel); */
+    /* CHICKEN_eval_string("(print \"hello from CHICKEN\")", &x); */
 
     // TODO: adjust this to use a file input in the future
     yyparse();

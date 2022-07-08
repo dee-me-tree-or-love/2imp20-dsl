@@ -14,6 +14,7 @@ INCLUDES=-I./chicken-5.3.0 -lchicken
 ##############################################
 
 # CHICKEN language libraries
+# FIXME: without having chicken installed, it fails
 ${CHICKEN_DIST_DIR}/chicken.h: chicken-5.3.0.tar.gz
 	@echo "🥚 Getting CHICKEN ready..."
 	@[ -f ${CHICKEN_DIST_DIR}/chicken.h ] \
@@ -39,7 +40,6 @@ all: chicken-5.3.0/chicken.h tokenizer parser
 	cc	\
 		${BUILD_DIR}/parser.tab.c \
 		${BUILD_DIR}/lex.yy.c -ll \
-		${INCLUDES} \
 		-o ${PARSER_OUT}
 
 # Run the parser interactively

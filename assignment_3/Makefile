@@ -5,8 +5,10 @@ PARSER_OUT=${BUILD_DIR}/parser.out
 TMP_DIR=./.tmp
 
 # Extra dependencies
+LIB_DIR=./lib
 CHICKEN_DIST_DIR=./chicken-5.3.0
-INCLUDES=-I./chicken-5.3.0 -lchicken
+INCLUDES=-I${LIB_DIR}
+EXTRA_INCLUDES=-I${CHICKEN_DIST_DIR}
 
 ifeq ($(CI_RUN), 1)
 	TEST_OUTPUT=${TMP_DIR}/test-run-ci.log
@@ -45,7 +47,8 @@ all: chicken-5.3.0/chicken.h tokenizer parser
 	cc	\
 		${BUILD_DIR}/parser.tab.c \
 		${BUILD_DIR}/lex.yy.c -ll \
-		-I./lib \
+		${INCLUDES} \
+		${EXTRA_INCLUDES} \
 		-o ${PARSER_OUT}
 
 # Run the parser interactively

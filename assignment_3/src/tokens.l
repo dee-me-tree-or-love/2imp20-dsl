@@ -21,7 +21,9 @@ natural_number  {digit}+
 real_number     ("-")?{natural_number}("."{natural_number})?
 unit_number     {real_number}" "{unit}
 string          "\"".*"\""
-boolean         "True"|"False"
+boolean_true    "True"
+boolean_false   "False"
+boolean         {boolean_true}|{boolean_false}
 value           {nil}|{boolean}|{real_number}|{unit_number}|{string}
 collection      '[' {value} ']'
 
@@ -50,9 +52,8 @@ collection      '[' {value} ']'
     /* ~~~~~~ */
 {nil}               {return NIL;}
 {unit}              {sscanf("unit","%s",&yylval); return UNIT;}
-"True"              {sscanf("1","%d",&yylval); return BOOLEAN;}
-"False"             {sscanf("0","%d",&yylval); return BOOLEAN;}
-/* {boolean}           {return BOOLEAN;} */
+{boolean_true}      {sscanf("1","%d",&yylval); return BOOLEAN_TRUE;}
+{boolean_false}     {sscanf("0","%d",&yylval); return BOOLEAN_FALSE;}
 {natural_number}    {sscanf(yytext,"%d",&yylval); return NATURAL_NUMBER;}
 {real_number}       {sscanf("real_number","%s",&yylval); return REAL_NUMBER;}
 {unit_number}       {sscanf("unit_number","%s",&yylval); return UNIT_NUMBER;}

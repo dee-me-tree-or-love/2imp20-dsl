@@ -37,7 +37,8 @@ extern FILE* yyin;
 
 %token NIL
 %token UNIT
-%token BOOLEAN
+%token BOOLEAN_TRUE
+%token BOOLEAN_FALSE
 %token NATURAL_NUMBER
 %token REAL_NUMBER
 %token UNIT_NUMBER
@@ -103,7 +104,8 @@ extern FILE* yyin;
 %type <ival> REAL_NUMBER
 %type <ival> NATURAL_NUMBER
 %type <ival> UNIT_NUMBER
-%type <ival> BOOLEAN
+%type <ival> BOOLEAN_FALSE
+%type <ival> BOOLEAN_TRUE
 %type <istr> STRING
 %type <ival> COLLECTION
 
@@ -296,12 +298,17 @@ action_parameter :
     ;
 
 action_body :
-    /* TODO: fix and support the regular statement syntax */
-    IDENTIFIER {
-        // FIXME: create a "debug" function and make it work right
-        printf("Action body: %s\n", $1);
-    }
+    expressions
     ;
+
+expressions :
+    expression SEMICOLON expressions
+    | expression
+    | /* none */
+    ;
+
+expression :
+    
 
 /* Generic attribute syntax */
 
@@ -324,7 +331,8 @@ value_spec :
 value :
     NIL
     | UNIT
-    | BOOLEAN
+    | BOOLEAN_TRUE
+    | BOOLEAN_FALSE
     /* FIXME: unit numbers seem not to be working yet */
     | UNIT_NUMBER
     | REAL_NUMBER

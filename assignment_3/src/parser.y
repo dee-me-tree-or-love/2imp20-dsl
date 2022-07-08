@@ -126,7 +126,10 @@ program :
     MODULE COLON LEFT_BRACKET
     IDENTIFIER {
         // FIXME: create a "debug" function and make it work right
-        printf("Module name: %s\n", $4);
+        char id[10];
+        sscanf($4,"%s",id);
+        printf("Module name:%s\n", id);
+        // printf($4);
         // TODO: add to python skeleton
     }
     RIGHT_BRACKET

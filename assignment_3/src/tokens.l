@@ -48,15 +48,16 @@ collection      '[' {value} ']'
 
     /* Values */
     /* ~~~~~~ */
-
 {nil}               {return NIL;}
-{unit}              {return UNIT;}
-{boolean}           {return BOOLEAN;}
-{natural_number}    {return NATURAL_NUMBER;}
-{real_number}       {return REAL_NUMBER;}
-{unit_number}       {return UNIT_NUMBER;}
-{string}            {return STRING;}
-{collection}        {return COLLECTION;}
+{unit}              {sscanf("unit","%s",&yylval); return UNIT;}
+"True"              {sscanf("1","%d",&yylval); return BOOLEAN;}
+"False"             {sscanf("0","%d",&yylval); return BOOLEAN;}
+/* {boolean}           {return BOOLEAN;} */
+{natural_number}    {sscanf(yytext,"%d",&yylval); return NATURAL_NUMBER;}
+{real_number}       {sscanf("real_number","%s",&yylval); return REAL_NUMBER;}
+{unit_number}       {sscanf("unit_number","%s",&yylval); return UNIT_NUMBER;}
+{string}            {sscanf("string","%s",&yylval); return STRING;}
+{collection}        {sscanf("collection","%s",&yylval); return COLLECTION;}
 
     /* Language expressions */
     /* ~~~~~~~~~~~~~~~~~~~~ */
@@ -112,7 +113,7 @@ MONITOR     {return MONITOR;}
     /* Identifier */
     /* ~~~~~~~~~~ */
 
-{identifier}    {return IDENTIFIER;}
+{identifier}    {sscanf(yytext,"%s",&yylval); return IDENTIFIER;}
 
     /* Reserved identifiers */
     /* ~~~~~~~~~~~~~~~~~~~~ */

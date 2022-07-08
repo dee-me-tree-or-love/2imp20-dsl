@@ -4,7 +4,7 @@ Example:
 
 ```plaintext
 Assets : {
-    strawberry_plants : Plantation<Strawberry> : {
+    strawberry_plants : Plantation <<Strawberry>> : {
         desc: "Strawberry fruits along the South border",
         area: 300 m^2,
         plantation_date: "2022-03-02",
@@ -58,7 +58,7 @@ Assets : {
 ```f#
 <<ASSET_CONFIG>>        := <<ASSET_IDENTIFIER>> ":" <<ASSET_TYPE>> ": {" <<ASSET_ATTRIBUTES>> "}"
 <<ASSET_IDENTIFIER>>    := <<IDENTIFIER>>
-<<ASSET_TYPE>>          := "WaterSource" | "Plantation<" <<PLANT_IDENTIFIER>> ">"
+<<ASSET_TYPE>>          := "WaterSource" | "Plantation" "<<" <<PLANT_IDENTIFIER>> ">>"
 <<ASSET_ATTRIBUTES>>    := {<<ASSET_ATTRIBUTE>> ","}*
 <<ASSET_ATTRIBUTE>>     := <<ATTRIBUTE>> | "sensors : {" <<SENSOR_CONFIG>> "}"
 <<SENSOR_CONFIG>>       := <<SENSOR_IDENTIFIER>> ":" <<SENSOR_TYPE>> ": {" <<SENSOR_ATTRIBUTES>> "}"
@@ -78,7 +78,7 @@ Assets : {
     ^^ desc: “Strawberry fruits along the South border”.
     ^^ area: 300 m^2.
     ^^ plantation_date: 2022-03-02.
-    strawberry_plants : Plantation<Strawberry> : {
+    strawberry_plants : Plantation <<Strawberry>> : {
         sensors : {
             water_level : Sensor : {
                 "daily 9 am",

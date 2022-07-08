@@ -61,11 +61,11 @@ Plants : {
     // This is what `Plantation`’s (see below) need.
     // In fact, this makes `Strawberry` a user-defined construct.
     // However, it includes all "basic" properties of a `Plant`.
-    Strawberry <
+    Strawberry <<
         water_use : 5 mm,
         min_temp  : 20 C,
         max_water : 100 mm,
-    >
+    >>
 }
 
 // Each action is a parameterized behavior description:
@@ -73,18 +73,18 @@ Plants : {
 //    <name> - is a basic type parameter
 //    <name>* - is wrapped in a Collection if a Singular value is passed
 Actions : {
-    notify : <%src, channels*> (
+    notify : <<%src, channels*>> (
         channels @> {c | send_msg : {c, %src.metadata}}
     ),
-    check_water : <%src, condition, job, fail_job> (
+    check_water : <<%src, condition, job, fail_job>> (
         if %src.water meets condition then do job else do fail_job
     ),
-    check_avg_temp : <%src, condition, job> (
+    check_avg_temp : <<%src, condition, job>> (
         size = %src.items $> {a, _ | a + 1};
         total = %src.items $> {a, i | a + i.temp};
         if total/size meets condition then do job;
     ),
-    send_report : <%src, channels*, name_match> (
+    send_report : <<%src, channels*, name_match>> (
         channels  #> {c | c ~~ "abie"}} @> {c, send_msg : {c, %src.metadata}}
     )
 }
@@ -92,7 +92,7 @@ Actions : {
 // These are all the physical assets of the farm.
 // For now, it includes only `Plantation`’s and `WaterSource`’s.
 Assets : {
-    strawberry_plants : Plantation<Strawberry> : {
+    strawberry_plants : Plantation <<Strawberry>> : {
         desc: "Strawberry fruits along the South border",
         area: 300 m^2,
         plantation_date: "2022-03-02",
@@ -131,10 +131,10 @@ Assets : {
 // For now, it only represents a destination text.
 // In the future, it can be extended to "event-bus" communication.
 Observers : {
-    support<support@farm.cool>, 
-    admin<admin@farm.cool>, 
-    rss<farm.feed.rss>,
-    abie<abie@service.farm.cool>
+    support <<support@farm.cool>>, 
+    admin <<admin@farm.cool>>, 
+    rss <<farm.feed.rss>>,
+    abie <<abie@service.farm.cool>>
 }
 
 // Used to define which "execution" scenarios have to be active.

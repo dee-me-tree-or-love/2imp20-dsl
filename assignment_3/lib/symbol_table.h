@@ -167,12 +167,16 @@ if(!strcmp("",label)) return;
             sscanf(label,"%s", globalSymbolTable[globalSymbolCount].label);
             globalSymbolTable[globalSymbolCount].typeValue = typeValue; 
             globalSymbolCount++;
+        } else {
+            printf("\"%s\" Error: The label has been used:line%d\n", label, lineCount+1);
         }
     }
     else {
         if(lookup(localSymbolTable,label,localSymbolCount) == -1) {
             sscanf(label, "%s", localSymbolTable[localSymbolCount].label);
             localSymbolCount++;
+        } else {
+            printf("\"%s\" Error: The label has been used:line%d\n", label, lineCount+1);
         }
     }	
 }

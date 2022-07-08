@@ -129,9 +129,6 @@ extern FILE* yyin;
 program :
     MODULE COLON LEFT_BRACKET
     IDENTIFIER {
-        
-        char id[10];
-        sscanf($4,"%s",id);
         printf("Module name:%s\n", id);
 
         //Symbol
@@ -172,8 +169,9 @@ plant_configs :
 
 plant_config :
     IDENTIFIER {
-        // FIXME: create a "debug" function and make it work right
         printf("Plant name: %s\n", $1);
+        //Symbol
+        addSymbol($1, plant);
     }
     DOUBLE_LANGLE
     plant_body
@@ -204,6 +202,8 @@ observer_config :
     IDENTIFIER {
         // FIXME: create a "debug" function and make it work right
         printf("Observer name: %s\n", $1);
+        //Symbol
+        addSymbol($1, observer);
     }
     DOUBLE_LANGLE
     observer_body
@@ -274,6 +274,8 @@ action_config :
     IDENTIFIER {
         // FIXME: create a "debug" function and make it work right
         printf("Action name: %s\n", $1);
+        //Symbol
+        addSymbol($1, action);
     }
     DOUBLE_LANGLE
     action_parameters

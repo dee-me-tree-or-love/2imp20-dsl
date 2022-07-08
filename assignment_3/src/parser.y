@@ -306,6 +306,8 @@ extern FILE* yyin;
 
 %%
 
+/* Module start */
+
 program :
     MODULE COLON LEFT_BRACKET
     IDENTIFIER {
@@ -317,7 +319,11 @@ program :
     module_body
     ;
 
+/* Contents of the module */
+
 module_body : plants_decls;
+
+/* Plants */
 
 plants_decls :
     PLANTS COLON LEFT_BRACKET

@@ -211,12 +211,6 @@ observer_config :
         printf("Observer name: %s\n", $1);
         //Symbol
         addSymbol($1, observer);
-<<<<<<< HEAD
-=======
-        // FIXME: this fails with
-        //        `src/parser.y:208.25-26: integer out of range: `$4'`
-        // addObserver($1, $4);
->>>>>>> 70e11c629ce4e190618268cbb454a526723ea79c
     }
     DOUBLE_LANGLE
     IDENTIFIER{

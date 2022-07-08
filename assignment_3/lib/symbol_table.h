@@ -87,7 +87,7 @@ int observerCount = 0;
 int lookupObserver(struct ObserverTableStruct observerTable[],char compareString[],int observerCount) {
     for(int i = 0; i < observerCount; i++) {
         if(!strcmp(observerTable[i].label, compareString))
-            printf("\"%s\" Error:This observer label has been used:line%d\n", addr, lineCount+1);
+            printf("\"%s\" Error:This observer label has been used:line%d\n", compareString, lineCount+1);
             return i;
     }
     return -1;
@@ -95,7 +95,7 @@ int lookupObserver(struct ObserverTableStruct observerTable[],char compareString
 int lookupAddr(struct ObserverTableStruct observerTable[],char compareString[],int observerCount) {
     for(int i = 0; i < observerCount; i++) {
         if(!strcmp(observerTable[i].addr, compareString)) {
-            printf("\"%s\" Error:This addr has been used:line%d\n", addr, lineCount+1);
+            printf("\"%s\" Error:This addr has been used:line%d\n", compareString, lineCount+1);
             return i;
         }
     }
@@ -110,24 +110,11 @@ void addObserver(char label[], char addr[]) {
     }
 }
 
-<<<<<<< HEAD
 // used in asset
 void checkObservere(char label[])
 {
     if(lookupObserver(observerTable, label,observerCount)==-1)
         printf("\"%s\" Error:Unavailable observer:line%d\n", label, lineCount+1);
-=======
-void checkObserver(char label[]) {
-    for(int i = 0; i < observerCount - 1; i++) {
-        if(!strcmp(observerTable[i].addr, observerTable[i + 1].addr)) {
-            //error msg
-            // FIXME: void can not return
-            // return i;
-        }
-    }
-    // FIXME: void can not return
-    // return -1;
->>>>>>> 70e11c629ce4e190618268cbb454a526723ea79c
 }
 /* Observer table */
 

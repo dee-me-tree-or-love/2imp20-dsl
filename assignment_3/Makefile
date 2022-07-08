@@ -8,6 +8,11 @@ TMP_DIR=./.tmp
 CHICKEN_DIST_DIR=./chicken-5.3.0
 INCLUDES=-I./chicken-5.3.0 -lchicken
 
+
+##############################################
+# Parser development
+##############################################
+
 # CHICKEN language libraries
 ${CHICKEN_DIST_DIR}/chicken.h: chicken-5.3.0.tar.gz
 	@echo "🥚 Getting CHICKEN ready..."
@@ -48,6 +53,10 @@ run-tests: ${PARSER_OUT}
 			sh -c \
 				"echo '\n💡 Running []' ; cat test/[] | ${PARSER_OUT}" \
 		2>&1 | tee -a ${TMP_DIR}/test-run-`date +%s`.log
+
+# Handy command to build and test at once
+all-and-test: all run-tests
+	@echo "👌 Done."
 
 # Clean build directory
 .PHONY: clean-bin

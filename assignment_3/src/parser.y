@@ -334,7 +334,7 @@ plants_decls :
 
 plant_configs :
     plant_config COMMA plant_configs
-    | plant_config
+    | plant_config /* single plant config */
     | /* empty body */
     ;
 
@@ -350,6 +350,7 @@ plant_config :
 
 plant_body :
     attribute COMMA plant_body
+    | attribute
     | /* empty body */
     ;
 

@@ -213,7 +213,7 @@ observer_config :
         addSymbol($1, observer);
     }
     DOUBLE_LANGLE
-    observer_body {addObserver($1, $4);}
+    observer_body {addObserver($1, $4); printf("## %s \n****************n\n", $4)}
     DOUBLE_RANGLE
     ;
 
@@ -230,17 +230,34 @@ observer_body :
     ;
 
 observer_misc :
-    IDENTIFIER 
-    DOT observer_misc
-    | IDENTIFIER
+    IDENTIFIER DOT observer_misc {
+        char addr[100];
+        strcpy(addr, $1);
+        strcat(addr, ".");
+        strcat(addr, $3);
+        sscanf(addr, "%s", $$);
+    }
+    | IDENTIFIER {sscanf($1, "%s", $$);}
     ;
 
 observer_email :
-    observer_misc AT observer_misc
+    observer_misc AT observer_misc {
+        char addr[100];
+        strcpy(addr, $1);
+        strcat(addr, "@");
+        strcat(addr, $3);
+        sscanf(addr, "%s", $$);
+    }
     ;
 
 observer_url :
-    IDENTIFIER PROTOCOL observer_misc
+    IDENTIFIER PROTOCOL observer_misc {
+        char addr[100];
+        strcpy(addr, $1);
+        strcat(addr, "://");
+        strcat(addr, $3);
+        sscanf(addr, "%s", $$);
+    }
     ;
 
 /* Controllers */

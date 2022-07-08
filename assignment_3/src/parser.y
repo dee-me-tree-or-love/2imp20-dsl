@@ -112,6 +112,11 @@ extern FILE* yyin;
 %type <istr> STRING
 %type <ival> COLLECTION
 
+%type <istr> observer_body
+%type <istr> observer_misc
+%type <istr> observer_email
+%type <istr> observer_url
+
 %left OR
 %left AND
 %left LESS LESS_EQUAL DEEP_EQUAL GREATER_EQUAL GREATER NOT_EQUAL APPROX_MATCH
@@ -205,10 +210,10 @@ observer_config :
         printf("Observer name: %s\n", $1);
         //Symbol
         addSymbol($1, observer);
-        addObserver($1, $4);
     }
     DOUBLE_LANGLE
-    observer_body
+    IDENTIFIER{
+        addObserver($1, $4);}
     DOUBLE_RANGLE
     ;
 
@@ -225,7 +230,8 @@ observer_body :
     ;
 
 observer_misc :
-    IDENTIFIER DOT observer_misc
+    IDENTIFIER 
+    DOT observer_misc
     | IDENTIFIER
     ;
 

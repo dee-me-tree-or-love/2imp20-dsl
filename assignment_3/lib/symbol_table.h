@@ -72,7 +72,9 @@ void checkAction(char label[]) {
     if(lookupAction(actionTable, label, actionCount) == -1)
         printf("\"%s\" Error: The action is not defined:line%d\n", label, lineCount+1);
 }
-//Observer table
+
+/* Observer table */
+/*~~~~~~~~~~~~~~~~*/
 struct ObserverTableStruct {
     char label[100];
     char addr[100];
@@ -83,28 +85,37 @@ int observerCount = 0;
 int lookupObserver(struct ObserverTableStruct observerTable[],char compareString[],int observerCount) {
     for(int i = 0; i < observerCount; i++) {
         if(!strcmp(observerTable[i].label, compareString))
+            printf("\"%s\" Error:This observer label has been used:line%d\n", addr, lineCount+1);
             return i;
+    }
+    return -1;
+}
+int lookupAddr(struct ObserverTableStruct observerTable[],char compareString[],int observerCount) {
+    for(int i = 0; i < observerCount; i++) {
+        if(!strcmp(observerTable[i].addr, compareString)) {
+            printf("\"%s\" Error:This addr has been used:line%d\n", addr, lineCount+1);
+            return i;
+        }
     }
     return -1;
 }
 
 void addObserver(char label[], char addr[]) {
-    if(lookupObserver(observerTable, label, observerCount) == -1) {
+    if((lookupObserver(observerTable, label, observerCount) == -1) && (lookupObserver(observerTable, addr, observerCount) == -1)) {
         sscanf(label,"%s", observerTable[observerCount].label);
         sscanf(addr,"%s", observerTable[observerCount].addr);
         observerCount++;
     }
 }
 
-void checkObserver(char label[]) {
-    for(int i = 0; i < observerCount - 1; i++) {
-        if(!strcmp(observerTable[i].addr, observerTable[i + 1].addr)) {
-            //error msg
-            return i;
-        }
-    }
-    return -1;
+// used in asset
+void checkObservere(char label[])
+{
+    if(lookupObserver(observerTable, label,observerCount)==-1)
+        printf("\"%s\" Error:Unavailable observer:line%d\n", label, lineCount+1);
 }
+/* Observer table */
+
 
 //Cronjob table : used to stroe and check if cronjobs in assets exist
 struct CronjobTableStruct {

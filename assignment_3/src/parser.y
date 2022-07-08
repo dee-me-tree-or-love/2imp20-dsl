@@ -479,9 +479,11 @@ action_parameter :
         // FIXME: create a "debug" function and make it work right
         printf("Action attributes as identifier: %s\n", $1);
     }
+    /* TODO: add support for optionally collection parameters */
     ;
 
 action_body :
+    /* TODO: fix and support the regular statement syntax */
     IDENTIFIER {
         // FIXME: create a "debug" function and make it work right
         printf("Action body: %s\n", $1);

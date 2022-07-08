@@ -70,7 +70,6 @@ size;
 people = [ "Buzz", "Woody", "Mr. Potato Head" ];
 people @> {c | c #> {char | char != "o"} $> {a, char | a ++ char} };
 channels #> {c | c ~~ "abbie"} @> {c | send_msg : {c, %src.metadata}};
-* > 30;
 total_age = my_plant.age + 30;
 ```
 
@@ -84,26 +83,29 @@ total_age = my_plant.age + 30;
 <<LINE_EXPRESSION>>             := <<CORE_EXPRESSION>>
                                     | <<ASSIGNMENT_EXPRESSION>>
                                     | <<IF_THEN_ELSE_EXPRESSION>>
-                                    | <<TMPL_STATEMENT_EXPRESSION>>
                                     | <<UNIT_EXPRESSION>>
 <<CORE_EXPRESSION>>             := <<STATEMENT_EXPRESSION>> 
                                     | "(" <<STATEMENT_EXPRESSION>> ")"
 <<STATEMENT_EXPRESSION>>        := <<UNIT_EXPRESSION>> <<OPERATOR>> <<CORE_EXPRESSION>>
                                     | <<UNIT_EXPRESSION>>
 <<ASSIGNMENT_EXPRESSION>>       := <<IDENTIFIER>> "=" <<CORE_EXPRESSION>>
-<<UNIT_EXPRESSION>>             := <<IDENTIFIER>>
-                                    | <<ATTRIBUTE_ACCESS>>
-                                    | <<VALUE>>
-                                    | <<ACTION_EXPRESSION>>
-                                    | <<MAPPER_EXPRESSION>>
-<<IF_THEN_ELSE_EXPRESSION>>     := "if" <<UNIT_EXPRESSION>>
-                                    "meets" <<TMPL_STATEMENT_EXPRESSION>>
+<<IF_THEN_ELSE_EXPRESSION>>     := "if"
+                                    <<STATEMENT_EXPRESSION>>
+                                    "meets"
+                                    <<UNIT_EXPRESSION>>
                                     "then do" <<STATEMENT_EXPRESSION>>
                                     "else do" <<STATEMENT_EXPRESSION>>
-<<TMPL_STATEMENT_EXPRESSION>>   := "*" <<OPERATOR>> <<UNIT_EXPRESSION>>
+<<UNIT_EXPRESSION>>             := <<VALUE_SPEC>>
+                                    | <<ATTRIBUTE_ACCESS>>
+                                    | <<ACTION_EXPRESSION>>
+                                    | <<MAPPER_EXPRESSION>>
+                                    | <<TMPL_STATEMENT_EXPRESSION>>
 <<ACTION_EXPRESSION>>           := <<ACTION_IDENTIFIER>> ": {" {<<STATEMENT_EXPRESSION>> ","}* "}"
 <<MAPPER_EXPRESSION>>           := <<UNIT_EXPRESSION>> <<MAPPER>> <<MAPPER_CLAUSE>>
 <<MAPPER_CLAUSE>>               := "{" {<<IDENTIFIER>> ","}* "|" <<STATEMENT_EXPRESSION>> "}"
+<<TMPL_STATEMENT_EXPRESSION>>   := "*" <<OPERATOR>> <<VALUE_SPEC>>
+<<VALUE_SPEC>>                  := <<VALUE>>
+                                    | <<IDENTIFIER>>
 <<OPERATOR>>                    := "+" | "-" | "*" | "/" | "%" | "^" | "++" | "==" | "!=" | "~~" | "and" | "or"
 <<MAPPER>>                      := "@>" | "#>" | "$>"
 ```

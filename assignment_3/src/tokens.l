@@ -74,6 +74,7 @@ collection      '[' {value} ']'
 ">"         {return GREATER;}
 "<="        {return LESS_EQUAL;} 
 ">="        {return GREATER_EQUAL;}
+"++"        {return CONCAT;}
 
 "$"         {return TRANSFER;} /* this is not supported yet */
 "@"         {return AT;}
@@ -86,7 +87,7 @@ collection      '[' {value} ']'
 "or"        {return OR;}
 
 "$>"        {return REDUCE;}
-"@>"        {return DOACTION;}
+"@>"        {return MAP;}
 "#>"        {return FILTER;}
 
 "||"        {return ACTION_ALTERNATIVE;} /* this is not yet supported */
@@ -96,8 +97,8 @@ collection      '[' {value} ']'
 
 "if"        {return IF;}
 "meets"     {return MEETS;} 
-"then do"   {return THEN;}
-"else do"   {return ELSE;}
+"then do"   {return THEN_DO;}
+"else do"   {return ELSE_DO;}
 
     /* Language constructs */
     /* ~~~~~~~~~~~~~~~~~~~ */

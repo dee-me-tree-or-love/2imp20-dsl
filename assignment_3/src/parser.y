@@ -57,6 +57,7 @@ extern FILE* yyin;
 %token GREATER
 %token LESS_EQUAL 
 %token GREATER_EQUAL
+%token CONCAT
 
 %token TRANSFER
 %token AT
@@ -69,7 +70,7 @@ extern FILE* yyin;
 %token OR
 
 %token REDUCE
-%token DOACTION
+%token MAP
 %token FILTER
 
 %token ACTION_ALTERNATIVE
@@ -79,8 +80,8 @@ extern FILE* yyin;
 
 %token IF
 %token MEETS 
-%token THEN
-%token ELSE
+%token THEN_DO
+%token ELSE_DO
 
 %token MODULE
 %token PLANTS
@@ -179,8 +180,8 @@ plant_config :
     ;
 
 plant_body :
-    attribute COMMA plant_body
-    | attribute
+    attribute_spec COMMA plant_body
+    | attribute_spec
     | /* empty body */
     ;
 
@@ -318,45 +319,83 @@ expressions :
     ;
 
 expression_line :
-    expression_core
-    | expression_assignment
+    expression
+    | assignment_expression
+    | if_then_else_expression
+    | unit_expression
     ;
 
-expression_core :
+expression :
     LEFT_PARENTHESE expression_statement RIGHT_PARENTHESE
     | expression_statement
     ;
 
 expression_statement :
-    unit_expression operator expression_core
+    unit_expression operator expression
     | unit_expression
     ;
 
-expression_assignment :
+assignment_expression :
     IDENTIFIER {
         printf("Got a new identifier: %s\n", $1);
     }
     EQUALS
-    expression_core
+    expression
+    ;
+
+if_then_else_expression :
+    IF expression
+    MEETS
+    template_statement_expression
+    THEN_DO
+    expression
+    ELSE_DO
+    expression
+    ;
+
+template_statement_expression :
+    MULTIPLY operator unit_expression
     ;
 
 unit_expression :
-    /* TODO: fully implement this */
-    IDENTIFIER {
-        printf("Got a unit expression: %s\n", $1);
+    value_spec {
+        printf("Got a value spec.\n");
     }
+    | action_expression {
+        printf("Got an action expression.\n");
+    }
+    /* | mapper_expression */
+    ;
+
+action_expression :
+    IDENTIFIER {
+        printf("Got a new identifier: %s\n", $1);
+    }
+    COLON LEFT_BRACKET
+    action_expression_config
+    RIGHT_BRACKET
+    ;
+
+action_expression_config :
+    expression COMMA action_expression_config
+    | expression
     ;
 
 operator :
-    PLUS | MINUS | MULTIPLY
-    /* TODO: support all operators */
+    PLUS | MINUS | MULTIPLY | DIVIDE | PERCENT | POWER | CONCAT
+    | NOT_EQUAL | DEEP_EQUAL | APPROX_MATCH
+    | LESS | GREATER | LESS_EQUAL | GREATER_EQUAL
+    | AND | OR
+    ;
+
+mapper :
+    MAP | REDUCE | FILTER
     ;
 
 /* Generic attribute syntax */
 
-attribute :
-    IDENTIFIER  {
-        // FIXME: create a "debug" function and make it work right
+attribute_spec :
+    IDENTIFIER {
         printf("Attribute key: %s\n", $1);
     }
     COLON
@@ -366,8 +405,19 @@ attribute :
     ;
 
 value_spec :
-    IDENTIFIER
+    | attribute_or_identifier_access
     | value
+    ;
+
+attribute_or_identifier_access :
+    IDENTIFIER {
+        printf("Attribute parent: %s\n", $1);
+    }
+    DOT
+    attribute_or_identifier_access
+    | IDENTIFIER {
+        printf("Attribute or identifier access: %s\n", $1);
+    }
     ;
 
 value :

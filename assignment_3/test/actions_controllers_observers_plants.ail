@@ -19,6 +19,11 @@ Actions : {
         bar + foo;
         foo + bar;
         quu = foo + (bar + oof);
+        loo = foo.attr;
+        too = bar.attr.other;
+        if foo meets * > 30 then do (alpha) else do (beta);
+        if foo meets * > bar.qoo then do alpha else do (beta);
+        notify : {bar};
     )
 }
 

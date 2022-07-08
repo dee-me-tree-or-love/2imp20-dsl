@@ -2,6 +2,7 @@
 BUILD_DIR=./bin
 LEXER_OUT=${BUILD_DIR}/lexer.out
 PARSER_OUT=${BUILD_DIR}/parser.out
+TMP_DIR=./.tmp
 
 # Extra dependencies
 CHICKEN_DIST_DIR=./chicken-5.3.0
@@ -40,13 +41,13 @@ run-parser-interactive run-parser: ${PARSER_OUT}
 
 # Run the test files against the parser
 run-tests: ${PARSER_OUT}
-	@mkdir -p .tmp
+	@mkdir -p ${TMP_DIR}
 	@echo "🎢 Brace yourself, running all tests now!"
 	@ls	test \
 		| xargs -I[] \
 			sh -c \
 				"echo '\n💡 Running []' ; cat test/[] | ${PARSER_OUT}" \
-		2>&1 | tee -a .tmp/test-run-`date +%s`.log
+		2>&1 | tee -a ${TMP_DIR}/test-run-`date +%s`.log
 
 # Clean build directory
 .PHONY: clean-bin
@@ -59,6 +60,18 @@ clean-bin:
 clean-extras:
 	@echo "🧹 Cleaning all the extras..."
 	rm -rf ${CHICKEN_DIST_DIR}
+
+# Clean all local tmp files
+.PHONY: clean-tmp
+clean-tmp:
+	@echo "🧹 Cleaning all the local tmp files..."
+	rm -rf ${TMP_DIR}/*
+
+# Clean everything unnecessary
+.PHONY: clean-all
+clean-all: clean-bin clean-extras clean-tmp
+	@echo "✨ Done."
+
 
 ##############################################
 # Extra utilities

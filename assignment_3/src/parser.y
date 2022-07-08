@@ -130,7 +130,8 @@ extern FILE* yyin;
 program :
     MODULE COLON LEFT_BRACKET
     IDENTIFIER {
-        printf("Module name:%s\n", id);
+        // FIXME: id is undeclared
+        // printf("Module name:%s\n", id);
 
         //Symbol
         addSymbol($4, module);
@@ -205,7 +206,9 @@ observer_config :
         printf("Observer name: %s\n", $1);
         //Symbol
         addSymbol($1, observer);
-        addObserver($1, $4);
+        // FIXME: this fails with
+        //        `src/parser.y:208.25-26: integer out of range: `$4'`
+        // addObserver($1, $4);
     }
     DOUBLE_LANGLE
     observer_body

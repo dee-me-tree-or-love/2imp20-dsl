@@ -2,7 +2,9 @@
 #include <string.h>	
 #include <stdlib.h>
 
-extern int lineCount;
+// FIXME: this fails to compile
+// extern int lineCount;
+int lineCount;
 int typeCount=0;
 //unitnumber and collection typedef
 typedef struct unitnumber {
@@ -100,10 +102,12 @@ void checkObserver(char label[]) {
     for(int i = 0; i < observerCount - 1; i++) {
         if(!strcmp(observerTable[i].addr, observerTable[i + 1].addr)) {
             //error msg
-            return i;
+            // FIXME: void can not return
+            // return i;
         }
     }
-    return -1;
+    // FIXME: void can not return
+    // return -1;
 }
 
 //Cronjob table : used to stroe and check if cronjobs in assets exist
@@ -194,26 +198,27 @@ void checkall(char label[]) {
 // }
 
 void addSymbol(char label[], enum typeEnum typeValue) {
-if(!strcmp("",label)) return;
-    if(scope == global) {
-        if(lookup(globalSymbolTable, label, globalSymbolCount) == -1) {
-            sscanf(label,"%s", globalSymbolTable[globalSymbolCount].label);
-            globalSymbolTable[globalSymbolCount].typeValue = typeValue; 
-            globalSymbolCount++;
-        } else {
-            printf("\"%s\" Error: The label has been used:line%d\n", label, lineCount+1);
-            error = 1;
+    int error;
+    if(!strcmp("",label)) return;
+        if(scope == global) {
+            if(lookup(globalSymbolTable, label, globalSymbolCount) == -1) {
+                sscanf(label,"%s", globalSymbolTable[globalSymbolCount].label);
+                globalSymbolTable[globalSymbolCount].typeValue = typeValue; 
+                globalSymbolCount++;
+            } else {
+                printf("\"%s\" Error: The label has been used:line%d\n", label, lineCount+1);
+                error = 1;
+            }
         }
-    }
-    else {
-        if(lookup(localSymbolTable,label,localSymbolCount) == -1) {
-            sscanf(label, "%s", localSymbolTable[localSymbolCount].label);
-            localSymbolCount++;
-        } else {
-            printf("\"%s\" Error: The label has been used:line%d\n", label, lineCount+1);
-            error = 1;
-        }
-    }	
+        else {
+            if(lookup(localSymbolTable,label,localSymbolCount) == -1) {
+                sscanf(label, "%s", localSymbolTable[localSymbolCount].label);
+                localSymbolCount++;
+            } else {
+                printf("\"%s\" Error: The label has been used:line%d\n", label, lineCount+1);
+                error = 1;
+            }
+        }	
 }
 //TODO: add collection, unit number
 //TODO: initialize 

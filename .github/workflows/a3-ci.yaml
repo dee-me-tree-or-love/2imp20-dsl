@@ -34,6 +34,13 @@ jobs:
           cd assignment_3
           mkdocs build
 
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: docs-site
+          path: assignment_3/site
+          retention-days: 5
+
       # TODO: temporary disabled until we set up a public repository
       # - name: Deploy docs
       #   uses: mhausenblas/mkdocs-deploy-gh-pages@master

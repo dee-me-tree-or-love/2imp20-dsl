@@ -3,7 +3,6 @@
 #include <stdlib.h>
 extern int lineCount;
 int typeCount=0;
-//FIXME: temporarily commented it out, because it fails to compile
 //unitnumber and collection typedef
 typedef struct unitnumber {
     int intNum;
@@ -16,7 +15,7 @@ typedef struct collection {
     char charType[100];
     unitNumber unitnumberType;
     float floatType;
-    collection *collectionType;
+    struct collection *collectionType;
 }Collection;
 
 //SymbolTable
@@ -101,23 +100,6 @@ void checkCronjob(char label[]) {
         printf("\"%s\" Error: The cronjob is not defined:line%d\n", label, lineCount+1);
 }
 
-//Scope
-enum scopeEnum
-{
-    global,local
-};
-enum scopeEnum scope=global;
-
-void checkScope(char label[]) {
-    if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1)
-        printf("\"%s\" Error:Undeclared variable:line%d\n", label, lineCount+1);
-}
-
-void checkall(char label[]) {
-		if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1 && lookupAction(actionTable, label, actionCount) == -1 && lookupCronjob(cronjobTable, label, actionCount) == -1)
-			printf("\"%s\" Error:Undeclared variable:line%d\n",label,lineCount+1);
-}
-
 
 //basic symbol look up function 
 int lookup(struct SymbolTableStruct symbolTable[],char compareString[],int symbolCount) { 
@@ -138,6 +120,23 @@ char* getSymbolType(char label[]) {
 	if(index != -1)
 		return globalSymbolTable[index].type;
     return strdup("null");
+}
+
+//Scope
+enum scopeEnum
+{
+    global,local
+};
+enum scopeEnum scope=global;
+
+void checkScope(char label[]) {
+    if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1)
+        printf("\"%s\" Error:Undeclared variable:line%d\n", label, lineCount+1);
+}
+
+void checkall(char label[]) {
+		if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(globalSymbolTable, label, globalSymbolCount) == -1 && lookupAction(actionTable, label, actionCount) == -1 && lookupCronjob(cronjobTable, label, actionCount) == -1)
+			printf("\"%s\" Error:Undeclared variable:line%d\n",label,lineCount+1);
 }
 
 void addType(char type[], enum varconstEnum varconst) {

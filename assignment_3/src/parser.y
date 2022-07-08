@@ -289,7 +289,7 @@ action_parameter :
         // FIXME: create a "debug" function and make it work right
         printf("Action attributes as identifier: %s\n", $1);
     }
-    /* TODO: add support for optionally collection parameters */
+    /* TODO: add support for optional collection parameters */
     ;
 
 action_body :

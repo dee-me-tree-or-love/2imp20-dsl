@@ -214,7 +214,7 @@ observer_body :
         printf("Observer email body.\n");
     }
     | observer_url {
-        printf("Observer email body.\n");
+        printf("Observer url body.\n");
     }
     ;
 
@@ -366,6 +366,9 @@ value :
     | STRING
     | COLLECTION
     ;
+
+
+
 %%
 
 // Additional C code

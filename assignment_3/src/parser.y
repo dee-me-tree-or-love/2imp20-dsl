@@ -57,6 +57,7 @@ extern FILE* yyin;
 %token GREATER
 %token LESS_EQUAL 
 %token GREATER_EQUAL
+%token CONCAT
 
 %token TRANSFER
 %token AT
@@ -69,7 +70,7 @@ extern FILE* yyin;
 %token OR
 
 %token REDUCE
-%token DOACTION
+%token MAP
 %token FILTER
 
 %token ACTION_ALTERNATIVE
@@ -79,8 +80,8 @@ extern FILE* yyin;
 
 %token IF
 %token MEETS 
-%token THEN
-%token ELSE
+%token THEN_DO
+%token ELSE_DO
 
 %token MODULE
 %token PLANTS
@@ -181,8 +182,8 @@ plant_config :
     ;
 
 plant_body :
-    attribute COMMA plant_body
-    | attribute
+    attribute_spec COMMA plant_body
+    | attribute_spec
     | /* empty body */
     ;
 
@@ -316,7 +317,9 @@ expressions :
 
 expression_line :
     expression_core
-    | expression_assignment
+    | assignment_expression
+    | if_then_else_expression
+    | value_spec
     ;
 
 expression_core :
@@ -325,11 +328,11 @@ expression_core :
     ;
 
 expression_statement :
-    unit_expression operator expression_core
-    | unit_expression
+    value_spec operator expression_core
+    | value_spec
     ;
 
-expression_assignment :
+assignment_expression :
     IDENTIFIER {
         printf("Got a new identifier: %s\n", $1);
     }
@@ -337,23 +340,35 @@ expression_assignment :
     expression_core
     ;
 
-unit_expression :
-    /* TODO: fully implement this */
-    IDENTIFIER {
-        printf("Got a unit expression: %s\n", $1);
-    }
+if_then_else_expression :
+    IF expression_core
+    MEETS
+    template_statement_expression
+    THEN_DO
+    expression_core
+    ELSE_DO
+    expression_core
+    ;
+
+template_statement_expression :
+    MULTIPLY operator value_spec
     ;
 
 operator :
-    PLUS | MINUS | MULTIPLY
-    /* TODO: support all operators */
+    PLUS | MINUS | MULTIPLY | DIVIDE | PERCENT | POWER | CONCAT
+    | NOT_EQUAL | DEEP_EQUAL | APPROX_MATCH
+    | LESS | GREATER | LESS_EQUAL | GREATER_EQUAL
+    | AND | OR
+    ;
+
+mapper :
+    MAP | REDUCE | FILTER
     ;
 
 /* Generic attribute syntax */
 
-attribute :
-    IDENTIFIER  {
-        // FIXME: create a "debug" function and make it work right
+attribute_spec :
+    IDENTIFIER {
         printf("Attribute key: %s\n", $1);
     }
     COLON
@@ -363,8 +378,19 @@ attribute :
     ;
 
 value_spec :
-    IDENTIFIER
+    | attribute_or_identifier_access
     | value
+    ;
+
+attribute_or_identifier_access :
+    IDENTIFIER {
+        printf("Attribute parent: %s\n", $1);
+    }
+    DOT
+    attribute_or_identifier_access
+    | IDENTIFIER {
+        printf("Attribute or identifier access: %s\n", $1);
+    }
     ;
 
 value :

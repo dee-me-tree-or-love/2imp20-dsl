@@ -10,6 +10,16 @@ CHICKEN_DIST_DIR=./chicken-5.3.0
 INCLUDES=-I${LIB_DIR}
 EXTRA_INCLUDES=-I${CHICKEN_DIST_DIR}
 
+# Build behavior between linux and mac
+UNAME := $(shell uname)
+
+ifeq ($(UNAME), Linux)
+	LEX_FLAG="-l"
+endif
+ifeq ($(UNAME), Darwin)
+	LEX_FLAG="-ll"
+endif
+
 ifeq ($(TEST_RUNNER_FIXED_ID), 1)
 	TEST_OUTPUT=${TMP_DIR}/test-run-fixed.log
 else
@@ -46,7 +56,8 @@ all: chicken-5.3.0/chicken.h tokenizer parser
 	@echo "👷 Compile and link parser..."
 	cc	\
 		${BUILD_DIR}/parser.tab.c \
-		${BUILD_DIR}/lex.yy.c -ll \
+		${BUILD_DIR}/lex.yy.c \
+		${LEX_FLAG} \
 		${INCLUDES} \
 		${EXTRA_INCLUDES} \
 		-o ${PARSER_OUT}

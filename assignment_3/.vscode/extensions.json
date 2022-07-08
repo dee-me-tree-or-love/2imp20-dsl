@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "ritwickdey.liveserver",
-        "daohong-emilio.yash"
+        "daohong-emilio.yash",
+        "ms-vscode.makefile-tools"
     ]
 }

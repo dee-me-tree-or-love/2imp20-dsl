@@ -306,11 +306,11 @@ extern FILE* yyin;
 
 %%
 
-program:
+program :
     MODULE COLON LEFT_BRACKET
     IDENTIFIER {
         // TODO: create a "debug" function and make it work right
-        printf("Module name: %s\n", str($4));
+        printf("Module name: %s\n", $4);
         // TODO: add to python skeleton
     }
     RIGHT_BRACKET
@@ -321,38 +321,61 @@ module_body : plants_decls;
 
 plants_decls :
     PLANTS COLON LEFT_BRACKET
+    plant_configs
     RIGHT_BRACKET
     | /* nothing */
     ;
 
-// plant_config:IDENTIFIER ;
+plant_configs :
+    plant_config COMMA plant_configs
+    | plant_config
+    | /* empty body */
+    ;
 
+plant_config :
+    IDENTIFIER {
+        // TODO: create a "debug" function and make it work right
+        printf("Plant name: %s\n", $1);
+    }
+    DOUBLE_LANGLE
+    plant_body
+    DOUBLE_RANGLE
+    ;
 
-// actions_decs:
-// ;
+plant_body :
+    attribute COMMA plant_body
+    | /* empty body */
+    ;
 
-// assets_decs:
-// ;
+/* Generic attribute syntax */
 
-// channels_decs:
-// ;
+attribute :
+    IDENTIFIER  {
+        // TODO: create a "debug" function and make it work right
+        printf("Attribute key: %s\n", $1);
+    }
+    COLON
+    value_spec {
+        printf("Attribute value.\n");
+    }
+    ;
 
-// controllers_decs:
-// ;
+value_spec :
+    IDENTIFIER
+    | value
+    ;
 
-// //Expression
-// expression:MINUS expression %prec UMINUS //disambiguate
-// |expression MULTIPLY expression	
-// |expression DIVIDE expression
-// |expression PLUS expression	
-// |expression MINUS expression
-// |expression REMAINDER expression
-// |LEFTPARENTHESES expression RIGHTPARENTHESES	
-// |constant
-// |IDENTIFIER
-// //add more expression situations
-
-
+value :
+    NIL
+    | UNIT
+    | BOOLEAN
+    /* FIXME: unit numbers seem not to be working yet */
+    | UNIT_NUMBER
+    | REAL_NUMBER
+    | NATURAL_NUMBER
+    | STRING
+    | COLLECTION
+    ;
 %%
 
 // Additional C code

@@ -1,1 +1,9 @@
-Module : { TEST_EMPTY }
+Module : { TEST_GARLIC }
+
+Plants : {
+    Garlic <<
+        water_use : 5,
+        min_temp  : 20,
+        max_water : 100,
+    >>
+}

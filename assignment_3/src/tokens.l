@@ -29,11 +29,6 @@ collection      '[' {value} ']'
 /* ^^^^^^^^^^^^^^ */
 
 %%
-    /* Special characters */
-    /* ~~~~~~~~~~~~~~~~~~ */
-
-    /* <<EOF>> {return MODULE_END;} */
-
     /* Basics */
     /* ~~~~~~ */
 
@@ -117,4 +112,9 @@ MONITOR     {return MONITOR;}
     /* ~~~~~~~~~~ */
 
 {identifier}    {return IDENTIFIER;}
+
+    /* Special characters */
+    /* ~~~~~~~~~~~~~~~~~~ */
+
+\n      { /* ignore newline */ }
 %%

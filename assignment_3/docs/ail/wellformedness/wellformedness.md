@@ -1,7 +1,7 @@
 # Wellformedness for AIL 
 
 ### General wellformedness
-- The label for each action, plant, asset and ovserver must be unique.
+- The label for each module, action, plant, asset and ovserver must be unique.
 -Every module must have at least one action and one asset. 
 
 ### Plants wellformedness

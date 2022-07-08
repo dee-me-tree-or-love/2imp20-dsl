@@ -31,7 +31,8 @@ enum varconstEnum
 struct SymbolTableStruct {
     char label[100];
     char type[10]; 
-    enum varconstEnum varconst;
+    enum typeEnum typeValue;
+    // enum varconstEnum varconst;
     unitNumber unitnumberValue;
     int intValue;
     float realValue;
@@ -140,30 +141,31 @@ void checkall(char label[]) {
 			printf("\"%s\" Error:Undeclared variable:line%d\n",label,lineCount+1);
 }
 
-void addType(char type[], enum varconstEnum varconst) {
-    if(scope == global)
-    {
-        for(int i = globalSymbolCount-typeCount; i < globalSymbolCount; i++) {
-            sscanf(type, "%s", globalSymbolTable[i].type);
-            globalSymbolTable[i].varconst = varconst;            
-        }
-    }
-    else
-    {
-        for(int i = localSymbolCount - typeCount; i < localSymbolCount; i++)
-        {
-            sscanf(type,"%s",localSymbolTable[i].type);
-            localSymbolTable[i].varconst = varconst;
-        }
-    }
-    typeCount=0;
-}
+// void addType(char type[]) {
+//     if(scope == global)
+//     {
+//         for(int i = globalSymbolCount-typeCount; i < globalSymbolCount; i++) {
+//             sscanf(type, "%s", globalSymbolTable[i].type);
+//             globalSymbolTable[i].varconst = varconst;            
+//         }
+//     }
+//     else
+//     {
+//         for(int i = localSymbolCount - typeCount; i < localSymbolCount; i++)
+//         {
+//             sscanf(type,"%s",localSymbolTable[i].type);
+//             localSymbolTable[i].varconst = varconst;
+//         }
+//     }
+//     typeCount=0;
+// }
 
-void addSymbol(char label[]) {
+void addSymbol(char label[], enum typeEnum typeValue) {
 if(!strcmp("",label)) return;
     if(scope == global) {
         if(lookup(globalSymbolTable, label, globalSymbolCount) == -1) {
             sscanf(label,"%s", globalSymbolTable[globalSymbolCount].label);
+            globalSymbolTable[globalSymbolCount].typeValue = typeValue; 
             globalSymbolCount++;
         }
     }

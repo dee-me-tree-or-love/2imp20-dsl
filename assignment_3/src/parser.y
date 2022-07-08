@@ -13,6 +13,7 @@ extern int yyparse();
 extern void yyerror(const char *s);
 extern FILE* yyin;
 
+
 %}
 
 // TOKENS
@@ -127,11 +128,13 @@ extern FILE* yyin;
 program :
     MODULE COLON LEFT_BRACKET
     IDENTIFIER {
-        // FIXME: create a "debug" function and make it work right
+        
         char id[10];
         sscanf($4,"%s",id);
         printf("Module name:%s\n", id);
-        // printf($4);
+
+        //Symbol
+        addSymbol($4, module);
         // TODO: add to python skeleton
     }
     RIGHT_BRACKET

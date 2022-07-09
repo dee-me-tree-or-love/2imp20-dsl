@@ -11,7 +11,7 @@ Examples:
 ### Comment syntax
 
 ```plaintext
-<<ONE_LINE_COMMENT>> := "// " .* 
+<<ONE_LINE_COMMENT>> := "//" .* 
 ```
 
 #### Remarks on comments

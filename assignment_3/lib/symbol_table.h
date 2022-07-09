@@ -24,7 +24,7 @@ typedef struct collection {
 //SymbolTable
 enum typeEnum
 {
-    action, module, asset, observer, plant
+    action, module, asset, observer, plant, nil
 };
 struct SymbolTableStruct {
     char label[100];
@@ -134,7 +134,7 @@ int lookupPlant(struct PlantTableStruct plantTable[],char compareString[],int pl
     }
     return -1;
 }
-int lookupParam(struct PlantTableStruct plantTable[], struct attribute attrs[]) {
+int lookupParam(struct PlantTableStruct plantTable[], char pVar[], char pVal[]) {
     for(int i = 0; i < plantCount; i++) {
         for(int j = 0; j < plantTable[i].attrCount; j++) {
             // if(!strcmp(plantTable[i].allAttrs[j].variable, )) {
@@ -147,15 +147,20 @@ int lookupParam(struct PlantTableStruct plantTable[], struct attribute attrs[]) 
 }
 
 void addPlant(char label[], struct attribute attrs[]) {
-    if((lookupPlant(plantTable, label, plantCount) == -1) && (lookupParam(plantTable, attrs) == -1)) {
+    if(lookupPlant(plantTable, label, plantCount) == -1) {
         sscanf(label,"%s", plantTable[plantCount].label);
-        sscanf(attrs,"%s", plantTable[plantCount].allAttrs);
         plantCount++;
     }
 }
 
+void addAttr(char var[], char val[]) {
+    if(lookupParam(plantTable, var, val) == -1) {
+        sscanf(var,"%s", plantTable[plantCount].allAttrs[plantCount].variable);
+    }
+}
+
 // used in asset
-void checkPlante(char label[])
+void checkPlant(char label[])
 {
     if(lookupPlant(plantTable, label,plantCount)==-1)
         printf("\"%s\" Error:Unavailable plant:line%d\n", label, lineCount+1);
@@ -172,7 +177,7 @@ int lookup(struct SymbolTableStruct symbolTable[],char compareString[],int symbo
 }
 
 //get symbol type
-char* getSymbolType(char label[]) {
+enum typeEnum getSymbolType(char label[]) {
     int index = lookup(localSymbolTable, label, localSymbolCount);
     if(index != -1) {
         return localSymbolTable[index].typeValue;
@@ -180,7 +185,7 @@ char* getSymbolType(char label[]) {
 	index=lookup(symbolTable,label,symbolCount);
 	if(index != -1)
 		return symbolTable[index].typeValue;
-    return strdup("null");
+    return nil;
 }
 
 //Scope

@@ -95,6 +95,8 @@ char tmp_access[100];
 %token ASSETS
 %token PLANTATION
 %token WATERSOURCE
+%token SENSORS
+%token SENSOR
 %token CONTROLLERS
 %token MONITOR
 
@@ -265,7 +267,9 @@ controller_config :
 
 asset_decls :
     ASSETS COLON LEFT_BRACKET
-    asset_configs
+    asset_configs {
+        printf("Got assets config.\n");
+    }
     RIGHT_BRACKET
     ;
 
@@ -276,22 +280,90 @@ asset_configs :
     ;
 
 asset_config :
-    IDENTIFIER COLON 
+    IDENTIFIER {
+        printf("Got asset identifier: %s.\n", $1);
+    }
+    COLON 
     asset_type COLON LEFT_BRACKET
-    asset_attributes
+    asset_attributes {
+        printf("Got asset attributes.\n");
+    }
     RIGHT_BRACKET
     ;
 
 asset_type :
     WATERSOURCE
     | PLANTATION LEFT_DOUBLEANGLE
-    /* TODO: fully implement this */
+    IDENTIFIER {
+        printf("Got plantation type identifier: %s.\n", $3);
+    }
     RIGHT_DOUBLEANGLE
     ;
 
-/* TODO: fully implement this */
 asset_attributes :
-    IDENTIFIER
+    asset_attribute_spec COMMA asset_attributes
+    | asset_attribute_spec
+    | /* empty body */
+    ;
+
+asset_attribute_spec :
+    attribute_spec {
+        printf("Got regular attribute spec.\n");
+    }
+    | asset_sensors_attribute_spec {
+        printf("Got regular attribute spec.\n");
+    }
+    ;
+
+/* TODO: implement sensor spec */
+asset_sensors_attribute_spec :
+    SENSORS COLON LEFT_BRACKET
+    IDENTIFIER {
+        printf("Got sensor identifier: %s", $4);
+    }
+    COLON
+    sensor_type
+    COLON
+    LEFT_BRACKET
+    sensor_attributes
+    RIGHT_BRACKET
+    /* FIXME: make sure to support multiple sensors */
+    RIGHT_BRACKET
+    ;
+
+/* Sensors */
+/* FIXME: something seems broken about the sensor configs */
+
+sensor_configs :
+    sensor_config COMMA sensor_configs
+    | sensor_configs
+    ;
+
+sensor_config :
+    IDENTIFIER {
+        printf("Got sensor identifier: %s", $1);
+    }
+    /* COLON
+    sensor_type
+    COLON LEFT_BRACKET
+    sensor_attributes
+    RIGHT_BRACKET */
+    ;
+
+sensor_type :
+    SENSOR {
+        printf("Got base Sensor type.\n");
+    }
+    ;
+
+sensor_attributes :
+    STRING {
+        printf("Got sensor trigger.\n");
+    }
+    COMMA
+    action_expression {
+        printf("Got sensor action.\n");
+    }
     ;
 
 /* Actions */

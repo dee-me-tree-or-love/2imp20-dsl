@@ -108,6 +108,8 @@ Plantation  {return PLANTATION;}
 WaterSource {return WATERSOURCE;}
 Controllers {return CONTROLLERS;}
 MONITOR     {return MONITOR;}
+sensors     {return SENSORS;}
+Sensor      {return SENSOR;}
 
     /* Identifier */
     /* ~~~~~~~~~~ */

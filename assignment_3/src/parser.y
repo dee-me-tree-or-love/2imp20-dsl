@@ -645,7 +645,7 @@ collection :
     LEFT_SQUAREBRACKET
     collection_body {
         printf("\nGot collection body.\n");
-        sscanf($2, "%s", $$);
+        // sscanf($2, "%s", $$);
     }
     RIGHT_SQUAREBRACKET
     ;
@@ -654,16 +654,22 @@ collection :
 collection_body :
     //todo:replace it with char[][]
     value_spec {
-        strcpy(tmp_collection, $1);
+        // FIXME: remove the illegal instruction generating errors
+        // strcpy(tmp_collection, $1);
     } COMMA {
-        strcat(tmp_collection, ",");
+        // FIXME: remove the illegal instruction generating errors
+        // strcat(tmp_collection, ",");
     }
-     collection_body {
-        strcat(tmp_collection, $5);
-        sscanf(tmp_collection, "%s", $$);
+    collection_body {
+        // FIXME: remove the illegal instruction generating errors
+        // strcat(tmp_collection, $5);
+        // sscanf(tmp_collection, "%s", $$);
     }
-    | value_spec {sscanf($1, "%s", $$);}
-    | /* empty body */{sscanf("", "%s", $$);}
+    | value_spec {
+        // FIXME: remove the illegal instruction generating errors
+        // sscanf($1, "%s", $$);
+    }
+    | /* empty body */
     ;
 
 %%

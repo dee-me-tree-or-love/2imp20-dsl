@@ -80,15 +80,15 @@ total_age = my_plant.age + 30;
 
 ```f#
 <<EXPRESSION_BODY>>             := {<<LINE_EXPRESSION>> ";"}*
-<<LINE_EXPRESSION>>             := <<CORE_EXPRESSION>>
+<<LINE_EXPRESSION>>             := <<SIMPLE_EXPRESSION>>
                                     | <<ASSIGNMENT_EXPRESSION>>
                                     | <<IF_THEN_ELSE_EXPRESSION>>
                                     | <<UNIT_EXPRESSION>>
-<<CORE_EXPRESSION>>             := <<STATEMENT_EXPRESSION>> 
+<<SIMPLE_EXPRESSION>>               := <<STATEMENT_EXPRESSION>> 
                                     | "(" <<STATEMENT_EXPRESSION>> ")"
-<<STATEMENT_EXPRESSION>>        := <<UNIT_EXPRESSION>> <<OPERATOR>> <<CORE_EXPRESSION>>
+<<STATEMENT_EXPRESSION>>        := <<UNIT_EXPRESSION>> <<OPERATOR>> <<SIMPLE_EXPRESSION>>
                                     | <<UNIT_EXPRESSION>>
-<<ASSIGNMENT_EXPRESSION>>       := <<IDENTIFIER>> "=" <<CORE_EXPRESSION>>
+<<ASSIGNMENT_EXPRESSION>>       := <<IDENTIFIER>> "=" <<SIMPLE_EXPRESSION>>
 <<IF_THEN_ELSE_EXPRESSION>>     := "if"
                                     <<STATEMENT_EXPRESSION>>
                                     "meets"
@@ -100,10 +100,10 @@ total_age = my_plant.age + 30;
                                     | <<ACTION_EXPRESSION>>
                                     | <<MAPPER_EXPRESSION>>
                                     | <<TMPL_STATEMENT_EXPRESSION>>
-<<ACTION_EXPRESSION>>           := <<ACTION_IDENTIFIER>> ": {" {<<CORE_EXPRESSION>> ","}* "}"
+<<ACTION_EXPRESSION>>           := <<ACTION_IDENTIFIER>> ": {" {<<SIMPLE_EXPRESSION>> ","}* "}"
 <<MAPPER_EXPRESSION>>           := <<UNIT_EXPRESSION>> <<MAPPER>> <<MAPPER_CLAUSE>>
-<<MAPPER_CLAUSE>>               := "{" {<<IDENTIFIER>> ","}* "|" <<CORE_EXPRESSION>> "}"
-<<CORE_EXPRESSION>>   := "*" <<OPERATOR>> <<VALUE_SPEC>>
+<<MAPPER_CLAUSE>>               := "{" {<<IDENTIFIER>> ","}* "|" <<SIMPLE_EXPRESSION>> "}"
+<<TMPL_STATEMENT_EXPRESSION>>   := "*" <<OPERATOR>> <<VALUE_SPEC>>
 <<VALUE_SPEC>>                  := <<VALUE>>
                                     | <<IDENTIFIER>>
 <<OPERATOR>>                    := "+" | "-" | "*" | "/" | "%" | "^" | "++" | "==" | "!=" | "~~" | "and" | "or"

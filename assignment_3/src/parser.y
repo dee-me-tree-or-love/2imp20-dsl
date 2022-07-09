@@ -369,20 +369,19 @@ assignment_expression :
 if_then_else_expression :
     IF simple_expression
     MEETS
-    template_statement_expression
+    unit_expression
     THEN_DO
     expressions
     ELSE_DO
     expressions
     ;
 
-template_statement_expression :
-    MULTIPLY operator unit_expression
-    ;
-
 unit_expression :
     value_spec {
         printf("Got a value spec.\n");
+    }
+    |  template_statement_expression {
+         printf("Got a template statement expression.\n");
     }
     | action_expression {
         printf("Got an action expression.\n");
@@ -390,6 +389,10 @@ unit_expression :
     | mapper_expression {
         printf("Got a mapper expression.\n");
     }
+    ;
+
+template_statement_expression :
+    MULTIPLY operator simple_expression
     ;
 
 action_expression :

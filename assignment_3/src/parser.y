@@ -628,11 +628,13 @@ value :
 
 unitnumber :
     REAL_NUMBER UNIT {
+        // FIXME: this is the seg fault part
         // strcpy(tmp_unitnumber, $1);
         // strcat(tmp_unitnumber, $2); 
         // sscanf(tmp_unitnumber, "%s", $$);
     }
     | NATURAL_NUMBER UNIT {
+        // FIXME: this is the seg fault part
         // strcpy(tmp_unitnumber, $1);
         // strcat(tmp_unitnumber, $2); 
         // sscanf(tmp_unitnumber, "%s", $$);

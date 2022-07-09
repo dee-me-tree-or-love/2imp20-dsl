@@ -42,7 +42,3 @@ Observers : {
     rss << "farm.feed.rss" >>,
     abie << "abie@service.farm.cool" >>
 }
-
-Controllers: {
-    MONITOR
-}

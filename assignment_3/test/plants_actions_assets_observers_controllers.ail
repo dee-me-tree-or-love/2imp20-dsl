@@ -1,4 +1,4 @@
-Module : { TEST_GARLIC_ACTIONS_ASSETS }
+Module : { TEST_GARLIC_ACTIONS_ASSETS_OBSERVERS_CONTROLLERS }
 
 Plants : {
     Garlic <<
@@ -17,9 +17,10 @@ Actions : {
 
 Assets : {
     garlic_north : Plantation <<Garlic>> : {
-        // desc: "Garlic plants on the north edge",
-        // area: 300 \m^2,
-        // plantation_date: "2022-11-02",
+        // This is a comment
+        desc: "Garlic plants on the north edge",
+        area: 300 \m^2,
+        plantation_date: "2022-11-02",
         sensors : { 
             water_level : Sensor : {
                 "daily 9 am",
@@ -28,17 +29,6 @@ Assets : {
             temp_level : Sensor : {
                 "daily 9 am",
                 notify : { [support, admin] }
-            }
-        }
-    },
-    garlic_south : Plantation <<Garlic>> : {
-        desc: "Garlic plants on the south edge",
-        area: 300 \m^2,
-        plantation_date: "2022-11-04",
-        sensors : {
-            water_level : Sensor : {
-                "daily 9 am",
-                notify : { [support] }
             }
         }
     },
@@ -53,4 +43,15 @@ Assets : {
             }
         }
     }
+}
+
+Observers : {
+    support << "support@farm.cool" >>, 
+    admin << "admin@farm.cool" >>, 
+    rss << "farm.feed.rss" >>,
+    abie << "abie@service.farm.cool" >>
+}
+
+Controllers: {
+    MONITOR
 }

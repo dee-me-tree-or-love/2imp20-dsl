@@ -17,9 +17,9 @@ Actions : {
 
 Assets : {
     garlic_north : Plantation <<Garlic>> : {
-        // desc: "Garlic plants on the north edge",
-        // area: 300 \m^2,
-        // plantation_date: "2022-11-02",
+        desc: "Garlic plants on the north edge",
+        area: 300 \m^2,
+        plantation_date: "2022-11-02",
         sensors : { 
             water_level : Sensor : {
                 "daily 9 am",

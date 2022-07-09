@@ -8,6 +8,7 @@
 #include "../lib/python_builder.h"
 
 // Explicit defintions of the YY API
+extern int yylineno; 
 extern int yylex();
 extern int yyparse();
 extern void yyerror(const char *s);
@@ -151,7 +152,8 @@ program :
     MODULE COLON LEFT_BRACKET
     IDENTIFIER {
         // FIXME: id is undeclared
-        // printf("Module name:%s\n", id);
+
+        printf("Line: %d; Module name: %s\n", yylineno, $4);
 
         //Symbol
         addSymbol($4, module);
@@ -225,7 +227,7 @@ observer_configs :
 observer_config :
     IDENTIFIER {
         // FIXME: create a "debug" function and make it work right
-        printf("Observer name: %s\n", $1);
+        printf("Line: %d; Observer name: %s\n", yylineno, $1);
         //Symbol
         addSymbol($1, observer);
     }
@@ -311,15 +313,13 @@ asset_attribute_spec :
         printf("Got regular attribute spec.\n");
     }
     | asset_sensors_attribute_spec {
-        printf("Got regular attribute spec.\n");
+        printf("Got sensor attribute spec.\n");
     }
     ;
 
-/* TODO: implement sensor spec */
 asset_sensors_attribute_spec :
     SENSORS COLON LEFT_BRACKET
     sensor_configs
-    /* FIXME: make sure to support multiple sensors */
     RIGHT_BRACKET
     ;
 

@@ -433,7 +433,7 @@ attribute_spec :
     ;
 
 value_spec :
-    | attribute_or_identifier_access
+    attribute_or_identifier_access
     | value
     ;
 

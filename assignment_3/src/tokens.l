@@ -10,23 +10,23 @@
 /* Aliases */
 /* ^^^^^^^ */
 
-nil             "{}"
-letter          [[:alpha:]]
-identifier      {letter}({letter}|"-"|"_"|[0-9])*
-word            {letter}({letter}|[0-9])*
-unit_word       ("\\"){word}(("^"){natural_number})?
-unit            {unit_word}|{nil}
-digit           [0-9]
-natural_number  {digit}+
-real_number     ("-")?{natural_number}("."{natural_number})?
-unit_number     {real_number}" "{unit}
-string          "\"".*"\""
-boolean_true    "True"
-boolean_false   "False"
-boolean         {boolean_true}|{boolean_false}
-value           {nil}|{boolean}|{real_number}|{unit_number}|{string}
-collection      '[' {value} ']'
-comment         "//".* 
+nil                 "{}"
+letter              [[:alpha:]]
+identifier          {letter}({letter}|"-"|"_"|[0-9])*
+word                {letter}({letter}|[0-9])*
+unit_word           ("\\"){word}(("^"){natural_number})?
+unit                {unit_word}|{nil}
+digit               [0-9]
+natural_number      {digit}+
+real_number         ("-")?{natural_number}("."{natural_number})?
+unit_number         {real_number}" "{unit}
+string              "\"".*"\""
+boolean_true        "True"
+boolean_false       "False"
+boolean             {boolean_true}|{boolean_false}
+value               {nil}|{boolean}|{real_number}|{unit_number}|{string}
+collection          '[' {value} ']'
+comment             "//".*
 
 /* Token Matching */
 /* ^^^^^^^^^^^^^^ */

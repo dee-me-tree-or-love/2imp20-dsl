@@ -97,7 +97,7 @@ int lookupAddr(struct ObserverTableStruct observerTable[],char compareString[],i
 }
 
 void addObserver(char label[], char addr[]) {
-    if((lookupObserver(observerTable, label, observerCount) == -1) && (lookupObserver(observerTable, addr, observerCount) == -1)) {
+    if(lookupObserver(observerTable, label, observerCount) == -1) {
         sscanf(label,"%s", observerTable[observerCount].label);
         sscanf(addr,"%s", observerTable[observerCount].addr);
         observerCount++;

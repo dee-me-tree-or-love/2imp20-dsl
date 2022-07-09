@@ -232,6 +232,7 @@ observer_config :
 observer_body :
     STRING {
         printf("Observer body: %s\n", $1);
+        sscanf($1, "%s", $$);
     }
     ;
 

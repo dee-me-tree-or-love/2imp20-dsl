@@ -123,4 +123,4 @@ every April on Mondays at 4 AM
 ...
 ```
 
-- TODO: needs to still be supported.
+- TODO: needs to still be supported, currently we support this as a simple string.

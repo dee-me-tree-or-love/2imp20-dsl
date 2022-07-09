@@ -113,8 +113,8 @@ char tmp_access[100];
 /* FIXME: extend with the remaining "values" */
 %type <istr> IDENTIFIER
 %type <istr> SRC_IDENTIFIER
-%type <ival> REAL_NUMBER
-%type <ival> NATURAL_NUMBER
+%type <istr> REAL_NUMBER
+%type <istr> NATURAL_NUMBER
 %type <istr> UNIT
 %type <ival> BOOLEAN_FALSE
 %type <ival> BOOLEAN_TRUE
@@ -202,7 +202,7 @@ plant_config :
     }
     LEFT_DOUBLEANGLE
     plant_body
-    RIGHT_DOUBLEANGLE{ownerCount++;}
+    RIGHT_DOUBLEANGLE{addOwner($1, ownerCount);}
     ;
 
 plant_body :
@@ -380,13 +380,14 @@ action_config :
         printf("Action name: %s\n", $1);
         //Symbol
         addSymbol($1, action);
+        attrCount = 0;
     }
     LEFT_DOUBLEANGLE
     action_parameters
     RIGHT_DOUBLEANGLE
     LEFT_PARENTHESE
     action_body
-    RIGHT_PARENTHESE
+    RIGHT_PARENTHESE {addOwner($1, ownerCount);}
     ;
 
 action_parameters :
@@ -399,10 +400,13 @@ action_parameter :
     SRC_IDENTIFIER {
         // FIXME: create a "debug" function and make it work right
         printf("Action attributes as src: %s\n", $1);
+        addAttr($1, "ACTION_L_SELF");
+
     }
     | IDENTIFIER {
         // FIXME: create a "debug" function and make it work right
         printf("Action attributes as identifier: %s\n", $1);
+        addAttr($1, "ACTION_L_PARAM");
     }
     /* TODO: add support for optional collection parameters */
     ;
@@ -591,62 +595,60 @@ attribute_or_identifier_access_base :
 value :
     NIL {
         printf("Got nil.\n");
-        //  sscanf("", "%s", $$);
+        sscanf("", "%s", $$);
     }
     | BOOLEAN_TRUE {
         printf("Got true.\n");
-        //  sscanf($1, "%s", $$);
+         sscanf($1, "%s", $$);
     }
     | BOOLEAN_FALSE {
         printf("Got false.\n");
-        //  sscanf($1, "%s", $$);
+        sscanf($1, "%s", $$);
     }
     | UNIT {
         printf("Got unit.\n"); 
-        // sscanf($1, "%s", $$);
+        sscanf($1, "%s", $$);
     }
     | unitnumber {
         printf("Got unit number.\n");
-        //  sscanf($1, "%s", $$);
+        sscanf($1, "%s", $$);
     }
     | REAL_NUMBER {
         printf("Got real number.\n");
-        //  sscanf($1, "%s", $$);
+        sscanf($1, "%s", $$);
     }
     | NATURAL_NUMBER {
         printf("Got natural number.\n"); 
-        // sscanf($1, "%s", $$);
+        sscanf($1, "%s", $$);
     }
     | STRING {
         printf("Got string.\n"); 
-        // sscanf($1, "%s", $$);
+        sscanf($1, "%s", $$);
     }
     | collection {
         printf("Got collection.\n");
-        //  sscanf($1, "%s", $$);
+        sscanf($1, "%s", $$);
     }
     ;
 
 unitnumber :
     REAL_NUMBER UNIT {
-        // FIXME: this is the seg fault part
-        // strcpy(tmp_unitnumber, $1);
-        // strcat(tmp_unitnumber, $2); 
-        // sscanf(tmp_unitnumber, "%s", $$);
+        strcpy(tmp_unitnumber, $1);
+        strcat(tmp_unitnumber, $2); 
+        sscanf(tmp_unitnumber, "%s", $$);
     }
     | NATURAL_NUMBER UNIT {
-        // FIXME: this is the seg fault part
-        // strcpy(tmp_unitnumber, $1);
-        // strcat(tmp_unitnumber, $2); 
-        // sscanf(tmp_unitnumber, "%s", $$);
+        strcpy(tmp_unitnumber, $1);
+        strcat(tmp_unitnumber, $2); 
+        sscanf(tmp_unitnumber, "%s", $$);
     }
     ;
 
 collection :
-    LEFT_SQUAREBRACKET
+    LEFT_SQUAREBRACKET {strcpy(tmp_collection,"");}
     collection_body {
         printf("\nGot collection body.\n");
-        // sscanf($2, "%s", $$);
+        sscanf($3, "%s", $$);
     }
     RIGHT_SQUAREBRACKET
     ;
@@ -655,22 +657,21 @@ collection :
 collection_body :
     //todo:replace it with char[][]
     value_spec {
-        // FIXME: remove the illegal instruction generating errors
-        // strcpy(tmp_collection, $1);
+        strcat(tmp_collection, $1);
     } COMMA {
-        // FIXME: remove the illegal instruction generating errors
-        // strcat(tmp_collection, ",");
+        strcat(tmp_collection, ",");
     }
     collection_body {
-        // FIXME: remove the illegal instruction generating errors
         // strcat(tmp_collection, $5);
-        // sscanf(tmp_collection, "%s", $$);
     }
     | value_spec {
-        // FIXME: remove the illegal instruction generating errors
-        // sscanf($1, "%s", $$);
+        strcat(tmp_collection, $1);
+        sscanf(tmp_collection, "%s", $$);
     }
-    | /* empty body */
+    | /* empty body */{
+        strcat(tmp_collection, "");
+        sscanf(tmp_collection, "%s", $$);
+    }
     ;
 
 %%

@@ -116,23 +116,19 @@ void addAttr(char aVar[], char aVal[]) {
         if(!strcmp("",aVal)) {
             attrCount++;
             return;
-        } 
-        sscanf(aVal,"%s", AttrTable[ownerCount].attrs[attrCount].value);
-        attrCount++;//todo: release after every plant defintion
+        } else {
+            sscanf(aVal,"%s", AttrTable[ownerCount].attrs[attrCount].value);
+            attrCount++;//release after every plant defintion
+        }
     }
 }
 
-// void addAttrs(struct AttrTableStruct AttrTable[], struct attribute attrs[], char owner[], int ownCount) {
-//     if(lookupOwner(AttrTable, owner, ownerCount) == -1) {
-//         sscanf(owner,"%s", AttrTable[ownerCount].owner);
-//         for (int i = 0; i < attrCount; i++) {
-//             sscanf(attrs[i].variable,"%s", AttrTable[ownerCount].attrs[i].variable);
-//             if(!strcmp("",attrs[i].value)) return;
-//             sscanf(attrs[i].value,"%s", AttrTable[ownerCount].attrs[i].value);
-//         }
-//         ownerCount++;//todo: release after every plant defintion
-//     }
-// }
+void addOwner(char owner[], int ownerCount) {
+    if(lookupOwner(AttrTable, owner, ownerCount) == -1) {
+        sscanf(owner,"%s", AttrTable[ownerCount].owner);
+        ownerCount++;//todo: release after every plant defintion
+    }
+}
 /* Attribute table */
 
 //basic symbol look up function 

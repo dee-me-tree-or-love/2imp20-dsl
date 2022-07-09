@@ -54,7 +54,7 @@ comment             "//".*
 {boolean_true}      {sscanf("1","%d",&yylval); return BOOLEAN_TRUE;}
 {boolean_false}     {sscanf("0","%d",&yylval); return BOOLEAN_FALSE;}
 {natural_number}    {sscanf(yytext,"%d",&yylval); return NATURAL_NUMBER;}
-{real_number}       {sscanf("real_number","%s",&yylval); return REAL_NUMBER;}
+{real_number}       {sscanf(yytext,"%f",&yylval); return REAL_NUMBER;}
 {string}            {sscanf("string","%s",&yylval); return STRING;}
 
     /* Language expressions */

@@ -24,7 +24,7 @@ endif
 ifeq ($(TEST_RUNNER_FIXED_ID), 1)
 	TEST_OUTPUT=${TMP_DIR}/test-run-fixed.log
 else
-	TEST_OUTPUT=${TMP_DIR}/test-run-`date +%s`.log
+	TEST_OUTPUT=${TMP_DIR}/test-run-latest.log
 endif
 
 ##############################################

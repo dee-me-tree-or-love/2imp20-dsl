@@ -1,4 +1,4 @@
-Module : { TEST_GARLIC }
+Module : { TEST_GARLIC_ACTIONS_ASSETS }
 
 Plants : {
     Garlic <<

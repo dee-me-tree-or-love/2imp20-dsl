@@ -1,22 +1,3 @@
-;; python_builder.scm
-;;
-;; CHICKEN Scheme API for python building
-
-;; FIXME: order the output like this:
-;;      1. module & defaults
-;;      2. plants
-;;      3. actions
-;;      4. observers
-;;      5. assets
-;;      6. controllers
-
-;; TODO: module & defaults
-#|
-Module : { TEST_GARLIC_ACTIONS_ASSETS_OBSERVERS_CONTROLLERS }
-|#
-;; -->
-#|
-% test_garlic_actions_assets_observers_controllers.py
 # Automatically compiled Python module for:
 # Module: TEST_GARLIC_ACTIONS_ASSETS_OBSERVERS_CONTROLLERS
 
@@ -111,21 +92,6 @@ def Action_send_message(*args):
 ###################
 # Module contents #
 ###################
-|#
- 
-;; TODO: plants
-#|
-Plants : {
-    Garlic <<
-        approx_volume : 1 \cm^2,
-        water_use : 5 \mm,
-        min_temp  : 20 \C,
-        max_water : 100,
-    >>
-}
-|#
-;; -->
-#|
 
 # Plants
 # ~~~~~~~
@@ -137,18 +103,6 @@ class Garlic(Plant):
     max_water = UnitNumber(100, "\C")
 
 PLANTS = [Garlic]
-|#
-
-;; TODO: actions
-#|
-Actions : {
-    notify <<%src, channels>> (
-        channels @> {c | send_message : {c, "regular update", %src}};
-    )
-}
-|#
-;; -->
-#|
 
 # Actions
 # ~~~~~~~
@@ -162,46 +116,16 @@ class Action_notify:
         map(lambda c: Action_SendMessage(c, "regular_update", self.s_src)(), self.channels)
 
 ACTIONS = [Action_notify]
-|#
 
-;; TODO: assets
-;; FIXME: add "defferred" action syntax or flag??
-#|
-Assets : {
-    garlic_north : Plantation <<Garlic>> : {
-        // This is a comment
-        desc: "Garlic plants on the north edge",
-        area: 300 \m^2,
-        plantation_date: "2022-11-02",
-        sensors : { 
-            water_level : Sensor : {
-                "daily 9 am",
-                notify : { [support] }
-            },
-            temp_level : Sensor : {
-                "daily 9 am",
-                notify : { [support, admin] }
-            }
-        }
-    },
-    water_tank : WaterSource : {
-        installation_date: "2020-02-02",
-        max_temp: 60 \C, 
-        capacity: 30 \l,
-        sensors : {
-            water_level : Sensor : {
-                "every 10 min", 
-                notify : { [ support, admin, rss ] }
-            }
-        }
-    }
-}
-|#
-;; -->
-#|
+# Observers
+# ~~~~~~~~~
 
-# Assets
-# ~~~~~~
+support = Observer("support@farm.cool")
+admin = Observer("admin@farm.cool")
+rss = Observer("farm.feed.rss")
+abbie = Observer("abie@service.farm.cool")
+
+OBSERVERS = [support, admin, rss, abbie]
 
 # Assets
 # ~~~~~~
@@ -233,39 +157,6 @@ class Asset_water_tank(WaterSource):
 water_tank = Asset_water_tank()
 
 ASSETS = [garlic_north, water_tank]
-|#
-
-;; TODO: observers
-#|
-Observers : {
-    support << "support@farm.cool" >>, 
-    admin << "admin@farm.cool" >>, 
-    rss << "farm.feed.rss" >>,
-    abie << "abie@service.farm.cool" >>
-}
-|#
-;; -->
-#|
-
-# Observers
-# ~~~~~~~~~
-
-support = Observer("support@farm.cool")
-admin = Observer("admin@farm.cool")
-rss = Observer("farm.feed.rss")
-abbie = Observer("abie@service.farm.cool")
-
-OBSERVERS = [support, admin, rss, abbie]
-|#
-
-;; TODO: controllers
-#|
-Controllers: {
-    MONITOR
-}
-|#
-;; -->
-#|
 
 # Controllers
 # ~~~~~~~~~~~
@@ -285,4 +176,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-|#

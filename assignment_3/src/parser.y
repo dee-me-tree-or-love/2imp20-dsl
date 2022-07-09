@@ -678,7 +678,7 @@ collection_body :
 // ~~~~~~~~~~~~~~~~~
 
 void yyerror(const char* s) {
-    fprintf(stderr, "Parse error: %s\n", s);
+    fprintf(stderr, "On line: %d; Parse error: %s\n", yylineno, s);
     exit(1);
 }
 

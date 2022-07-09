@@ -1,0 +1,12 @@
+Module : { TEST_GARLIC }
+
+Plants : {
+    Garlic <<
+        owners : ["Jill", "Pete"],
+        plant_ids : [1, 2, 3, [4, 5, 6], ["AIL", "KYLE"]],
+        owner_plant_ids : [
+            ["Jill", 1], ["Jill", 2], ["Jill", 3], ["Jill", [4, 5, 6]], ["Pete", ["AIL", "KYLE"]]
+        ],
+        more_details : ["If in \"trouble\", call 111, \"Garlic Support\""]
+    >>
+}

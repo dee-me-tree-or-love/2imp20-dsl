@@ -81,15 +81,22 @@ run-tests: ${PARSER_OUT}
 		|| echo "✅ ALL TESTS PASSED"
 
 # Run a single test file against the parser
-run-specific-test: ${PARSER_OUT}
+run-suite-test: ${PARSER_OUT}
+	@echo "🕵️ Check if 'suite' argument is defined."
+	@echo "💡 Make sure to call this target like 'make <target> suite=<your file path>'."
+	@test ${suite}
 	@mkdir -p ${TMP_DIR}
-	@echo "🔍 Brace yourself, running the test now!"
-	@echo '\n💡 Running ${suite}'
-	@(cat ${suite} | ${PARSER_OUT} && echo ✅ Test passed ) || echo ❌ TEST FAILED
-
+	@echo "🛫 Brace yourself, running the test now!"
+	@echo '💡 Running ${suite}'
+	@((cat ${suite} | ${PARSER_OUT} && echo ✅ Test passed ) || echo ❌ TEST FAILED) \
+		2>&1 | tee ${TMP_DIR}/test_manual.log
 
 # Handy command to build and test at once
 all-and-test: all run-tests
+	@echo "👌 Done."
+
+# Handy command to build and run a single test suite at once
+all-and-suite-test: all run-suite-test
 	@echo "👌 Done."
 
 # Clean build directory

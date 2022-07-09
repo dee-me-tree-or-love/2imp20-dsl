@@ -44,7 +44,6 @@ extern FILE* yyin;
 %token REAL_NUMBER
 %token UNIT_NUMBER
 %token STRING
-%token COLLECTION
 
 %token EQUALS
 %token PLUS
@@ -110,7 +109,6 @@ extern FILE* yyin;
 %type <ival> BOOLEAN_FALSE
 %type <ival> BOOLEAN_TRUE
 %type <istr> STRING
-%type <ival> COLLECTION
 
 %type <istr> observer_body
 
@@ -454,20 +452,53 @@ attribute_or_identifier_access :
     ;
 
 value :
-    NIL 
-    | BOOLEAN_TRUE  {sscanf($1, "%s", $$);}
-    | BOOLEAN_FALSE {sscanf($1, "%s", $$);}
-    | UNIT
-    | unitnumber {sscanf($1, "%s", $$);}
-    | REAL_NUMBER {sscanf($1, "%s", $$);}
-    | NATURAL_NUMBER {sscanf($1, "%s", $$);}
-    | STRING {sscanf($1, "%s", $$);}
-    | COLLECTION {sscanf($1, "%s", $$);}
+    NIL {
+        printf("Got nil.\n");
+    }
+    | BOOLEAN_TRUE {
+        printf("Got true.\n");
+    }
+    | BOOLEAN_FALSE {
+        printf("Got false.\n");
+    }
+    | UNIT {
+        printf("Got unit.\n");
+    }
+    | unitnumber {
+        printf("Got unit number.\n");
+    }
+    | REAL_NUMBER {
+        printf("Got real number.\n");
+    }
+    | NATURAL_NUMBER {
+        printf("Got natural number.\n");
+    }
+    | STRING {
+        printf("Got string.\n");
+    }
+    | collection {
+        printf("Got collection.\n");
+    }
     ;
 
-unitnumber : REAL_NUMBER UNIT {sscanf($1, "%s", $$);}
-           | NATURAL_NUMBER UNIT {sscanf($1, "%s", $$);}
+unitnumber :
+    REAL_NUMBER UNIT
+    | NATURAL_NUMBER UNIT
+    ;
 
+collection :
+    LEFT_SQUAREBRACKET
+    collection_body {
+        printf("\nGot collection body.\n");
+    }
+    RIGHT_SQUAREBRACKET
+    ;
+
+collection_body :
+    value_spec COMMA collection_body
+    | value_spec
+    | /* empty body */
+    ;
 
 %%
 

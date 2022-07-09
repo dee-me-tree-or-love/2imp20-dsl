@@ -29,8 +29,9 @@ extern FILE* yyin;
 %token RIGHT_SQUAREBRACKET
 %token LEFT_BRACKET
 %token RIGHT_BRACKET
-%token DOUBLE_LANGLE 
+%token DOUBLE_LANGLE
 %token DOUBLE_RANGLE
+/* TODO: maybe delete the unused protocol token */
 %token PROTOCOL
 
 %token IDENTIFIER

@@ -431,7 +431,6 @@ attribute_spec :
     COLON
     value_spec {
         printf("Attribute value.\n");
-        addAttr()
     }
     ;
 
@@ -455,10 +454,10 @@ attribute_or_identifier_access :
     ;
 
 value :
-    NIL {sscanf($1, "%s", $$);}
+    NIL 
     | BOOLEAN_TRUE  {sscanf($1, "%s", $$);}
     | BOOLEAN_FALSE {sscanf($1, "%s", $$);}
-    | UNIT {sscanf($1, "%s", $$);}
+    | UNIT
     | unitnumber {sscanf($1, "%s", $$);}
     | REAL_NUMBER {sscanf($1, "%s", $$);}
     | NATURAL_NUMBER {sscanf($1, "%s", $$);}

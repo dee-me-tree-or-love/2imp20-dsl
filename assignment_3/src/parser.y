@@ -117,6 +117,9 @@ extern FILE* yyin;
 %type <istr> observer_email
 %type <istr> observer_url
 
+/* FIXME: add precedence rules to other shift/reduce conflicts */
+/* See: https://www.gnu.org/software/bison/manual/html_node/Shift_002fReduce.html */
+
 %left OR
 %left AND
 %left LESS LESS_EQUAL DEEP_EQUAL GREATER_EQUAL GREATER NOT_EQUAL APPROX_MATCH

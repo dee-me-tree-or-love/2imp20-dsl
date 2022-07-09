@@ -113,7 +113,7 @@ class Action_notify:
     channels: Any
 
     def __call__(self):
-        map(lambda c: Action_SendMessage(c, "regular_update", self.s_src)(), self.channels)
+        list(map(lambda c: Action_send_message(c, "regular_update", self.s_src)(), self.channels))
 
 ACTIONS = [Action_notify]
 

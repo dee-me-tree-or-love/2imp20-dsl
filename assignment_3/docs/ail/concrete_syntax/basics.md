@@ -11,7 +11,7 @@ Examples:
 ### Comment syntax
 
 ```plaintext
-<<ONE_LINE_COMMENT>> := "// " .* 
+<<ONE_LINE_COMMENT>> := "//" .* 
 ```
 
 #### Remarks on comments
@@ -34,7 +34,7 @@ True
 
 ```f#
 <<NIL>>             := "{}"
-<<UNIT>>            := ((\w)+ | <<NIL>>)
+<<UNIT>>            := ("\\"(\w)+(("^")<<NATURAL_NUMBER>>)? | <<NIL>>)
 <<BOOLEAN_TRUE>>    := "True"
 <<BOOLEAN_FALSE>>   := "False"
 <<BOOLEAN>>         := <<BOOLEAN_FALSE>> | <<BOOLEAN_TRUE>>
@@ -57,7 +57,7 @@ Examples:
 ```plaintext
 Strawberry
 my_plant : Strawberry
-my_water_level : 35 ml
+my_water_level : 35 \ml
 other_water_level : my_water_level
 my_plant.my_water_level
 ```

@@ -59,7 +59,7 @@ extern FILE* yyin;
 %token GREATER_EQUAL
 %token CONCAT
 
-%token TRANSFER
+%token TRANSLATE
 %token AT
 %token UNDERSCORE
 %token VERTICAL_LINE
@@ -116,6 +116,9 @@ extern FILE* yyin;
 %type <istr> observer_misc
 %type <istr> observer_email
 %type <istr> observer_url
+
+/* FIXME: add precedence rules to other shift/reduce conflicts */
+/* See: https://www.gnu.org/software/bison/manual/html_node/Shift_002fReduce.html */
 
 %left OR
 %left AND
@@ -342,19 +345,19 @@ expressions :
     ;
 
 expression_line :
-    expression
+    simple_expression
     | assignment_expression
     | if_then_else_expression
     | unit_expression
     ;
 
-expression :
+simple_expression :
     LEFT_PARENTHESE expression_statement RIGHT_PARENTHESE
     | expression_statement
     ;
 
 expression_statement :
-    unit_expression operator expression
+    unit_expression operator simple_expression
     | unit_expression
     ;
 
@@ -363,26 +366,25 @@ assignment_expression :
         printf("Got a new identifier: %s\n", $1);
     }
     EQUALS
-    expression
+    simple_expression
     ;
 
 if_then_else_expression :
-    IF expression
+    IF simple_expression
     MEETS
-    template_statement_expression
+    unit_expression
     THEN_DO
-    expression
+    expressions
     ELSE_DO
-    expression
-    ;
-
-template_statement_expression :
-    MULTIPLY operator unit_expression
+    expressions
     ;
 
 unit_expression :
     value_spec {
         printf("Got a value spec.\n");
+    }
+    |  template_statement_expression {
+         printf("Got a template statement expression.\n");
     }
     | action_expression {
         printf("Got an action expression.\n");
@@ -390,6 +392,10 @@ unit_expression :
     | mapper_expression {
         printf("Got a mapper expression.\n");
     }
+    ;
+
+template_statement_expression :
+    MULTIPLY operator simple_expression
     ;
 
 action_expression :
@@ -402,21 +408,29 @@ action_expression :
     ;
 
 action_expression_config :
-    expression COMMA action_expression_config
-    | expression
+    simple_expression COMMA action_expression_config
+    | simple_expression
     ;
 
 /* FIXME: this is bad, because we have left recursion. */
 /* FIXME: the expression syntax needs to be reconsidered */
 mapper_expression :
-    unit_expression mapper mapper_clause
+    unit_expression mapper_clause
     ;
 
 mapper_clause :
+    mapper
     LEFT_BRACKET
     mapper_parameters
     VERTICAL_LINE
-    expression
+    simple_expression
+    RIGHT_BRACKET
+    mapper_clause
+    | mapper
+    LEFT_BRACKET
+    mapper_parameters
+    VERTICAL_LINE
+    simple_expression
     RIGHT_BRACKET
     ;
 
@@ -475,10 +489,9 @@ attribute_or_identifier_access :
 
 value :
     NIL
-    | UNIT
     | BOOLEAN_TRUE
     | BOOLEAN_FALSE
-    /* FIXME: unit numbers seem not to be working yet */
+    | UNIT
     | unitnumber
     | REAL_NUMBER
     | NATURAL_NUMBER
@@ -486,8 +499,8 @@ value :
     | COLLECTION
     ;
 
-unitnumber : REAL_NUMBER UNIT 
-           | NATURAL_NUMBER UNIT 
+unitnumber : REAL_NUMBER UNIT
+           | NATURAL_NUMBER UNIT
 
 
 %%

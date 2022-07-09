@@ -22,10 +22,15 @@ jobs:
           which bison
 
       - name: Build
+        working-directory: ./assignment_3
+        run: |
+          make all
+
+      - name: Test
+        working-directory: ./assignment_3
         run: |
           export TEST_RUNNER_FIXED_ID=1
-          cd assignment_3
-          make all-and-test
+          make run-tests
 
       - name: 'Upload test output'
         uses: actions/upload-artifact@v3
@@ -41,16 +46,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: prepare dependencies
+      - name: Setup dependencies
         run: |
           pip3 install mkdocs
 
-      - name: build docs
+      - name: Build docs
+        working-directory: ./assignment_3
         run: |
-          cd assignment_3
           mkdocs build
 
-      - name: 'Upload docs site'
+      - name: Upload docs site
         uses: actions/upload-artifact@v3
         with:
           name: docs-site

@@ -14,7 +14,7 @@ nil             "{}"
 letter          [[:alpha:]]
 identifier      {letter}({letter}|"-"|"_"|[0-9])*
 word            {letter}({letter}|[0-9])*
-unit_word       {word}("^")?{natural_number}
+unit_word       ("\\"){word}(("^"){natural_number})?
 unit            {unit_word}|{nil}
 digit           [0-9]
 natural_number  {digit}+
@@ -26,6 +26,7 @@ boolean_false   "False"
 boolean         {boolean_true}|{boolean_false}
 value           {nil}|{boolean}|{real_number}|{unit_number}|{string}
 collection      '[' {value} ']'
+comment         "//".* 
 
 /* Token Matching */
 /* ^^^^^^^^^^^^^^ */
@@ -34,19 +35,19 @@ collection      '[' {value} ']'
     /* Basics */
     /* ~~~~~~ */
 
-","     {return COMMA;}
-"."     {return DOT;}
-":"     {return COLON;}
-";"     {return SEMICOLON;}
-"("     {return LEFT_PARENTHESE;}
-")"     {return RIGHT_PARENTHESE;}
-"["     {return LEFT_SQUAREBRACKET;}
-"]"     {return RIGHT_SQUAREBRACKET;}
-"{"     {return LEFT_BRACKET;}
-"}"     {return RIGHT_BRACKET;}
-"<<"    {return DOUBLE_LANGLE;} 
-">>"    {return DOUBLE_RANGLE;}
-"://"   {return PROTOCOL;}
+","         {return COMMA;}
+"."         {return DOT;}
+":"         {return COLON;}
+";"         {return SEMICOLON;}
+"("         {return LEFT_PARENTHESE;}
+")"         {return RIGHT_PARENTHESE;}
+"["         {return LEFT_SQUAREBRACKET;}
+"]"         {return RIGHT_SQUAREBRACKET;}
+"{"         {return LEFT_BRACKET;}
+"}"         {return RIGHT_BRACKET;}
+"<<"        {return DOUBLE_LANGLE;} 
+">>"        {return DOUBLE_RANGLE;}
+"://"       {return PROTOCOL;}
 
     /* Values */
     /* ~~~~~~ */
@@ -75,7 +76,7 @@ collection      '[' {value} ']'
 ">="        {return GREATER_EQUAL;}
 "++"        {return CONCAT;}
 
-"$"         {return TRANSFER;} /* this is not supported yet */
+"$"         {return TRANSLATE;} /* this is not supported yet */
 "@"         {return AT;}
 "_"         {return UNDERSCORE;}
 "|"         {return VERTICAL_LINE;}
@@ -125,5 +126,6 @@ MONITOR     {return MONITOR;}
     /* Special characters */
     /* ~~~~~~~~~~~~~~~~~~ */
 
-\n      { /* ignore newline */ }
+\n          { /* ignore newline */ }
+{comment}   { /* ignore line comments */ }
 %%

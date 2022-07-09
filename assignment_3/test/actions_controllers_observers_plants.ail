@@ -23,6 +23,12 @@ Actions : {
         too = bar.attr.other;
         if foo meets * > 30 then do (alpha) else do (beta);
         if foo meets * > bar.qoo then do alpha else do (beta);
+        if foo meets * > bar.qoo 
+        then do 
+            alpha; beta; gamma; 
+        else do
+            nu; mu; psi;
+        ;
         notify : {bar};
         bars @> {b | b + 1 };
         bars #> {b | b ~~ 24} @> {b | b + 1 };

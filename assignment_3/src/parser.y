@@ -371,9 +371,9 @@ if_then_else_expression :
     MEETS
     template_statement_expression
     THEN_DO
-    simple_expression
+    expressions
     ELSE_DO
-    simple_expression
+    expressions
     ;
 
 template_statement_expression :

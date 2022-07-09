@@ -220,8 +220,11 @@ observer_config :
     DOUBLE_RANGLE
     ;
 
+/* FIXME: use tokenizer to specify different observer configs */
 observer_body :
     observer_misc {
+        // sscanf($$, "%s", $1);
+        // printf("Observer misc body: %s.\n", $$);
         printf("Observer misc body.\n");
     }
     | observer_email {

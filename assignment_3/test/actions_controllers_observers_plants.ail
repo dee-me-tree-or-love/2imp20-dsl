@@ -24,7 +24,7 @@ Actions : {
         if foo meets * > 30 then do (alpha) else do (beta);
         if foo meets * > bar.qoo then do alpha else do (beta);
         if foo meets * > bar.qoo 
-        then do 
+        then do
             alpha; beta; gamma; 
         else do
             nu; mu; psi;

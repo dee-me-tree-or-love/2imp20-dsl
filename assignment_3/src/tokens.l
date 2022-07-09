@@ -42,8 +42,8 @@ comment             "//".*
 "]"         {return RIGHT_SQUAREBRACKET;}
 "{"         {return LEFT_BRACKET;}
 "}"         {return RIGHT_BRACKET;}
-"<<"        {return DOUBLE_LANGLE;} 
-">>"        {return DOUBLE_RANGLE;}
+"<<"        {return LEFT_DOUBLEANGLE;} 
+">>"        {return RIGHT_DOUBLEANGLE;}
 "://"       {return PROTOCOL;}
 
     /* Values */

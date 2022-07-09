@@ -318,15 +318,7 @@ asset_attribute_spec :
 /* TODO: implement sensor spec */
 asset_sensors_attribute_spec :
     SENSORS COLON LEFT_BRACKET
-    IDENTIFIER {
-        printf("Got sensor identifier: %s", $4);
-    }
-    COLON
-    sensor_type
-    COLON
-    LEFT_BRACKET
-    sensor_attributes
-    RIGHT_BRACKET
+    sensor_config
     /* FIXME: make sure to support multiple sensors */
     RIGHT_BRACKET
     ;
@@ -343,11 +335,12 @@ sensor_config :
     IDENTIFIER {
         printf("Got sensor identifier: %s", $1);
     }
-    /* COLON
+    COLON
     sensor_type
-    COLON LEFT_BRACKET
+    COLON
+    LEFT_BRACKET
     sensor_attributes
-    RIGHT_BRACKET */
+    RIGHT_BRACKET
     ;
 
 sensor_type :
@@ -596,44 +589,53 @@ attribute_or_identifier_access_base :
 
 value :
     NIL {
-        printf("Got nil.\n"); sscanf("", "%s", $$);
+        printf("Got nil.\n");
+        //  sscanf("", "%s", $$);
     }
     | BOOLEAN_TRUE {
-        printf("Got true.\n"); sscanf($1, "%s", $$);
+        printf("Got true.\n");
+        //  sscanf($1, "%s", $$);
     }
     | BOOLEAN_FALSE {
-        printf("Got false.\n"); sscanf($1, "%s", $$);
+        printf("Got false.\n");
+        //  sscanf($1, "%s", $$);
     }
     | UNIT {
-        printf("Got unit.\n"); sscanf($1, "%s", $$);
+        printf("Got unit.\n"); 
+        // sscanf($1, "%s", $$);
     }
     | unitnumber {
-        printf("Got unit number.\n"); sscanf($1, "%s", $$);
+        printf("Got unit number.\n");
+        //  sscanf($1, "%s", $$);
     }
     | REAL_NUMBER {
-        printf("Got real number.\n"); sscanf($1, "%s", $$);
+        printf("Got real number.\n");
+        //  sscanf($1, "%s", $$);
     }
     | NATURAL_NUMBER {
-        printf("Got natural number.\n"); sscanf($1, "%s", $$);
+        printf("Got natural number.\n"); 
+        // sscanf($1, "%s", $$);
     }
     | STRING {
-        printf("Got string.\n"); sscanf($1, "%s", $$);
+        printf("Got string.\n"); 
+        // sscanf($1, "%s", $$);
     }
     | collection {
-        printf("Got collection.\n"); sscanf($1, "%s", $$);
+        printf("Got collection.\n");
+        //  sscanf($1, "%s", $$);
     }
     ;
 
 unitnumber :
     REAL_NUMBER UNIT {
-        strcpy(tmp_unitnumber, $1);
-        strcat(tmp_unitnumber, $2); 
-        sscanf(tmp_unitnumber, "%s", $$);
+        // strcpy(tmp_unitnumber, $1);
+        // strcat(tmp_unitnumber, $2); 
+        // sscanf(tmp_unitnumber, "%s", $$);
     }
     | NATURAL_NUMBER UNIT {
-        strcpy(tmp_unitnumber, $1);
-        strcat(tmp_unitnumber, $2); 
-        sscanf(tmp_unitnumber, "%s", $$);
+        // strcpy(tmp_unitnumber, $1);
+        // strcat(tmp_unitnumber, $2); 
+        // sscanf(tmp_unitnumber, "%s", $$);
     }
     ;
 

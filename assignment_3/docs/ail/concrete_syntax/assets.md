@@ -6,24 +6,24 @@ Example:
 Assets : {
     strawberry_plants : Plantation <<Strawberry>> : {
         desc: "Strawberry fruits along the South border",
-        area: 300 m^2,
+        area: 300 \m^2,
         plantation_date: "2022-03-02",
         sensors : {
             water_level : Sensor : {
                 "daily 9 am",
-                check_water : { > 30 mm, notify : { [support] } }
+                check_water : { > 30 \mm, notify : { [support] } }
             }
         }
     },
     water_tank : WaterSource : {
         installation_date: "2020-02-02",
-        max_temp: 60 C, 
-        capacity: 30 l,
+        max_temp: 60 \C, 
+        capacity: 30 \l,
         sensors : {
             water_level : Sensor : {
                 "every 10 min", 
                 check_water : {
-                    > 50 mm,
+                    > 50 \mm,
                     notify : { [ support, admin, rss ] } 
                 }
             }, 
@@ -76,13 +76,13 @@ Assets : {
 
   ```plaintext
     ^^ desc: “Strawberry fruits along the South border”.
-    ^^ area: 300 m^2.
+    ^^ area: 300 \m^2.
     ^^ plantation_date: 2022-03-02.
     strawberry_plants : Plantation <<Strawberry>> : {
         sensors : {
             water_level : Sensor : {
                 "daily 9 am",
-                check_water : { > 30 mm, notify : { [support] } }
+                check_water : { > 30 \mm, notify : { [support] } }
             }
         }
     },

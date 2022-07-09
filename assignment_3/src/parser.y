@@ -34,8 +34,9 @@ char tmp_access[100];
 %token RIGHT_SQUAREBRACKET
 %token LEFT_BRACKET
 %token RIGHT_BRACKET
-%token DOUBLE_LANGLE 
-%token DOUBLE_RANGLE
+%token LEFT_DOUBLEANGLE
+%token RIGHT_DOUBLEANGLE
+/* TODO: maybe delete the unused protocol token */
 %token PROTOCOL
 
 %token IDENTIFIER
@@ -121,6 +122,8 @@ char tmp_access[100];
 %type <istr> value_spec
 %type <istr> unitnumber
 %type <istr> attribute_or_identifier_access
+%type <istr> attribute_or_identifier_access_base
+%type <istr> attribute_or_identifier_access_clause
 %type <istr> collection
 %type <istr> collection_body
 
@@ -168,6 +171,7 @@ item_decl :
     | observer_decls
     | controllers_decls
     | action_decls
+    | asset_decls
     ;
 
 /* Plants */
@@ -191,9 +195,9 @@ plant_config :
         addSymbol($1, plant);
         attrCount = 0;
     }
-    DOUBLE_LANGLE
+    LEFT_DOUBLEANGLE
     plant_body
-    DOUBLE_RANGLE{ownerCount++;}
+    RIGHT_DOUBLEANGLE{ownerCount++;}
     ;
 
 plant_body :
@@ -223,9 +227,9 @@ observer_config :
         //Symbol
         addSymbol($1, observer);
     }
-    DOUBLE_LANGLE
+    LEFT_DOUBLEANGLE
     observer_body {addObserver($1, $4);}
-    DOUBLE_RANGLE
+    RIGHT_DOUBLEANGLE
     ;
 
 /* FIXME: use tokenizer to specify different observer configs */
@@ -257,6 +261,39 @@ controller_config :
     }
     ;
 
+/* Assets */
+
+asset_decls :
+    ASSETS COLON LEFT_BRACKET
+    asset_configs
+    RIGHT_BRACKET
+    ;
+
+asset_configs :
+    asset_config COMMA asset_configs
+    | asset_config
+    | /* empty body */
+    ;
+
+asset_config :
+    IDENTIFIER COLON 
+    asset_type COLON LEFT_BRACKET
+    asset_attributes
+    RIGHT_BRACKET
+    ;
+
+asset_type :
+    WATERSOURCE
+    | PLANTATION LEFT_DOUBLEANGLE
+    /* TODO: fully implement this */
+    RIGHT_DOUBLEANGLE
+    ;
+
+/* TODO: fully implement this */
+asset_attributes :
+    IDENTIFIER
+    ;
+
 /* Actions */
 
 action_decls :
@@ -278,9 +315,9 @@ action_config :
         //Symbol
         addSymbol($1, action);
     }
-    DOUBLE_LANGLE
+    LEFT_DOUBLEANGLE
     action_parameters
-    DOUBLE_RANGLE
+    RIGHT_DOUBLEANGLE
     LEFT_PARENTHESE
     action_body
     RIGHT_PARENTHESE
@@ -309,7 +346,6 @@ action_body :
     ;
 
 /* Expressions */
-/* ~~~~~~~~~~~ */
 
 expressions :
     expression_line SEMICOLON expressions
@@ -448,18 +484,40 @@ value_spec :
     ;
 
 attribute_or_identifier_access :
-    //todo:replace it with char[][]
-    IDENTIFIER {
-        printf("Attribute parent: %s\n", $1);
-        //Symbol
+    attribute_or_identifier_access_base 
+    attribute_or_identifier_access_clause {
         strcpy(tmp_access, $1);
+        strcat(tmp_access, $2);
+        sscanf(tmp_access, "%s", $$);
     }
-    DOT {strcat(tmp_access, ".");}
-    attribute_or_identifier_access {strcat(tmp_access, $5);}
-    | IDENTIFIER {
-        printf("Attribute or identifier access: %s\n", $1);
+    ;
 
-        //Symbol
+attribute_or_identifier_access_clause :
+    DOT {strcat(tmp_access, ".");}
+    IDENTIFIER {
+        printf("Attribute access key: %s\n", $3);
+        strcat(tmp_access, $3);
+    }
+    attribute_or_identifier_access_clause {
+        strcat(tmp_access, $5);
+        sscanf(tmp_access, "%s", $$);
+    }
+    | DOT {strcat(tmp_access,  ".");}
+    IDENTIFIER {
+        printf("Attribute access key: %s\n", $3);
+        strcat(tmp_access, $3);
+        sscanf(tmp_access, "%s", $$);
+    }
+    | /* empty access clause */{sscanf("", "%s", $$);}
+    ;
+
+attribute_or_identifier_access_base :
+    IDENTIFIER {
+        printf("Attribute identifier parent: %s\n", $1);
+        sscanf($1, "%s", $$);
+    }
+    | SRC_IDENTIFIER {
+        printf("Attribute src_identifier parent: %s\n", $1);
         sscanf($1, "%s", $$);
     }
     ;

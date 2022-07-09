@@ -17,6 +17,8 @@ Example
 
 ## CRON triggers
 
+> This trigger syntax is intended but is not supported at this iteration.
+
 Examples:
 
 ```plaintext

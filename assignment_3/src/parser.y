@@ -451,6 +451,9 @@ attribute_spec :
     COLON
     value_spec {
         printf("Attribute value.\n");
+
+        //Symbol 
+        // addAttr($1, )
     }
     ;
 

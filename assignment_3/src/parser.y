@@ -59,7 +59,7 @@ extern FILE* yyin;
 %token GREATER_EQUAL
 %token CONCAT
 
-%token TRANSFER
+%token TRANSLATE
 %token AT
 %token UNDERSCORE
 %token VERTICAL_LINE

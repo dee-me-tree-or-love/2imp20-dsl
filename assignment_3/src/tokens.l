@@ -76,7 +76,7 @@ comment         "//".*
 ">="        {return GREATER_EQUAL;}
 "++"        {return CONCAT;}
 
-"$"         {return TRANSFER;} /* this is not supported yet */
+"$"         {return TRANSLATE;} /* this is not supported yet */
 "@"         {return AT;}
 "_"         {return UNDERSCORE;}
 "|"         {return VERTICAL_LINE;}

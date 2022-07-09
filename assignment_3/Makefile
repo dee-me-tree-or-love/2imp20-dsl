@@ -82,9 +82,12 @@ run-tests: ${PARSER_OUT}
 
 # Run a single test file against the parser
 run-suite-test: ${PARSER_OUT}
+	@echo "🕵️ Check if 'suite' argument is defined."
+	@echo "💡 Make sure to call this target like 'make <target> suite=<your file path>'."
+	@test ${suite}
 	@mkdir -p ${TMP_DIR}
-	@echo "🔍 Brace yourself, running the test now!"
-	@echo '\n💡 Running ${suite}'
+	@echo "🛫 Brace yourself, running the test now!"
+	@echo '💡 Running ${suite}'
 	@((cat ${suite} | ${PARSER_OUT} && echo ✅ Test passed ) || echo ❌ TEST FAILED) \
 		2>&1 | tee ${TMP_DIR}/test_manual.log
 

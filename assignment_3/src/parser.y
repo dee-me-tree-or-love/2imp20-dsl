@@ -14,6 +14,11 @@ extern void yyerror(const char *s);
 extern FILE* yyin;
 
 
+
+char tmp_collection[100];
+char tmp_unitnumber[100];
+char tmp_access[100];
+
 %}
 
 // TOKENS
@@ -105,7 +110,7 @@ extern FILE* yyin;
 %type <istr> SRC_IDENTIFIER
 %type <ival> REAL_NUMBER
 %type <ival> NATURAL_NUMBER
-%type <ival> UNIT_NUMBER
+%type <istr> UNIT
 %type <ival> BOOLEAN_FALSE
 %type <ival> BOOLEAN_TRUE
 %type <istr> STRING
@@ -116,6 +121,8 @@ extern FILE* yyin;
 %type <istr> value_spec
 %type <istr> unitnumber
 %type <istr> attribute_or_identifier_access
+%type <istr> collection
+%type <istr> collection_body
 
 /* FIXME: add precedence rules to other shift/reduce conflicts */
 /* See: https://www.gnu.org/software/bison/manual/html_node/Shift_002fReduce.html */
@@ -186,7 +193,7 @@ plant_config :
     }
     DOUBLE_LANGLE
     plant_body
-    DOUBLE_RANGLE
+    DOUBLE_RANGLE{ownerCount++;}
     ;
 
 plant_body :
@@ -429,75 +436,99 @@ attribute_spec :
     COLON
     value_spec {
         printf("Attribute value.\n");
+        //Symbol
+        addAttr($1, $4);
     }
     ;
 
 value_spec :
-    | attribute_or_identifier_access
+    | attribute_or_identifier_access {sscanf($1, "%s", $$);}
     | value {sscanf($1, "%s", $$);}
     ;
 
 attribute_or_identifier_access :
+    //todo:replace it with char[][]
     IDENTIFIER {
         printf("Attribute parent: %s\n", $1);
+        //Symbol
+        strcpy(tmp_access, $1);
     }
-    DOT
-    attribute_or_identifier_access
+    DOT {strcat(tmp_access, ".");}
+    attribute_or_identifier_access {strcat(tmp_access, $5);}
     | IDENTIFIER {
         printf("Attribute or identifier access: %s\n", $1);
 
         //Symbol
-        {sscanf($1, "%s", $$);}
+        sscanf($1, "%s", $$);
     }
     ;
 
 value :
     NIL {
-        printf("Got nil.\n");
+        printf("Got nil.\n"); sscanf("", "%s", $$);
     }
     | BOOLEAN_TRUE {
-        printf("Got true.\n");
+        printf("Got true.\n"); sscanf($1, "%s", $$);
     }
     | BOOLEAN_FALSE {
-        printf("Got false.\n");
+        printf("Got false.\n"); sscanf($1, "%s", $$);
     }
     | UNIT {
-        printf("Got unit.\n");
+        printf("Got unit.\n"); sscanf($1, "%s", $$);
     }
     | unitnumber {
-        printf("Got unit number.\n");
+        printf("Got unit number.\n"); sscanf($1, "%s", $$);
     }
     | REAL_NUMBER {
-        printf("Got real number.\n");
+        printf("Got real number.\n"); sscanf($1, "%s", $$);
     }
     | NATURAL_NUMBER {
-        printf("Got natural number.\n");
+        printf("Got natural number.\n"); sscanf($1, "%s", $$);
     }
     | STRING {
-        printf("Got string.\n");
+        printf("Got string.\n"); sscanf($1, "%s", $$);
     }
     | collection {
-        printf("Got collection.\n");
+        printf("Got collection.\n"); sscanf($1, "%s", $$);
     }
     ;
 
 unitnumber :
-    REAL_NUMBER UNIT
-    | NATURAL_NUMBER UNIT
+    REAL_NUMBER UNIT {
+        strcpy(tmp_unitnumber, $1);
+        strcat(tmp_unitnumber, $2); 
+        sscanf(tmp_unitnumber, "%s", $$);
+    }
+    | NATURAL_NUMBER UNIT {
+        strcpy(tmp_unitnumber, $1);
+        strcat(tmp_unitnumber, $2); 
+        sscanf(tmp_unitnumber, "%s", $$);
+    }
     ;
 
 collection :
     LEFT_SQUAREBRACKET
     collection_body {
         printf("\nGot collection body.\n");
+        sscanf($2, "%s", $$);
     }
     RIGHT_SQUAREBRACKET
     ;
 
+
 collection_body :
-    value_spec COMMA collection_body
-    | value_spec
-    | /* empty body */
+    //todo:replace it with char[][]
+    value_spec {
+        strcpy(tmp_collection, $1);
+    } COMMA {
+        strcat(tmp_collection, ",");
+    }
+     collection_body {
+        strcat(tmp_collection, $5);
+        sscanf(tmp_collection, "%s", $$);
+    }
+    | value_spec {sscanf($1, "%s", $$);}
+    | /* empty body */{sscanf("", "%s", $$);}
     ;
 
 %%

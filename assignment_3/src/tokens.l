@@ -19,13 +19,10 @@ unit                {unit_word}|{nil}
 digit               [0-9]
 natural_number      {digit}+
 real_number         ("-")?{natural_number}("."{natural_number})?
-unit_number         {real_number}" "{unit}
-string              "\"".*"\""
+/* supports strings with escaped quotes */
+string              "\""([^\"]|"\\\"")*"\""
 boolean_true        "True"
 boolean_false       "False"
-boolean             {boolean_true}|{boolean_false}
-value               {nil}|{boolean}|{real_number}|{unit_number}|{string}
-collection          '[' {value} ']'
 comment             "//".*
 
 /* Token Matching */
@@ -58,7 +55,6 @@ comment             "//".*
 {natural_number}    {sscanf(yytext,"%d",&yylval); return NATURAL_NUMBER;}
 {real_number}       {sscanf("real_number","%s",&yylval); return REAL_NUMBER;}
 {string}            {sscanf("string","%s",&yylval); return STRING;}
-{collection}        {sscanf("collection","%s",&yylval); return COLLECTION;}
 
     /* Language expressions */
     /* ~~~~~~~~~~~~~~~~~~~~ */

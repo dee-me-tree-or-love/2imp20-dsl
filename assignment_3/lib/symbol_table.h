@@ -112,62 +112,61 @@ void checkObservere(char label[])
 }
 /* Observer table */
 
-/* Plant table */
+/* Attribute table */
 /*~~~~~~~~~~~~~~~~*/
 struct attribute {
     char variable[100];
     char value[100];
 };
-struct PlantTableStruct {
-    char label[100];
-    struct attribute allAttrs[100];
+struct AttrTableStruct {
+    char owner[100];
+    struct attribute attrs[100];
 };
-struct PlantTableStruct plantTable[100];
-int plantCount = 0;
+int ownerCount = 0;
 int attrCount = 0;
+struct AttrTableStruct AttrTable[100];
 
-int lookupPlant(struct PlantTableStruct plantTable[],char compareString[],int plantCount) {
-    for(int i = 0; i < plantCount; i++) {
-        if(!strcmp(plantTable[i].label, compareString))
-            printf("\"%s\" Error:This plant label has been used:line%d\n", compareString, lineCount+1);
-            return i;
-    }
-    return -1;
-}
-int lookupParam(struct PlantTableStruct plantTable[], char pVar[]) {
-    for(int i = 0; i < plantCount; i++) {
-        for(int j = 0; j < attrCount; j++) {
-            if(!strcmp(plantTable[i].allAttrs[attrCount].variable, pVar)) {
-                printf("\"%s\" Error:This attr has been defined:line%d\n",  pVar, lineCount+1);
-                return i;
-            }
+int lookupAttr(struct attribute attrs[], char aVar[], int attrCount) {
+    for(int j = 0; j < attrCount; j++) {
+        if(!strcmp(attrs[j].variable, aVar)) {
+            printf("\"%s\" Error:This attr has been defined:line%d\n",  aVar, lineCount+1);
+            return j;
         }
     }
     return -1;
 }
 
-void addPlant(char label[], struct attribute attrs[]) {
-    if(lookupPlant(plantTable, label, plantCount) == -1) {
-        sscanf(label,"%s", plantTable[plantCount].label);
-        plantCount++;
+int lookupOwner(struct AttrTableStruct AttrTable[], char owner[], int ownerCount) {
+    for(int j = 0; j < ownerCount; j++) {
+        if(!strcmp(AttrTable[j].owner, owner)) {
+            printf("\"%s\" Error:This Plant has been defined:line%d\n",  owner, lineCount+1);
+            return j;
+        }
     }
+    return -1;
 }
 
-void addAttr(char var[], char val[]) {
-    if(lookupParam(plantTable, var) == -1) {
-        sscanf(var,"%s", plantTable[plantCount].allAttrs[attrCount].variable);
-        sscanf(val,"%s", plantTable[plantCount].allAttrs[attrCount].value);
+void addAttr(struct attribute attrs[], char aVar[], char aVal[]) {
+    if(lookupAttr(attrs, aVar, attrCount) == -1) {
+        sscanf(aVar,"%s", attrs[attrCount].variable);
+        if(!strcmp("",aVal)) return;
+        sscanf(aVal,"%s", attrs[attrCount].value);
         attrCount++;//todo: release after every plant defintion
     }
 }
 
-// used in asset
-void checkPlant(char label[])
-{
-    if(lookupPlant(plantTable, label, plantCount)==-1)
-        printf("\"%s\" Error:Unavailable plant:line%d\n", label, lineCount+1);
+void addAttrs(struct AttrTableStruct AttrTable[], struct attribute attrs[], char owner[]) {
+    if(lookupOwner(AttrTable, owner, ownerCount) == -1) {
+        sscanf(owner,"%s", AttrTable[ownerCount].owner);
+        for (int i = 0; i < attrCount; i++) {
+            sscanf(attrs[i].variable,"%s", AttrTable[ownerCount].attrs[i].variable);
+            if(!strcmp("",attrs[i].value)) return;
+            sscanf(attrs[i].value,"%s", AttrTable[ownerCount].attrs[i].value);
+        }
+        ownerCount++;//todo: release after every plant defintion
+    }
 }
-/* Plant table */
+/* Attribute table */
 
 //basic symbol look up function 
 int lookup(struct SymbolTableStruct symbolTable[],char compareString[],int symbolCount) { 

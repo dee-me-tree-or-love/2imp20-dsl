@@ -117,6 +117,11 @@ extern FILE* yyin;
 %type <istr> observer_email
 %type <istr> observer_url
 
+%type <istr> value
+%type <istr> value_spec
+%type <istr> unitnumber
+%type <istr> attribute_or_identifier_access
+
 /* FIXME: add precedence rules to other shift/reduce conflicts */
 /* See: https://www.gnu.org/software/bison/manual/html_node/Shift_002fReduce.html */
 
@@ -182,6 +187,7 @@ plant_config :
         printf("Plant name: %s\n", $1);
         //Symbol
         addSymbol($1, plant);
+        attrCount = 0;
     }
     DOUBLE_LANGLE
     plant_body
@@ -463,20 +469,17 @@ operator :
 attribute_spec :
     IDENTIFIER {
         printf("Attribute key: %s\n", $1);
-        scope = local;
     }
     COLON
     value_spec {
         printf("Attribute value.\n");
-
-        //Symbol 
-        // addAttr($1, )
+        addAttr()
     }
     ;
 
 value_spec :
     | attribute_or_identifier_access
-    | value
+    | value {sscanf($1, "%s", $$);}
     ;
 
 attribute_or_identifier_access :
@@ -487,23 +490,26 @@ attribute_or_identifier_access :
     attribute_or_identifier_access
     | IDENTIFIER {
         printf("Attribute or identifier access: %s\n", $1);
+
+        //Symbol
+        {sscanf($1, "%s", $$);}
     }
     ;
 
 value :
-    NIL
-    | BOOLEAN_TRUE
-    | BOOLEAN_FALSE
-    | UNIT
-    | unitnumber
-    | REAL_NUMBER
-    | NATURAL_NUMBER
-    | STRING
-    | COLLECTION
+    NIL {sscanf($1, "%s", $$);}
+    | BOOLEAN_TRUE  {sscanf($1, "%s", $$);}
+    | BOOLEAN_FALSE {sscanf($1, "%s", $$);}
+    | UNIT {sscanf($1, "%s", $$);}
+    | unitnumber {sscanf($1, "%s", $$);}
+    | REAL_NUMBER {sscanf($1, "%s", $$);}
+    | NATURAL_NUMBER {sscanf($1, "%s", $$);}
+    | STRING {sscanf($1, "%s", $$);}
+    | COLLECTION {sscanf($1, "%s", $$);}
     ;
 
-unitnumber : REAL_NUMBER UNIT
-           | NATURAL_NUMBER UNIT
+unitnumber : REAL_NUMBER UNIT {sscanf($1, "%s", $$);}
+           | NATURAL_NUMBER UNIT {sscanf($1, "%s", $$);}
 
 
 %%

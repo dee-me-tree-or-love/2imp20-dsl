@@ -80,6 +80,14 @@ run-tests: ${PARSER_OUT}
 		&& echo "❌ SOME TESTS FAILED. Quitting." && exit 1 \
 		|| echo "✅ ALL TESTS PASSED"
 
+# Run a single test file against the parser
+run-specific-test: ${PARSER_OUT}
+	@mkdir -p ${TMP_DIR}
+	@echo "🔍 Brace yourself, running the test now!"
+	@echo '\n💡 Running ${suite}'
+	@(cat ${suite} | ${PARSER_OUT} && echo ✅ Test passed ) || echo ❌ TEST FAILED
+
+
 # Handy command to build and test at once
 all-and-test: all run-tests
 	@echo "👌 Done."

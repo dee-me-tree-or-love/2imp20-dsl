@@ -24,17 +24,12 @@ Observers : {
 ### Individual plant config
 
 > For `<<IDENTIFIER>>` see [basics.md](./basics.md).  
-> For `<<ATTRIBUTE>>` see [basics.md](./basics.md).  
+> For `<<STRING>>` see [basics.md](./basics.md).  
 
 ```f#
 <<OBSERVER_CONFIG>>     := <<OBSERVER_IDENTIFIER>> "<<"
                                 <<OBSERVER_BODY>>
                             ">>"
 <<OBSERVER_IDENTIFIER>> := <<IDENTIFIER>>
-<<OBSERVER_BODY>>       := <<OBSERVER_MISC>>
-                            | <<OBSERVER_URL>>
-                            | <<OBSERVER_EMAIL>>
-<<OBSERVER_MISC>>       := <<IDENTIFIER>> ("."<<IDENTIFIER>>)+
-<<OBSERVER_EMAIL>>      := <<OBSERVER_MISC>> "@" <<OBSERVER_MISC>>
-<<OBSERVER_URL>>        := (<<IDENTIFIER>> "://")? <<OBSERVER_MISC>>
+<<OBSERVER_BODY>>       := <<STRING>>
 ```

@@ -113,9 +113,6 @@ extern FILE* yyin;
 %type <ival> COLLECTION
 
 %type <istr> observer_body
-%type <istr> observer_misc
-%type <istr> observer_email
-%type <istr> observer_url
 
 %type <istr> value
 %type <istr> value_spec
@@ -228,47 +225,8 @@ observer_config :
 
 /* FIXME: use tokenizer to specify different observer configs */
 observer_body :
-    observer_misc {
-        // sscanf($$, "%s", $1);
-        // printf("Observer misc body: %s.\n", $$);
-        printf("Observer misc body.\n");
-    }
-    | observer_email {
-        printf("Observer email body.\n");
-    }
-    | observer_url {
-        printf("Observer url body.\n");
-    }
-    ;
-
-observer_misc :
-    IDENTIFIER DOT observer_misc {
-        char addr[100];
-        strcpy(addr, $1);
-        strcat(addr, ".");
-        strcat(addr, $3);
-        sscanf(addr, "%s", $$);
-    }
-    | IDENTIFIER {sscanf($1, "%s", $$);}
-    ;
-
-observer_email :
-    observer_misc AT observer_misc {
-        char addr[100];
-        strcpy(addr, $1);
-        strcat(addr, "@");
-        strcat(addr, $3);
-        sscanf(addr, "%s", $$);
-    }
-    ;
-
-observer_url :
-    IDENTIFIER PROTOCOL observer_misc {
-        char addr[100];
-        strcpy(addr, $1);
-        strcat(addr, "://");
-        strcat(addr, $3);
-        sscanf(addr, "%s", $$);
+    STRING {
+        printf("Observer body: %s\n", $1);
     }
     ;
 

@@ -29,45 +29,9 @@ enum typeEnum
 struct SymbolTableStruct {
     char label[100];
     enum typeEnum typeValue;
-    unitNumber unitnumberValue;
-    int intValue;
-    float realValue;
-    char strValue[100];
-    Collection collectionValue[100];
 };
 struct SymbolTableStruct symbolTable[200];  
-struct SymbolTableStruct localSymbolTable[200]; // size = %src.items @> {_ | + 1};
 int symbolCount=0;
-int localSymbolCount=0;
-
-//Action table : used to check if called actions in assets exist
-struct ActionTableStruct {
-    char label[100];
-    char type[100];// check or send(notify)
-};
-struct ActionTableStruct actionTable[100];
-int actionCount = 0;
-
-int lookupAction(struct ActionTableStruct actionTable[],char compareString[],int actionCount) {
-    for(int i = 0; i < actionCount; i++) {
-        if(!strcmp(actionTable[i].label, compareString))
-            return i;
-    }
-    return -1;
-}
-
-void addAction(char label[]) {
-    if(lookupAction(actionTable, label, actionCount) == -1) {
-        actionTable[actionCount].label[0]='\0';
-        strcat(actionTable[actionCount].label, label);
-        actionCount++;
-    }
-}
-
-void checkAction(char label[]) {
-    if(lookupAction(actionTable, label, actionCount) == -1)
-        printf("\"%s\" Error: The action is not defined:line%d\n", label, lineCount+1);
-}
 
 /* Observer table */
 /*~~~~~~~~~~~~~~~~*/
@@ -182,11 +146,7 @@ int lookup(struct SymbolTableStruct symbolTable[],char compareString[],int symbo
 
 //get symbol type
 enum typeEnum getSymbolType(char label[]) {
-    int index = lookup(localSymbolTable, label, localSymbolCount);
-    if(index != -1) {
-        return localSymbolTable[index].typeValue;
-    }
-	index=lookup(symbolTable,label,symbolCount);
+	int index=lookup(symbolTable,label,symbolCount);
 	if(index != -1)
 		return symbolTable[index].typeValue;
     return nil;
@@ -200,33 +160,14 @@ enum scopeEnum
 enum scopeEnum scope=global;
 
 void checkScope(char label[]) {
-    if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(symbolTable, label, symbolCount) == -1)
+    if(lookup(symbolTable, label, symbolCount) == -1 && lookup(symbolTable, label, symbolCount) == -1)
         printf("\"%s\" Error:Undeclared variable:line%d\n", label, lineCount+1);
 }
 
 void checkall(char label[]) {
-		if(lookup(localSymbolTable, label, localSymbolCount) == -1 && lookup(symbolTable, label, symbolCount) == -1 && lookupAction(actionTable, label, actionCount) == -1)
+		if(lookup(symbolTable, label, symbolCount) == -1 && lookup(symbolTable, label, symbolCount) == -1)
 			printf("\"%s\" Error:Undeclared variable:line%d\n",label,lineCount+1);
 }
-
-// void addType(char type[]) {
-//     if(scope == global)
-//     {
-//         for(int i = symbolCount-typeCount; i < symbolCount; i++) {
-//             sscanf(type, "%s", symbolTable[i].type);
-//             symbolTable[i].varconst = varconst;            
-//         }
-//     }
-//     else
-//     {
-//         for(int i = localSymbolCount - typeCount; i < localSymbolCount; i++)
-//         {
-//             sscanf(type,"%s",localSymbolTable[i].type);
-//             localSymbolTable[i].varconst = varconst;
-//         }
-//     }
-//     typeCount=0;
-// }
 
 void addSymbol(char label[], enum typeEnum typeValue) {
     int error;
@@ -241,31 +182,22 @@ void addSymbol(char label[], enum typeEnum typeValue) {
                 error = 1;
             }
         }
-        else {
-            if(lookup(localSymbolTable,label,localSymbolCount) == -1) {
-                sscanf(label, "%s", localSymbolTable[localSymbolCount].label);
-                localSymbolCount++;
-            } else {
-                printf("\"%s\" Error: The label has been used:line%d\n", label, lineCount+1);
-                error = 1;
-            }
-        }	
 }
 //TODO: add collection, unit number
 //TODO: initialize 
-int _int;
-float _real;
-char _string[100];
+// int _int;
+// float _real;
+// char _string[100];
 
-void addValue(int intValue, char strValue[], float realValue) {
-    if(scope == global) {
-        symbolTable[symbolCount - 1].intValue = intValue;
-        symbolTable[symbolCount - 1].realValue = realValue;
-        strcpy(symbolTable[symbolCount - 1].strValue, strValue);
-    }
-    else {
-        localSymbolTable[localSymbolCount - 1].intValue=intValue;
-        localSymbolTable[localSymbolCount - 1].realValue = realValue;
-        strcpy(localSymbolTable[localSymbolCount-1].strValue, strValue);
-    }	
-}
+// void addValue(int intValue, char strValue[], float realValue) {
+//     if(scope == global) {
+//         symbolTable[symbolCount - 1].intValue = intValue;
+//         symbolTable[symbolCount - 1].realValue = realValue;
+//         strcpy(symbolTable[symbolCount - 1].strValue, strValue);
+//     }
+//     else {
+//         localSymbolTable[localSymbolCount - 1].intValue=intValue;
+//         localSymbolTable[localSymbolCount - 1].realValue = realValue;
+//         strcpy(localSymbolTable[localSymbolCount-1].strValue, strValue);
+//     }	
+// }

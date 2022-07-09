@@ -129,6 +129,13 @@ void addOwner(char owner[], int ownerCount) {
         ownerCount++;//todo: release after every plant defintion
     }
 }
+// used in asset&action
+void checkAttr(char var[])
+{
+    if(lookupAttr(AttrTable[ownerCount].attrs, var, attrCount)==-1)
+        printf("\"%s\" Error:Unavailable variable:line%d\n", var);
+}
+
 /* Attribute table */
 
 //basic symbol look up function 

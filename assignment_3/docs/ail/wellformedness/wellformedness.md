@@ -15,7 +15,6 @@
 
 
 ### Action wellformedness
-- `Actions` must contain one or more parameters except for *%src*.
 - Variables in actions must be stated before using.
 
 ### Observer wellformedness

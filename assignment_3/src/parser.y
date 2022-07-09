@@ -121,7 +121,6 @@ char tmp_access[100];
 %type <istr> STRING
 
 %type <istr> observer_body
-
 %type <istr> value
 %type <istr> value_spec
 %type <istr> unitnumber
@@ -130,6 +129,7 @@ char tmp_access[100];
 %type <istr> attribute_or_identifier_access_clause
 %type <istr> collection
 %type <istr> collection_body
+%type <istr> unit_expression
 
 /* FIXME: add precedence rules to other shift/reduce conflicts */
 /* See: https://www.gnu.org/software/bison/manual/html_node/Shift_002fReduce.html */
@@ -400,13 +400,13 @@ action_parameter :
     SRC_IDENTIFIER {
         // FIXME: create a "debug" function and make it work right
         printf("Action attributes as src: %s\n", $1);
-        addAttr($1, "ACTION_L_SELF");
+        addAttr($1, "ACTION_SELF");
 
     }
     | IDENTIFIER {
         // FIXME: create a "debug" function and make it work right
         printf("Action attributes as identifier: %s\n", $1);
-        addAttr($1, "ACTION_L_PARAM");
+        addAttr($1, "ACTION_PARAM");
     }
     /* TODO: add support for optional collection parameters */
     ;
@@ -427,7 +427,7 @@ expression_line :
     simple_expression
     | assignment_expression
     | if_then_else_expression
-    | unit_expression
+    | unit_expression 
     ;
 
 simple_expression :
@@ -443,6 +443,8 @@ expression_statement :
 assignment_expression :
     IDENTIFIER {
         printf("Got a new identifier: %s\n", $1);
+        //symbol
+        addAttr($1, "ACTION_VAR");
     }
     EQUALS
     simple_expression
@@ -461,9 +463,11 @@ if_then_else_expression :
 unit_expression :
     value_spec {
         printf("Got a value spec.\n");
+        //Symbol
+        checkAttr($1);
     }
-    |  template_statement_expression {
-         printf("Got a template statement expression.\n");
+    | template_statement_expression {
+        printf("Got a template statement expression.\n");
     }
     | action_expression {
         printf("Got an action expression.\n");

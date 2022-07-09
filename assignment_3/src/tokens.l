@@ -26,6 +26,7 @@ boolean_false   "False"
 boolean         {boolean_true}|{boolean_false}
 value           {nil}|{boolean}|{real_number}|{unit_number}|{string}
 collection      '[' {value} ']'
+comment         "//".* 
 
 /* Token Matching */
 /* ^^^^^^^^^^^^^^ */
@@ -34,19 +35,19 @@ collection      '[' {value} ']'
     /* Basics */
     /* ~~~~~~ */
 
-","     {return COMMA;}
-"."     {return DOT;}
-":"     {return COLON;}
-";"     {return SEMICOLON;}
-"("     {return LEFT_PARENTHESE;}
-")"     {return RIGHT_PARENTHESE;}
-"["     {return LEFT_SQUAREBRACKET;}
-"]"     {return RIGHT_SQUAREBRACKET;}
-"{"     {return LEFT_BRACKET;}
-"}"     {return RIGHT_BRACKET;}
-"<<"    {return DOUBLE_LANGLE;} 
-">>"    {return DOUBLE_RANGLE;}
-"://"   {return PROTOCOL;}
+","         {return COMMA;}
+"."         {return DOT;}
+":"         {return COLON;}
+";"         {return SEMICOLON;}
+"("         {return LEFT_PARENTHESE;}
+")"         {return RIGHT_PARENTHESE;}
+"["         {return LEFT_SQUAREBRACKET;}
+"]"         {return RIGHT_SQUAREBRACKET;}
+"{"         {return LEFT_BRACKET;}
+"}"         {return RIGHT_BRACKET;}
+"<<"        {return DOUBLE_LANGLE;} 
+">>"        {return DOUBLE_RANGLE;}
+"://"       {return PROTOCOL;}
 
     /* Values */
     /* ~~~~~~ */
@@ -125,5 +126,6 @@ MONITOR     {return MONITOR;}
     /* Special characters */
     /* ~~~~~~~~~~~~~~~~~~ */
 
-\n      { /* ignore newline */ }
+\n          { /* ignore newline */ }
+{comment}   { /* ignore line comments */ }
 %%

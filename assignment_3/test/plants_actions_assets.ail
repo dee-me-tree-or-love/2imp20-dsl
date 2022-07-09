@@ -24,7 +24,11 @@ Assets : {
             water_level : Sensor : {
                 "daily 9 am",
                 notify : { [support] }
-            } 
+            },
+            temp_level : Sensor : {
+                "daily 9 am",
+                notify : { [support, admin] }
+            }
         }
     },
     garlic_south : Plantation <<Garlic>> : {

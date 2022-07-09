@@ -318,17 +318,17 @@ asset_attribute_spec :
 /* TODO: implement sensor spec */
 asset_sensors_attribute_spec :
     SENSORS COLON LEFT_BRACKET
-    sensor_config
+    sensor_configs
     /* FIXME: make sure to support multiple sensors */
     RIGHT_BRACKET
     ;
 
 /* Sensors */
-/* FIXME: something seems broken about the sensor configs */
 
 sensor_configs :
     sensor_config COMMA sensor_configs
-    | sensor_configs
+    | sensor_config
+    | /* empty body */
     ;
 
 sensor_config :

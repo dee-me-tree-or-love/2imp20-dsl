@@ -20,6 +20,7 @@ ifeq ($(UNAME), Darwin)
 	LEX_FLAG=-ll
 endif
 
+# NB: the fixed test output file is used in CI/CD.
 ifeq ($(TEST_RUNNER_FIXED_ID), 1)
 	TEST_OUTPUT=${TMP_DIR}/test-run-fixed.log
 else

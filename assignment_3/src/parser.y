@@ -342,19 +342,19 @@ expressions :
     ;
 
 expression_line :
-    expression
+    simple_expression
     | assignment_expression
     | if_then_else_expression
     | unit_expression
     ;
 
-expression :
+simple_expression :
     LEFT_PARENTHESE expression_statement RIGHT_PARENTHESE
     | expression_statement
     ;
 
 expression_statement :
-    unit_expression operator expression
+    unit_expression operator simple_expression
     | unit_expression
     ;
 
@@ -363,17 +363,17 @@ assignment_expression :
         printf("Got a new identifier: %s\n", $1);
     }
     EQUALS
-    expression
+    simple_expression
     ;
 
 if_then_else_expression :
-    IF expression
+    IF simple_expression
     MEETS
     template_statement_expression
     THEN_DO
-    expression
+    simple_expression
     ELSE_DO
-    expression
+    simple_expression
     ;
 
 template_statement_expression :
@@ -402,21 +402,29 @@ action_expression :
     ;
 
 action_expression_config :
-    expression COMMA action_expression_config
-    | expression
+    simple_expression COMMA action_expression_config
+    | simple_expression
     ;
 
 /* FIXME: this is bad, because we have left recursion. */
 /* FIXME: the expression syntax needs to be reconsidered */
 mapper_expression :
-    unit_expression mapper mapper_clause
+    unit_expression mapper_clause
     ;
 
 mapper_clause :
+    mapper
     LEFT_BRACKET
     mapper_parameters
     VERTICAL_LINE
-    expression
+    simple_expression
+    RIGHT_BRACKET
+    mapper_clause
+    | mapper
+    LEFT_BRACKET
+    mapper_parameters
+    VERTICAL_LINE
+    simple_expression
     RIGHT_BRACKET
     ;
 

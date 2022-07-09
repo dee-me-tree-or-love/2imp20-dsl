@@ -79,6 +79,7 @@ char tmp_access[100];
 %token MAP
 %token FILTER
 
+/* Action composition is not implemented yet. */
 %token ACTION_ALTERNATIVE
 %token ACTION_FEED
 %token ACTION_SEQUENCE

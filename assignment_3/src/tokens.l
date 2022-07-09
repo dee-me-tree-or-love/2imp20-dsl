@@ -14,7 +14,7 @@ nil             "{}"
 letter          [[:alpha:]]
 identifier      {letter}({letter}|"-"|"_"|[0-9])*
 word            {letter}({letter}|[0-9])*
-unit_word       {word}("^")?{natural_number}
+unit_word       ("\\"){word}(("^"){natural_number})?
 unit            {unit_word}|{nil}
 digit           [0-9]
 natural_number  {digit}+

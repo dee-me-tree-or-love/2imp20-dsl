@@ -2,8 +2,9 @@ Module : { TEST_GARLIC }
 
 Plants : {
     Garlic <<
-        water_use : 5,
-        min_temp  : 20,
+        approx_volume : 1 \cm^2,
+        water_use : 5 \mm,
+        min_temp  : 20 \C,
         max_water : 100,
     >>
 }

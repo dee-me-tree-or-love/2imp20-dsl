@@ -483,10 +483,9 @@ attribute_or_identifier_access :
 
 value :
     NIL
-    | UNIT
     | BOOLEAN_TRUE
     | BOOLEAN_FALSE
-    /* FIXME: unit numbers seem not to be working yet */
+    | UNIT
     | unitnumber
     | REAL_NUMBER
     | NATURAL_NUMBER
@@ -494,8 +493,8 @@ value :
     | COLLECTION
     ;
 
-unitnumber : REAL_NUMBER UNIT 
-           | NATURAL_NUMBER UNIT 
+unitnumber : REAL_NUMBER UNIT
+           | NATURAL_NUMBER UNIT
 
 
 %%

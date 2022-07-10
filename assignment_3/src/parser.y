@@ -711,13 +711,14 @@ int main() {
     /* yyin = stdin; */
 
     // TODO: remove this demo CHICKEN binding.
+    // Initialize the CHICKEN modules.
     /* C_word x;
     CHICKEN_run(CHICKEN_default_toplevel);
     CHICKEN_load("lib/python_builder.scm");
     CHICKEN_eval_string("(print (test-greet))", &x);
     CHICKEN_eval_string("(print \"hello from CHICKEN\")", &x); */
 
-    // TODO: adjust this to use a file input in the future
+    // Start the parsing
     yyparse();
 
     // Output the collected info.

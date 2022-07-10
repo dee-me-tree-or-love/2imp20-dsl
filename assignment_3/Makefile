@@ -26,8 +26,10 @@ endif
 # NB: the fixed test output file is used in CI/CD.
 ifeq ($(TEST_RUNNER_FIXED_ID), 1)
 	TEST_OUTPUT=${TMP_DIR}/test-run-fixed.log
+	INTEGRATION_TEST_OUTPUT=${TMP_DIR}/integration-test-run-fixed.log
 else
 	TEST_OUTPUT=${TMP_DIR}/test-run-latest.log
+	INTEGRATION_TEST_OUTPUT=${TMP_DIR}/integration-test-run-latest.log
 endif
 
 # NB: flag to build non-debug version
@@ -81,7 +83,6 @@ all: tokenizer parser
 run-parser-interactive run-parser: ${PARSER_OUT}
 	${PARSER_OUT}
 
-
 # Run the parser interactively
 debug-parser-interactive debug-parser: ${PARSER_OUT}
 	lldb ${PARSER_OUT}
@@ -110,8 +111,27 @@ run-suite-test: ${PARSER_OUT} clean-dist
 	@((cat ${suite} | ${PARSER_OUT} && echo ✅ Test passed ) || echo ❌ TEST FAILED) \
 		2>&1 | tee ${TMP_DIR}/test_manual.log
 
+# Run all generated python files as integration tests
+.PHONY: run-integration-tests
+run-integration-tests: ${DIST_DIR}
+	@echo "🕵️ Found following Python distributions:"
+	@ls ${DIST_DIR} | grep -e "\.py"
+	@echo "🔌 Brace yourself, running all discovered integration tests now!"
+	@ls ${DIST_DIR} | grep -e "\.py" \
+		| xargs -I[] \
+			sh -c \
+				"echo '\n💡 Running []' ; python3 ${DIST_DIR}/[] || echo ❌ TEST FAILED: []" \
+		2>&1 | tee ${INTEGRATION_TEST_OUTPUT}
+	@grep -q "❌ TEST FAILED" ${INTEGRATION_TEST_OUTPUT} \
+		&& echo "❌ SOME TESTS FAILED. Quitting." && exit 1 \
+		|| echo "✅ ALL INTEGRATION TESTS PASSED"
+
 # Handy command to build and test at once
 all-and-test: all run-tests
+	@echo "👌 Done."
+
+# Handy command to build and test and run integration tests at once
+all-and-test-and-integration: all run-tests run-integration-tests
 	@echo "👌 Done."
 
 # Handy command to build and run a single test suite at once

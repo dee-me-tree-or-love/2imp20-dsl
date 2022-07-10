@@ -1,4 +1,4 @@
-Module : { TEST_GARLIC }
+Module : { TEST_GARLIC_WITH_COLLECTION }
 
 Plants : {
     Garlic <<

@@ -1,0 +1,61 @@
+Module : { TEST_ACTIONS_OBSERVERS_AND_PLANTS_WELL }
+
+Plants : {
+    Crop <<
+        water_use : 5,
+        water_use : 6, // checking test
+        min_temp  : 20,
+        max_water : 100,
+    >>,
+    Crop <<
+        water_use : 5,
+        min_temp  : 20,
+        max_water : 100,
+        breed : "OpperdoezerRonde",
+    >>,
+    Apple <<
+        water_use : 5,
+        min_temp  : 20,
+        min_temp : 6,
+        max_water : 100,
+    >>
+}
+
+// These actions illustrate correct syntax but are not necessarily correct
+Actions : {
+    notify <<%src, foo>> (
+        // simple expressions
+        bar + foo;
+        foo + bar;
+        // assignments
+        quu = foo + (bar + oof);
+        loo = foo.attr;
+        too = bar.attr.other;
+        // simple if statements
+        if foo meets * > 30 then do (alpha) else do (beta);
+        if foo meets * > bar.qoo then do alpha else do (beta);
+        if foo meets * > bar.qoo 
+        then do
+            alpha; beta; gamma; 
+        else do
+            nu; mu; psi;
+        ;
+        if foo meets some_condition then do (alpha) else do (beta);
+        // action expression
+        notify : {bar};
+        // action call expression
+        !notify : {bar};
+        // mappers
+        bars @> {b | b + 1 };
+        bars #> {b | b ~~ 24} @> {b | b + 1 };
+    )
+}
+
+Observers : {
+    support << "support@farm.cool" >>,
+    admin << "admin@farm.cool" >>,
+    rss << "farm.feed.rss" >>,          // checking test
+    rss << "farem.feed.rss" >>,         // checking test
+    admin << "farem.feed.rss" >>,       // checking test
+    abie << "abie@service.farm.cool" >>
+}

@@ -624,6 +624,7 @@ attribute_spec :
 
 value_spec :
     | attribute_or_identifier_access {
+        // FIXME: commented out for current lack of use
         // sscanf($1, "%s", $$);
     }
     | value {

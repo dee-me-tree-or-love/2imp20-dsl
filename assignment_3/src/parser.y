@@ -203,10 +203,16 @@ plant_config :
     LEFT_DOUBLEANGLE
     plant_body {
         // Store in the Python Skeleton
-        SinglePlantSkeleton sps = {$1};
+        char plant_id[200];
+        strcpy(plant_id, $1);
+        SinglePlantSkeleton sps = {plant_id};
         addPlantSkeleton(sps);
     }
-    RIGHT_DOUBLEANGLE{setLineNumber(yylineno); addOwner($1, ownerCount);}
+    RIGHT_DOUBLEANGLE {
+        // Record the attribute owner
+        setLineNumber(yylineno); 
+        addOwner($1, ownerCount);
+    }
     ;
 
 plant_body :
@@ -569,7 +575,12 @@ attribute_spec :
 
 value_spec :
     | attribute_or_identifier_access {sscanf($1, "%s", $$);}
-    | value {sscanf($1, "%s", $$);}
+    | value {
+        // FIXME: treat with real values when we can fully support recognizing all datatypes
+        // TODO: we replace all values for now with placeholder value instead of full translation
+        strcpy($$, "\"placeholder_constant_value\"");
+        // printf("%s is $1 : VALUE    \5 mm    ^^^^^^^^^^^^^^^^^^^^^^\n\n", $1);
+    }
     ;
 
 attribute_or_identifier_access :
@@ -618,53 +629,54 @@ attribute_or_identifier_access_base :
 value :
     NIL {
         printf("Got nil.\n");
+        // sscanf("", "%s", $$);
     }
     | BOOLEAN_TRUE {
         printf("Got true.\n");
-        sscanf($1, "%s", $$);
+        // sscanf($1, "%s", $$);
     }
     | BOOLEAN_FALSE {
         printf("Got false.\n");
-        sscanf($1, "%s", $$);
+        // sscanf($1, "%s", $$);
     }
     | UNIT {
         printf("Got unit.\n"); 
-        sscanf($1, "%s", $$);
+        // sscanf($1, "%s", $$);
     }
     | unitnumber {
         printf("Got unit number.\n");
-        sscanf($1, "%s", $$);
+        // sscanf($1, "%s", $$);
     }
     | REAL_NUMBER {
         printf("Got real number.\n");
-        sscanf($1, "%s", $$);
+        // sscanf($1, "%s", $$);
     }
     | NATURAL_NUMBER {
         printf("Got natural number.\n"); 
-        sscanf($1, "%s", $$);
+        // sscanf($1, "%s", $$);
     }
     | STRING {
         //todo:string fail to transfer
         printf("Got string.\n"); 
-        sscanf($1, "%s", $$);
-        // printf("%s is : STRING IN VALUE    ^^^^^^^^^^^^^^^^^^^^^^\n\n^^^^^^^^^^^^^^^^^^^^\n", $$);
+        // sscanf($1, "%s", $$);
+        // printf("%s is $1 :STRING  \5 mm    ^^^^^^^^^^^^^^^^^^^^^^\n\n", $1);
     }
     | collection {
         printf("Got collection.\n");
-        sscanf($1, "%s", $$);
+        // sscanf($1, "%s", $$);
     }
     ;
 
 unitnumber :
     REAL_NUMBER UNIT {
-        strcpy(tmp_unitnumber, $1);
-        strcat(tmp_unitnumber, $2); 
-        sscanf(tmp_unitnumber, "%s", $$);
+        // strcpy(tmp_unitnumber, $1);
+        // strcat(tmp_unitnumber, $2); 
+        // sscanf(tmp_unitnumber, "%s", $$);
     }
     | NATURAL_NUMBER UNIT {
-        strcpy(tmp_unitnumber, $1);
-        strcat(tmp_unitnumber, $2); 
-        sscanf(tmp_unitnumber, "%s", $$);
+        // strcpy(tmp_unitnumber, $1);
+        // strcat(tmp_unitnumber, $2); 
+        // sscanf(tmp_unitnumber, "%s", $$);
     }
     ;
 
@@ -672,29 +684,30 @@ collection :
     LEFT_SQUAREBRACKET {strcpy(tmp_collection,"");}
     collection_body {
         printf("\nGot collection body.\n");
-        sscanf($3, "%s", $$);
+        // sscanf($3, "%s", $$);
     }
     RIGHT_SQUAREBRACKET
     ;
 
 
 collection_body :
+    // FIXME: deal with collections separetely
     // TODO: replace it with char[][]
     value_spec {
-        strcat(tmp_collection, $1);
+        // strcat(tmp_collection, $1);
     } COMMA {
-        strcat(tmp_collection, ",");
+        // strcat(tmp_collection, ",");
     }
     collection_body {
         // strcat(tmp_collection, $5);
     }
     | value_spec {
-        strcat(tmp_collection, $1);
-        sscanf(tmp_collection, "%s", $$);
+        // strcat(tmp_collection, $1);
+        // sscanf(tmp_collection, "%s", $$);
     }
     | /* empty body */ {
-        strcat(tmp_collection, "");
-        sscanf(tmp_collection, "%s", $$);
+        // strcat(tmp_collection, "");
+        // sscanf(tmp_collection, "%s", $$);
     }
     ;
 

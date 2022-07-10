@@ -9,6 +9,9 @@
 // Utilities
 // *********
 
+// Interface declaration
+void dumpPythonSkeleton();
+
 // Shared file output stream
 FILE *fp;
 
@@ -102,10 +105,13 @@ ObserversSkeleton observersSkeleton;
 // API
 void addObserverSkeleton(SingleObserverSkeleton observer)
 {
-    printf("ADDING OBSERVER\n");
     int count = observersSkeleton.__observerCount;
+    printf("ADDING OBSERVER: %d\n", count);
     observersSkeleton.observers[count] = observer;
     observersSkeleton.__observerCount += 1;
+
+    // For debug purposes
+    dumpPythonSkeleton();
 }
 
 void dumpObserversSkeleton()
@@ -145,10 +151,14 @@ PlantsSkeleton plantsSkeleton = {0, {}};
 // API
 void addPlantSkeleton(SinglePlantSkeleton plant)
 {
-    printf("ADDING PLANT\n");
     int count = plantsSkeleton.__plantsCount;
+    printf("ADDING PLANT: %d\n", count);
     plantsSkeleton.plants[count] = plant;
     plantsSkeleton.__plantsCount += 1;
+    printf("0th plant --> %s\n", plantsSkeleton.plants[0].identifier);
+
+    // For debug purposes
+    dumpPythonSkeleton();
 }
 
 void dumpPlantsSkeleton()
@@ -202,6 +212,9 @@ void addControllerSkeleton(ControllerType controller)
     int count = controllersSkeleton.__controllerCount;
     controllersSkeleton.controllers[count] = controller;
     controllersSkeleton.__controllerCount += 1;
+
+    // For debug purposes
+    dumpPythonSkeleton();
 }
 
 void dumpControllersSkeleton()

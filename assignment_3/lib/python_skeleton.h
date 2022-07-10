@@ -175,6 +175,8 @@ void dumpPlantsSkeleton()
     }
 }
 
+// TODO: add support for plants, actions, controllers and assets
+
 // Skeleton Operations
 // ~~~~~~~~~~~~~~~~~~~
 

@@ -52,8 +52,8 @@ comment             "//".*
     /* ~~~~~~ */
 {nil}               {return NIL;}
 {unit}              {strcpy(yylval.istr, yytext); return UNIT;}
-{boolean_true}      {sscanf(yytext,"%d",&yylval); return BOOLEAN_TRUE;}
-{boolean_false}     {sscanf(yytext,"%d",&yylval); return BOOLEAN_FALSE;}
+{boolean_true}      {strcpy(yylval.istr, yytext); return BOOLEAN_TRUE;}
+{boolean_false}     {strcpy(yylval.istr, yytext); return BOOLEAN_FALSE;}
 {natural_number}    {strcpy(yylval.istr, yytext); return NATURAL_NUMBER;}
 {real_number}       {strcpy(yylval.istr, yytext); return REAL_NUMBER;}
 {string}            {strcpy(yylval.istr, yytext); return STRING;}
@@ -116,7 +116,7 @@ Sensor      {return SENSOR;}
     /* Identifier */
     /* ~~~~~~~~~~ */
 
-{identifier}    {sscanf(yytext,"%s",&yylval); return IDENTIFIER;}
+{identifier}    {strcpy(yylval.istr, yytext); return IDENTIFIER;}
 
     /* Reserved identifiers */
     /* ~~~~~~~~~~~~~~~~~~~~ */

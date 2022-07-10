@@ -43,24 +43,6 @@ typedef struct collection
     struct collection *collectionType;
 } Collection;
 
-// SymbolTable
-enum typeEnum
-{
-    action,
-    module,
-    asset,
-    observer,
-    plant,
-    nil
-};
-struct SymbolTableStruct
-{
-    char label[100];
-    enum typeEnum typeValue;
-};
-struct SymbolTableStruct symbolTable[200];
-int symbolCount = 0;
-
 /* Observer table */
 /*~~~~~~~~~~~~~~~~*/
 struct ObserverTableStruct
@@ -115,40 +97,45 @@ void checkObserver(char label[])
 
 /* Attribute table */
 /*~~~~~~~~~~~~~~~~*/
-struct attribute
+
+//vaue pair for one attribute
+typedef struct
 {
     char variable[100];
     char value[100];
-};
-struct AttrTableStruct
-{
-    char owner[100];
-    struct attribute attrs[100];
-};
-int ownerCount = 0;
-int attrCount = 0;
-struct AttrTableStruct AttrTable[100];
+} attributeTuple;
 
-int lookupAttr(struct attribute attrs[], char aVar[], int attrCount)
+typedef struct
 {
-    for (int j = 0; j < attrCount; j++)
-    {
-        if (!strcmp(attrs[j].variable, aVar))
-        {
-            printf("\"%s\" Error:This attr has been defined:line%d\n", aVar, parsingMetadata.lineNo);
-            return j;
+    int ownerCount;
+    int ownerAttributeCount[200];
+    char *owner[100];
+    attributeTuple ownerAttrs[200][200];
+} OwnerAttributeStruct;
+
+OwnerAttributeStruct ownerAttributeTable = {0, {}, {}, {}};
+
+int lookupAttr(OwnerAttributeStruct ownerAttributeTable, char aVar[]) {
+    int count = ownerAttributeTable.ownerCount;
+    for (int j = 0; j < count; j++) {
+        for (int i = 0; i < ownerAttributeTable.ownerAttributeCount[j]; i++) {
+            if (!strcmp(ownerAttributeTable.ownerAttrs[j][i].variable, aVar))
+            {
+                printf("\"%s\" Error:This attribute label has been defined:line %d\n", aVar, parsingMetadata.lineNo);
+                return j;
+            }
         }
     }
     return -1;
 }
 
-int lookupOwner(struct AttrTableStruct AttrTable[], char owner[], int ownerCount)
+int lookupOwner(OwnerAttributeStruct ownerAttributeTable, char owner[])
 {
-    for (int j = 0; j < ownerCount; j++)
-    {
-        if (!strcmp(AttrTable[j].owner, owner))
+    int count = ownerAttributeTable.ownerCount;
+    for (int j = 0; j < count; j++) {
+        if (!strcmp(ownerAttributeTable.owner[j], owner))
         {
-            printf("\"%s\" Error:This Plant has been defined:line%d\n", owner, parsingMetadata.lineNo);
+            printf("\"%s\" Error:This Label has been defined:line %d\n", owner, parsingMetadata.lineNo);
             return j;
         }
     }
@@ -157,38 +144,77 @@ int lookupOwner(struct AttrTableStruct AttrTable[], char owner[], int ownerCount
 
 void addAttr(char aVar[], char aVal[])
 {
-    if (lookupAttr(AttrTable[ownerCount].attrs, aVar, attrCount) == -1)
+
+    printf("this is ownerattr count %d  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerAttributeCount[ownerAttributeTable.ownerCount]);
+    int count = ownerAttributeTable.ownerCount;
+    int attrCount = ownerAttributeTable.ownerAttributeCount[count];
+    if (lookupAttr(ownerAttributeTable, aVar) == -1)
     {
-        sscanf(aVar, "%s", AttrTable[ownerCount].attrs[attrCount].variable);
-        if (!strcmp("", aVal))
-        {
-            attrCount++;
-            return;
-        }
-        else
-        {
-            sscanf(aVal, "%s", AttrTable[ownerCount].attrs[attrCount].value);
-            attrCount++; // release after every plant defintion
-        }
+        strcpy(ownerAttributeTable.ownerAttrs[count][attrCount].variable, aVar);
+        strcpy(ownerAttributeTable.ownerAttrs[count][attrCount].value, aVal);
+        ownerAttributeTable.ownerAttributeCount[count] += 1; // release after every plant defintion
+    }
+    printf("this is ownerattr count %d  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerAttributeCount[ownerAttributeTable.ownerCount]);
+}
+
+void addOwner(char owner[])
+{
+    printf("this is ownercount %d  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerCount);
+    if (lookupOwner(ownerAttributeTable, owner) == -1)
+    {
+        int count = ownerAttributeTable.ownerCount;
+        strcpy(ownerAttributeTable.owner[count], owner);
+        ownerAttributeTable.ownerCount += 1;
+    }
+    printf("this is ownercount %d&&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerCount);
+}
+
+void addObseriiiver(char label[], char addr[])
+{
+    if (lookupObserver(observerTable, label, observerCount) == -1)
+    {
+        sscanf(label, "%s", observerTable[observerCount].label);
+        sscanf(addr, "%s", observerTable[observerCount].addr);
+        observerCount++;
     }
 }
 
-void addOwner(char owner[], int ownerCount)
-{
-    if (lookupOwner(AttrTable, owner, ownerCount) == -1)
-    {
-        sscanf(owner, "%s", AttrTable[ownerCount].owner);
-        ownerCount++; // todo: release after every plant defintion
-    }
-}
 // used in asset&action
 void checkAttr(char var[])
 {
-    if (lookupAttr(AttrTable[ownerCount].attrs, var, attrCount) == -1)
-        printf("\"%s\" Error:Unavailable variable:line%d\n", var, parsingMetadata.lineNo);
+    if (lookupAttr(ownerAttributeTable, var) == -1)
+        printf("\"%s\" Error:Unavailable Variable:line %d\n", var, parsingMetadata.lineNo);
 }
 
 /* Attribute table */
+
+
+/* Basic Table */
+/* ~~~~~~~~~~~~ */
+
+// Scope
+enum scopeEnum
+{
+    global,
+    local
+};
+enum scopeEnum scope = global;
+enum typeEnum
+{
+    action,
+    module,
+    asset,
+    observer,
+    plant,
+    nil
+};
+struct SymbolTableStruct
+{
+    char label[100];
+    enum typeEnum typeValue;
+};
+struct SymbolTableStruct symbolTable[200];
+int symbolCount = 0;
 
 // basic symbol look up function
 int lookup(struct SymbolTableStruct symbolTable[], char compareString[], int symbolCount)
@@ -200,7 +226,6 @@ int lookup(struct SymbolTableStruct symbolTable[], char compareString[], int sym
     }
     return -1;
 }
-
 // get symbol type
 enum typeEnum getSymbolType(char label[])
 {
@@ -208,26 +233,6 @@ enum typeEnum getSymbolType(char label[])
     if (index != -1)
         return symbolTable[index].typeValue;
     return nil;
-}
-
-// Scope
-enum scopeEnum
-{
-    global,
-    local
-};
-enum scopeEnum scope = global;
-
-void checkScope(char label[])
-{
-    if (lookup(symbolTable, label, symbolCount) == -1 && lookup(symbolTable, label, symbolCount) == -1)
-        printf("\"%s\" Error:Undeclared variable:line%d\n", label, parsingMetadata.lineNo);
-}
-
-void checkall(char label[])
-{
-    if (lookup(symbolTable, label, symbolCount) == -1 && lookup(symbolTable, label, symbolCount) == -1)
-        printf("\"%s\" Error:Undeclared variable:line%d\n", label, parsingMetadata.lineNo);
 }
 
 void addGlobalLabel(char label[], enum typeEnum typeValue)
@@ -250,6 +255,23 @@ void addGlobalLabel(char label[], enum typeEnum typeValue)
         }
     }
 }
+/* Basic Table */
+
+// void checkall(char label[])
+// {
+//     if (lookup(symbolTable, label, symbolCount) == -1 && lookup(symbolTable, label, symbolCount) == -1)
+//         printf("\"%s\" Error:Undeclared variable:line%d\n", label, parsingMetadata.lineNo);
+// }
+
+
+void checkScope(char label[])
+{
+    if (lookup(symbolTable, label, symbolCount) == -1 && lookup(symbolTable, label, symbolCount) == -1)
+        printf("\"%s\" Error:Undeclared variable:line%d\n", label, parsingMetadata.lineNo);
+}
+
+
+
 // TODO: add collection, unit number
 // TODO: initialize
 //  int _int;

@@ -197,8 +197,7 @@ plant_config :
         printf("Plant name: %s\n", $1);
 
         setLineNumber(yylineno);
-        addGlobalLabel($1, plant);
-        attrCount = 0;
+        addGlobalLabel($1, plant); 
     }
     LEFT_DOUBLEANGLE
     plant_body {
@@ -209,9 +208,8 @@ plant_config :
         addPlantSkeleton(sps);
     }
     RIGHT_DOUBLEANGLE {
-        // Record the attribute owner
-        setLineNumber(yylineno); 
-        addOwner($1, ownerCount);
+        // setLineNumber(yylineno);
+        // addOwner($1);
     }
     ;
 
@@ -397,16 +395,19 @@ action_config :
         //Symbol
         setLineNumber(yylineno);
         addGlobalLabel($1, action);
-        attrCount = 0;
     }
     LEFT_DOUBLEANGLE
     action_parameters
     RIGHT_DOUBLEANGLE
     LEFT_PARENTHESE
-    action_body
-    RIGHT_PARENTHESE {
+    action_body 
+    RIGHT_PARENTHESE 
+    {
         setLineNumber(yylineno);
-        addOwner($1, ownerCount);
+        char tmp[50];
+        sscanf($1,"%s",tmp);
+        printf("%s  geeeeeeeeet it _______________________\n\n\n\n", tmp);
+        addOwner(tmp);
     }
     ;
 
@@ -482,9 +483,9 @@ if_then_else_expression :
 unit_expression :
     value_spec {
         printf("Got a value spec.\n");
-        //Symbol
-        setLineNumber(yylineno);
-        checkAttr($1);
+        // //Symbol
+        // setLineNumber(yylineno);
+        // checkAttr($1);
     }
     | template_statement_expression {
         printf("Got a template statement expression.\n");

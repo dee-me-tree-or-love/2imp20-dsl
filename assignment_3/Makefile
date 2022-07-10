@@ -30,6 +30,13 @@ else
 	TEST_OUTPUT=${TMP_DIR}/test-run-latest.log
 endif
 
+# NB: flag to build non-debug version
+ifeq ($(PRODUCTION_BUILD), 1)
+	DEBUG_FLAG=
+else
+	DEBUG_FLAG=--debug
+endif
+
 ##############################################
 # Parser development
 ##############################################
@@ -48,13 +55,13 @@ endif
 tokenizer: src/tokens.l
 	@mkdir -p ./bin
 	@echo "🤸 Compiling flex sources..."
-	flex --debug -o ${BUILD_DIR}/lex.yy.c src/tokens.l
+	flex ${DEBUG_FLAG} -o ${BUILD_DIR}/lex.yy.c src/tokens.l
 
 # Build the parser
 parser: src/parser.y
 	@mkdir -p ./bin
 	@echo "🦬  Compiling bison sources..."
-	bison --debug -t -d src/parser.y -o ${BUILD_DIR}/parser.tab.c -v
+	bison ${DEBUG_FLAG} -d src/parser.y -o ${BUILD_DIR}/parser.tab.c -v
 
 # Complete Bison + Flex compilation
 all: tokenizer parser

@@ -149,8 +149,6 @@ char tmp_access[100];
 program :
     MODULE COLON LEFT_BRACKET
     IDENTIFIER {
-        // FIXME: id is undeclared
-
         printf("Line: %d; Module name: %s\n", yylineno, $4);
 
         // Store global label for well-formedness checks
@@ -203,7 +201,6 @@ plant_config :
     }
     LEFT_DOUBLEANGLE
     plant_body {
-
         // Store in the Python Skeleton
         SinglePlantSkeleton sps = {$1};
         addPlantSkeleton(sps);
@@ -273,7 +270,6 @@ controller_configs :
 
 controller_config :
     MONITOR {
-        // FIXME: create a "debug" function and make it work right
         printf("MONITOR Controller.\n");
     }
     ;
@@ -388,7 +384,6 @@ action_configs :
 
 action_config :
     IDENTIFIER {
-        // FIXME: create a "debug" function and make it work right
         printf("Action name: %s\n", $1);
         //Symbol
         setLineNumber(yylineno);
@@ -584,7 +579,7 @@ attribute_or_identifier_access :
     }
     ;
 
-//todo:fix the  wrong combination
+// TODO: fix the  wrong combination
 attribute_or_identifier_access_clause :
     DOT {strcat(tmp_access, ".");}
     IDENTIFIER {
@@ -677,7 +672,7 @@ collection :
 
 
 collection_body :
-    //todo:replace it with char[][]
+    // TODO: replace it with char[][]
     value_spec {
         strcat(tmp_collection, $1);
     } COMMA {
@@ -701,15 +696,17 @@ collection_body :
 // Additional C code
 // ~~~~~~~~~~~~~~~~~
 
+#ifdef YYDEBUG
+    extern int yydebug;
+    yydebug = 1;
+#endif
+
 void yyerror(const char* s) {
     fprintf(stderr, "On line: %d; Parse error: %s\n", yylineno, s);
     exit(1);
 }
 
 int main() {
-    #ifdef YYDEBUG
-        yydebug = 1;
-    #endif
 
     /* yyin = stdin; */
 

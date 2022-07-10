@@ -15,6 +15,9 @@
     }
   ],
   "settings": {
-    "liveServer.settings.multiRootWorkspaceName": "assignment_3"
+    "liveServer.settings.multiRootWorkspaceName": "assignment_3",
+    "files.associations": {
+      "chrono": "cpp"
+    }
   }
 }

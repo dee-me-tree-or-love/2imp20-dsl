@@ -223,14 +223,46 @@ void dumpControllersSkeleton()
     }
 }
 
-// TODO: add support for actions and assets
-
 // Actions
 // ~~~~~~~
 
 // FIXME: currently all actions are represented as "print(\"executing the action...\")"
 
-// TODO: implement
+// Stores information about a single Action
+typedef struct
+{
+    char *identifier;
+    char *body;
+} SingleActionSkeleton;
+
+// Stores information about the OBSERVERS
+typedef struct
+{
+    int __actionsCount;
+    SingleActionSkeleton actions[200];
+} ActionsSkeleton;
+
+// Global store
+ActionsSkeleton actionsSkeleton;
+
+// API
+void addActionSkeleton(SingleActionSkeleton action)
+{
+    int count = actionsSkeleton.__actionsCount;
+    printf("ADDING ACTION: %d --> identifier: %s\n", count, action.identifier);
+    actionsSkeleton.actions[count] = action;
+    actionsSkeleton.__actionsCount += 1;
+}
+
+void dumpActionsSkeleton()
+{
+    char *prefix = "PYTHON SKELETON";
+    for (int i = 0; i < actionsSkeleton.__actionsCount; i += 1)
+    {
+        SingleActionSkeleton action = actionsSkeleton.actions[i];
+        printf("%s: Action --> %s;\n", prefix, action.identifier);
+    }
+}
 
 // Assets
 // ~~~~~~
@@ -246,8 +278,9 @@ void dumpPythonSkeleton()
     char *prefix = "PYTHON SKELETON";
     printf("\n%s: Dump:\n", prefix);
     dumpSkeletonModuleInfo();
-    dumpObserversSkeleton();
     dumpPlantsSkeleton();
+    dumpActionsSkeleton();
+    dumpObserversSkeleton();
     dumpControllersSkeleton();
 };
 
@@ -350,7 +383,7 @@ void writePlants()
         "\n";
     fputs(header, fp);
 
-    // Produces "class <identifier>(Plant): ..." for each observer
+    // Produces "class <identifier>(Plant): ..." for each plant
     for (int i = 0; i < plantsSkeleton.__plantsCount; i += 1)
     {
         char plant_init[200];
@@ -366,6 +399,51 @@ void writePlants()
     {
         SinglePlantSkeleton plant = plantsSkeleton.plants[i];
         fprintf(fp, "%s", plant.identifier);
+        fprintf(fp, ",");
+    }
+    fprintf(fp, "]\n");
+
+    printf("%s: Done.\n", prefix);
+};
+
+// Write all actions to the file
+void writeActions()
+{
+    char *prefix = "WRITING ACTIONS";
+    printf("%s: Writing...\n", prefix);
+
+    char *header =
+        "\n"
+        "# Actions\n"
+        "# ~~~~~~~~~\n"
+        "\n";
+    fputs(header, fp);
+
+    // Produces "@dataclass class Action_<identifier>: ..." for each action
+    for (int i = 0; i < actionsSkeleton.__actionsCount; i += 1)
+    {
+        char action_init[200];
+        SingleActionSkeleton action = actionsSkeleton.actions[i];
+        sprintf(action_init, "@dataclass\nclass Action_%s:\n", action.identifier);
+        fputs(action_init, fp);
+        fputs("    # FIXME: attributes are not yet supported...\n", fp);
+        fputs("\n", fp);
+        fputs("    # FIXME: call for now is mimicked...\n", fp);
+        fputs("    def __call__(self):\n", fp);
+        fputs("        print(f\"Executing action from {self.__name__}\")\n", fp);
+        fputs("        # Send a message in any case... \n", fp);
+        fputs("        Action_send_message(self.__name__, \"demo_call\")()\n", fp);
+        fputs("\n", fp);
+    }
+
+    // Produces "ACTIONS = [...]"
+    fprintf(fp, "ACTIONS = [");
+    for (int i = 0; i < actionsSkeleton.__actionsCount; i += 1)
+    {
+        char action_init[200];
+        SingleActionSkeleton action = actionsSkeleton.actions[i];
+        sprintf(action_init, "Action_%s", action.identifier);
+        fprintf(fp, "%s", action_init);
         fprintf(fp, ",");
     }
     fprintf(fp, "]\n");
@@ -429,14 +507,15 @@ void writePythonProgram()
     // [x] 1. module & defaults
     // [x] 2. plants
     // [x] 3. observers
-    // [ ] 4. actions
+    // [x] 4. actions
     // [ ] 5. assets
     // [x] 6. controllers
     openPythonFile();
     writePythonModuleAndDefaults();
     writeObservers();
     writePlants();
-    // TODO: write actions, assets
+    writeActions();
+    // TODO: write assets
     writeControllers();
     closePythonFile();
 };

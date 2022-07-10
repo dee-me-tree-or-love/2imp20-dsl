@@ -93,6 +93,7 @@ char *SKELETON_DEFAULT_CONSTRUCTS =
     "###################\n";
 
 char *SKELETON_DEFAULT_CONTROLLER_CLAUSE =
+    "\n"
     "# FIXME: add support for parallel processing\n"
     "def main():\n"
     "    # bootstrap controllers\n"

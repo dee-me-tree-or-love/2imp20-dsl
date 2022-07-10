@@ -413,6 +413,11 @@ action_config :
         sscanf($1,"%s",tmp);
         printf("%s  geeeeeeeeet it _______________________\n\n\n\n", tmp);
         addOwner(tmp);
+
+        // Store in the Python Skeleton
+        SingleActionSkeleton sas = {strdup($1)};
+        printf("Action name: %s\n", sas.identifier);
+        addActionSkeleton(sas);
     }
     ;
 

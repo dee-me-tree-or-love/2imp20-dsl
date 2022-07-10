@@ -223,7 +223,19 @@ void dumpControllersSkeleton()
     }
 }
 
-// TODO: add support for plants, actions and assets
+// TODO: add support for actions and assets
+
+// Actions
+// ~~~~~~~
+
+// FIXME: currently all actions are represented as "print(\"executing the action...\")"
+
+// TODO: implement
+
+// Assets
+// ~~~~~~
+
+// TODO: implement
 
 // Skeleton Operations
 // ~~~~~~~~~~~~~~~~~~~
@@ -345,8 +357,8 @@ void writePlants()
         SinglePlantSkeleton plant = plantsSkeleton.plants[i];
         sprintf(plant_init, "class %s(Plant):\n    pass\n", plant.identifier);
         fputs(plant_init, fp);
+        fputs("\n", fp);
     }
-    fputs("\n", fp);
 
     // Produces "PLANTS = [...]"
     fprintf(fp, "PLANTS = [");

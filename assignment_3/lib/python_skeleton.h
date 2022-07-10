@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+#include "./python_skeleton_constants.h";
+
 // *********
 // Utilities
 // *********
@@ -187,6 +189,8 @@ void writePythonProgram()
     char module_comment[200];
     sprintf(module_comment, "# Module: %s", moduleInfoSkeleton.moduleName);
     fputs(module_comment, fp);
+    // Defined in the "python_skeleton_constants.h"
+    fputs(SKELETON_DEFAULT_CONSTRUCTS, fp);
     fclose(fp);
 };
 

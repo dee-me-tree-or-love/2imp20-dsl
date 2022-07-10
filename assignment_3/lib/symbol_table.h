@@ -103,14 +103,18 @@ typedef struct
 {
     char variable[100];
     char value[100];
-} attributeTuple;
+} AttributeTuple;
 
 typedef struct
 {
     int ownerCount;
+    // Amount of attributes per owner
     int ownerAttributeCount[200];
+    // Owners
+    // TODO: rename to "owners"
     char *owner[100];
-    attributeTuple ownerAttrs[200][200];
+    // Attributes per owner
+    AttributeTuple ownerAttrs[200][200];
 } OwnerAttributeStruct;
 
 OwnerAttributeStruct ownerAttributeTable = {0, {}, {}, {}};
@@ -142,28 +146,32 @@ int lookupOwner(OwnerAttributeStruct ownerAttributeTable, char owner[])
     return -1;
 }
 
-void addAttr(char aVar[], char aVal[])
+void addOwnerAttribute(char aVar[], char aVal[])
 {
-
     printf("this is ownerattr count %d  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerAttributeCount[ownerAttributeTable.ownerCount]);
     int count = ownerAttributeTable.ownerCount;
     int attrCount = ownerAttributeTable.ownerAttributeCount[count];
     if (lookupAttr(ownerAttributeTable, aVar) == -1)
     {
+        printf("Adding owner attribute.\n");
         strcpy(ownerAttributeTable.ownerAttrs[count][attrCount].variable, aVar);
         strcpy(ownerAttributeTable.ownerAttrs[count][attrCount].value, aVal);
-        ownerAttributeTable.ownerAttributeCount[count] += 1; // release after every plant defintion
+        ownerAttributeTable.ownerAttributeCount[count] += 1;
     }
     printf("this is ownerattr count %d  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerAttributeCount[ownerAttributeTable.ownerCount]);
 }
 
 void addOwner(char owner[])
 {
-    printf("this is ownercount %d  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerCount);
+    int count = ownerAttributeTable.ownerCount;
+    int attibuteCount = ownerAttributeTable.ownerAttributeCount[count];
+    printf("this is ownercount %d  &&&&&&&&&&&&&&&&\n", count);
+    printf("this is owner attribute count %d  &&&&&&&&&&&&&&&&\n", attibuteCount);
     if (lookupOwner(ownerAttributeTable, owner) == -1)
     {
-        int count = ownerAttributeTable.ownerCount;
-        strcpy(ownerAttributeTable.owner[count], owner);
+        printf("Adding owner.\n");
+        ownerAttributeTable.owner[count] = strdup(owner);
+        printf("this is the new owner %s  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.owner[count]);
         ownerAttributeTable.ownerCount += 1;
     }
     printf("this is ownercount %d&&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerCount);

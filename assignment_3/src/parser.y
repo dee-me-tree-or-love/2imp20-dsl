@@ -211,7 +211,7 @@ plant_config :
     }
     RIGHT_DOUBLEANGLE {
         // setLineNumber(yylineno);
-        // addOwner($1);
+        addOwner($1);
     }
     ;
 
@@ -426,12 +426,12 @@ action_parameter :
     SRC_IDENTIFIER {
         printf("Action attributes as src: %s\n", $1);
         setLineNumber(yylineno);
-        // addAttr($1, "ACTION_SELF");
+        addOwnerAttribute($1, "ACTION_SELF");
     }
     | IDENTIFIER {
         printf("Action attributes as identifier: %s\n", $1);
         setLineNumber(yylineno);
-        // addAttr($1, "ACTION_PARAM");
+        addOwnerAttribute($1, "ACTION_PARAM");
     }
     ;
 
@@ -469,7 +469,7 @@ assignment_expression :
         printf("Got a new identifier: %s\n", $1);
         //symbol
         setLineNumber(yylineno);
-        // addAttr($1, "ACTION_VAR");
+        addOwnerAttribute($1, "ACTION_VAR");
     }
     EQUALS
     simple_expression
@@ -582,7 +582,7 @@ attribute_spec :
         printf("Attribute value.\n");
         //Symbol
         // setLineNumber(yylineno);
-        // addAttr($1, $4);
+        addOwnerAttribute($1, $4);
     }
     ;
 

@@ -272,6 +272,8 @@ controller_configs :
 controller_config :
     MONITOR {
         printf("MONITOR Controller.\n");
+        // Record the Monitor controller in the Python skeleton
+        addControllerSkeleton(__MONITOR);
     }
     ;
 

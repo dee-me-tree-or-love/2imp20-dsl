@@ -106,12 +106,11 @@ ObserversSkeleton observersSkeleton;
 void addObserverSkeleton(SingleObserverSkeleton observer)
 {
     int count = observersSkeleton.__observerCount;
-    printf("ADDING OBSERVER: %d\n", count);
+    printf("ADDING OBSERVER: %d; %s; %s\n", count, observer.identifier, observer.body);
     observersSkeleton.observers[count] = observer;
     observersSkeleton.__observerCount += 1;
 
-    // For debug purposes
-    dumpPythonSkeleton();
+    printf("ADDED OBSERVER: %d; %s; %s\n", count, observer.identifier, observer.body);
 }
 
 void dumpObserversSkeleton()
@@ -156,10 +155,8 @@ void addPlantSkeleton(SinglePlantSkeleton plant)
     plantsSkeleton.plants[count] = plant;
     plantsSkeleton.__plantsCount += 1;
     printf("0th plant --> %s\n", plantsSkeleton.plants[0].identifier);
-
-    // For debug purposes
-    dumpPythonSkeleton();
 }
+
 
 void dumpPlantsSkeleton()
 {
@@ -172,15 +169,15 @@ void dumpPlantsSkeleton()
             prefix,
             plant.identifier);
         // TODO: add dump of the attributes
-        for (int k = 0; k < plant.__attributeCount; k += 1)
-        {
-            // TODO: complete the value dump
-            AttributeSpec attribute = plant.attributes[k];
-            printf(
-                "%s: Plant attribute id --> %s;\n",
-                prefix,
-                attribute.identifer);
-        }
+        // for (int k = 0; k < plant.__attributeCount; k += 1)
+        // {
+        //     // TODO: complete the value dump
+        //     AttributeSpec attribute = plant.attributes[k];
+        //     printf(
+        //         "%s: Plant attribute id --> %s;\n",
+        //         prefix,
+        //         attribute.identifer);
+        // }
     }
 }
 
@@ -212,9 +209,6 @@ void addControllerSkeleton(ControllerType controller)
     int count = controllersSkeleton.__controllerCount;
     controllersSkeleton.controllers[count] = controller;
     controllersSkeleton.__controllerCount += 1;
-
-    // For debug purposes
-    dumpPythonSkeleton();
 }
 
 void dumpControllersSkeleton()

@@ -130,6 +130,7 @@ void dumpObserversSkeleton()
 // ~~~~~~
 
 // Stores information about a single PLANT
+// FIXME: attribute representation in Python is not supported yet.
 typedef struct
 {
     char *identifier;
@@ -324,6 +325,42 @@ void writeObservers()
     printf("%s: Done.\n", prefix);
 };
 
+// Write all plants to the file
+void writePlants()
+{
+    char *prefix = "WRITING PLANTS";
+    printf("%s: Writing...\n", prefix);
+
+    char *header =
+        "\n"
+        "# Plants\n"
+        "# ~~~~~~~~~\n"
+        "\n";
+    fputs(header, fp);
+
+    // Produces "class <identifier>(Plant): ..." for each observer
+    for (int i = 0; i < plantsSkeleton.__plantsCount; i += 1)
+    {
+        char plant_init[200];
+        SinglePlantSkeleton plant = plantsSkeleton.plants[i];
+        sprintf(plant_init, "class %s(Plant):\n    pass\n", plant.identifier);
+        fputs(plant_init, fp);
+    }
+    fputs("\n", fp);
+
+    // Produces "PLANTS = [...]"
+    fprintf(fp, "PLANTS = [");
+    for (int i = 0; i < plantsSkeleton.__plantsCount; i += 1)
+    {
+        SinglePlantSkeleton plant = plantsSkeleton.plants[i];
+        fprintf(fp, plant.identifier);
+        fprintf(fp, ",");
+    }
+    fprintf(fp, "]\n");
+
+    printf("%s: Done.\n", prefix);
+};
+
 // Write all observers to the file
 void writeControllers()
 {
@@ -378,15 +415,16 @@ void writePythonProgram()
 {
     // TODO: order the Python output like this:
     // [x] 1. module & defaults
-    // [x] 2. observers
-    // [ ] 3. plants
+    // [x] 2. plants
+    // [x] 3. observers
     // [ ] 4. actions
     // [ ] 5. assets
     // [x] 6. controllers
     openPythonFile();
     writePythonModuleAndDefaults();
     writeObservers();
-    // TODO: write plants, actions, assets
+    writePlants();
+    // TODO: write actions, assets
     writeControllers();
     closePythonFile();
 };

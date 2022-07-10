@@ -233,6 +233,10 @@ observer_config :
     LEFT_DOUBLEANGLE
     observer_body {
         addObserver($1, $4);
+
+        // Add to python skeleton
+        SingleObserverSkeleton sos = {$1, $4};
+        addObserverSkeleton(sos);
     }
     RIGHT_DOUBLEANGLE
     ;

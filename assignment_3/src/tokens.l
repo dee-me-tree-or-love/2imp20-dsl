@@ -50,12 +50,12 @@ comment             "//".*
     /* Values */
     /* ~~~~~~ */
 {nil}               {return NIL;}
-{unit}              {sscanf("unit","%s",&yylval); return UNIT;}
+{unit}              {sscanf(yytext,"%s",&yylval); return UNIT;}
 {boolean_true}      {sscanf("1","%d",&yylval); return BOOLEAN_TRUE;}
 {boolean_false}     {sscanf("0","%d",&yylval); return BOOLEAN_FALSE;}
 {natural_number}    {sscanf(yytext,"%d",&yylval); return NATURAL_NUMBER;}
 {real_number}       {sscanf(yytext,"%f",&yylval); return REAL_NUMBER;}
-{string}            {sscanf("string","%s",&yylval); return STRING;}
+{string}            {sscanf(yytext,"%s",&yylval); return STRING;}
 
     /* Language expressions */
     /* ~~~~~~~~~~~~~~~~~~~~ */

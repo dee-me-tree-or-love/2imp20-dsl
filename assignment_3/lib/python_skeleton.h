@@ -68,11 +68,12 @@ typedef struct
 } ObserversSkeleton;
 
 // Global store
-ObserversSkeleton observersSkeleton = {0, {}};
+ObserversSkeleton observersSkeleton;
 
 // API
 void addObserverSkeleton(SingleObserverSkeleton observer)
 {
+    printf("ADDING OBSERVER\n");
     int count = observersSkeleton.__observerCount;
     observersSkeleton.observers[count] = observer;
     observersSkeleton.__observerCount += 1;
@@ -106,7 +107,16 @@ PlantsSkeleton plantsSkeleton = {0, {}};
 void dumpPythonSkeleton()
 {
     char *prefix = "PYTHON SKELETON";
-    printf("%s: Module name --> %s\n", prefix, moduleInfoSkeleton.moduleName);
+    printf("\n%s: Dump:\n", prefix);
+    printf("%s: Module name --> %s;\n", prefix, moduleInfoSkeleton.moduleName);
+    for (int oc = 0; oc < observersSkeleton.__observerCount; oc += 1)
+    {
+        printf(
+            "%s: Observer id --> %s; Observer body --> %s;\n",
+            prefix,
+            observersSkeleton.observers[oc].identifier,
+            observersSkeleton.observers[oc].body);
+    }
 };
 
 // Construct the Python program from skeleton.

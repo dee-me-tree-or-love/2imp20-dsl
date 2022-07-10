@@ -4,6 +4,7 @@
         "daohong-emilio.yash",
         "ms-vscode.makefile-tools",
         "ms-vscode.cpptools",
-        "ms-vscode.cpptools-themes"
+        "ms-vscode.cpptools-themes",
+        "Gruntfuggly.todo-tree"
     ]
 }

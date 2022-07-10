@@ -1,6 +1,125 @@
 ;; python_builder.scm
 ;;
 ;; CHICKEN Scheme API for python building
+(import (chicken io))
+(import (chicken format))
+
+;; Main function
+
+(define (main args)
+    (map print (build-module-header-lines "TEST"))
+    0)
+
+;; Utilities
+
+(define (test-greet)
+    "hello from python_builder.scm")
+
+(define (string-downcase xs)
+    (list->string (map char-downcase (string->list xs))))
+
+;; Builders
+
+(define (build-module-header-lines module-name)
+    (list
+        "# Automatically compiled Python module."
+        (format "# Module: ~A" (string-downcase module-name))
+        #<<--FIN!
+# Automatically compiled Python module.
+
+####################
+# Standard Imports #
+####################
+
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from typing import Any, List, Dict, Callable
+
+#########################
+# Defaults & Constructs #
+#########################
+
+@dataclass
+class UnitNumber:
+    value: float
+    unit: str
+
+class Plant:
+    pass
+
+@dataclass
+class Sensor:
+    trigger: str
+    action: Callable
+
+    def check(self):
+        print(f"Sensor trigger: {self.trigger}")
+        self.action()
+
+@dataclass
+class Observer:
+    address: str
+
+class Observable:
+    sensors: Dict[str, Sensor]
+
+class Asset:
+    pass
+
+class Plantation(Asset, Observable):
+    pass
+
+class WaterSource(Asset, Observable):
+    pass
+
+class Controller(ABC):
+    @abstractmethod
+    def bootstrap(self):
+        pass
+
+    @abstractmethod
+    def run(self):
+        pass
+
+######################
+# Built-in Utilities #
+######################
+
+@dataclass
+class MonitorController(Controller):
+    assets: List[Asset]
+    __triggers = {}
+
+    def __register_trigger(self, trigger, sensor):
+        self.__triggers = {
+            trigger: sensor,
+            **self.__triggers
+        }
+
+    def bootstrap(self):
+        print("Setting up the controller...")
+        for asset in self.assets:
+            for key, sensor in asset.sensors.items():
+                self.__register_trigger(sensor.trigger, sensor)
+
+    def run(self):
+        triggers = self.__triggers.keys()
+        print(f"Registered monitor triggers: {triggers}")
+        for trigger, sensor in self.__triggers.items():
+            print(f"Assume trigger happened: {trigger}...")
+            sensor.check()
+
+def Action_send_message(*args):
+    def __internal_function__():
+        message_body = ";;;".join([str(a) for a in args])
+        print(f"INCOMING MESSAGE: {message_body}")
+    return __internal_function__
+
+###################
+# Module contents #
+###################
+--FIN!
+))
 
 ;; FIXME: order the output like this:
 ;;      1. module & defaults
@@ -17,7 +136,7 @@ Module : { TEST_GARLIC_ACTIONS_ASSETS_OBSERVERS_CONTROLLERS }
 ;; -->
 #|
 % test_garlic_actions_assets_observers_controllers.py
-# Automatically compiled Python module for:
+# Automatically compiled Python module.
 # Module: TEST_GARLIC_ACTIONS_ASSETS_OBSERVERS_CONTROLLERS
 
 ####################

@@ -7,7 +7,7 @@
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, List, Dict, Callable
+from typing import Any, List, Dict, Callable, Union
 
 #########################
 # Defaults & Constructs #
@@ -15,7 +15,7 @@ from typing import Any, List, Dict, Callable
 
 @dataclass
 class UnitNumber:
-    value: float
+    value: Union[int, float]
     unit: str
 
 class Plant:

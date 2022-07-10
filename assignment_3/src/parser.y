@@ -5,7 +5,7 @@
 #include <stdlib.h>
 // #include "../chicken-5.3.0/chicken.h"
 #include "../lib/symbol_table.h"
-#include "../lib/python_builder.h"
+#include "../lib/python_skeleton.h"
 
 // Explicit defintions of the YY API
 extern int yylineno; 
@@ -13,8 +13,6 @@ extern int yylex();
 extern int yyparse();
 extern void yyerror(const char *s);
 extern FILE* yyin;
-
-
 
 char tmp_collection[100];
 char tmp_unitnumber[100];
@@ -156,9 +154,11 @@ program :
 
         printf("Line: %d; Module name: %s\n", yylineno, $4);
 
-        //Symbol
-        addSymbol($4, module);
-        // TODO: add to python skeleton
+        // Store global label for well-formedness checks
+        addGlobalLabel($4, module);
+
+        // Add to python skeleton
+        setSkeletonModuleName($4);
     }
     RIGHT_BRACKET
     module_body
@@ -197,7 +197,7 @@ plant_config :
     IDENTIFIER {
         printf("Plant name: %s\n", $1);
         //Symbol
-        addSymbol($1, plant);
+        addGlobalLabel($1, plant);
         attrCount = 0;
     }
     LEFT_DOUBLEANGLE
@@ -227,13 +227,13 @@ observer_configs :
 
 observer_config :
     IDENTIFIER {
-        // FIXME: create a "debug" function and make it work right
         printf("Line: %d; Observer name: %s\n", yylineno, $1);
-        //Symbol
-        addSymbol($1, observer);
+        addGlobalLabel($1, observer);
     }
     LEFT_DOUBLEANGLE
-    observer_body {addObserver($1, $4);}
+    observer_body {
+        addObserver($1, $4);
+    }
     RIGHT_DOUBLEANGLE
     ;
 
@@ -379,7 +379,7 @@ action_config :
         // FIXME: create a "debug" function and make it work right
         printf("Action name: %s\n", $1);
         //Symbol
-        addSymbol($1, action);
+        addGlobalLabel($1, action);
         attrCount = 0;
     }
     LEFT_DOUBLEANGLE
@@ -398,17 +398,13 @@ action_parameters :
 
 action_parameter :
     SRC_IDENTIFIER {
-        // FIXME: create a "debug" function and make it work right
         printf("Action attributes as src: %s\n", $1);
         addAttr($1, "ACTION_SELF");
-
     }
     | IDENTIFIER {
-        // FIXME: create a "debug" function and make it work right
         printf("Action attributes as identifier: %s\n", $1);
         addAttr($1, "ACTION_PARAM");
     }
-    /* TODO: add support for optional collection parameters */
     ;
 
 action_body :
@@ -672,7 +668,7 @@ collection_body :
         strcat(tmp_collection, $1);
         sscanf(tmp_collection, "%s", $$);
     }
-    | /* empty body */{
+    | /* empty body */ {
         strcat(tmp_collection, "");
         sscanf(tmp_collection, "%s", $$);
     }
@@ -696,12 +692,18 @@ int main() {
     /* yyin = stdin; */
 
     // TODO: remove this demo CHICKEN binding.
-    /* C_word x; */
-    /* CHICKEN_run(CHICKEN_default_toplevel); */
-    /* CHICKEN_eval_string("(print \"hello from CHICKEN\")", &x); */
+    /* C_word x;
+    CHICKEN_run(CHICKEN_default_toplevel);
+    CHICKEN_load("lib/python_builder.scm");
+    CHICKEN_eval_string("(print (test-greet))", &x);
+    CHICKEN_eval_string("(print \"hello from CHICKEN\")", &x); */
 
     // TODO: adjust this to use a file input in the future
     yyparse();
+
+    // Output the collected info.
+    dumpPythonSkeleton();
+    enflatePythonSkeleton();
 
     // Done parsing.
 }

@@ -32,11 +32,24 @@ jobs:
           export TEST_RUNNER_FIXED_ID=1
           make run-tests
 
-      - name: 'Upload test output'
+      - name: Upload test output
         uses: actions/upload-artifact@v3
         with:
           name: test-output
           path: assignment_3/.tmp/test-run-fixed.log
+          retention-days: 5
+
+      - name: Integration Test
+        working-directory: ./assignment_3
+        run: |
+          export TEST_RUNNER_FIXED_ID=1
+          make run-integration-tests
+
+      - name: Upload integration test output
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-output
+          path: assignment_3/.tmp/integration-test-run-fixed.log
           retention-days: 5
 
   # Build the docs and deploy
@@ -68,4 +81,3 @@ jobs:
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #     CONFIG_FILE: assignment_3/mkdocs.yml
-  

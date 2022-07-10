@@ -69,7 +69,8 @@ age = 3 + 5.0;
 size;
 people = [ "Buzz", "Woody", "Mr. Potato Head" ];
 people @> {c | c #> {char | char != "o"} $> {a, char | a ++ char} };
-channels #> {c | c ~~ "abbie"} @> {c | send_msg : {c, %src.metadata}};
+channels #> {c | c ~~ "abbie"} @> {c | !send_msg : {c, %src.metadata}};
+!send_msg : {c, %src.metadata};
 total_age = my_plant.age + 30;
 ```
 
@@ -98,9 +99,11 @@ total_age = my_plant.age + 30;
 <<UNIT_EXPRESSION>>             := <<VALUE_SPEC>>
                                     | <<ATTRIBUTE_ACCESS>>
                                     | <<ACTION_EXPRESSION>>
+                                    | <<ACTION_CALL_EXPRESSION>>
                                     | <<MAPPER_EXPRESSION>>
                                     | <<TMPL_STATEMENT_EXPRESSION>>
 <<ACTION_EXPRESSION>>           := <<ACTION_IDENTIFIER>> ": {" {<<SIMPLE_EXPRESSION>> ","}* "}"
+<<ACTION_CALL_EXPRESSION>>      := "!" <<ACTION_EXPRESSION>>
 <<MAPPER_EXPRESSION>>           := <<UNIT_EXPRESSION>> <<MAPPER_CLAUSE>>
 <<MAPPER_CLAUSE>>               := <<MAPPER>> 
                                     "{" {<<IDENTIFIER>> ","}* "|" <<SIMPLE_EXPRESSION>> "}"

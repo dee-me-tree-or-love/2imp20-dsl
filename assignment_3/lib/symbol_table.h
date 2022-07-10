@@ -2,9 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-int lineCount;
-int typeCount = 0;
-
 // **************************************
 // Helpful metadata stored during parsing
 // **************************************
@@ -24,7 +21,7 @@ ParsingMetadata parsingMetadata = {0};
 // Set current line number in the parsing metadata
 void setLineNumber(int lineNo)
 {
-    parsingMetadata.lineNo = lineNo;
+    parsingMetadata.lineNo = lineNo + 1;
 }
 
 // **************************************
@@ -79,7 +76,7 @@ int lookupObserver(struct ObserverTableStruct observerTable[], char compareStrin
     for (int i = 0; i < observerCount; i++)
     {
         if (!strcmp(observerTable[i].label, compareString))
-            printf("\"%s\" Error:This observer label has been used:line%d\n", compareString, lineCount + 1);
+            printf("\"%s\" Error:This observer label has been used:line%d\n", compareString, parsingMetadata.lineNo);
         return i;
     }
     return -1;
@@ -91,7 +88,7 @@ int lookupAddr(struct ObserverTableStruct observerTable[], char compareString[],
     {
         if (!strcmp(observerTable[i].addr, compareString))
         {
-            printf("\"%s\" Error:This addr has been used:line%d\n", compareString, lineCount + 1);
+            printf("\"%s\" Error:This addr has been used:line%d\n", compareString, parsingMetadata.lineNo);
             return i;
         }
     }
@@ -112,7 +109,7 @@ void addObserver(char label[], char addr[])
 void checkObserver(char label[])
 {
     if (lookupObserver(observerTable, label, observerCount) == -1)
-        printf("\"%s\" Error:Unavailable observer: line%d\n", label, lineCount + 1);
+        printf("\"%s\" Error:Unavailable observer: line%d\n", label, parsingMetadata.lineNo);
 }
 /* Observer table */
 
@@ -138,7 +135,7 @@ int lookupAttr(struct attribute attrs[], char aVar[], int attrCount)
     {
         if (!strcmp(attrs[j].variable, aVar))
         {
-            printf("\"%s\" Error:This attr has been defined:line%d\n", aVar, lineCount + 1);
+            printf("\"%s\" Error:This attr has been defined:line%d\n", aVar, parsingMetadata.lineNo);
             return j;
         }
     }
@@ -151,7 +148,7 @@ int lookupOwner(struct AttrTableStruct AttrTable[], char owner[], int ownerCount
     {
         if (!strcmp(AttrTable[j].owner, owner))
         {
-            printf("\"%s\" Error:This Plant has been defined:line%d\n", owner, lineCount + 1);
+            printf("\"%s\" Error:This Plant has been defined:line%d\n", owner, parsingMetadata.lineNo);
             return j;
         }
     }
@@ -224,13 +221,13 @@ enum scopeEnum scope = global;
 void checkScope(char label[])
 {
     if (lookup(symbolTable, label, symbolCount) == -1 && lookup(symbolTable, label, symbolCount) == -1)
-        printf("\"%s\" Error:Undeclared variable:line%d\n", label, lineCount + 1);
+        printf("\"%s\" Error:Undeclared variable:line%d\n", label, parsingMetadata.lineNo);
 }
 
 void checkall(char label[])
 {
     if (lookup(symbolTable, label, symbolCount) == -1 && lookup(symbolTable, label, symbolCount) == -1)
-        printf("\"%s\" Error:Undeclared variable:line%d\n", label, lineCount + 1);
+        printf("\"%s\" Error:Undeclared variable:line%d\n", label, parsingMetadata.lineNo);
 }
 
 void addGlobalLabel(char label[], enum typeEnum typeValue)
@@ -248,7 +245,7 @@ void addGlobalLabel(char label[], enum typeEnum typeValue)
         }
         else
         {
-            printf("\"%s\" Error: The label has been used:line%d\n", label, lineCount + 1);
+            printf("\"%s\" Error: The label has been used:line%d\n", label, parsingMetadata.lineNo);
             error = 1;
         }
     }

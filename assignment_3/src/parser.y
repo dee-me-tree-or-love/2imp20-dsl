@@ -17,7 +17,6 @@ extern FILE* yyin;
 char tmp_collection[100];
 char tmp_unitnumber[100];
 char tmp_access[100];
-
 %}
 
 // TOKENS
@@ -155,6 +154,7 @@ program :
         printf("Line: %d; Module name: %s\n", yylineno, $4);
 
         // Store global label for well-formedness checks
+        setLineNumber(yylineno);
         addGlobalLabel($4, module);
 
         // Add to python skeleton
@@ -197,6 +197,7 @@ plant_config :
     IDENTIFIER {
         printf("Plant name: %s\n", $1);
 
+        setLineNumber(yylineno);
         addGlobalLabel($1, plant);
         attrCount = 0;
     }
@@ -207,7 +208,7 @@ plant_config :
         SinglePlantSkeleton sps = {$1};
         addPlantSkeleton(sps);
     }
-    RIGHT_DOUBLEANGLE{addOwner($1, ownerCount);}
+    RIGHT_DOUBLEANGLE{setLineNumber(yylineno); addOwner($1, ownerCount);}
     ;
 
 plant_body :
@@ -233,11 +234,13 @@ observer_configs :
 observer_config :
     IDENTIFIER {
         printf("Line: %d; Observer name: %s\n", yylineno, $1);
+        setLineNumber(yylineno);
         addGlobalLabel($1, observer);
     }
     LEFT_DOUBLEANGLE
     observer_body {
         // Add for well-formedness checks
+        setLineNumber(yylineno);
         addObserver($1, $4);
         // Add to python skeleton
         SingleObserverSkeleton sos = {$1, $4};
@@ -388,6 +391,7 @@ action_config :
         // FIXME: create a "debug" function and make it work right
         printf("Action name: %s\n", $1);
         //Symbol
+        setLineNumber(yylineno);
         addGlobalLabel($1, action);
         attrCount = 0;
     }
@@ -396,7 +400,10 @@ action_config :
     RIGHT_DOUBLEANGLE
     LEFT_PARENTHESE
     action_body
-    RIGHT_PARENTHESE {addOwner($1, ownerCount);}
+    RIGHT_PARENTHESE {
+        setLineNumber(yylineno);
+        addOwner($1, ownerCount);
+    }
     ;
 
 action_parameters :
@@ -408,10 +415,12 @@ action_parameters :
 action_parameter :
     SRC_IDENTIFIER {
         printf("Action attributes as src: %s\n", $1);
+        setLineNumber(yylineno);
         addAttr($1, "ACTION_SELF");
     }
     | IDENTIFIER {
         printf("Action attributes as identifier: %s\n", $1);
+        setLineNumber(yylineno);
         addAttr($1, "ACTION_PARAM");
     }
     ;
@@ -449,6 +458,7 @@ assignment_expression :
     IDENTIFIER {
         printf("Got a new identifier: %s\n", $1);
         //symbol
+        setLineNumber(yylineno);
         addAttr($1, "ACTION_VAR");
     }
     EQUALS
@@ -469,6 +479,7 @@ unit_expression :
     value_spec {
         printf("Got a value spec.\n");
         //Symbol
+        setLineNumber(yylineno);
         checkAttr($1);
     }
     | template_statement_expression {
@@ -553,6 +564,7 @@ attribute_spec :
     value_spec {
         printf("Attribute value.\n");
         //Symbol
+        setLineNumber(yylineno);
         addAttr($1, $4);
     }
     ;
@@ -568,9 +580,11 @@ attribute_or_identifier_access :
         strcpy(tmp_access, $1);
         strcat(tmp_access, $2);
         sscanf(tmp_access, "%s", $$);
+        strcpy(tmp_access, "");
     }
     ;
 
+//todo:fix the  wrong combination
 attribute_or_identifier_access_clause :
     DOT {strcat(tmp_access, ".");}
     IDENTIFIER {
@@ -578,7 +592,6 @@ attribute_or_identifier_access_clause :
         strcat(tmp_access, $3);
     }
     attribute_or_identifier_access_clause {
-        strcat(tmp_access, $5);
         sscanf(tmp_access, "%s", $$);
     }
     | DOT {strcat(tmp_access,  ".");}

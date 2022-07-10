@@ -1,4 +1,4 @@
-# Automatically compiled Python module for:
+# Automatically compiled Python module.
 # Module: TEST_GARLIC_ACTIONS_ASSETS_OBSERVERS_CONTROLLERS
 
 ####################

@@ -196,12 +196,17 @@ plant_configs :
 plant_config :
     IDENTIFIER {
         printf("Plant name: %s\n", $1);
-        //Symbol
+
         addGlobalLabel($1, plant);
         attrCount = 0;
     }
     LEFT_DOUBLEANGLE
-    plant_body
+    plant_body {
+
+        // Store in the Python Skeleton
+        SinglePlantSkeleton sps = {$1};
+        addPlantSkeleton(sps);
+    }
     RIGHT_DOUBLEANGLE{addOwner($1, ownerCount);}
     ;
 
@@ -232,8 +237,8 @@ observer_config :
     }
     LEFT_DOUBLEANGLE
     observer_body {
+        // Add for well-formedness checks
         addObserver($1, $4);
-
         // Add to python skeleton
         SingleObserverSkeleton sos = {$1, $4};
         addObserverSkeleton(sos);
@@ -241,10 +246,10 @@ observer_config :
     RIGHT_DOUBLEANGLE
     ;
 
-/* FIXME: use tokenizer to specify different observer configs */
 observer_body :
     STRING {
         printf("Observer body: %s\n", $1);
+        // Pass the recognized body upstream
         sscanf($1, "%s", $$);
     }
     ;

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 // *********
 // Utilities
@@ -9,9 +10,9 @@
 // Value type
 typedef enum
 {
-    unit_number,
     // Any value besides unit_number
-    simple
+    simple,
+    unit_number
 } ValueType;
 
 // Specifies a value spec from the parser
@@ -50,6 +51,12 @@ void setSkeletonModuleName(char name[200])
     strcpy(moduleInfoSkeleton.moduleName, name);
 }
 
+void dumpSkeletonModuleInfo()
+{
+    char *prefix = "PYTHON SKELETON";
+    printf("%s: Module name --> %s;\n", prefix, moduleInfoSkeleton.moduleName);
+}
+
 // OBSERVERS
 // ~~~~~~~~~
 
@@ -79,15 +86,28 @@ void addObserverSkeleton(SingleObserverSkeleton observer)
     observersSkeleton.__observerCount += 1;
 }
 
+void dumpObserversSkeleton()
+{
+    char *prefix = "PYTHON SKELETON";
+    for (int oc = 0; oc < observersSkeleton.__observerCount; oc += 1)
+    {
+        printf(
+            "%s: Observer id --> %s; Observer body --> %s;\n",
+            prefix,
+            observersSkeleton.observers[oc].identifier,
+            observersSkeleton.observers[oc].body);
+    }
+}
+
 // Plants
 // ~~~~~~
 
 // Stores information about a single PLANT
 typedef struct
 {
-    int __attributeCount;
     char *identifier;
-    AttributeSpec *attributes;
+    AttributeSpec attributes[200];
+    int __attributeCount;
 } SinglePlantSkeleton;
 
 // Stores information about a PLANTS
@@ -100,6 +120,28 @@ typedef struct
 // Global store
 PlantsSkeleton plantsSkeleton = {0, {}};
 
+// API
+void addPlantSkeleton(SinglePlantSkeleton plant)
+{
+    printf("ADDING PLANT\n");
+    int count = plantsSkeleton.__plantsCount;
+    plantsSkeleton.plants[count] = plant;
+    plantsSkeleton.__plantsCount += 1;
+}
+
+void dumpPlantsSkeleton()
+{
+    char *prefix = "PYTHON SKELETON";
+    for (int i = 0; i < plantsSkeleton.__plantsCount; i += 1)
+    {
+        printf(
+            "%s: Plant id --> %s;\n",
+            prefix,
+            plantsSkeleton.plants[i].identifier);
+        // TODO: add dump of the attributes
+    }
+}
+
 // Skeleton Operations
 // ~~~~~~~~~~~~~~~~~~~
 
@@ -108,15 +150,44 @@ void dumpPythonSkeleton()
 {
     char *prefix = "PYTHON SKELETON";
     printf("\n%s: Dump:\n", prefix);
-    printf("%s: Module name --> %s;\n", prefix, moduleInfoSkeleton.moduleName);
-    for (int oc = 0; oc < observersSkeleton.__observerCount; oc += 1)
+    dumpSkeletonModuleInfo();
+    dumpObserversSkeleton();
+    dumpPlantsSkeleton();
+};
+
+// Get the file path for the new file
+void getPythonFileName(char dest[200])
+{
+    char dist_dir[200] = "./dist";
+    // To avoid modifying the `moduleInfoSkeleton.moduleName`.
+    char module_name_lowercase[200];
+    strcpy(module_name_lowercase, moduleInfoSkeleton.moduleName);
+    // Full string to lower
+    //  See https://stackoverflow.com/questions/2661766/how-do-i-lowercase-a-string-in-c
+    for (int i = 0; module_name_lowercase[i]; i++)
     {
-        printf(
-            "%s: Observer id --> %s; Observer body --> %s;\n",
-            prefix,
-            observersSkeleton.observers[oc].identifier,
-            observersSkeleton.observers[oc].body);
+        module_name_lowercase[i] = tolower(module_name_lowercase[i]);
     }
+    sprintf(dest, "%s/%s.py", dist_dir, module_name_lowercase);
+}
+
+// Write the Python Program to file
+void writePythonProgram()
+{
+    char *prefix = "WRITING PYTHON";
+    // char filename[] =  "";
+    char path[200];
+    getPythonFileName(path);
+    printf("%s: Writing to: %s\n", prefix, path);
+    FILE *fp;
+
+    fp = fopen(path, "w+");
+
+    fputs("# Automatically compiled Python module.\n", fp);
+    char module_comment[200];
+    sprintf(module_comment, "# Module: %s", moduleInfoSkeleton.moduleName);
+    fputs(module_comment, fp);
+    fclose(fp);
 };
 
 // Construct the Python program from skeleton.
@@ -124,4 +195,5 @@ void enflatePythonSkeleton()
 {
     char *prefix = "PYTHON SKELETON";
     printf("%s: enflating remains to be implemented...\n", prefix);
+    writePythonProgram();
 };

@@ -6,6 +6,12 @@ Plants : {
         water_use : 5 \mm,
         min_temp  : 20 \C,
         max_water : 100,
+    >>,
+    Potato <<
+        water_use : 5 \mm,
+        min_temp  : 20 \C,
+        max_water : 100 \C,
+        breed : "Opperdoezer Ronde",
     >>
 }
 
@@ -29,6 +35,18 @@ Assets : {
             temp_level : Sensor : {
                 "daily 9 am",
                 notify : { [support, admin] }
+            }
+        }
+    },
+    potato_south : Plantation <<Potato>> : {
+        // This is a comment
+        desc: "Potato plants on the south edge",
+        area: 300 \m^2,
+        plantation_date: "2022-03-21",
+        sensors : { 
+            water_level : Sensor : {
+                "daily 7 am",
+                notify : { [support] }
             }
         }
     },

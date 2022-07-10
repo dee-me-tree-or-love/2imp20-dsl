@@ -129,6 +129,8 @@ char tmp_attr[100];
 %type <istr> collection
 %type <istr> collection_body
 %type <istr> unit_expression
+/* TODO: replace the type with a struct containing parameters */
+%type <istr> action_expression
 
 /* FIXME: add precedence rules to other shift/reduce conflicts */
 /* See: https://www.gnu.org/software/bison/manual/html_node/Shift_002fReduce.html */
@@ -320,14 +322,23 @@ asset_config :
         //Symbol
         setLineNumber(yylineno);
         addOwner($1);
+
+        // Store in the Python Skeleton
+        SingleAssetSkeleton sas = {strdup($1)};
+        printf("Asset name: %s\n", sas.identifier);
+        addAssetSkeleton(sas);
     }
     ;
 
 asset_type :
-    WATERSOURCE
+    WATERSOURCE {
+        printf("Got watersource type.\n");
+        // TODO: propogate this information upstream
+    }
     | PLANTATION LEFT_DOUBLEANGLE
     IDENTIFIER {
         printf("Got plantation type identifier: %s.\n", $3);
+        // TODO: propogate this information upstream
     }
     RIGHT_DOUBLEANGLE
     ;
@@ -373,23 +384,24 @@ sensor_config :
     sensor_type
     COLON
     LEFT_BRACKET
-    sensor_attributes
-    RIGHT_BRACKET
+    STRING {
+        printf("Got sensor trigger: %s.\n", $7);
+    }
+    COMMA
+    action_expression {
+        printf("Got sensor action.\n");
+    }
+    RIGHT_BRACKET {
+        // Store in the Python Skeleton
+        SingleSensorSkeleton sss = {strdup($1), strdup($7), strdup($10)};
+        printf("Asset sensor identifer: %s\n", sss.identifier);
+        addAssetSensorSkeleton(sss);
+    }
     ;
 
 sensor_type :
     SENSOR {
         printf("Got base Sensor type.\n");
-    }
-    ;
-
-sensor_attributes :
-    STRING {
-        printf("Got sensor trigger.\n");
-    }
-    COMMA
-    action_expression {
-        printf("Got sensor action.\n");
     }
     ;
 
@@ -425,7 +437,7 @@ action_config :
         char tmp[50];
         sscanf($1,"%s",tmp);
         addOwner(tmp);
-        
+
         // Store in the Python Skeleton
         SingleActionSkeleton sas = {strdup($1)};
         printf("Action name: %s\n", sas.identifier);
@@ -533,6 +545,9 @@ action_expression :
         //Symbol
         setLineNumber(yylineno);
         checkGlobalSymbol($1);
+        // FIXME: replace semantic value with a struct with parameters.
+        // FIXME: for now we interpret action_expressions only by their identifiers.
+        sscanf($1, "%s", $$);
     }
     COLON LEFT_BRACKET
     action_expression_config

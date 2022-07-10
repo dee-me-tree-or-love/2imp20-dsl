@@ -193,7 +193,7 @@ typedef enum
 
 char *controllerTypeToString[1] = {"MONITOR"};
 
-// Stores information about the OBSERVERS
+// Stores information about the CONTROLLERS
 typedef struct
 {
     int __controllerCount;
@@ -235,7 +235,7 @@ typedef struct
     char *body;
 } SingleActionSkeleton;
 
-// Stores information about the OBSERVERS
+// Stores information about the ACTION
 typedef struct
 {
     int __actionsCount;
@@ -267,7 +267,68 @@ void dumpActionsSkeleton()
 // Assets
 // ~~~~~~
 
-// TODO: implement
+// Stores information about a single Sensor
+typedef struct
+{
+    // FIXME: currently parameters of the action are not supported, we simply ignore them.
+    char *identifier;
+    char *trigger;
+    char *action_identifier;
+} SingleSensorSkeleton;
+
+// Stores information about a single Asset
+typedef struct
+{
+    // FIXME: asset attributes are not yet supported.
+    // FIXME: we also ignore asset type for now.
+    char *identifier;
+} SingleAssetSkeleton;
+
+// Stores information about the ASSETS
+typedef struct
+{
+    int __assetsCount;
+    int __assetSensorsCount[200];
+    SingleAssetSkeleton assets[200];
+    SingleSensorSkeleton assetSensors[200][200];
+} AssetsSkeleton;
+
+// Global store
+AssetsSkeleton assetsSkeleton;
+
+// API
+void addAssetSkeleton(SingleAssetSkeleton asset)
+{
+    int count = assetsSkeleton.__assetsCount;
+    printf("ADDING ASSET: %d --> identifier: %s\n", count, asset.identifier);
+    assetsSkeleton.assets[count] = asset;
+    assetsSkeleton.__assetsCount += 1;
+}
+
+void addAssetSensorSkeleton(SingleSensorSkeleton sensor)
+{
+    int assetCount = assetsSkeleton.__assetsCount;
+    int assetSensorsCount = assetsSkeleton.__assetSensorsCount[assetCount];
+    printf("ADDING ASSET SENSOR: %d/%d --> identifier: %s\n", assetCount, assetSensorsCount, sensor.identifier);
+    assetsSkeleton.assetSensors[assetCount][assetSensorsCount] = sensor;
+    assetsSkeleton.__assetSensorsCount[assetCount] += 1;
+}
+
+void dumpAssetsSkeleton()
+{
+    char *prefix = "PYTHON SKELETON";
+    for (int i = 0; i < assetsSkeleton.__assetsCount; i += 1)
+    {
+        int assetNumber = i;
+        SingleAssetSkeleton asset = assetsSkeleton.assets[i];
+        printf("%s: Asset --> %s;\n", prefix, asset.identifier);
+        for (int k = 0; k < assetsSkeleton.__assetSensorsCount[assetNumber]; k += 1)
+        {
+            SingleSensorSkeleton sensor = assetsSkeleton.assetSensors[assetNumber][k];
+            printf("%s: Asset sensor --> %s (t)--> %s (a)--> %s;\n", prefix, sensor.identifier, sensor.trigger, sensor.action_identifier);
+        }
+    }
+}
 
 // Skeleton Operations
 // ~~~~~~~~~~~~~~~~~~~
@@ -281,6 +342,7 @@ void dumpPythonSkeleton()
     dumpPlantsSkeleton();
     dumpActionsSkeleton();
     dumpObserversSkeleton();
+    dumpAssetsSkeleton();
     dumpControllersSkeleton();
 };
 

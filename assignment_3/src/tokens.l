@@ -53,9 +53,9 @@ comment             "//".*
 {unit}              {sscanf(yytext,"%s",&yylval); return UNIT;}
 {boolean_true}      {sscanf(yytext,"%d",&yylval); return BOOLEAN_TRUE;}
 {boolean_false}     {sscanf(yytext,"%d",&yylval); return BOOLEAN_FALSE;}
-{natural_number}    {sscanf(yytext,"%d",&yylval); return NATURAL_NUMBER;}
-{real_number}       {sscanf(yytext,"%f",&yylval); return REAL_NUMBER;}
-{string}            {sscanf(yytext,"%s",&yylval); return STRING;}
+{natural_number}    {sscanf(yytext,"%s",&yylval); return NATURAL_NUMBER;}
+{real_number}       {sscanf(yytext,"%s",&yylval); return REAL_NUMBER;}
+{string}            {strcpy(yylval.istr, yytext); return STRING;}
 
     /* Language expressions */
     /* ~~~~~~~~~~~~~~~~~~~~ */

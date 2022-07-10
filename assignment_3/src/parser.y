@@ -16,7 +16,7 @@ extern FILE* yyin;
 
 char tmp_collection[100];
 char tmp_unitnumber[100];
-char tmp_access[100];
+char tmp_attr[100];
 %}
 
 // TOKENS
@@ -104,6 +104,7 @@ char tmp_access[100];
 
 %union {
     int ival;
+    float ifloat;
     char istr[100];
 }
 
@@ -571,36 +572,41 @@ attribute_spec :
 
 value_spec :
     | attribute_or_identifier_access {sscanf($1, "%s", $$);}
-    | value {sscanf($1, "%s", $$);}
+    | value {sscanf($1, "%s", $$);
+        // printf("%s is $1 : VALUE    \5 mm    ^^^^^^^^^^^^^^^^^^^^^^\n\n", $1);
+        }
     ;
 
 attribute_or_identifier_access :
-    attribute_or_identifier_access_base 
+    attribute_or_identifier_access_base {strcpy(tmp_attr,"");}
     attribute_or_identifier_access_clause {
+        char tmp_access[100];
         strcpy(tmp_access, $1);
-        strcat(tmp_access, $2);
+        // printf("%s is $1^^^^^^^^^^^^^^^^^^^^^^\n\n", $1);
+        strcat(tmp_access, $3);
+        // printf("%s is $3^^^^^^^^^^^^^^^^^^^^^^\n\n", $3);
         sscanf(tmp_access, "%s", $$);
-        strcpy(tmp_access, "");
+        // printf("%s is $$^^^^^^^^^^^^^^^^^^^^^^\n\n", $$);
     }
     ;
 
 //todo:fix the  wrong combination
 attribute_or_identifier_access_clause :
-    DOT {strcat(tmp_access, ".");}
+    DOT {strcat(tmp_attr, ".");}
     IDENTIFIER {
         printf("Attribute access key: %s\n", $3);
-        strcat(tmp_access, $3);
+        strcat(tmp_attr, $3);
     }
-    attribute_or_identifier_access_clause {
-        sscanf(tmp_access, "%s", $$);
-    }
-    | DOT {strcat(tmp_access,  ".");}
+    attribute_or_identifier_access_clause
+    | DOT {strcat(tmp_attr, ".");}
     IDENTIFIER {
         printf("Attribute access key: %s\n", $3);
-        strcat(tmp_access, $3);
-        sscanf(tmp_access, "%s", $$);
+        strcat(tmp_attr, $3);
+        sscanf(tmp_attr, "%s", $$);
     }
-    | /* empty access clause */{sscanf("", "%s", $$);}
+    | /* empty access clause */{
+        sscanf(tmp_attr, "%s", $$);
+    }
     ;
 
 attribute_or_identifier_access_base :
@@ -621,7 +627,7 @@ value :
     }
     | BOOLEAN_TRUE {
         printf("Got true.\n");
-         sscanf($1, "%s", $$);
+        sscanf($1, "%s", $$);
     }
     | BOOLEAN_FALSE {
         printf("Got false.\n");
@@ -646,6 +652,7 @@ value :
     | STRING {
         printf("Got string.\n"); 
         sscanf($1, "%s", $$);
+        printf("%s is $1 :STRING  \5 mm    ^^^^^^^^^^^^^^^^^^^^^^\n\n", $1);
     }
     | collection {
         printf("Got collection.\n");

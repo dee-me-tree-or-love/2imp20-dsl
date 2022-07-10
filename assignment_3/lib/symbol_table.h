@@ -58,13 +58,13 @@ typedef struct
 
 ObserverTableStruct observerTable = {0,  {}};
 
-int lookupObserver(ObserverTableStruct observerTable, char compareString[])
+int lookupObserver(ObserverTableStruct observerTable, char label[])
 {   
     int count = observerTable.observerCount;
     for (int i = 0; i < count; i++)
     {
-        if (!strcmp(observerTable.observers[i].label, compareString))
-            printf("\"%s\" Error:This observer label has been used:line %d\n", compareString, parsingMetadata.lineNo);
+        if (!strcmp(observerTable.observers[i].label, label))
+            printf("\"%s\" Error:This observer label has been used:line %d\n", label, parsingMetadata.lineNo);
         return i;
     }
     return -1;
@@ -98,7 +98,6 @@ void addObserver(char label[], char addr[])
     // {
         strcpy(observerTable.observers[i].label, label);
         strcpy(observerTable.observers[i].addr, addr);
-        printf("%s      111111111wwwwwww\n\n", observerTable.observers[i].label);
         observerTable.observerCount += 1;
         printf("%d   observerCount  ----------------\n\n", observerTable.observerCount);
     // } else{

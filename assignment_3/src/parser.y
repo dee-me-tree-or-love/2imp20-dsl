@@ -238,21 +238,23 @@ observer_configs :
 observer_config :
     IDENTIFIER {
         printf("Line: %d; Observer name: %s\n", yylineno, $1);
-        // setLineNumber(yylineno);
-        // addGlobalLabel($1, observer);
+        // Symbol
+        setLineNumber(yylineno);
+        addGlobalLabel($1, observer);
     }
     LEFT_DOUBLEANGLE
     observer_body {
         printf("Line: %d; Observer name: %s\n", yylineno, $1);
-        // Add for well-formedness checks
-        setLineNumber(yylineno);
-        addObserver($1, $4);
 
         // Add to python skeleton
         SingleObserverSkeleton sos = {strdup($1), strdup($4)};
         addObserverSkeleton(sos);
     }
-    RIGHT_DOUBLEANGLE
+    RIGHT_DOUBLEANGLE{
+        // Add for well-formedness checks
+        setLineNumber(yylineno);
+        addObserver(strdup($1), strdup($4));
+    }
     ;
 
 observer_body :
@@ -305,13 +307,20 @@ asset_configs :
 asset_config :
     IDENTIFIER {
         printf("Got asset identifier: %s.\n", $1);
+        //Symbol
+        setLineNumber(yylineno);
+        addGlobalLabel($1, asset);
     }
     COLON 
     asset_type COLON LEFT_BRACKET
     asset_attributes {
         printf("Got asset attributes.\n");
     }
-    RIGHT_BRACKET
+    RIGHT_BRACKET{
+        //Symbol
+        setLineNumber(yylineno);
+        addOwner($1);
+    }
     ;
 
 asset_type :
@@ -355,6 +364,10 @@ sensor_configs :
 sensor_config :
     IDENTIFIER {
         printf("Got sensor identifier: %s", $1);
+
+        //Symbol
+        setLineNumber(yylineno);
+        addOwnerAttribute($1, "SENSOR");
     }
     COLON
     sensor_type
@@ -411,9 +424,8 @@ action_config :
         setLineNumber(yylineno);
         char tmp[50];
         sscanf($1,"%s",tmp);
-        printf("%s  geeeeeeeeet it _______________________\n\n\n\n", tmp);
         addOwner(tmp);
-
+        
         // Store in the Python Skeleton
         SingleActionSkeleton sas = {strdup($1)};
         printf("Action name: %s\n", sas.identifier);
@@ -518,6 +530,9 @@ template_statement_expression :
 action_expression :
     IDENTIFIER {
         printf("Got a new identifier: %s\n", $1);
+        //Symbol
+        setLineNumber(yylineno);
+        checkGlobalSymbol($1);
     }
     COLON LEFT_BRACKET
     action_expression_config
@@ -586,7 +601,7 @@ attribute_spec :
     value_spec {
         printf("Attribute value.\n");
         //Symbol
-        // setLineNumber(yylineno);
+        setLineNumber(yylineno);
         addOwnerAttribute($1, $4);
     }
     ;

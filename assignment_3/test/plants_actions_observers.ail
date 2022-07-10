@@ -41,5 +41,7 @@ Observers : {
     support << "support@farm.cool" >>, 
     admin << "admin@farm.cool" >>, 
     rss << "farm.feed.rss" >>,
+    rss << "farem.feed.rss" >>,
+    admin << "farem.feed.rss" >>,
     abie << "abie@service.farm.cool" >>
 }

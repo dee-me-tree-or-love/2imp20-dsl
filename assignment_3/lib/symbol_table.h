@@ -45,52 +45,72 @@ typedef struct collection
 
 /* Observer table */
 /*~~~~~~~~~~~~~~~~*/
-struct ObserverTableStruct
+typedef struct
 {
     char label[100];
     char addr[100];
-};
-struct ObserverTableStruct observerTable[100];
-int observerCount = 0;
-
-int lookupObserver(struct ObserverTableStruct observerTable[], char compareString[], int observerCount)
+} obersverTuple;
+typedef struct
 {
-    for (int i = 0; i < observerCount; i++)
+    int observerCount;
+    obersverTuple observers[200];
+} ObserverTableStruct;
+
+ObserverTableStruct observerTable = {0,  {}};
+
+int lookupObserver(ObserverTableStruct observerTable, char compareString[])
+{   
+    int count = observerTable.observerCount;
+    for (int i = 0; i < count; i++)
     {
-        if (!strcmp(observerTable[i].label, compareString))
-            printf("\"%s\" Error:This observer label has been used:line%d\n", compareString, parsingMetadata.lineNo);
+        if (!strcmp(observerTable.observers[i].label, compareString))
+            printf("\"%s\" Error:This observer label has been used:line %d\n", compareString, parsingMetadata.lineNo);
         return i;
     }
     return -1;
 }
 
-int lookupAddr(struct ObserverTableStruct observerTable[], char compareString[], int observerCount)
+int lookupAddr(ObserverTableStruct observerTable,  char compareString[])
 {
-    for (int i = 0; i < observerCount; i++)
+    int count = observerTable.observerCount;
+    for (int i = 0; i < count; i++)
     {
-        if (!strcmp(observerTable[i].addr, compareString))
+        if (!strcmp(observerTable.observers[i].addr, compareString))
         {
-            printf("\"%s\" Error:This addr has been used:line%d\n", compareString, parsingMetadata.lineNo);
+            printf("\"%s\" Error:This observer addr has been used:line %d\n", compareString, parsingMetadata.lineNo);
             return i;
         }
     }
     return -1;
 }
+void dumpOTable(){
+    int observerCount = observerTable.observerCount;
+    for (int i = 0; i < observerCount; i++)
+    {
+        printf("%s dumpall#####################\n\n",observerTable.observers[i].label);
+    }
+}
 
 void addObserver(char label[], char addr[])
 {
-    if (lookupObserver(observerTable, label, observerCount) == -1)
-    {
-        sscanf(label, "%s", observerTable[observerCount].label);
-        sscanf(addr, "%s", observerTable[observerCount].addr);
-        observerCount++;
-    }
+    int i = observerTable.observerCount;
+    // if ((lookupObserver(observerTable, label) == -1) && (lookupAddr(observerTable, addr) == -1))
+    // {
+        strcpy(observerTable.observers[i].label, label);
+        strcpy(observerTable.observers[i].addr, addr);
+        printf("%s      111111111wwwwwww\n\n", observerTable.observers[i].label);
+        observerTable.observerCount += 1;
+        printf("%d   observerCount  ----------------\n\n", observerTable.observerCount);
+    // } else{
+    //     printf("wrong\n\n\n\n\n\n\n\n");
+    // }
+    
 }
 
 // used in asset
 void checkObserver(char label[])
 {
-    if (lookupObserver(observerTable, label, observerCount) == -1)
+    if (lookupObserver(observerTable, label) != -1)
         printf("\"%s\" Error:Unavailable observer: line%d\n", label, parsingMetadata.lineNo);
 }
 /* Observer table */
@@ -124,7 +144,7 @@ int lookupAttr(OwnerAttributeStruct ownerAttributeTable, char aVar[]) {
     for (int i = 0; i < ownerAttributeTable.ownerAttributeCount[count]; i++) {
         if (!strcmp(ownerAttributeTable.ownerAttrs[count][i].variable, aVar))
         {
-            printf("\"%s\" Error:This attribute label has been defined:line %d\n", aVar, parsingMetadata.lineNo);
+            printf("\"%s\" Error:This attribute label has been used:line %d\n", aVar, parsingMetadata.lineNo);
             return i;
         }
     }
@@ -175,20 +195,11 @@ void addOwner(char owner[])
     // printf("this is ownercount %d&&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerCount);
 }
 
-void addObseriiiver(char label[], char addr[])
-{
-    if (lookupObserver(observerTable, label, observerCount) == -1)
-    {
-        sscanf(label, "%s", observerTable[observerCount].label);
-        sscanf(addr, "%s", observerTable[observerCount].addr);
-        observerCount++;
-    }
-}
 
 // used in asset&action
 void checkAttr(char var[])
 {
-    if (lookupAttr(ownerAttributeTable, var) == -1)
+    if (lookupAttr(ownerAttributeTable, var) != -1)
         printf("\"%s\" Error:Unavailable Variable:line %d\n", var, parsingMetadata.lineNo);
 }
 
@@ -260,6 +271,13 @@ void addGlobalLabel(char label[], enum typeEnum typeValue)
             error = 1;
         }
     }
+}
+
+// used in asset&action
+void checkGlobalSymbol(char str[])
+{
+    if (lookup(symbolTable, str, symbolCount) == -1)
+        printf("\"%s\" Error:This label has not been defined:line %d\n", str, parsingMetadata.lineNo);
 }
 /* Basic Table */
 

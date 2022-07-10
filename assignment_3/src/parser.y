@@ -567,9 +567,7 @@ attribute_spec :
 
 value_spec :
     | attribute_or_identifier_access {sscanf($1, "%s", $$);}
-    | value {sscanf($1, "%s", $$);
-        // printf("%s is $1 : VALUE    \5 mm    ^^^^^^^^^^^^^^^^^^^^^^\n\n", $1);
-        }
+    | value {sscanf($1, "%s", $$);}
     ;
 
 attribute_or_identifier_access :
@@ -618,7 +616,6 @@ attribute_or_identifier_access_base :
 value :
     NIL {
         printf("Got nil.\n");
-        sscanf("", "%s", $$);
     }
     | BOOLEAN_TRUE {
         printf("Got true.\n");
@@ -645,9 +642,10 @@ value :
         sscanf($1, "%s", $$);
     }
     | STRING {
+        //todo:string fail to transfer
         printf("Got string.\n"); 
         sscanf($1, "%s", $$);
-        printf("%s is $1 :STRING  \5 mm    ^^^^^^^^^^^^^^^^^^^^^^\n\n", $1);
+        // printf("%s is : STRING IN VALUE    ^^^^^^^^^^^^^^^^^^^^^^\n\n^^^^^^^^^^^^^^^^^^^^\n", $$);
     }
     | collection {
         printf("Got collection.\n");

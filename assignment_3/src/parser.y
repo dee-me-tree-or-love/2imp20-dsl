@@ -201,10 +201,11 @@ plant_config :
     }
     LEFT_DOUBLEANGLE
     plant_body {
+        printf("Plant name: %s\n", $1);
+
         // Store in the Python Skeleton
-        char plant_id[200];
-        strcpy(plant_id, $1);
-        SinglePlantSkeleton sps = {plant_id};
+        SinglePlantSkeleton sps = {strdup($1)};
+        printf("Plant name: %s\n", sps.identifier);
         addPlantSkeleton(sps);
     }
     RIGHT_DOUBLEANGLE {
@@ -236,16 +237,18 @@ observer_configs :
 observer_config :
     IDENTIFIER {
         printf("Line: %d; Observer name: %s\n", yylineno, $1);
-        setLineNumber(yylineno);
-        addGlobalLabel($1, observer);
+        // setLineNumber(yylineno);
+        // addGlobalLabel($1, observer);
     }
     LEFT_DOUBLEANGLE
     observer_body {
+        printf("Line: %d; Observer name: %s\n", yylineno, $1);
         // Add for well-formedness checks
         setLineNumber(yylineno);
         addObserver($1, $4);
+
         // Add to python skeleton
-        SingleObserverSkeleton sos = {$1, $4};
+        SingleObserverSkeleton sos = {strdup($1), strdup($4)};
         addObserverSkeleton(sos);
     }
     RIGHT_DOUBLEANGLE
@@ -254,8 +257,8 @@ observer_config :
 observer_body :
     STRING {
         printf("Observer body: %s\n", $1);
-        // Pass the recognized body upstream
-        sscanf($1, "%s", $$);
+        // Pass the recognized observer body upstream
+        strcpy($$, $1);
     }
     ;
 
@@ -276,6 +279,7 @@ controller_configs :
 controller_config :
     MONITOR {
         printf("MONITOR Controller.\n");
+
         // Record the Monitor controller in the Python skeleton
         addControllerSkeleton(__MONITOR);
     }
@@ -569,13 +573,15 @@ attribute_spec :
     value_spec {
         printf("Attribute value.\n");
         //Symbol
-        setLineNumber(yylineno);
-        addAttr($1, $4);
+        // setLineNumber(yylineno);
+        // addAttr($1, $4);
     }
     ;
 
 value_spec :
-    | attribute_or_identifier_access {sscanf($1, "%s", $$);}
+    | attribute_or_identifier_access {
+        // sscanf($1, "%s", $$);
+    }
     | value {
         // FIXME: treat with real values when we can fully support recognizing all datatypes
         // TODO: we replace all values for now with placeholder value instead of full translation
@@ -585,45 +591,49 @@ value_spec :
     ;
 
 attribute_or_identifier_access :
-    attribute_or_identifier_access_base {strcpy(tmp_attr,"");}
+    attribute_or_identifier_access_base {
+        strcpy(tmp_attr,"");
+    }
     attribute_or_identifier_access_clause {
-        char tmp_access[100];
-        strcpy(tmp_access, $1);
+        // char tmp_access[100];
+        // strcpy(tmp_access, $1);
         // printf("%s is $1^^^^^^^^^^^^^^^^^^^^^^\n\n", $1);
-        strcat(tmp_access, $3);
+        // strcat(tmp_access, $3);
         // printf("%s is $3^^^^^^^^^^^^^^^^^^^^^^\n\n", $3);
-        sscanf(tmp_access, "%s", $$);
+        // sscanf(tmp_access, "%s", $$);
         // printf("%s is $$^^^^^^^^^^^^^^^^^^^^^^\n\n", $$);
     }
     ;
 
 // TODO: fix the  wrong combination
 attribute_or_identifier_access_clause :
-    DOT {strcat(tmp_attr, ".");}
+    DOT {
+        // strcat(tmp_attr, ".");
+    }
     IDENTIFIER {
         printf("Attribute access key: %s\n", $3);
-        strcat(tmp_attr, $3);
+        // strcat(tmp_attr, $3);
     }
     attribute_or_identifier_access_clause
     | DOT {strcat(tmp_attr, ".");}
     IDENTIFIER {
         printf("Attribute access key: %s\n", $3);
-        strcat(tmp_attr, $3);
-        sscanf(tmp_attr, "%s", $$);
+        // strcat(tmp_attr, $3);
+        // sscanf(tmp_attr, "%s", $$);
     }
     | /* empty access clause */{
-        sscanf(tmp_attr, "%s", $$);
+        // sscanf(tmp_attr, "%s", $$);
     }
     ;
 
 attribute_or_identifier_access_base :
     IDENTIFIER {
         printf("Attribute identifier parent: %s\n", $1);
-        sscanf($1, "%s", $$);
+        // sscanf($1, "%s", $$);
     }
     | SRC_IDENTIFIER {
         printf("Attribute src_identifier parent: %s\n", $1);
-        sscanf($1, "%s", $$);
+        // sscanf($1, "%s", $$);
     }
     ;
 

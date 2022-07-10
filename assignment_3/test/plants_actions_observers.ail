@@ -1,4 +1,4 @@
-Module : { TEST_ACTIONS_CONTROLLERS_OBSERVER_AND_PLANTS }
+Module : { TEST_ACTIONS_OBSERVERS_AND_PLANTS }
 
 Plants : {
     Garlic <<

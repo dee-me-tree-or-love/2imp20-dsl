@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(lldb) Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/parser.out",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "MIMode": "lldb",
+            "setupCommands": [
+                {
+                    "text": "settings set target.input-path ${workspaceFolder}/test/only_garlic_observers_and_controllers.ail"
+                }
+            ]
+        }
+    ],
+    "compounds": []
+}

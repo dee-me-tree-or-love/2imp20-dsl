@@ -33,8 +33,10 @@ endif
 # NB: flag to build non-debug version
 ifeq ($(PRODUCTION_BUILD), 1)
 	DEBUG_FLAG=
+	GCC_DEBUGGER=
 else
 	DEBUG_FLAG=--debug
+	GCC_DEBUGGER=-g
 endif
 
 ##############################################
@@ -71,12 +73,18 @@ all: tokenizer parser
 		${BUILD_DIR}/lex.yy.c \
 		${LEX_FLAG} \
 		${INCLUDES} \
+		${GCC_DEBUGGER} \
 		${EXTRA_INCLUDES} \
 		-o ${PARSER_OUT}
 
 # Run the parser interactively
 run-parser-interactive run-parser: ${PARSER_OUT}
 	${PARSER_OUT}
+
+
+# Run the parser interactively
+debug-parser-interactive debug-parser: ${PARSER_OUT}
+	lldb ${PARSER_OUT}
 
 # Run the test files against the parser
 run-tests: ${PARSER_OUT} clean-dist

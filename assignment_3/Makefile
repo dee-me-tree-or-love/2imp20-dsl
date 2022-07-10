@@ -1,14 +1,17 @@
 # Base makefile for the flex/bison project
 BUILD_DIR=./bin
+DIST_DIR=./dist
 LEXER_OUT=${BUILD_DIR}/lexer.out
 PARSER_OUT=${BUILD_DIR}/parser.out
 TMP_DIR=./.tmp
 
 # Extra dependencies
 LIB_DIR=./lib
-CHICKEN_DIST_DIR=./chicken-5.3.0
 INCLUDES=-I${LIB_DIR}
-EXTRA_INCLUDES=-I${CHICKEN_DIST_DIR}
+EXTRA_INCLUDES=
+# FIXME: remove, CHICKEN was not used in the end
+# CHICKEN_DIST_DIR=./chicken-5.3.0
+# EXTRA_INCLUDES=-I${CHICKEN_DIST_DIR}
 
 # Build behavior between linux and mac
 UNAME := $(shell uname)
@@ -31,14 +34,15 @@ endif
 # Parser development
 ##############################################
 
+# FIXME: remove, eventually dealt without CHICKEN
 # CHICKEN language libraries
 # FIXME: without having chicken installed, it fails
-${CHICKEN_DIST_DIR}/chicken.h: chicken-5.3.0.tar.gz
-	@echo "🥚 Getting CHICKEN ready..."
-	@[ -f ${CHICKEN_DIST_DIR}/chicken.h ] \
-		&& echo "🐣 CHICKEN headers exist." \
-		|| tar -xvf chicken-5.3.0.tar.gz
-	@echo "🐥 CHICKEN is ready."
+# ${CHICKEN_DIST_DIR}/chicken.h: chicken-5.3.0.tar.gz
+# 	@echo "🥚 Getting CHICKEN ready..."
+# 	@[ -f ${CHICKEN_DIST_DIR}/chicken.h ] \
+# 		&& echo "🐣 CHICKEN headers exist." \
+# 		|| tar -xvf chicken-5.3.0.tar.gz
+# 	@echo "🐥 CHICKEN is ready."
 
 # Build the Flex tokenizer
 tokenizer: src/tokens.l
@@ -53,7 +57,7 @@ parser: src/parser.y
 	bison --debug -t -d src/parser.y -o ${BUILD_DIR}/parser.tab.c -v
 
 # Complete Bison + Flex compilation
-all: chicken-5.3.0/chicken.h tokenizer parser
+all: tokenizer parser
 	@echo "👷 Compile and link parser..."
 	cc	\
 		${BUILD_DIR}/parser.tab.c \
@@ -68,7 +72,7 @@ run-parser-interactive run-parser: ${PARSER_OUT}
 	${PARSER_OUT}
 
 # Run the test files against the parser
-run-tests: ${PARSER_OUT}
+run-tests: ${PARSER_OUT} clean-dist
 	@mkdir -p ${TMP_DIR}
 	@echo "🎢 Brace yourself, running all tests now!"
 	@ls	test \
@@ -81,7 +85,7 @@ run-tests: ${PARSER_OUT}
 		|| echo "✅ ALL TESTS PASSED"
 
 # Run a single test file against the parser
-run-suite-test: ${PARSER_OUT}
+run-suite-test: ${PARSER_OUT} clean-dist
 	@echo "🕵️ Check if 'suite' argument is defined."
 	@echo "💡 Make sure to call this target like 'make <target> suite=<your file path>'."
 	@test ${suite}
@@ -117,9 +121,15 @@ clean-tmp:
 	@echo "🧹 Cleaning all the local tmp files..."
 	rm -rf ${TMP_DIR}/*
 
+# Clean all produced python files
+.PHONY: clean-dist
+clean-dist:
+	@echo "🧹 Cleaning all the produced python files..."
+	rm -rf ${DIST_DIR}/*
+
 # Clean everything unnecessary
 .PHONY: clean-all
-clean-all: clean-bin clean-extras clean-tmp
+clean-all: clean-bin clean-extras clean-tmp clean-dist
 	@echo "✨ Done."
 
 

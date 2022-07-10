@@ -3,6 +3,7 @@ Module : { TEST_ACTIONS_OBSERVERS_AND_PLANTS }
 Plants : {
     Garlic <<
         water_use : 5,
+        water_use : 6, // checking test
         min_temp  : 20,
         max_water : 100,
     >>,

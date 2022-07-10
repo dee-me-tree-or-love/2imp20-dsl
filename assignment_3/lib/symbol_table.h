@@ -121,13 +121,11 @@ OwnerAttributeStruct ownerAttributeTable = {0, {}, {}, {}};
 
 int lookupAttr(OwnerAttributeStruct ownerAttributeTable, char aVar[]) {
     int count = ownerAttributeTable.ownerCount;
-    for (int j = 0; j < count; j++) {
-        for (int i = 0; i < ownerAttributeTable.ownerAttributeCount[j]; i++) {
-            if (!strcmp(ownerAttributeTable.ownerAttrs[j][i].variable, aVar))
-            {
-                printf("\"%s\" Error:This attribute label has been defined:line %d\n", aVar, parsingMetadata.lineNo);
-                return j;
-            }
+    for (int i = 0; i < ownerAttributeTable.ownerAttributeCount[count]; i++) {
+        if (!strcmp(ownerAttributeTable.ownerAttrs[count][i].variable, aVar))
+        {
+            printf("\"%s\" Error:This attribute label has been defined:line %d\n", aVar, parsingMetadata.lineNo);
+            return i;
         }
     }
     return -1;
@@ -148,7 +146,7 @@ int lookupOwner(OwnerAttributeStruct ownerAttributeTable, char owner[])
 
 void addOwnerAttribute(char aVar[], char aVal[])
 {
-    printf("this is ownerattr count %d  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerAttributeCount[ownerAttributeTable.ownerCount]);
+    // printf("this is ownerattr count %d  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerAttributeCount[ownerAttributeTable.ownerCount]);
     int count = ownerAttributeTable.ownerCount;
     int attrCount = ownerAttributeTable.ownerAttributeCount[count];
     if (lookupAttr(ownerAttributeTable, aVar) == -1)
@@ -158,23 +156,23 @@ void addOwnerAttribute(char aVar[], char aVal[])
         strcpy(ownerAttributeTable.ownerAttrs[count][attrCount].value, aVal);
         ownerAttributeTable.ownerAttributeCount[count] += 1;
     }
-    printf("this is ownerattr count %d  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerAttributeCount[ownerAttributeTable.ownerCount]);
+    // printf("this is ownerattr count %d  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerAttributeCount[ownerAttributeTable.ownerCount]);
 }
 
 void addOwner(char owner[])
 {
     int count = ownerAttributeTable.ownerCount;
     int attibuteCount = ownerAttributeTable.ownerAttributeCount[count];
-    printf("this is ownercount %d  &&&&&&&&&&&&&&&&\n", count);
-    printf("this is owner attribute count %d  &&&&&&&&&&&&&&&&\n", attibuteCount);
+    // printf("this is ownercount %d  &&&&&&&&&&&&&&&&\n", count);
+    // printf("this is owner attribute count %d  &&&&&&&&&&&&&&&&\n", attibuteCount);
     if (lookupOwner(ownerAttributeTable, owner) == -1)
     {
         printf("Adding owner.\n");
         ownerAttributeTable.owner[count] = strdup(owner);
-        printf("this is the new owner %s  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.owner[count]);
+        // printf("this is the new owner %s  &&&&&&&&&&&&&&&&\n", ownerAttributeTable.owner[count]);
         ownerAttributeTable.ownerCount += 1;
     }
-    printf("this is ownercount %d&&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerCount);
+    // printf("this is ownercount %d&&&&&&&&&&&&&&&&\n", ownerAttributeTable.ownerCount);
 }
 
 void addObseriiiver(char label[], char addr[])

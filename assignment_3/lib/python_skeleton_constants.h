@@ -91,3 +91,17 @@ char *SKELETON_DEFAULT_CONSTRUCTS =
     "###################\n"
     "# Module contents #\n"
     "###################\n";
+
+char *SKELETON_DEFAULT_CONTROLLER_CLAUSE =
+    "# FIXME: add support for parallel processing\n"
+    "def main():\n"
+    "    # bootstrap controllers\n"
+    "    for controller in CONTROLLERS:\n"
+    "        controller.bootstrap()\n"
+    "    # run controllers\n"
+    "    for controller in CONTROLLERS:\n"
+    "        controller.run()\n"
+    "\n"
+    "\n"
+    "if __name__ == \"__main__\":\n"
+    "    main()\n";

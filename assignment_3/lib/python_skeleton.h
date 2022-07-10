@@ -157,7 +157,6 @@ void addPlantSkeleton(SinglePlantSkeleton plant)
     printf("0th plant --> %s\n", plantsSkeleton.plants[0].identifier);
 }
 
-
 void dumpPlantsSkeleton()
 {
     char *prefix = "PYTHON SKELETON";
@@ -168,7 +167,8 @@ void dumpPlantsSkeleton()
             "%s: Plant id --> %s;\n",
             prefix,
             plant.identifier);
-        // TODO: add dump of the attributes
+
+        // FIXME: add dump of the attributes
         // for (int k = 0; k < plant.__attributeCount; k += 1)
         // {
         //     // TODO: complete the value dump
@@ -205,8 +205,8 @@ ControllersSkeleton controllersSkeleton;
 // API
 void addControllerSkeleton(ControllerType controller)
 {
-    printf("ADDING CONTROLLER\n");
     int count = controllersSkeleton.__controllerCount;
+    printf("ADDING CONTROLLER: %d --> type: %d\n", count, controller);
     controllersSkeleton.controllers[count] = controller;
     controllersSkeleton.__controllerCount += 1;
 }
@@ -324,6 +324,55 @@ void writeObservers()
     printf("%s: Done.\n", prefix);
 };
 
+// Write all observers to the file
+void writeControllers()
+{
+    char *prefix = "WRITING CONTROLLERS";
+    printf("%s: Writing...\n", prefix);
+
+    char *header =
+        "\n"
+        "# Controllers\n"
+        "# ~~~~~~~~~~~\n"
+        "\n";
+    fputs(header, fp);
+
+    // Produces "<identifier> = Observer(<body>)" for each observer
+    for (int i = 0; i < controllersSkeleton.__controllerCount; i += 1)
+    {
+        ControllerType controller = controllersSkeleton.controllers[i];
+        switch (controller)
+        {
+        // Produces "MONITOR = MonitorController(ASSETS)""
+        case __MONITOR:
+            printf("%s: Writing MONITOR...\n", prefix);
+            char monitor_init[200];
+            sprintf(monitor_init, "%s = MonitorController(ASSETS)\n", controllerTypeToString[controller]);
+            fputs(monitor_init, fp);
+            break;
+        // Unknown type.
+        default:
+            printf("%s: Unknown controller type...\n", prefix);
+            break;
+        }
+    }
+    fputs("\n", fp);
+
+    // Produces "CONTOLLERS = [...]"
+    fprintf(fp, "CONTOLLERS = [");
+    for (int i = 0; i < controllersSkeleton.__controllerCount; i += 1)
+    {
+        ControllerType controller = controllersSkeleton.controllers[i];
+        fprintf(fp, controllerTypeToString[controller]);
+        fprintf(fp, ",");
+    }
+    fprintf(fp, "]\n");
+
+    // Defined in the "python_skeleton_constants.h"
+    fputs(SKELETON_DEFAULT_CONTROLLER_CLAUSE, fp);
+    printf("%s: Done.\n", prefix);
+};
+
 // Write full Python program
 void writePythonProgram()
 {
@@ -333,11 +382,12 @@ void writePythonProgram()
     // [ ] 3. plants
     // [ ] 4. actions
     // [ ] 5. assets
-    // [ ] 6. controllers
+    // [x] 6. controllers
     openPythonFile();
     writePythonModuleAndDefaults();
     writeObservers();
-    // TODO: write controllers, plants, actions, assets
+    // TODO: write plants, actions, assets
+    writeControllers();
     closePythonFile();
 };
 

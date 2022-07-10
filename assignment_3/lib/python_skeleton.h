@@ -329,7 +329,7 @@ void writeObservers()
     for (int i = 0; i < observersSkeleton.__observerCount; i += 1)
     {
         SingleObserverSkeleton observer = observersSkeleton.observers[i];
-        fprintf(fp, observer.identifier);
+        fprintf(fp, "%s", observer.identifier);
         fprintf(fp, ",");
     }
     fprintf(fp, "]\n");
@@ -365,7 +365,7 @@ void writePlants()
     for (int i = 0; i < plantsSkeleton.__plantsCount; i += 1)
     {
         SinglePlantSkeleton plant = plantsSkeleton.plants[i];
-        fprintf(fp, plant.identifier);
+        fprintf(fp, "%s", plant.identifier);
         fprintf(fp, ",");
     }
     fprintf(fp, "]\n");
@@ -412,7 +412,7 @@ void writeControllers()
     for (int i = 0; i < controllersSkeleton.__controllerCount; i += 1)
     {
         ControllerType controller = controllersSkeleton.controllers[i];
-        fprintf(fp, controllerTypeToString[controller]);
+        fprintf(fp, "%s", controllerTypeToString[controller]);
         fprintf(fp, ",");
     }
     fprintf(fp, "]\n");

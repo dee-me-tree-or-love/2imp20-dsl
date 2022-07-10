@@ -11,7 +11,7 @@ Plants : {
 
 Actions : {
     notify <<%src, channels>> (
-        channels @> {c | send_message : {c, "regular update", %src}};
+        channels @> {c | !send_message : {c, "regular update", %src}};
     )
 }
 

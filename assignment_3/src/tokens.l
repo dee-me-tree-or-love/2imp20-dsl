@@ -46,6 +46,7 @@ comment             "//".*
 "<<"        {return LEFT_DOUBLEANGLE;} 
 ">>"        {return RIGHT_DOUBLEANGLE;}
 "://"       {return PROTOCOL;}
+"!"         {return EXCLAMATION;}
 
     /* Values */
     /* ~~~~~~ */

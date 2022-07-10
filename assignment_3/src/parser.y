@@ -36,6 +36,7 @@ char tmp_attr[100];
 %token RIGHT_DOUBLEANGLE
 /* TODO: maybe delete the unused protocol token */
 %token PROTOCOL
+%token EXCLAMATION
 
 %token IDENTIFIER
 %token SRC_IDENTIFIER
@@ -410,8 +411,8 @@ action_config :
         setLineNumber(yylineno);
         char tmp[50];
         sscanf($1,"%s",tmp);
-        printf("%s  geeeeeeeeet it _______________________\n\n\n\n", tmp);
-        addOwner(tmp);
+        // printf("%s  geeeeeeeeet it _______________________\n\n\n\n", tmp);
+        // addOwner(tmp);
     }
     ;
 
@@ -425,12 +426,12 @@ action_parameter :
     SRC_IDENTIFIER {
         printf("Action attributes as src: %s\n", $1);
         setLineNumber(yylineno);
-        addAttr($1, "ACTION_SELF");
+        // addAttr($1, "ACTION_SELF");
     }
     | IDENTIFIER {
         printf("Action attributes as identifier: %s\n", $1);
         setLineNumber(yylineno);
-        addAttr($1, "ACTION_PARAM");
+        // addAttr($1, "ACTION_PARAM");
     }
     ;
 
@@ -468,7 +469,7 @@ assignment_expression :
         printf("Got a new identifier: %s\n", $1);
         //symbol
         setLineNumber(yylineno);
-        addAttr($1, "ACTION_VAR");
+        // addAttr($1, "ACTION_VAR");
     }
     EQUALS
     simple_expression
@@ -497,6 +498,9 @@ unit_expression :
     | action_expression {
         printf("Got an action expression.\n");
     }
+    | action_call_expression {
+        printf("Got an action call expression.\n");
+    }
     | mapper_expression {
         printf("Got a mapper expression.\n");
     }
@@ -518,6 +522,10 @@ action_expression :
 action_expression_config :
     simple_expression COMMA action_expression_config
     | simple_expression
+    ;
+
+action_call_expression :
+    EXCLAMATION action_expression
     ;
 
 /* FIXME: this is bad, because we have left recursion. */

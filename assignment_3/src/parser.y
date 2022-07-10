@@ -545,13 +545,14 @@ action_expression :
         //Symbol
         setLineNumber(yylineno);
         checkGlobalSymbol($1);
+    }
+    COLON LEFT_BRACKET
+    action_expression_config
+    RIGHT_BRACKET {
         // FIXME: replace semantic value with a struct with parameters.
         // FIXME: for now we interpret action_expressions only by their identifiers.
         strcpy($$, $1);
     }
-    COLON LEFT_BRACKET
-    action_expression_config
-    RIGHT_BRACKET
     ;
 
 action_expression_config :

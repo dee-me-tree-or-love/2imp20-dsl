@@ -701,22 +701,22 @@ collection_body :
 // Additional C code
 // ~~~~~~~~~~~~~~~~~
 
+// Set the debug flag if not in production mode.
 #ifdef YYDEBUG
     extern int yydebug;
-    yydebug = 1;
+    int yydebug = 1;
 #endif
 
+// Catch parsing error.
 void yyerror(const char* s) {
     fprintf(stderr, "On line: %d; Parse error: %s\n", yylineno, s);
     exit(1);
 }
 
+// Main parsing entrypoint
 int main() {
-
-    /* yyin = stdin; */
-
-    // TODO: remove this demo CHICKEN binding.
     // Initialize the CHICKEN modules.
+    // TODO: remove this demo CHICKEN binding since it's not used.
     /* C_word x;
     CHICKEN_run(CHICKEN_default_toplevel);
     CHICKEN_load("lib/python_builder.scm");

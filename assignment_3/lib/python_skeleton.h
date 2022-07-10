@@ -164,18 +164,58 @@ void dumpPlantsSkeleton()
         // TODO: add dump of the attributes
         for (int k = 0; k < plant.__attributeCount; k += 1)
         {
+            // TODO: complete the value dump
             AttributeSpec attribute = plant.attributes[k];
             printf(
                 "%s: Plant attribute id --> %s;\n",
                 prefix,
-                attribute.identifer,
-                attribute.value);
-            // TODO: add dump of the attributes
+                attribute.identifer);
         }
     }
 }
 
-// TODO: add support for plants, actions, controllers and assets
+// CONTROLLERS
+// ~~~~~~~~~~~
+
+// Supported controller types
+typedef enum
+{
+    __MONITOR
+} ControllerType;
+
+char *controllerTypeToString[1] = {"MONITOR"};
+
+// Stores information about the OBSERVERS
+typedef struct
+{
+    int __controllerCount;
+    ControllerType controllers[200];
+} ControllersSkeleton;
+
+// Global store
+ControllersSkeleton controllersSkeleton;
+
+// API
+void addControllerSkeleton(ControllerType controller)
+{
+    printf("ADDING CONTROLLER\n");
+    int count = controllersSkeleton.__controllerCount;
+    controllersSkeleton.controllers[count] = controller;
+    controllersSkeleton.__controllerCount += 1;
+}
+
+void dumpControllersSkeleton()
+{
+    char *prefix = "PYTHON SKELETON";
+    for (int i = 0; i < controllersSkeleton.__controllerCount; i += 1)
+    {
+        ControllerType controller = controllersSkeleton.controllers[i];
+        char *controllerString = controllerTypeToString[controller];
+        printf("%s: Controller --> %s;\n", prefix, controllerString);
+    }
+}
+
+// TODO: add support for plants, actions and assets
 
 // Skeleton Operations
 // ~~~~~~~~~~~~~~~~~~~
@@ -188,7 +228,11 @@ void dumpPythonSkeleton()
     dumpSkeletonModuleInfo();
     dumpObserversSkeleton();
     dumpPlantsSkeleton();
+    dumpControllersSkeleton();
 };
+
+// Code Generation
+// ~~~~~~~~~~~~~~~
 
 // Get the file path for the new file
 void getPythonFileName(char dest[200])

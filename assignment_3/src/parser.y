@@ -547,7 +547,7 @@ action_expression :
         checkGlobalSymbol($1);
         // FIXME: replace semantic value with a struct with parameters.
         // FIXME: for now we interpret action_expressions only by their identifiers.
-        sscanf($1, "%s", $$);
+        strcpy($$, $1);
     }
     COLON LEFT_BRACKET
     action_expression_config

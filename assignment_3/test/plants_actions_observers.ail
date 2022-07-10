@@ -15,13 +15,17 @@ Plants : {
     >>
 }
 
+// These actions illustrate correct syntax but are not necessarily correct
 Actions : {
     notify <<%src, foo>> (
+        // simple expressions
         bar + foo;
         foo + bar;
+        // assignments
         quu = foo + (bar + oof);
         loo = foo.attr;
         too = bar.attr.other;
+        // simple if statements
         if foo meets * > 30 then do (alpha) else do (beta);
         if foo meets * > bar.qoo then do alpha else do (beta);
         if foo meets * > bar.qoo 
@@ -31,17 +35,21 @@ Actions : {
             nu; mu; psi;
         ;
         if foo meets some_condition then do (alpha) else do (beta);
+        // action expression
         notify : {bar};
+        // action call expression
+        !notify : {bar};
+        // mappers
         bars @> {b | b + 1 };
         bars #> {b | b ~~ 24} @> {b | b + 1 };
     )
 }
 
 Observers : {
-    support << "support@farm.cool" >>, 
-    admin << "admin@farm.cool" >>, 
-    rss << "farm.feed.rss" >>,
-    rss << "farem.feed.rss" >>,
-    admin << "farem.feed.rss" >>,
+    support << "support@farm.cool" >>,
+    admin << "admin@farm.cool" >>,
+    rss << "farm.feed.rss" >>,          // checking test
+    rss << "farem.feed.rss" >>,         // checking test
+    admin << "farem.feed.rss" >>,       // checking test
     abie << "abie@service.farm.cool" >>
 }

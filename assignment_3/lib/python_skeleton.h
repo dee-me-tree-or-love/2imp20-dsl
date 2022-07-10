@@ -16,8 +16,8 @@ FILE *fp;
 typedef enum
 {
     // Any value besides unit_number
-    simple,
-    unit_number
+    __SIMPLE,
+    __UNIT_NUMBER
 } ValueType;
 
 // Specifies a value spec from the parser
@@ -26,6 +26,23 @@ typedef struct
     ValueType type;
     char *values[2];
 } ValueSpec;
+
+// Telling how to represent things in Python
+char *valueSpecToPython(ValueSpec value_spec, char *dest)
+{
+    if (value_spec.type == __SIMPLE)
+    {
+        strcpy(dest, value_spec.values[0]);
+        return dest;
+    }
+    if (value_spec.type == __UNIT_NUMBER)
+    {
+        strcpy(dest, value_spec.values[0]);
+        sprintf(dest, "UnitNumber(%s, \"%s\")", value_spec.values[0], value_spec.values[1]);
+        return dest;
+    }
+    return dest;
+};
 
 // Specifies the attribute and it's assigned value
 typedef struct
@@ -139,11 +156,22 @@ void dumpPlantsSkeleton()
     char *prefix = "PYTHON SKELETON";
     for (int i = 0; i < plantsSkeleton.__plantsCount; i += 1)
     {
+        SinglePlantSkeleton plant = plantsSkeleton.plants[i];
         printf(
             "%s: Plant id --> %s;\n",
             prefix,
-            plantsSkeleton.plants[i].identifier);
+            plant.identifier);
         // TODO: add dump of the attributes
+        for (int k = 0; k < plant.__attributeCount; k += 1)
+        {
+            AttributeSpec attribute = plant.attributes[k];
+            printf(
+                "%s: Plant attribute id --> %s;\n",
+                prefix,
+                attribute.identifer,
+                attribute.value);
+            // TODO: add dump of the attributes
+        }
     }
 }
 
@@ -183,7 +211,7 @@ void openPythonFile()
     char path[200];
     getPythonFileName(path);
     printf("%s: Writing to: %s\n", prefix, path);
-    fp = fopen(path, "w");
+    fp = fopen(path, "w+");
 }
 
 // Close Python file
@@ -192,31 +220,29 @@ void closePythonFile()
     fclose(fp);
 }
 
-// Write the Python Program to file
+// Write the module and defaults of the Python module to the file
 void writePythonModuleAndDefaults()
 {
     char *prefix = "WRITING MODULE DEFAULTS";
-    printf("%s: Writing to\n", prefix);
+    printf("%s: Writing...\n", prefix);
     fputs("# Automatically compiled Python module.\n", fp);
     char module_comment[200];
     sprintf(module_comment, "# Module: %s", moduleInfoSkeleton.moduleName);
     fputs(module_comment, fp);
+    fputs("\n", fp);
     // Defined in the "python_skeleton_constants.h"
     fputs(SKELETON_DEFAULT_CONSTRUCTS, fp);
+    printf("%s: Done.\n", prefix);
 };
 
+// Write all observers to the file
 void writeObservers()
 {
     char *prefix = "WRITING OBSERVERS";
-    // char filename[] =  "";
-    char path[200];
-    getPythonFileName(path);
-    printf("%s: Writing to: %s\n", prefix, path);
-    FILE *fp;
+    printf("%s: Writing...\n", prefix);
 
-    fp = fopen(path, "w");
-
-    char *header = 
+    char *header =
+        "\n"
         "# Observers\n"
         "# ~~~~~~~~~\n"
         "\n";
@@ -229,7 +255,7 @@ void writeObservers()
         SingleObserverSkeleton observer = observersSkeleton.observers[i];
         sprintf(observer_init, "%s = Observer(%s)\n", observer.identifier, observer.body);
         fputs(observer_init, fp);
-    }   
+    }
     fputs("\n", fp);
 
     // Produces "OBSERVERS = [...]"
@@ -241,21 +267,24 @@ void writeObservers()
         fprintf(fp, ",");
     }
     fprintf(fp, "]\n");
+
+    printf("%s: Done.\n", prefix);
 };
 
 // Write full Python program
 void writePythonProgram()
 {
     // TODO: order the Python output like this:
-    //      1. module & defaults
-    //      2. observers
-    //      3. plants
-    //      4. actions
-    //      5. assets
-    //      6. controllers
+    // [x] 1. module & defaults
+    // [x] 2. observers
+    // [ ] 3. plants
+    // [ ] 4. actions
+    // [ ] 5. assets
+    // [ ] 6. controllers
     openPythonFile();
     writePythonModuleAndDefaults();
     writeObservers();
+    // TODO:
     closePythonFile();
 };
 

@@ -343,7 +343,7 @@ void writePythonProgram()
     openPythonFile();
     writePythonModuleAndDefaults();
     writeObservers();
-    // TODO:
+    // TODO: write controllers, plants, actions, assets
     closePythonFile();
 };
 

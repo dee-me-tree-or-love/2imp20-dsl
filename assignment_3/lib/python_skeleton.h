@@ -9,6 +9,9 @@
 // Utilities
 // *********
 
+// Shared file output stream
+FILE *fp;
+
 // Value type
 typedef enum
 {
@@ -91,13 +94,13 @@ void addObserverSkeleton(SingleObserverSkeleton observer)
 void dumpObserversSkeleton()
 {
     char *prefix = "PYTHON SKELETON";
-    for (int oc = 0; oc < observersSkeleton.__observerCount; oc += 1)
+    for (int i = 0; i < observersSkeleton.__observerCount; i += 1)
     {
         printf(
             "%s: Observer id --> %s; Observer body --> %s;\n",
             prefix,
-            observersSkeleton.observers[oc].identifier,
-            observersSkeleton.observers[oc].body);
+            observersSkeleton.observers[i].identifier,
+            observersSkeleton.observers[i].body);
     }
 }
 
@@ -173,25 +176,87 @@ void getPythonFileName(char dest[200])
     sprintf(dest, "%s/%s.py", dist_dir, module_name_lowercase);
 }
 
-// Write the Python Program to file
-void writePythonProgram()
+// Open Python file for writing
+void openPythonFile()
 {
-    char *prefix = "WRITING PYTHON";
-    // char filename[] =  "";
+    char *prefix = "WRITING PYTHON CODE";
     char path[200];
     getPythonFileName(path);
     printf("%s: Writing to: %s\n", prefix, path);
-    FILE *fp;
+    fp = fopen(path, "w");
+}
 
-    fp = fopen(path, "w+");
+// Close Python file
+void closePythonFile()
+{
+    fclose(fp);
+}
 
+// Write the Python Program to file
+void writePythonModuleAndDefaults()
+{
+    char *prefix = "WRITING MODULE DEFAULTS";
+    printf("%s: Writing to\n", prefix);
     fputs("# Automatically compiled Python module.\n", fp);
     char module_comment[200];
     sprintf(module_comment, "# Module: %s", moduleInfoSkeleton.moduleName);
     fputs(module_comment, fp);
     // Defined in the "python_skeleton_constants.h"
     fputs(SKELETON_DEFAULT_CONSTRUCTS, fp);
-    fclose(fp);
+};
+
+void writeObservers()
+{
+    char *prefix = "WRITING OBSERVERS";
+    // char filename[] =  "";
+    char path[200];
+    getPythonFileName(path);
+    printf("%s: Writing to: %s\n", prefix, path);
+    FILE *fp;
+
+    fp = fopen(path, "w");
+
+    char *header = 
+        "# Observers\n"
+        "# ~~~~~~~~~\n"
+        "\n";
+    fputs(header, fp);
+
+    // Produces "<identifier> = Observer(<body>)" for each observer
+    for (int i = 0; i < observersSkeleton.__observerCount; i += 1)
+    {
+        char observer_init[200];
+        SingleObserverSkeleton observer = observersSkeleton.observers[i];
+        sprintf(observer_init, "%s = Observer(%s)\n", observer.identifier, observer.body);
+        fputs(observer_init, fp);
+    }   
+    fputs("\n", fp);
+
+    // Produces "OBSERVERS = [...]"
+    fprintf(fp, "OBSERVERS = [");
+    for (int i = 0; i < observersSkeleton.__observerCount; i += 1)
+    {
+        SingleObserverSkeleton observer = observersSkeleton.observers[i];
+        fprintf(fp, observer.identifier);
+        fprintf(fp, ",");
+    }
+    fprintf(fp, "]\n");
+};
+
+// Write full Python program
+void writePythonProgram()
+{
+    // TODO: order the Python output like this:
+    //      1. module & defaults
+    //      2. observers
+    //      3. plants
+    //      4. actions
+    //      5. assets
+    //      6. controllers
+    openPythonFile();
+    writePythonModuleAndDefaults();
+    writeObservers();
+    closePythonFile();
 };
 
 // Construct the Python program from skeleton.

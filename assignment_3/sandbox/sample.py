@@ -125,7 +125,7 @@ admin = Observer("admin@farm.cool")
 rss = Observer("farm.feed.rss")
 abbie = Observer("abie@service.farm.cool")
 
-OBSERVERS = [support, admin, rss, abbie]
+OBSERVERS = [support, admin, rss, abbie,]
 
 # Assets
 # ~~~~~~

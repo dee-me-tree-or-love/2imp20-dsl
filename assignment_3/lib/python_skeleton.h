@@ -492,9 +492,9 @@ void writeActions()
         fputs("\n", fp);
         fputs("    # FIXME: call for now is mimicked...\n", fp);
         fputs("    def __call__(self):\n", fp);
-        fputs("        print(f\"Executing action from {self.__name__}\")\n", fp);
+        fputs("        print(f\"Executing action from {self.__class__.__name__}\")\n", fp);
         fputs("        # Send a message in any case... \n", fp);
-        fputs("        Action_send_message(self.__name__, \"demo_call\")()\n", fp);
+        fputs("        Action_send_message(self.__class__.__name__, \"demo_call\")()\n", fp);
         fputs("\n", fp);
     }
 
@@ -547,8 +547,8 @@ void writeControllers()
     }
     fputs("\n", fp);
 
-    // Produces "CONTOLLERS = [...]"
-    fprintf(fp, "CONTOLLERS = [");
+    // Produces "CONTROLLERS = [...]"
+    fprintf(fp, "CONTROLLERS = [");
     for (int i = 0; i < controllersSkeleton.__controllerCount; i += 1)
     {
         ControllerType controller = controllersSkeleton.controllers[i];
@@ -562,6 +562,64 @@ void writeControllers()
     printf("%s: Done.\n", prefix);
 };
 
+// Write all assets to the file
+void writeAssets()
+{
+    char *prefix = "WRITING ASSETS";
+    printf("%s: Writing...\n", prefix);
+
+    char *header =
+        "\n"
+        "# Assets\n"
+        "# ~~~~~~\n"
+        "\n";
+    fputs(header, fp);
+
+    // FIXME: add support for asset type specification
+    // Produces "class Asset_<identifer>(Observable):" for each asset
+    for (int i = 0; i < assetsSkeleton.__assetsCount; i += 1)
+    {
+        int assetNumber = i;
+        char asset_init[200];
+        SingleAssetSkeleton asset = assetsSkeleton.assets[i];
+        sprintf(asset_init, "class Asset_%s(Observable):\n", asset.identifier);
+        fputs(asset_init, fp);
+        fputs("    def __init__(self):\n", fp);
+        fputs("        # FIXME: attributes are not yet supported...\n", fp);
+
+        // Start specifying sensors
+        fputs("        self.sensors = {\n", fp);
+        for (int k = 0; k < assetsSkeleton.__assetSensorsCount[assetNumber]; k += 1)
+        {
+            // FIXME: action parameters are not supported yet
+            // Produces "<sensor identifier>": Sensor(<sensor trigger>, Action_<sensor action identifier>()),
+            char sensor_init[200];
+            SingleSensorSkeleton sensor = assetsSkeleton.assetSensors[assetNumber][k];
+            sprintf(sensor_init, "            \"%s\": Sensor(%s, Action_%s()),\n", sensor.identifier, sensor.trigger, sensor.action_identifier);
+            fputs(sensor_init, fp);
+        }
+        fputs("        }\n", fp);
+        
+        // Create the asset instance
+        char asset_instance_init[200];
+        sprintf(asset_init, "%s = Asset_%s()\n", asset.identifier, asset.identifier);
+        fputs(asset_init, fp);
+        fputs("\n", fp);
+    }
+
+    // Produces "ASSETS = [...]"
+    fprintf(fp, "ASSETS = [");
+    for (int i = 0; i < assetsSkeleton.__assetsCount; i += 1)
+    {
+        SingleAssetSkeleton asset = assetsSkeleton.assets[i];
+        fprintf(fp, "%s", asset.identifier);
+        fprintf(fp, ",");
+    }
+    fprintf(fp, "]\n");
+
+    printf("%s: Done.\n", prefix);
+};
+
 // Write full Python program
 void writePythonProgram()
 {
@@ -570,14 +628,14 @@ void writePythonProgram()
     // [x] 2. plants
     // [x] 3. observers
     // [x] 4. actions
-    // [ ] 5. assets
+    // [x] 5. assets
     // [x] 6. controllers
     openPythonFile();
     writePythonModuleAndDefaults();
     writeObservers();
     writePlants();
     writeActions();
-    // TODO: write assets
+    writeAssets();
     writeControllers();
     closePythonFile();
 };

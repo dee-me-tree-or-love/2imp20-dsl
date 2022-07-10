@@ -411,8 +411,8 @@ action_config :
         setLineNumber(yylineno);
         char tmp[50];
         sscanf($1,"%s",tmp);
-        // printf("%s  geeeeeeeeet it _______________________\n\n\n\n", tmp);
-        // addOwner(tmp);
+        printf("%s  geeeeeeeeet it _______________________\n\n\n\n", tmp);
+        addOwner(tmp);
     }
     ;
 

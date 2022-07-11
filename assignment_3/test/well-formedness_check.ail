@@ -1,9 +1,10 @@
 Module : { TEST_ACTIONS_OBSERVERS_AND_PLANTS_WELL }
 
 Plants : {
+    // These duplicate Crop declarations are illegal
     Crop <<
         water_use : 5,
-        water_use : 6, // checking test
+        water_use : 6, // checking test, duplicate attribute identifiers are illegal
         min_temp  : 20,
         max_water : 100,
     >>,
@@ -25,13 +26,14 @@ Plants : {
 Actions : {
     notify <<%src, foo>> (
         // simple expressions
-        bar + foo;
-        foo + bar;
+        bar + foo; // bar is not defined and therefore this is not legal
+        foo + bar; // bar is not defined and therefore this is not legal
         // assignments
-        quu = foo + (bar + oof);
-        loo = foo.attr;
-        too = bar.attr.other;
+        quu = foo + (bar + oof); // bar is not defined and therefore this is not legal
+        loo = foo.attr; // legal
+        too = bar.attr.other; // illegal, bar is not defined
         // simple if statements
+        // all must be illegal semantically for the non-existing identifiers
         if foo meets * > 30 then do (alpha) else do (beta);
         if foo meets * > bar.qoo then do alpha else do (beta);
         if foo meets * > bar.qoo 
@@ -46,6 +48,7 @@ Actions : {
         // action call expression
         !notify : {bar};
         // mappers
+        // bars is non-existing
         bars @> {b | b + 1 };
         bars #> {b | b ~~ 24} @> {b | b + 1 };
     )
@@ -54,8 +57,8 @@ Actions : {
 Observers : {
     support << "support@farm.cool" >>,
     admin << "admin@farm.cool" >>,
-    rss << "farm.feed.rss" >>,          // checking test
-    rss << "farem.feed.rss" >>,         // checking test
-    admin << "farem.feed.rss" >>,       // checking test
+    rss << "farm.feed.rss" >>,
+    rss << "farem.feed.rss" >>,         // checking test, duplicates are not allowed
+    admin << "farem.feed.rss" >>,       // checking test, duplicates are not allowed
     abie << "abie@service.farm.cool" >>
 }

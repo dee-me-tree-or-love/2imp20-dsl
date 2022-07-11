@@ -1,3 +1,4 @@
+;; FIXME: this ended up not used.
 ;; python_builder.scm
 ;;
 ;; CHICKEN Scheme API for python building

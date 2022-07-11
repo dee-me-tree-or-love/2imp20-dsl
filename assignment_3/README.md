@@ -29,6 +29,7 @@ Directory of main interest are:
 - `lib/` - additional code supporting the AIL parser (wellformedness checks + Python code generation).
 - `bin/` - is created during compilation and contains all executables.
 - `dist/` - is created during the run of the AIL parser executable, and contains the generated Python code.
+- `docs/` - contains all AIL related documentation
 
 ## Development
 

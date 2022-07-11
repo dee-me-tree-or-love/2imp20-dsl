@@ -1,3 +1,3 @@
 # AIL wellformedness
 
-- See [wellformedness](./wellformedness.md) for more info.
+- [Wellformedness](./wellformedness.md).

@@ -13,3 +13,7 @@ These sections describe the intended concrete syntax of the AIL.
 - [observers](./observers.md)
 - [scheduling](./scheduling.md)
 - [controllers](./controllers.md)
+
+## Sample Code
+
+- See the [`example.ail`](example.ail.md) file for an AIL code sample.

@@ -1,3 +1,4 @@
+```python
 # Automatically compiled Python module.
 # Module: TEST_GARLIC_ACTIONS_ASSETS_OBSERVERS_CONTROLLERS
 
@@ -176,3 +177,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+```

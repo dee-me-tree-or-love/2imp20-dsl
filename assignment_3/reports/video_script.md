@@ -1,5 +1,8 @@
 # AIL demo video
 
+> Mingzhe Shi _(1665073)_  
+> Dmitrii Orlov _(1068971)_  
+
 <!--
 - Video where you show :
 
@@ -28,15 +31,13 @@
 
 ---
 
-## Directory structure
+## 🦬 Development setup
 
-<!-- ![folders](./video_script_figures/root-directory.png) -->
+**Flex/Bison** toolchain, `gcc`, `Python 3.9+`.
 
-<!--
-<a href="https://www.flaticon.com/free-icons/directory" title="directory icons">
-Directory icons created by Freepik - Flaticon
-</a>
--->
+### Why Flex/Bison?
+
+### Directory structure
 
 - `src/`
 - `lib/`

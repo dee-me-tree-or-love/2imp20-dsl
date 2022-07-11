@@ -30,6 +30,7 @@ Directory of main interest are:
 - `bin/` - is created during compilation and contains all executables.
 - `dist/` - is created during the run of the AIL parser executable, and contains the generated Python code.
 - `docs/` - contains all AIL related documentation
+- `reports/` - contains all deliverable descriptions: Video Script + Video, Technical Documentation and two individual reports.
 
 ## Development
 

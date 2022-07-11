@@ -1,0 +1,17 @@
+
+Module : { VIDEO_DEMO }
+
+Plants : {
+    Potato <<
+        water_use : 5,
+        min_temp  : 20,
+        max_water : 100,
+        breed : "Opperdoezer Ronde",
+    >>
+}
+
+Actions : {
+    notify <<%src, people>> (
+        people @> {p | !send_message : {p, "regular update", %src}};
+    )
+}

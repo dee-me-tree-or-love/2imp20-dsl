@@ -1,0 +1,15 @@
+Module : { TEST_GARLIC_COMMENTS }
+
+// this is a comment
+
+Plants : {
+    Garlic <<
+        // this is also a comment
+        approx_volume : 1 \cm^2,
+        water_use : 5 \mm,
+        min_temp  : 20 \C,
+        max_water : 100,
+    >>
+}
+
+// this is a comment

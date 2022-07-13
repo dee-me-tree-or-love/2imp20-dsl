@@ -1,0 +1,42 @@
+Module : { VIDEO_DEMO }
+
+Plants : {
+    Potato <<
+        water_use : 5 \mm,
+        min_temp  : 20,
+        max_water : 100,
+        breed : "Opperdoezer Ronde",
+    >>
+}
+
+Actions : {
+    notify <<%src, people>> (
+        people @> {p | !send_message : {p, "regular update", %src}};
+    )
+}
+
+Observers : {
+    support << "support@farm.cool" >>, 
+    admin << "admin@farm.cool" >>, 
+    rss << "farm.feed.rss" >>,
+    abie << "abie@service.farm.cool" >>
+}
+
+Assets : {
+    potato_south : Plantation <<Potato>> : {
+        // This is a comment
+        desc: "Potato plants on the south edge",
+        area: 300 \m^2,
+        plantation_date: "2022-03-21",
+        sensors : { 
+            water_level : Sensor : {
+                "daily 7 am",
+                notify : { [support] }
+            }
+        }
+    }
+}
+
+Controllers: {
+    MONITOR
+}

@@ -1,7 +1,20 @@
-# Generation outputs
+# Parser compilation outputs
 bin/
 lex.yy.c
 *.out
 
 # Compilation dependencies
 chicken-5.3.0/
+
+# Code generation outputs
+dist/*
+!dist/.gitkeep
+
+# Documentation site
+site/
+
+# Misc local files
+.tmp/
+
+# Virtualenv
+.venv

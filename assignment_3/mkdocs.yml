@@ -1,0 +1,18 @@
+site_name: 'AIL Documentation'
+
+theme:
+    name: readthedocs
+
+nav:
+    - Home: 'index.md'
+    - AIL:
+      - Intro:              'ail/index.md'
+      - 'Concrete Syntax':
+        - About: 'ail/concrete_syntax/index.md'
+      - 'Wellformedness':
+        - About: 'ail/wellformedness/index.md'
+      - 'AIL to Python':    'ail/python/index.md'
+
+markdown_extensions:
+    - toc:
+        permalink: "#"

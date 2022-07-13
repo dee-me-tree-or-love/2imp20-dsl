@@ -1,0 +1,64 @@
+Module : { TEST_ACTIONS_OBSERVERS_AND_PLANTS_WELL }
+
+Plants : {
+    // These duplicate Crop declarations are illegal
+    Crop <<
+        water_use : 5,
+        water_use : 6, // checking test, duplicate attribute identifiers are illegal
+        min_temp  : 20,
+        max_water : 100,
+    >>,
+    Crop <<
+        water_use : 5,
+        min_temp  : 20,
+        max_water : 100,
+        breed : "OpperdoezerRonde",
+    >>,
+    Apple <<
+        water_use : 5,
+        min_temp  : 20,
+        min_temp : 6,
+        max_water : 100,
+    >>
+}
+
+// These actions illustrate correct syntax but are not necessarily correct
+Actions : {
+    notify <<%src, foo>> (
+        // simple expressions
+        bar + foo; // bar is not defined and therefore this is not legal
+        foo + bar; // bar is not defined and therefore this is not legal
+        // assignments
+        quu = foo + (bar + oof); // bar is not defined and therefore this is not legal
+        loo = foo.attr; // legal
+        too = bar.attr.other; // illegal, bar is not defined
+        // simple if statements
+        // all must be illegal semantically for the non-existing identifiers
+        if foo meets * > 30 then do (alpha) else do (beta);
+        if foo meets * > bar.qoo then do alpha else do (beta);
+        if foo meets * > bar.qoo 
+        then do
+            alpha; beta; gamma; 
+        else do
+            nu; mu; psi;
+        ;
+        if foo meets some_condition then do (alpha) else do (beta);
+        // action expression
+        notify : {bar};
+        // action call expression
+        !notify : {bar};
+        // mappers
+        // bars is non-existing
+        bars @> {b | b + 1 };
+        bars #> {b | b ~~ 24} @> {b | b + 1 };
+    )
+}
+
+Observers : {
+    support << "support@farm.cool" >>,
+    admin << "admin@farm.cool" >>,
+    rss << "farm.feed.rss" >>,
+    rss << "farem.feed.rss" >>,         // checking test, duplicates are not allowed
+    admin << "farem.feed.rss" >>,       // checking test, duplicates are not allowed
+    abie << "abie@service.farm.cool" >>
+}

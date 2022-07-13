@@ -1,0 +1,20 @@
+Module : { TEST_OBSERVER_AND_PLANTS_AND_CONTROLLER }
+
+Plants : {
+    Garlic <<
+        water_use : 5,
+        min_temp  : 20,
+        max_water : 100,
+    >>
+}
+
+Observers : {
+    support << "support@farm.cool" >>,
+    admin << "admin@farm.cool" >>,
+    rss << "farm.feed.rss" >>,
+    abie << "abie@service.farm.cool" >>
+}
+
+Controllers: {
+    MONITOR,
+}

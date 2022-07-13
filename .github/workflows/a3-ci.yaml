@@ -1,0 +1,83 @@
+# All actions have a name that will be displayed in the "Actions" page in GitHub.
+name: Assignment 3 (Project) Build CI
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  # Build the parser and run tests
+  parser:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup dependencies
+        run: |
+          sudo apt update
+          sudo apt install build-essential flex bison python3
+          which cc
+          which flex
+          which bison
+
+      - name: Build
+        working-directory: ./assignment_3
+        run: |
+          make all
+
+      - name: Test
+        working-directory: ./assignment_3
+        run: |
+          export TEST_RUNNER_FIXED_ID=1
+          make run-tests
+
+      - name: Upload test output
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-output
+          path: assignment_3/.tmp/test-run-fixed.log
+          retention-days: 5
+
+      - name: Integration Test
+        working-directory: ./assignment_3
+        run: |
+          export TEST_RUNNER_FIXED_ID=1
+          make run-integration-tests
+
+      - name: Upload integration test output
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-output
+          path: assignment_3/.tmp/integration-test-run-fixed.log
+          retention-days: 5
+
+  # Build the docs and deploy
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup dependencies
+        run: |
+          pip3 install mkdocs
+
+      - name: Build docs
+        working-directory: ./assignment_3
+        run: |
+          mkdocs build
+
+      - name: Upload docs site
+        uses: actions/upload-artifact@v3
+        with:
+          name: docs-site
+          path: assignment_3/site
+          retention-days: 5
+
+      # TODO: temporary disabled until we set up a public repository
+      # - name: Deploy docs
+      #   uses: mhausenblas/mkdocs-deploy-gh-pages@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     CONFIG_FILE: assignment_3/mkdocs.yml

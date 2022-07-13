@@ -1,0 +1,15 @@
+Module : { TEST_GARLIC_AND_POTATO }
+
+Plants : {
+    Garlic <<
+        water_use : 5,
+        min_temp  : 20,
+        max_water : 100,
+    >>,
+    Potato <<
+        water_use : 5,
+        min_temp  : 20,
+        max_water : 100,
+        breed : "Opperdoezer Ronde",
+    >>
+}
